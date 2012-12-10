@@ -15,9 +15,6 @@ export NUMSCREENS=$(xrandr | grep '*' | wc -l)
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start
-if [[ -e ~/.config/argyll/$HOSTNAME.icc ]]; then
-	dispwin ~/.config/argyll/$HOSTNAME.icc
-fi
 
 # Xrandr examples (not for daily use, graphic card driver usually takes care of
 # this):

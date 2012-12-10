@@ -14,7 +14,7 @@ while true; do
 	printf "[:0.0]\nfile=%s/%s\nmode=5\nbgcolor=#000000\n" $NITROGEN_CYCLE_DIR \
 			${img[$i]} > $(printf "%s/nitrogen/bg-saved.cfg" $XDG_CONFIG_HOME)
 	nitrogen --restore
-	sleep 60
+	sleep 300
 	i=$((($i+1) % ${#img[@]}))
 done
 

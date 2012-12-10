@@ -1,7 +1,5 @@
-. $HOME/.bashrc
-
-
-# VARIABLES --------------------------------------------------------------------
+#!/bin/bash
+# Actions taken at a login to bash.
 
 # Set vim as default text editor:
 export EDITOR="/usr/bin/vim"
@@ -15,4 +13,7 @@ export PATH="$HOME/.local/bin:$PATH"
 # Configure bash history:
 export HISTIGNORE="&:[bf]g:exit"
 export HISTSIZE=10000
+
+# Source the bash configuration:
+. $HOME/.bashrc
 
