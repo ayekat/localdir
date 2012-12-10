@@ -1,0 +1,17 @@
+hardstatus alwayslastline "%{= kc}[%c:%s] %{= km}%-w%{=r}%n %t%{-}%+w"
+
+# Explanation:
+# * First, we set the background color to black ("k") and the foreground color
+#   to cyan ("c"). This is achieved inside the "{}"-braces, after the "=".
+#   Next, the time is displayed with the variables %c (HH:MM) and %s (SS).
+# * To display the window list, we choose a yellow color on black background,
+#   therefore "%{= ky}".  
+#   As we want to handle the current window specially, we only show the windows
+#   that come before ("%-w") and after ("%+w") the current window with the
+#   settings above.
+# * To display the current window, we switch the colors with "r" inside the
+#   "{}"-braces.
+#   With these settings we display the number ("%n") and the title ("%t") of the
+#   current window.
+# * Don't forget to display the rest of the window list with "%+w"; to set the
+#   color back to the former settings, just use "%{-}".

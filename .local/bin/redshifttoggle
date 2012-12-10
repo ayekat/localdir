@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [[ $(ps h -C redshift | wc -l) -eq 1 ]]; then
+	killall redshift
+	lcdadjust start
+else
+	redshift -c ~/.config/redshift/redshift.conf &
+fi
+

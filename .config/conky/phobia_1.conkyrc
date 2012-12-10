@@ -1,0 +1,37 @@
+# Conky configuration file for printing to dzen2 on dwm (therefore text-only)
+# Written by ayekat on a snowy day in october 2012
+
+background yes
+out_to_console yes
+out_to_x no
+update_interval 1
+
+TEXT
+CPU:  \
+^fg(\#FFFFFF)[${cpu cpu0}%] [${cpu cpu1}%] [${cpu cpu2}%] [${cpu cpu3}%]^fg()  \
+${execi 5 sensors|grep Physical|awk '{print $4}'|tail -n 1}\
+    \
+${alignc}\
+    \
+${if_up eth0}eth0:  ^fg(\#FFFFFF)${addr eth0}^fg()$else\
+${if_up wlan0}wlan0:  ^fg(\#FFFFFF)${addr wlan0}^fg()$else\
+^fg(\#FF0000)no network^fg()\
+$endif$endif\
+    \
+${alignc}\
+    \
+Volume:  \
+${if_match ${execi 1 /home/ayekat/.scripts/muted.sh} == 0}^fg(\#FF0000)\
+$else^fg(\#00FF00)$endif\
+[${mpd_vol}%]^fg()\
+    \
+${alignc}\
+    \
+${time %B %e (%A)}  ^fg(\#FFFFFF)${time %H:%M}^fg():${time %S}\
+    \
+${alignc}\
+    \
+^fg(\#4499CC)\
+${nodename} ^i(/home/ayekat/.config/conky/graphics/icon_arch.xbm)\
+^fg()\
+ \

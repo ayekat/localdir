@@ -1,0 +1,6 @@
+*.swp
+.config/dwm/src
+.config/dwm/pkg
+.config/dwm/*.tar.xz
+.vim/.netrwhist
+.vimperator/info

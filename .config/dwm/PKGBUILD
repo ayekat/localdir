@@ -1,0 +1,55 @@
+# $Id: PKGBUILD 60970 2011-12-19 21:33:58Z spupykin $
+# Maintainer: Sergej Pupykin <pupykin.s+arch@gmail.com>
+# Contributor: Dag Odenhall <dag.odenhall@gmail.com>
+# Contributor: Grigorios Bouzakis <grbzks@gmail.com>
+# ayekat flavoured
+
+pkgname=dwm
+pkgver=6.0
+pkgrel=1
+pkgdesc="A dynamic window manager for X"
+url="http://dwm.suckless.org"
+arch=('i686' 'x86_64')
+license=('MIT')
+options=(zipman)
+depends=('libx11' 'libxinerama')
+source=(
+	$pkgname-$pkgver.tar.gz
+	$pkgname-$pkgver-bstack.diff
+	$pkgname-$pkgver-push.diff
+	$pkgname-$pkgver-pertag.diff
+	$pkgname-$pkgver-attachabove.diff
+	$pkgname-$pkgver-pango.diff
+	config.h
+	column_master.c
+	shiftview.c
+	lstack.c
+)
+
+build() {
+	cd $srcdir/$pkgname-$pkgver
+	cp $srcdir/shiftview.c shiftview.c
+	cp $srcdir/lstack.c lstack.c
+	cp $srcdir/column_master.c column_master.c
+	cp $srcdir/config.h config.h
+	# already applied patches are commented out; activate them to patch new source
+	#patch -p1 -i $srcdir/$pkgname-$pkgver-bstack.diff
+	#patch -p1 -i $srcdir/$pkgname-$pkgver-push.diff
+	#patch -p1 -i $srcdir/$pkgname-$pkgver-attachabove.diff
+	#patch -p1 -i $srcdir/$pkgname-$pkgver-pertag.diff
+	#patch -p1 -i $srcdir/$pkgname-$pkgver-pango.diff
+	sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
+	sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
+	sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
+	sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
+	sed -i 's/^#LDFLAGS = -s/LDFLAGS += -s/g' config.mk
+	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
+}
+
+package() {
+  cd $srcdir/$pkgname-$pkgver
+  make PREFIX=/usr DESTDIR=$pkgdir install
+  install -m644 -D LICENSE $pkgdir/usr/share/licenses/$pkgname/LICENSE
+  install -m644 -D README $pkgdir/usr/share/doc/$pkgname/README
+}
+# no md5sums(); run 'makepkg -g >> PKGBUILD' to generate md5sums()

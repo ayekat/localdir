@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# This script changes the desktop wallpaper every 5 minutes.
+# TODO:
+# * take image directory from argument instead of hardcoded
+# 
+# Written by ayekat on a rainy day in october 2012
+
+NITROGEN_CYCLE_DIR=$HOME/img/wallpapers/cycle
+
+i=0
+while true; do
+	img=($(ls $NITROGEN_CYCLE_DIR))
+	printf "[:0.0]\nfile=%s/%s\nmode=5\nbgcolor=#000000\n" $NITROGEN_CYCLE_DIR \
+			${img[$i]} > $(printf "%s/nitrogen/bg-saved.cfg" $XDG_CONFIG_HOME)
+	nitrogen --restore
+	sleep 60
+	i=$((($i+1) % ${#img[@]}))
+done
+

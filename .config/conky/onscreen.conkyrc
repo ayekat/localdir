@@ -1,0 +1,30 @@
+# LOOK -------------------------------------------------------------------------
+# Conky configuration file example for a conky instance directly displayed on
+# the desktop in a tiling WM (as they behave a bit differently).
+
+# Define position/size:
+alignment middle_middle
+gap_y -200
+gap_x 320
+
+# Set font/colour:
+default_color 555555
+draw_shades no
+use_xft yes
+xftfont Gill Sans:weight=thin:size=100
+
+
+# BEHAVIOUR --------------------------------------------------------------------
+
+# Interaction with dwm:
+own_window_type override
+
+# Performance:
+double_buffer yes
+update_interval 5
+
+
+# CONTENT ----------------------------------------------------------------------
+
+TEXT
+${time %H:%M}\

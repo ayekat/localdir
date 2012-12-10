@@ -1,0 +1,50 @@
+! COLOURS ----------------------------------------------------------------------
+
+! Black:
+*color0          :#222222
+*color8          :#555555
+! Red:
+*color1          :#DD5544
+*color9          :#FF5555
+! Green:
+*color2          :#00AA00
+*color10         :#55FF55
+! Yellow:
+*color3          :#CDCD00
+*color11         :#FFFF55
+! Blue:
+*color4          :#2277BB
+*color12         :#4499CC
+! Magenta:
+*color5          :#CC00CC
+*color13         :#FF55FF
+! Cyan:
+*color6          :#00C0C0
+*color14         :#55FFFF
+! White:
+*color7          :#EEEEEE
+*color15         :#FFFFFF
+
+
+! APPLICATION SPECIFIC ---------------------------------------------------------
+
+! Xterm:
+xterm*background : #111111
+xterm*foreground : #BBBBBB
+
+! Xclock:
+xclock*width     : 700
+xclock*height    : 700
+
+! Unicode-rxvt:
+URxvt.background : [85]#111111
+URxvt.cursorBlink: true
+URxvt.depth      : 32
+URxvt.foreground : #BBBBBB
+URxvt.scrollBar  : false
+
+! Dzen:
+dzen2.font       : Fixed-10:SemiCondensed
+dzen2.background : #222222
+dzen2.foreground : #999999
+

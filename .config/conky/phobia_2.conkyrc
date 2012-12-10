@@ -1,0 +1,17 @@
+# Conky configuration file for printing to dzen2 on dwm (therefore text-only)
+# Written by ayekat on a snowy day in october 2012
+
+background yes
+out_to_console yes
+out_to_x no
+update_interval 1
+
+TEXT
+${time %B %e (%A)}  ^fg(\#FFFFFF)${time %H:%M}^fg():${time %S}\
+    \
+${alignc}\
+    \
+^fg(\#4499CC)\
+${nodename} ^i(/home/ayekat/.config/conky/graphics/icon_arch.xbm)\
+^fg()\
+ \

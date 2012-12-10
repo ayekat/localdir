@@ -1,0 +1,6 @@
+" Vimperator resource file
+" Written by ayekat on a rainy day in november 2012
+
+set editor=xterm\ -e\ vim
+colorscheme indigo
+

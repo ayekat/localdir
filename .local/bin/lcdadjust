@@ -1,0 +1,35 @@
+#!/bin/bash
+
+lcdadjust_start() {
+	if [[ -e ~/.config/argyll/$HOSTNAME.icc ]]; then
+		for ((i=1; i<=$NUMSCREENS; i++)); do
+			dispwin -d $i ~/.config/argyll/$HOSTNAME.icc
+		done
+	fi
+}
+
+lcdadjust_stop() {
+	for ((i=1; i<=$NUMSCREENS; i++)); do
+		dispwin -d $i -C
+	done
+}
+
+lcdadjust_help() {
+	printf "lcdadjust  \e[1mstart\e[0m|\e[1mstop\e[0m|\e[1mrestart\e[0m\n"
+}
+
+case $1 in
+	start)
+		lcdadjust_start
+		;;
+	stop)
+		lcdadjust_stop
+		;;
+	restart)
+		lcdadjust_stop
+		lcdadjust_start
+		;;
+	*)
+		lcdadjust_help
+esac
+

@@ -1,0 +1,60 @@
+# Conky configuration file for printing to dzen2 on dwm (therefore text-only)
+# Written by ayekat on a snowy day in october 2012
+
+background yes
+out_to_console yes
+out_to_x no
+update_interval 1
+
+TEXT
+CPU:  \
+^fg(\#FFFFFF)[${cpu cpu0}%] [${cpu cpu1}%]^fg()  \
+${execi 5 sensors|grep temp1|awk '{print $2}'|tail -n 1}\
+    \
+${alignc}\
+    \
+${if_up eth0}eth0:  ^fg(\#FFFFFF)${addr eth0}^fg()$else\
+${if_up wlan0}wlan0:  ^fg(\#FFFFFF)${addr wlan0}^fg()$else\
+^fg(\#FF0000)no network^fg()\
+$endif$endif\
+    \
+${alignc}\
+    \
+Battery:^fg(\#000000)  \
+${if_match ${battery_percent BAT1} < 30}\
+${if_match ${battery_percent BAT1} < 12}\
+${if_match ${battery_percent BAT1} < 5}\
+^bg(\#FF3333)${blink [${battery_percent BAT1}%]}^bg()\
+$else\
+^bg(\#FF3333)[${battery_percent BAT1}%]^bg()\
+$endif\
+$else\
+^bg(\#FFFF00)[${battery_percent BAT1}%]^bg()\
+$endif\
+$else\
+${if_match ${battery_percent BAT1} == 100.0}\
+^bg(\#00FF00)[${battery_percent BAT1}%]^bg()\
+$else\
+^fg(\#00FF00)[${battery_percent BAT1}%]^bg()\
+$endif\
+$endif\
+^fg()  \
+^fg(\#FFFFFF)${battery_time BAT1}^fg()\
+    \
+${alignc}\
+    \
+Volume:  \
+${if_match ${execi 1 /home/ayekat/.scripts/muted.sh} == 1}^fg(\#FF0000)\
+$else^fg(\#00FF00)$endif\
+[${mpd_vol}%]^fg()\
+    \
+${alignc}\
+    \
+${time %B %e (%A)}  ^fg(\#FFFFFF)${time %H:%M}^fg():${time %S}\
+    \
+${alignc}\
+    \
+^fg(\#4499CC)\
+${nodename} ^i(/home/ayekat/.config/conky/graphics/icon_arch.xbm)\
+^fg()\
+ \
