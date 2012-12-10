@@ -189,7 +189,7 @@ static Key keys[] = {
 	TAGKEYS( XK_d, 8)
 
 	// session commands:
-	{ MODKEY|ControlMask,           XK_z, spawn, {.v = lockcmd } },
+	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_z, quit,  {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_z, spawn, {.v = quitcmd } },
 };
