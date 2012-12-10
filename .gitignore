@@ -2,5 +2,6 @@
 .config/dwm/src
 .config/dwm/pkg
 .config/dwm/*.tar.xz
+.local/bin/altera
 .vim/.netrwhist
 .vimperator/info
