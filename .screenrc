@@ -15,3 +15,9 @@ hardstatus alwayslastline "%{= kc}[%c:%s] %{= km}%-w%{=r}%n %t%{-}%+w"
 #   current window.
 # * Don't forget to display the rest of the window list with "%+w"; to set the
 #   color back to the former settings, just use "%{-}".
+
+# This is for my Debian server that does not seem to correctly handle character
+# encoding:
+defc1 off
+defutf8 on
+
