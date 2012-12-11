@@ -111,6 +111,8 @@ man() {
 }
 
 # Application specific aliases:
+if [[ -e /usr/bin/thunar ]]; then
+	alias open="thunar"; fi
 if [[ -e /usr/bin/valgrind ]]; then
 	alias valgrind="valgrind --log-file=valgrind.log"; fi
 

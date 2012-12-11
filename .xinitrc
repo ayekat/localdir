@@ -46,13 +46,6 @@ if [[ -d $HOME/.local/bin/altera ]]; then
 fi
 
 
-# ALIASES ----------------------------------------------------------------------
-# These aliases only make sense in a X11 environment, thus they are defined
-# here, not in .bashrc.
-
-alias open="thunar"
-
-
 # SERVICES ---------------------------------------------------------------------
 
 # Start the thunar daemon:
