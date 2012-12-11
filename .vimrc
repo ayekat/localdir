@@ -85,7 +85,7 @@ function! StatuslineInactive()
 	hi User9 ctermbg=black ctermfg=darkgrey
 
 	" Display the filename:
-	set statusline=%9*\ \ \ \ \ \ \ \ \ ⮁\ \ %F\ %r
+	set statusline=%9*\ \ \ \ \ \ \ \ \ ⮁\ \ %F\ ⮁
 
 	" Display the number of lines in file:
 	set statusline+=%=(%L)
@@ -139,15 +139,15 @@ function! StatuslineActive(mode)
 		setl statusline+=\ INSERT\ \ %8*⮀
 	else
 		hi User7 ctermbg=black ctermfg=darkgreen
-		hi User8 ctermbg=black ctermfg=green
+		hi User8 ctermbg=black ctermfg=darkgrey
 		setl statusline+=\ NORMAL\ \ %8*⮁
 	endif
 
 	" File name:
-	setl statusline+=\ \ %6*%F\ %r%1*
+	setl statusline+=\ \ %6*%F\ %1*⮁
 
 	" Modified flag:
-	setl statusline+=%m
+	setl statusline+=\ %m
 
 	" Change to right side:
 	setl statusline+=%=

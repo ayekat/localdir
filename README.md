@@ -17,11 +17,11 @@ to github to make them accessible for the rest of the Internetz.
 HANDLE WITH CARE!
 The scripts are meant to work interconnected in myriad ways, so I highly
 recommend to check a script before considering using it. And even then, it's
-likely that they are broken. And/or break other things.
+likely that they are broken.
 
-Because it's what I do: I break things.
+And/or break other things.
 
-On a daily basis.
+Because it's what I do: I break things on a daily basis.
 
 ---
 
