@@ -79,13 +79,22 @@ set noshowmode
 hi StatusLine ctermfg=black ctermbg=green
 hi StatusLineNC ctermfg=black ctermbg=red
 
+function! GetFilepath()
+	let filepath=expand("%:p")
+	let filepath=(filepath == '')?"[No Name]":filepath
+
+	" TODO crop filepath name to fit into the statusline
+
+	return filepath
+endfunction
+
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
 	" Only one colour:
 	hi User9 ctermbg=black ctermfg=darkgrey
 
 	" Display the filename:
-	set statusline=%9*\ \ \ \ \ \ \ \ \ ⮁\ \ %F\ ⮁
+	set statusline=%9*\ \ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
 
 	" Display the number of lines in file:
 	set statusline+=%=(%L)
@@ -144,7 +153,7 @@ function! StatuslineActive(mode)
 	endif
 
 	" File name:
-	setl statusline+=\ \ %6*%F\ %1*⮁
+	setl statusline+=\ \ %6*%{GetFilepath()}\ \ %1*⮁
 
 	" Modified flag:
 	setl statusline+=\ %m
@@ -209,6 +218,9 @@ set scrolloff=3
 " Simplify window scrolling:
 map <Up> <C-y><C-y><C-y>
 map <Down> <C-e><C-e><C-e>
+
+" Modelines are evil!
+set nomodeline
 
 
 " INSERT MODE >
