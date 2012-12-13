@@ -10,7 +10,7 @@ dzenconky_start() {
 	numtags=9
 	charwidth=6
 	#tagwidth=$(($numtags*(3*$charwidth+1) + 5*$charwidth))
-	tagwidth=221
+	tagwidth=219
 	dzenwidth=$(($screenwidth-$tagwidth))
 
 	# Draw according conky|dzen2 on each monitor (if .conkyrc is available):
