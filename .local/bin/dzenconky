@@ -9,7 +9,8 @@ dzenconky_start() {
 	screenwidth=$(xrandr | grep '*' | head -n 1 | cut -c 4-7)
 	numtags=9
 	charwidth=6
-	tagwidth=$(($numtags*(3*$charwidth+1) + 5*$charwidth))
+	#tagwidth=$(($numtags*(3*$charwidth+1) + 5*$charwidth))
+	tagwidth=221
 	dzenwidth=$(($screenwidth-$tagwidth))
 
 	# Draw according conky|dzen2 on each monitor (if .conkyrc is available):

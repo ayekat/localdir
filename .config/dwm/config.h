@@ -30,17 +30,18 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "q", "w", "e", "a", "s", "d" };
+static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "" };
 #include "shiftview.c" // cycle through tags
 
 static const Rule rules[] = {
-	/* class      instance    title        tags mask     isfloating   monitor */
-	{ "Eog",      NULL,       NULL,        0,            True,        -1 },
-	{ "Gimp",     NULL,       NULL,        0,            True,        -1 },
-	{ "MPlayer",  NULL,       NULL,        0,            True,        -1 },
-	{ "Nitrogen", NULL,       NULL,        0,            True,        -1 },
-	{ "Firefox",  NULL,       "Downloads", 0,            True,        -1 },
-	{ "Terminal", NULL,       "Scratchpad",-1,           True,        -1 },
+	/* class          instance title         tags mask isfloating monitor */
+	{ "Eog",          NULL,    NULL,         0,        True,      -1 },
+	{ "Gimp",         NULL,    NULL,         0,        True,      -1 },
+	{ "MPlayer",      NULL,    NULL,         0,        True,      -1 },
+	{ "Nitrogen",     NULL,    NULL,         0,        True,      -1 },
+	{ "Firefox",      NULL,    "Downloads",  0,        True,      -1 },
+	{ "Terminal",     NULL,    "Scratchpad", -1,       True,      -1 },
+	{ "Lxappearance", NULL,    NULL,         0,        True,      -1 },
 };
 
 /* layout(s) */
