@@ -174,9 +174,9 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,   XK_0,      tag,            {.ui = ~0 } },
 
 	// monitors:
-	{ MODKEY,             XK_m,      focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,   XK_m,      tagmon,         {.i = +1 } },
-	//{ MODKEY|ShiftMask,   XK_m,      movefollowmon,  {.i = +1 } },
+	{ MODKEY,                       XK_m,      focusmon,      {.i = +1 } },
+	{ MODKEY|ShiftMask,             XK_m,      tagmon,        {.i = +1 } },
+	{ MODKEY|ControlMask|ShiftMask, XK_m,      movefollowmon, {.i = +1 } },
 
 	// tag keys (arranged in a square):
 	TAGKEYS( XK_1, 0)
