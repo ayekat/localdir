@@ -2,6 +2,7 @@
 [Configuration]
 FontAntiAlias=FALSE
 FontName=Fixed Medium Semi-Condensed 10
+FontAllowBold=TRUE
 
 MiscAlwaysShowTabs=FALSE
 MiscBell=FALSE
