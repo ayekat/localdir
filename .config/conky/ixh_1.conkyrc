@@ -17,7 +17,7 @@ ${execi 5 sensors|grep temp1|awk '{print $2}'|tail -n 1}\
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
    \
 ${if_up eth0}\
-^fg(\#33FF33)^i(/home/ayekat/.config/conky/graphics/glyph_eth.xbm) \
+^i(/home/ayekat/.config/conky/graphics/glyph_eth.xbm) \
 ^fg(\#FFFFFF)${addr eth0}^fg()\
 $else${if_up wlan0}\
 ${if_match ${wireless_link_qual wlan0} < 20}\
