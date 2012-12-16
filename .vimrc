@@ -63,7 +63,10 @@ set encoding=utf8
 		set colorcolumn=81
 		hi ColorColumn ctermbg=black
 	endif
-	
+
+	" I wanna see tabs and trailing whitespaces:
+	set list listchars=tab:→\ ,trail:·
+	hi SpecialKey ctermfg=darkgrey
 
 " ------------------------------------------------------------------------------
 " STATUS BAR {{{
@@ -78,6 +81,7 @@ set noshowmode
 " Define default statusline background to get rid of funnily coloured corners:
 hi StatusLine ctermfg=black ctermbg=green
 hi StatusLineNC ctermfg=black ctermbg=red
+hi User1 ctermbg=black ctermfg=darkgrey
 
 function! GetFilepath()
 	let filepath=expand("%:p")
@@ -90,11 +94,8 @@ endfunction
 
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
-	" Only one colour:
-	hi User9 ctermbg=black ctermfg=darkgrey
-
 	" Display the filename:
-	set statusline=%9*\ \ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
+	set statusline=%1*\ \ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
 
 	" Display the number of lines in file:
 	set statusline+=%=(%L)
@@ -104,6 +105,9 @@ endfunction
 function! StatuslineActive(mode)
 	" Default colour:
 	hi User1 ctermbg=black ctermfg=darkgrey
+
+	" Colour for modified flag:
+	hi User9 ctermbg=black ctermfg=yellow
 
 	" Colours for cursor and window position:
 	hi User4 ctermbg=black ctermfg=darkgreen
@@ -153,10 +157,14 @@ function! StatuslineActive(mode)
 	endif
 
 	" File name:
-	setl statusline+=\ \ %6*%{GetFilepath()}\ \ %1*⮁
+	setl statusline+=\ \ %6*%{GetFilepath()}%9*
 
 	" Modified flag:
-	setl statusline+=\ %m
+	if &modified
+		setl statusline+=\ *%1*⮁
+	else
+		setl statusline+=\ \ %1*⮁
+	endif
 
 	" Change to right side:
 	setl statusline+=%=
@@ -183,6 +191,15 @@ endfunction
 au! BufEnter,WinEnter,InsertLeave * call UpdateStatusline(1, 'N')
 au! InsertEnter * call UpdateStatusline(1, 'I')
 au! BufLeave,WinLeave * call UpdateStatusline(0, 'N')
+
+" Trigger update of the modified flag on certain occasions:
+au! BufWritePost * call UpdateStatusline(1, 'N')
+noremap <silent> p p:call UpdateStatusline(1, 'N')<CR>
+noremap <silent> u u:call UpdateStatusline(1, 'N')<CR>
+noremap <silent> dd dd:call UpdateStatusline(1, 'N')<CR>
+noremap <silent> dw dw:call UpdateStatusline(1, 'N')<CR>
+noremap <silent> x x:call UpdateStatusline(1, 'N')<CR>
+noremap <silent> <C-r> <C-r>:call UpdateStatusline(1, 'N')<CR>
 
 " As there are no predefined events for visual and replace mode, I need to
 " manually define them:
