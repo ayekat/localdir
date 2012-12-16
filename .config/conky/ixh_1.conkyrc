@@ -1,5 +1,8 @@
 # Conky configuration file for printing to dzen2 on dwm (therefore text-only)
 # Written by ayekat on a snowy day in october 2012
+# NOTE: This is horrible and should be replaced by a C program. If I get enough
+#       time, I'll start to search and code all the functionality in lean and
+#       clean C.
 
 background yes
 out_to_console yes
@@ -36,7 +39,7 @@ $endif$endif\
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
    \
 ^i(/home/ayekat/.config/conky/graphics/glyph_note.xbm)  \
-^fg(\#FFFFFF)${mpd_title 20}^fg()  (${mpd_elapsed}/${mpd_length})\
+^fg(\#FFFFFF)${mpd_title}^fg()  (${mpd_elapsed}/${mpd_length})\
    \
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
    \
