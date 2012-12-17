@@ -33,7 +33,7 @@ $else\
 $endif$endif$endif$endif\
  ^fg(\#FFFFFF)${addr wlan0}^fg()\
 $else\
-^fg(\#FF0000)no network^fg()\
+^fg(\#FF0000)No Network^fg()\
 $endif$endif\
    \
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
