@@ -243,11 +243,12 @@ set nomodeline
 " INSERT MODE >
 
 	" Except in LaTeX and Scala, we use 4 spaces per tab:
+	set noexpandtab
 	set tabstop=4
-	set shiftwidth=4                            " for shifting lines in with '>'
-	au FileType tex,scala set tabstop=2
-	au FileType tex,scala set shiftwidth=2
-	au FileType tex,scala set expandtab
+	set shiftwidth=4
+	au FileType tex,scala setl expandtab
+	au FileType tex,scala setl tabstop=2
+	au FileType tex,scala setl shiftwidth=2
 
 	" Auto-indent, and reuse the same combination of spaces/tabs:
 	set autoindent

@@ -40,7 +40,7 @@ static const Rule rules[] = {
 	{ "MPlayer",      NULL,    NULL,         0,        True,      -1 },
 	{ "Nitrogen",     NULL,    NULL,         0,        True,      -1 },
 	{ "Firefox",      NULL,    "Downloads",  0,        True,      -1 },
-	{ "Terminal",     NULL,    "Scratchpad", -1,       True,      -1 },
+	{ "Terminal",     NULL,    "Scratchpad", 0,        True,      -1 },
 	{ "Lxappearance", NULL,    NULL,         0,        True,      -1 },
 };
 
