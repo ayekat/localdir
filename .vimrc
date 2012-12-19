@@ -283,6 +283,6 @@ set nomodeline
 " COMPILING
 
 " F5 in a (La)TeX file recompiles the file:
-au! FileType tex map <F5> :w<cr>:!pdflatex %<cr>
+au FileType tex map <F5> :w<cr>:!pdflatex %<cr>
 "au FileType tex imap <F5> :w<cr>:!pdflatex %<cr> "not tested yet
 
