@@ -49,19 +49,19 @@ ${blink ${battery_percent BAT1}%} \
 $else${if_match ${battery_percent BAT1} < 10}^fg(\#FF3333)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_00.xbm)\
-$else${if_match ${battery_percent BAT1} < 19}^fg(\#FF3333)\
+$else${if_match ${battery_percent BAT1} < 19}^fg(\#FF6633)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_10.xbm)\
-$else${if_match ${battery_percent BAT1} < 29}^fg(\#FF6633)\
+$else${if_match ${battery_percent BAT1} < 29}^fg(\#FF9933)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_20.xbm)\
-$else${if_match ${battery_percent BAT1} < 40}^fg(\#FF9933)\
+$else${if_match ${battery_percent BAT1} < 40}^fg(\#FFCC33)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_30.xbm)\
-$else${if_match ${battery_percent BAT1} < 51}^fg(\#FFCC33)\
+$else${if_match ${battery_percent BAT1} < 51}^fg(\#FFEE33)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_40.xbm)\
-$else${if_match ${battery_percent BAT1} < 61}^fg(\#FFFF33)\
+$else${if_match ${battery_percent BAT1} < 61}^fg(\#EEFF33)\
 ${battery_percent BAT1}% \
 ^i(/home/ayekat/.config/conky/graphics/glyph_battery_50.xbm)\
 $else${if_match ${battery_percent BAT1} < 70}^fg(\#CCFF33)\
