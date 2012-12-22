@@ -1,4 +1,4 @@
-#include "lstack.c"         // additional layout for putting stack on the left
+//#include "lstack.c"       // additional layout for putting stack on the left
 #include "bstack.c"         //     "        "     "  splitting screen vertically
 #include "column_master.c"  //     "        "     "  aligning master in columns
 #include "push.c"           // move clients around in stack/master
@@ -52,10 +52,10 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
-	{ "",      ltile },
+//	{ "",      ltile },
+	{ "",      bstack },
 	{ "[M]",      monocle },
 	{ "",      col },
-	{ "",      bstack },
 	{ .symbol = NULL,   .arrange = NULL    }, /* for cycling (see below) */
 };
 
