@@ -61,11 +61,6 @@ if [[ -e /usr/bin/uim-xim ]]; then
 	uim-xim &
 fi
 
-# Start screensaver daemon:
-if [[ -e /usr/bin/xscreensaver ]]; then
-	xscreensaver &
-fi
-
 
 # SESSION ----------------------------------------------------------------------
 
