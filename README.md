@@ -6,6 +6,12 @@ This is a collection of (maybe) useful dotfiles.
 Nothing more.
 
 
+usage
+-----
+
+I usually symlink my dotfiles to the versions in the git directory.
+
+
 warning!
 --------
 
