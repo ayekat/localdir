@@ -1,11 +1,11 @@
-hardstatus alwayslastline "%{= kc}[%c:%s] %{= km}%-w%{=r}%n %t%{-}%+w"
+hardstatus alwayslastline "%{= kc}[%c:%s] %{= kg}%-w%{=r}%n %t%{-}%+w"
 
 # Explanation:
 # * First, we set the background color to black ("k") and the foreground color
 #   to cyan ("c"). This is achieved inside the "{}"-braces, after the "=".
 #   Next, the time is displayed with the variables %c (HH:MM) and %s (SS).
-# * To display the window list, we choose a yellow color on black background,
-#   therefore "%{= ky}".  
+# * To display the window list, we choose for example a yellow color on black
+#   background, therefore "%{= ky}".
 #   As we want to handle the current window specially, we only show the windows
 #   that come before ("%-w") and after ("%+w") the current window with the
 #   settings above.
