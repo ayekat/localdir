@@ -20,7 +20,7 @@ ScrollingLines=10000
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 
 ColorBackground=#111111
-ColorForeground=#BBBBBB
+ColorForeground=#AAAAAA
 ColorCursor=
 ColorPalette1=#222222
 ColorPalette2=#DD5544

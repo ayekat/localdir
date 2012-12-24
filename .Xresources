@@ -26,25 +26,20 @@
 *color15         :#FFFFFF
 
 
-! APPLICATION SPECIFIC ---------------------------------------------------------
+! XTERM ------------------------------------------------------------------------
 
-! Xterm:
 xterm*background : #111111
-xterm*foreground : #BBBBBB
+xterm*foreground : #AAAAAA
 
-! Xclock:
-xclock*width     : 700
-xclock*height    : 700
-
-! Unicode-rxvt:
-URxvt.background : [85]#111111
+! URXVT ------------------------------------------------------------------------
+URxvt.background : #111111
 URxvt.cursorBlink: true
 URxvt.depth      : 32
-URxvt.foreground : #BBBBBB
+URxvt.foreground : #AAAAAA
 URxvt.scrollBar  : false
 
-! Dzen:
+! DZEN -------------------------------------------------------------------------
 dzen2.font       : Fixed-10:SemiCondensed
 dzen2.background : #222222
-dzen2.foreground : #999999
+dzen2.foreground : #888888
 
