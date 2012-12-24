@@ -1,6 +1,7 @@
 //#include "lstack.c"       // additional layout for putting stack on the left
 #include "bstack.c"         //     "        "     "  splitting screen vertically
 #include "column_master.c"  //     "        "     "  aligning master in columns
+#include "fibonacci.c"      //     "        "     "  Fibonacci
 #include "push.c"           // move clients around in stack/master
 
 /* See LICENSE file for copyright and license details. */
@@ -55,6 +56,7 @@ static const Layout layouts[] = {
 //	{ "",      ltile },
 	{ "",      bstack },
 	{ "[M]",      monocle },
+	{ "",      dwindle },
 	{ "",      col },
 	{ .symbol = NULL,   .arrange = NULL    }, /* for cycling (see below) */
 };
