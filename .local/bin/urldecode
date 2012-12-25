@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo $1 | sed "s/%3A/:/g" | sed "s/%2F/\//g" | sed "s/%3F/?/g" | sed "s/%3D/=/g"
