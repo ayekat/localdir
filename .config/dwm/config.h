@@ -1,7 +1,8 @@
-//#include "lstack.c"       // additional layout for putting stack on the left
-#include "bstack.c"         //     "        "     "  splitting screen vertically
-#include "column_master.c"  //     "        "     "  aligning master in columns
-#include "fibonacci.c"      //     "        "     "  Fibonacci
+//#include "lstack.c"       // additional layout to put stack on the left
+//#include "grid.c"           //     "        "    "  arrange as Grid
+//#include "column_master.c"  //     "        "    "  split master in columns
+#include "bstack.c"         //     "        "    "  split screen vertically
+#include "fibonacci.c"      //     "        "    "  arrange as Fibonacci
 #include "push.c"           // move clients around in stack/master
 
 /* See LICENSE file for copyright and license details. */
@@ -53,11 +54,12 @@ static const Bool resizehints = False; /* True means respect size hints in tiled
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
-//	{ "",      ltile },
 	{ "",      bstack },
 	{ "[M]",      monocle },
 	{ "",      dwindle },
-	{ "",      col },
+//	{ "",      ltile },
+//	{ "###",      grid },
+//	{ "",      col },
 	{ .symbol = NULL,   .arrange = NULL    }, /* for cycling (see below) */
 };
 

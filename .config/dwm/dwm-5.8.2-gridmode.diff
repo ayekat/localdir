@@ -1,0 +1,43 @@
+diff -r 62791cc97f88 config.def.h
+--- a/config.def.h	Tue Jun 01 17:39:26 2010 +0100
++++ b/config.def.h	Wed Jun 02 13:42:49 2010 +0100
+@@ -29,1 +29,2 @@
++#include "grid.c"
+ static const Layout layouts[] = {
+@@ -34,3 +35,4 @@
++	{ "HHH",      grid },
+ };
+ 
+ /* key definitions */
+diff -r 62791cc97f88 grid.c
+--- /dev/null	Thu Jan 01 00:00:00 1970 +0000
++++ b/grid.c	Wed Jun 02 13:42:49 2010 +0100
+@@ -0,0 +1,28 @@
++void
++grid(Monitor *m) {
++	unsigned int i, n, cx, cy, cw, ch, aw, ah, cols, rows;
++	Client *c;
++
++	for(n = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next))
++		n++;
++
++	/* grid dimensions */
++	for(cols = 0; cols <= n/2; cols++)
++		if(cols*cols >= n)
++			break;
++	rows = (cols && (cols - 1) * cols >= n) ? cols - 1 : cols;
++
++	/* window geoms (cell height/width) */
++	ch = m->wh / (rows ? rows : 1);
++	cw = m->ww / (cols ? cols : 1);
++	for(i = 0, c = nexttiled(m->clients); c; c = nexttiled(c->next)) {
++		cx = m->wx + (i / rows) * cw;
++		cy = m->wy + (i % rows) * ch;
++		/* adjust height/width of last row/column's windows */
++		ah = ((i + 1) % rows == 0) ? m->wh - ch * rows : 0;
++		aw = (i >= rows * (cols - 1)) ? m->ww - cw * cols : 0;
++		resize(c, cx, cy, cw - 2 * c->bw + aw, ch - 2 * c->bw + ah, False);
++		i++;
++	}
++}
++
