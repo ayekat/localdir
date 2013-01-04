@@ -36,14 +36,14 @@ static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", 
 #include "shiftview.c" // cycle through tags
 
 static const Rule rules[] = {
-	/* class          instance title         tags mask isfloating monitor */
-	{ "Eog",          NULL,    NULL,         0,        True,      -1 },
-	{ "Gimp",         NULL,    NULL,         0,        True,      -1 },
-	{ "MPlayer",      NULL,    NULL,         0,        True,      -1 },
-	{ "Nitrogen",     NULL,    NULL,         0,        True,      -1 },
-	{ "Firefox",      NULL,    "Downloads",  0,        True,      -1 },
-	{ "Terminal",     NULL,    "Scratchpad", 0,        True,      -1 },
-	{ "Lxappearance", NULL,    NULL,         0,        True,      -1 },
+	/* class            instance title         tags mask isfloating monitor */
+	{ "Eog",            NULL,    NULL,         0,        True,      -1 },
+	{ "Gimp",           NULL,    NULL,         0,        True,      -1 },
+	{ "MPlayer",        NULL,    NULL,         0,        True,      -1 },
+	{ "Nitrogen",       NULL,    NULL,         0,        True,      -1 },
+	{ "Firefox",        NULL,    "Downloads",  0,        True,      -1 },
+	{ "Xfce4-terminal", NULL,    "Scratchpad", 0,        True,      -1 },
+	{ "Lxappearance",   NULL,    NULL,         0,        True,      -1 },
 };
 
 /* layout(s) */
@@ -124,7 +124,7 @@ void movefollowmon(const Arg *arg)
 static const char *dmenucmd[] = { "dmenu_run", "-l", "10", "-b", "-fn", font,
 		"-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf",
 		selfgcolor, "-p", "<>", NULL };
-static const char *termcmd[]  = { "terminal", NULL };
+static const char *termcmd[]  = { "xfce4-terminal", NULL };
 static const char *quitcmd[] = { "killall", "dwmloop", NULL };
 static const char *lockcmd[] = { "slock", NULL };
 static const char *volraisecmd[] = { "amixer", "set", "Master", "3+", "unmute", NULL };
@@ -133,7 +133,7 @@ static const char *volmutecmd[] = { "amixer", "set", "Master", "toggle", NULL };
 static const char *prtscrcmd[] = { "scrot", "/home/ayekat/img/screenshots/%Y-%m-%d_%H%M%S.png", NULL };
 static const char *dzenconkycmd[] = { "dzenconky", "restart", NULL };
 static const char *redshiftcmd[] = { "redshifttoggle", NULL };
-static const char *scratchpadcmd[] = { "terminal", "--title", "Scratchpad", "--geometry", "175x52+150+50", NULL };
+static const char *scratchpadcmd[] = { "xfce4-terminal", "--title", "Scratchpad", "--geometry", "175x52+150+50", NULL };
 
 static Key keys[] = {
 	/* modifier           key        function        argument */
