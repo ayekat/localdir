@@ -9,7 +9,7 @@ update_interval 1
 TEXT
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
    \
-^fg(\#FFFFFF)${time %m}^fg()\
+^fg(\#FFFFFF)${time %_m}^fg()\
 ^i(/home/ayekat/.config/conky/graphics/glyph_japanese_1.xbm) \
 ^fg(\#FFFFFF)${time %e}^fg()\
 ^i(/home/ayekat/.config/conky/graphics/glyph_japanese_7.xbm) \
