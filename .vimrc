@@ -173,7 +173,7 @@ function! StatuslineActive(mode)
 	setl statusline+=%y
 
 	" Display cursor position:
-	setl statusline+=\ \ %3*⮂%2*\ %5*⭡%2*\ \ %l\,%02v
+	setl statusline+=\ \ %3*⮂%2*\ %5*⭡%2*\ \ %l\,%02c%02V
 
 	" Display window position:
 	setl statusline+=\ %5*⮃%2*⮂%4*\ \ %P\ %1*(%L)%1*

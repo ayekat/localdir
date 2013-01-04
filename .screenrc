@@ -14,3 +14,6 @@ startup_message off
 # Correctly erase output after closing ncurses application:
 altscreen on
 
+# Disable visual bell:
+vbell off
+
