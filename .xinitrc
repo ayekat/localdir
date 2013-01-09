@@ -11,16 +11,16 @@ cd
 # MONITOR OPTIONS --------------------------------------------------------------
 
 # Get the number of monitors:
-export NUMSCREENS=$(xrandr | grep '*' | wc -l)
+export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start
 
 # Xrandr examples (not for daily use, graphic card driver usually takes care of
 # this):
-#xrandr --output LVDS --mode 1366x768
-#xrandr --output VGA1 --right-of LVDS1
-#xrandr --output VGA1 --mode 1024x768
+#xrandr --output VGA-0 --mode 1920x1050
+#xrandr --output VGA-0 --right-of LVDS
+#xrandr --output VGA-0 --off
 
 
 # DWM --------------------------------------------------------------------------

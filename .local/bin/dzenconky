@@ -1,31 +1,35 @@
 #!/bin/bash
 # displays conky in dzen2
 
+sum()
+{
+	sum=0
+	array=($@)
+	for ((i=0; i<$#; i++)); do
+		sum=$(($sum+${array[$i]}))
+	done
+	echo $sum
+}
+
 dzenconky_start() {
 	# Check for changes in .Xresources (needed by dzen2):
-	xrdb ~/.Xresources 
+	xrdb ~/.Xresources
 
 	# Calculate dzen2 position and placement:
-	screenwidth=$(xrandr | grep '*' | head -n 1 | cut -c 4-7)
-	numtags=9
-	charwidth=6
-	#tagwidth=$(($numtags*(3*$charwidth+1) + 5*$charwidth))
+	screenwidth=($(xrandr | grep ' connected ' | cut -c 4-7))
 	tagwidth=219
-	dzenwidth=$(($screenwidth-$tagwidth))
 
 	# Draw according conky|dzen2 on each monitor (if .conkyrc is available):
-	for ((i=1; i<=$NUMSCREENS; i++)); do
+	for ((i=0; i<$NUMSCREENS; i++)); do
+		dzenwidth=$((${screenwidth[$i]}-$tagwidth))
 		conkyrc=$(printf "%s/conky/%s_%d.conkyrc" \
 				$XDG_CONFIG_HOME $HOSTNAME $i)
-		dzenpos=$(($tagwidth + $(($i-1))*$screenwidth))
+		dzenpos=$(sum ${screenwidth[@]:0:$i})
+		dzenpos=$(($tagwidth+$dzenpos))
 		if [[ -e $conkyrc ]]; then
 			conky -c $conkyrc | dzen2 -w $dzenwidth -h 15 -x $dzenpos -ta r &
 		fi
 	done
-
-	# Draw conky instance that displays time:
-	#conkyrc=$(printf "%s/conky/%s_time.conkyrc" $XDG_CONFIG_HOME $HOSTNAME)
-	#conky -c $conkyrc &
 }
 
 dzenconky_stop() {

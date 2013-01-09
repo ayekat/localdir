@@ -1,0 +1,70 @@
+# Conky configuration file for printing to dzen2 on dwm (therefore text-only)
+# Written by ayekat on a snowy day in october 2012
+# NOTE: This is horrible and should be replaced by a C program. If I get enough
+#       time, I'll start to search and code all the functionality in lean and
+#       clean C.
+
+background yes
+out_to_console yes
+out_to_x no
+update_interval 1
+
+TEXT
+^i(/home/ayekat/.config/conky/graphics/glyph_cpu.xbm)  \
+^fg(\#FFFFFF)[${cpu cpu0}%] [${cpu cpu1}%] [${cpu cpu2}%] [${cpu cpu3}%]^fg()  \
+${execi 5 sensors|grep Physical|awk '{print $4}'|tail -n 1}\
+   \
+^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
+   \
+${if_up eth0}\
+^i(/home/ayekat/.config/conky/graphics/glyph_eth.xbm) \
+^fg(\#FFFFFF)${addr eth0}^fg()\
+$else${if_up wlan0}\
+${if_match ${wireless_link_qual wlan0} < 20}\
+^fg(\#FF3333)^i(/home/ayekat/.config/conky/graphics/glyph_wifi_0.xbm) \
+$else${if_match ${wireless_link_qual wlan0} < 40}\
+^fg(\#EE9933)^i(/home/ayekat/.config/conky/graphics/glyph_wifi_1.xbm) \
+$else${if_match ${wireless_link_qual wlan0} < 60}\
+^fg(\#DDDD33)^i(/home/ayekat/.config/conky/graphics/glyph_wifi_2.xbm) \
+$else${if_match ${wireless_link_qual wlan0} < 80}\
+^fg(\#99EE33)^i(/home/ayekat/.config/conky/graphics/glyph_wifi_3.xbm) \
+$else\
+^fg(\#33FF33)^i(/home/ayekat/.config/conky/graphics/glyph_wifi_4.xbm) \
+$endif$endif$endif$endif\
+ ^fg(\#FFFFFF)${addr wlan0}^fg()\
+$else\
+^fg(\#FF0000)No Network^fg()\
+$endif$endif\
+   \
+^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
+   \
+^i(/home/ayekat/.config/conky/graphics/glyph_note.xbm)  \
+^fg(\#FFFFFF)${mpd_title}^fg()  (${mpd_elapsed}/${mpd_length})\
+   \
+^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
+   \
+${if_match ${execi 1 /home/ayekat/.scripts/muted.sh} == 1}^fg(\#FF0000)\
+^i(/home/ayekat/.config/conky/graphics/glyph_volume_mute.xbm)^fg()\
+$else^fg(\#00FF00)\
+${if_match ${mpd_vol} < 33}\
+^i(/home/ayekat/.config/conky/graphics/glyph_volume_low.xbm)\
+$else${if_match ${mpd_vol} < 66}\
+^i(/home/ayekat/.config/conky/graphics/glyph_volume_medium.xbm)\
+$else\
+^i(/home/ayekat/.config/conky/graphics/glyph_volume_high.xbm)\
+$endif$endif^fg(\#FFFFFF)$endif\
+ [${mpd_vol}%]^fg()\
+   \
+^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
+   \
+^fg(\#FFFFFF)${time %_m}^fg()\
+^i(/home/ayekat/.config/conky/graphics/glyph_japanese_1.xbm) \
+^fg(\#FFFFFF)${time %e}^fg()\
+^i(/home/ayekat/.config/conky/graphics/glyph_japanese_7.xbm) \
+(^i(/home/ayekat/.config/conky/graphics/glyph_japanese_${time %u}.xbm))\
+  \
+^fg(\#444444)^i(/home/ayekat/.config/conky/graphics/glyph_2B82.xbm)^fg()\
+^bg(\#444444)\
+  \
+^fg(\#FFFFFF)${time %H:%M}^fg(\#999999):${time %S}\
+ \
