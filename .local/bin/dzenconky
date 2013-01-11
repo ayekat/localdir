@@ -38,19 +38,19 @@ dzenconky_stop() {
 }
 
 dzenconky_help() {
-	printf "dzenconky  \e[1mstart\e[0m|\e[1mstop\e[0m|\e[1mrestart\e[0m\n"
+	printf "dzenconky  \e[1mstart\e[0m | \e[1mstop\e[0m | \e[1mrestart\e[0m\n"
 }
 
 case $1 in
 	start)
-		dzenconky_start &
+		dzenconky_start
 		;;
 	stop)
 		dzenconky_stop
 		;;
 	restart)
 		dzenconky_stop
-		dzenconky_start &
+		dzenconky_start
 		;;
 	*)
 		dzenconky_help
