@@ -1,0 +1,34 @@
+#!/bin/bash
+# This simplifies on-the-go addition of a VGA-monitor to my laptop.
+# Written by ayekat on a boring january day.
+
+export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
+
+vga_add() {
+	xrandr --output VGA-0 --mode $1
+	xrandr --output VGA-0 --right-of LVDS
+	dzenconky restart
+}
+
+vga_remove() {
+	xrandr --output VGA-0 --off
+	dzenconky start
+}
+
+vga_help() {
+	printf "vga  \e[1madd \e[0;4mMODE\e[0m|\e[1mremove\e[0m\n"
+}
+
+case $1 in
+	add)
+		if [[ $# -eq 2 && $NUMSCREENS -eq 2 ]]; then vga_add $2
+		                                        else echo 'VGA error'; fi ;;
+	remove) vga_remove;;
+	readd)
+		vga_remove
+		if [[ $# -eq 2 && $NUMSCREENS -eq 2 ]]; then vga_add $2
+		                                        else echo 'VGA error'; fi ;;
+	*)
+		vga_help
+esac
+

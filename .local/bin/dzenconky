@@ -15,12 +15,12 @@ dzenconky_start() {
 	# Check for changes in .Xresources (needed by dzen2):
 	xrdb ~/.Xresources
 
-	# Calculate dzen2 position and placement:
-	screenwidth=($(xrandr | grep ' connected ' | cut -c 4-7))
+	# Calculate position of dzen2 and draw on each monitor
+	# (if .conkyrc is available):
+	numscreens=$(xrandr | grep '*' | wc -l)
+	screenwidth=($(xrandr | grep '*' | cut -c 4-7))
 	tagwidth=219
-
-	# Draw according conky|dzen2 on each monitor (if .conkyrc is available):
-	for ((i=0; i<$NUMSCREENS; i++)); do
+	for ((i=0; i<$numscreens; i++)); do
 		dzenwidth=$((${screenwidth[$i]}-$tagwidth))
 		conkyrc=$(printf "%s/conky/%s_%d.conkyrc" \
 				$XDG_CONFIG_HOME $HOSTNAME $i)
