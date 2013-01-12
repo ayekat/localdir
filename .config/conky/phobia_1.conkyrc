@@ -7,7 +7,7 @@ out_to_x no
 update_interval 1
 
 TEXT
-^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
+^fg(\#000000)^i(/home/ayekat/.config/conky/graphics/glyph_2B83.xbm)^fg()\
    \
 ^fg(\#FFFFFF)${time %_m}^fg()\
 ^i(/home/ayekat/.config/conky/graphics/glyph_japanese_1.xbm) \
@@ -15,8 +15,8 @@ TEXT
 ^i(/home/ayekat/.config/conky/graphics/glyph_japanese_7.xbm) \
 (^i(/home/ayekat/.config/conky/graphics/glyph_japanese_${time %u}.xbm))\
   \
-^fg(\#444444)^i(/home/ayekat/.config/conky/graphics/glyph_2B82.xbm)^fg()\
-^bg(\#444444)\
+^fg(\#000000)^i(/home/ayekat/.config/conky/graphics/glyph_2B82.xbm)^fg()\
+^bg(\#000000)\
   \
 ^fg(\#FFFFFF)${time %H:%M}^fg(\#999999):${time %S}\
  \
