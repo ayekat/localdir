@@ -1,0 +1,85 @@
+## CONTROL-FILE ##
+
+[iconset]
+author: Me
+license: GPL
+version: 0.1
+about: Work in progress
+
+[color_1]
+substitute: 000000
+text: Main color
+
+[color_2]
+substitute: 4d4d4d
+text: Lightning
+
+[preview_1]
+path: scalable/places/folder-home.svg
+
+[preview_2]
+path: scalable/apps/accessories-calculator.svg
+
+[preview_3]
+path: scalable/categories/applications-system.svg
+
+
+[scheme_1]
+name: Lemon
+color_2: fbff94
+color_1: fff962
+
+[scheme_2]
+name: Fire
+color_2: e7c925
+color_1: e33912
+
+[scheme_3]
+name: Green
+color_2: 00af00
+color_1: 006400
+
+[scheme_4]
+name: Red
+color_2: f65e5b
+color_1: b30f21
+
+[scheme_5]
+name: Blue
+color_2: 0000d5
+color_1: 000093
+
+[scheme_6]
+name: Pink
+color_2: ff94c4
+color_1: df4797
+
+[scheme_7]
+name: Brown
+color_2: de9544
+color_1: b56016
+
+[scheme_8]
+name: Purple
+color_2: c875d3
+color_1: 7b1288
+
+[scheme_9]
+name: Grey
+color_2: b9b9b9
+color_1: 969696
+
+[scheme_10]
+name: Black
+color_2: 4d4d4d
+color_1: 000000
+
+[scheme_11]
+name: Ocean
+color_2: b2fcff
+color_1: 11fffe
+
+[scheme_12]
+name: Army
+color_2: 86c114
+color_1: 699514

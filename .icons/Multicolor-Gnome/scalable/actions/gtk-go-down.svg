@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="48px"
+   height="48px"
+   id="svg4289"
+   sodipodi:version="0.32"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="down.svg"
+   inkscape:output_extension="org.inkscape.output.svg.inkscape"
+   version="1.1">
+  <defs
+     id="defs4291">
+    <linearGradient
+       id="linearGradient3172">
+      <stop
+         id="stop3174"
+         offset="0"
+         style="stop-color:#4d4d4d;stop-opacity:1;" />
+      <stop
+         id="stop3176"
+         offset="1"
+         style="stop-color:#4d4d4d;stop-opacity:0;" />
+    </linearGradient>
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3172"
+       id="linearGradient2953"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(0.644962,0,0,1.1832362,9.235153,4.016337)"
+       x1="22.892584"
+       y1="0.90414524"
+       x2="22.892584"
+       y2="21.132059" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666"
+     borderopacity="0.31372549"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="5.656854"
+     inkscape:cx="37.533214"
+     inkscape:cy="19.31447"
+     inkscape:current-layer="layer1"
+     showgrid="true"
+     inkscape:grid-bbox="true"
+     inkscape:document-units="px"
+     inkscape:window-width="1019"
+     inkscape:window-height="721"
+     inkscape:window-x="259"
+     inkscape:window-y="23"
+     inkscape:showpageshadow="false"
+     inkscape:window-maximized="0" />
+  <metadata
+     id="metadata4294">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Andreas Nilsson</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>category</rdf:li>
+            <rdf:li>system</rdf:li>
+            <rdf:li>preferences</rdf:li>
+            <rdf:li>settings</rdf:li>
+            <rdf:li>control center</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+        <dc:contributor>
+          <cc:Agent>
+            <dc:title>Jakub Steiner</dc:title>
+          </cc:Agent>
+        </dc:contributor>
+        <cc:license
+           rdf:resource="http://creativecommons.org/licenses/GPL/2.0/" />
+      </cc:Work>
+      <cc:License
+         rdf:about="http://creativecommons.org/licenses/GPL/2.0/">
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Reproduction" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/Distribution" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/Notice" />
+        <cc:permits
+           rdf:resource="http://web.resource.org/cc/DerivativeWorks" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/ShareAlike" />
+        <cc:requires
+           rdf:resource="http://web.resource.org/cc/SourceCode" />
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+  <g
+     id="layer1"
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer">
+    <g
+       id="g2453"
+       inkscape:label="Calque 1"
+       transform="matrix(0.1337942,0,0,0.1337942,-18.472238,-41.04701)" />
+    <path
+       style="fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.13877499;marker:none;visibility:visible;display:inline;overflow:visible"
+       d="M 4.25,21.642177 23.548363,44 42.749999,21.642177 l -9.201184,0 0,-17.642177 -19.940368,0 0,17.642177 -9.358447,0 z"
+       id="path4348"
+       sodipodi:nodetypes="cccccccc" />
+    <path
+       style="fill:url(#linearGradient2953);fill-opacity:1;stroke:none"
+       d="m 24,29.65625 c -5.869158,0 -11.234736,-1.121854 -15.40625,-2.96875 L 4.25,21.65625 l 9.34375,0 0,-17.65625 19.96875,0 0,17.65625 9.1875,0 L 37.9375,27.25 C 34.002391,28.737984 29.208347,29.65625 24,29.65625 z"
+       id="path2939" />
+    <g
+       transform="matrix(0.1337942,0,0,-0.1337942,31.527762,89.04701)"
+       inkscape:label="Calque 1"
+       id="g2941" />
+    <g
+       transform="matrix(0.1672428,0,0,-0.1672428,38.442916,104.62323)"
+       inkscape:label="Calque 1"
+       id="g2943" />
+  </g>
+</svg>
