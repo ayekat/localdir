@@ -654,7 +654,7 @@ GtkImage:insensitive {
 .menubar .menuitem {
 	color: @white;
 	background-color: @transparent;
-    padding: 6px 4px 6px 4px;
+    padding: 2px 4px 2px 4px;
 }
 
 .menubar .menuitem:prelight {
@@ -1136,11 +1136,12 @@ GtkTextView {
 
 
 
-    /*icon-shadow: 0 1 alpha (@white, 0.9);*/
+    /*icon-shadow: 0 1 alpha (@white, 0.9);
     border-radius: 0px;
 
     border-width: 0px;
 }
+*/
 
 .primary-toolbar .toolbar :insensitive,
 .primary-toolbar.toolbar :insensitive {
