@@ -36,6 +36,7 @@ static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", 
 #include "shiftview.c" // cycle through tags
 
 static const Rule rules[] = {
+// floating windows:
 	/* class            instance title         tags mask isfloating monitor */
 	{ "Eog",            NULL,    NULL,         0,        True,      -1 },
 	{ "Gimp",           NULL,    NULL,         0,        True,      -1 },
@@ -44,6 +45,13 @@ static const Rule rules[] = {
 	{ "Firefox",        NULL,    "Downloads",  0,        True,      -1 },
 	{ "Xfce4-terminal", NULL,    "Scratchpad", 0,        True,      -1 },
 	{ "Lxappearance",   NULL,    NULL,         0,        True,      -1 },
+
+// categories:
+	/* class            instance title         tags mask isfloating monitor */
+	{ "Firefox",        NULL,    NULL,         1<<4,     False,     -1 },
+	{ "Claws-mail",     NULL,    NULL,         1<<7,     False,     -1 },
+	{ "Skype",          NULL,    NULL,         1<<7,     False,     -1 },
+	{ "Pidgin",         NULL,    NULL,         1<<7,     False,     -1 },
 };
 
 /* layout(s) */
