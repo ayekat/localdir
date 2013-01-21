@@ -119,7 +119,7 @@ if [[ -e /usr/bin/valgrind ]]; then
 # Arch specific aliases:
 if [[ $arch = "arch" ]]; then
 	alias cal="cal -m -3"
-	if [[ $IS_DESKTOP -eq 1 ]]; then
+	if [[ $IS_DESKTOP -eq 1 && $TERM = "linux" ]]; then
 		alias x="startx -- -nolisten tcp & exit"
 	fi
 fi

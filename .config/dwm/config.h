@@ -157,6 +157,7 @@ static Key keys[] = {
 	{ 0,                  0x1008FF11,spawn,          {.v = vollowercmd } },
 	{ MODKEY|ControlMask, XK_Down,   spawn,          {.v = vollowercmd } },
 	{ 0,                  0x1008FF12,spawn,          {.v = volmutecmd } },
+	{ MODKEY|ControlMask, XK_m,      spawn,          {.v = volmutecmd } },
 	{ 0,                  0x1008FF13,spawn,          {.v = volraisecmd } },
 	{ MODKEY|ControlMask, XK_Up,     spawn,          {.v = volraisecmd } },
 

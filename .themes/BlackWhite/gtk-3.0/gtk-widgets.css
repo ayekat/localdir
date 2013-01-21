@@ -628,9 +628,6 @@ GtkImage:insensitive {
     background-image: none;
     background-color: @slate;
     color: @white;
-
-    border-image: none;
-    border-style: none;
 }
 
 .menu.button:insensitive {
