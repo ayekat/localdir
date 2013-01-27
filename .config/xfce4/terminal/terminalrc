@@ -22,6 +22,7 @@ MiscHighlightUrls=TRUE
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 ScrollingLines=10000
 ScrollingSingleLine=FALSE
+ScrollingOnOutput=FALSE
 
 ShortcutsNoMenukey=TRUE
 ShortcutsNoMnemonics=TRUE
