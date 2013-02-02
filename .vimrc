@@ -68,6 +68,7 @@ set encoding=utf8
 	set list listchars=tab:→\ ,trail:·
 	hi SpecialKey ctermfg=darkgrey
 
+
 " ------------------------------------------------------------------------------
 " STATUS BAR {{{
 " Written by ayekat on a cold day in december 2012
