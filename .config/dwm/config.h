@@ -48,10 +48,13 @@ static const Rule rules[] = {
 
 // categories:
 	/* class            instance title         tags mask isfloating monitor */
+	/* disabled, due to chat messages going unnoticed because they weren't
+	   opened on the focused tag:
 	{ "Firefox",        NULL,    NULL,         1<<4,     False,     -1 },
 	{ "Claws-mail",     NULL,    NULL,         1<<7,     False,     -1 },
 	{ "Skype",          NULL,    NULL,         1<<7,     False,     -1 },
 	{ "Pidgin",         NULL,    NULL,         1<<7,     False,     -1 },
+	*/
 };
 
 /* layout(s) */
