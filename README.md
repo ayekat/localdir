@@ -33,6 +33,6 @@ Because it's what I do: I break things on a daily basis.
 
 On the other hand, if you are seriously considering using the whole set of
 scripts, they may need some packages to work correctly; check out
-http://ayekat.ch/dada/arch.php for a list of packages that are supposed to
+http://ayekat.ch/dada/packages.php for a list of packages that are supposed to
 exist on the system.
 
