@@ -61,6 +61,11 @@ if [[ -e /usr/bin/uim-xim ]]; then
 	uim-xim &
 fi
 
+# Swap keys for MacBooks:
+if [[ -e ~/.Xmodmap ]]; then
+	xmodmap ~/.Xmodmap
+fi
+
 
 # SESSION ----------------------------------------------------------------------
 

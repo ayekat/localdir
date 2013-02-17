@@ -145,6 +145,10 @@ static const char *prtscrcmd[] = { "scrot", "/home/ayekat/img/screenshots/%Y-%m-
 static const char *dzenconkycmd[] = { "dzenconky", "restart", NULL };
 static const char *redshiftcmd[] = { "redshifttoggle", NULL };
 static const char *scratchpadcmd[] = { "xfce4-terminal", "--title", "Scratchpad", "--geometry", "175x52+150+50", NULL };
+static const char *lcdupcmd[] = { "sudo", "lcdctl", "increase", NULL };
+static const char *lcddowncmd[] = { "sudo", "lcdctl", "decrease", NULL };
+static const char *kbdupcmd[] = { "sudo", "lcdctl", "increase", "keyboard", NULL };
+static const char *kbddowncmd[] = { "sudo", "lcdctl", "decrease", "keyboard", NULL };
 
 static Key keys[] = {
 	/* modifier           key        function        argument */
@@ -163,6 +167,12 @@ static Key keys[] = {
 	{ MODKEY|ControlMask, XK_m,      spawn,          {.v = volmutecmd } },
 	{ 0,                  0x1008FF13,spawn,          {.v = volraisecmd } },
 	{ MODKEY|ControlMask, XK_Up,     spawn,          {.v = volraisecmd } },
+
+	// brightness keys:
+	{ 0,                  0x1008FF02,spawn,          {.v = lcdupcmd } },
+	{ 0,                  0x1008FF03,spawn,          {.v = lcddowncmd } },
+	{ 0,                  0x1008FF05,spawn,          {.v = kbdupcmd } },
+	{ 0,                  0x1008FF06,spawn,          {.v = kbddowncmd } },
 
 	// clients:
 	{ MODKEY,             XK_j,      focusstack,     {.i = +1 } },
