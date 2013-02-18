@@ -1,27 +1,18 @@
-#!/bin/bash
-# Prints out a table demonstrating all ANSI colour sequences.
-# Written by ayekat (forgot date).
+#!/usr/bin/perl
+# Prints a table demonstrating all ANSI colour sequences.
+# This is a more performant rewrite of a bash script that did the same thing.
+# Written by ayekat on a boring monday afternoon in february 2013.
 
-for f in {30..37}; do
-	case $f in
-		30) printf "%8s  " "black";;
-		31) printf "%8s  " "red";;
-		32) printf "%8s  " "green";;
-		33) printf "%8s  " "yellow";;
-		34) printf "%8s  " "blue";;
-		35) printf "%8s  " "magenta";;
-		36) printf "%8s  " "cyan";;
-		37) printf "%8s  " "white";;
-	esac
-	printf "\e[%dm %d;-- \e[0m" $f $f
-	for b in {40..47}; do
-		printf "\e[%d;%dm %d;%d \e[0m" $f $b $f $b
-	done
-	printf "\n%10s" ""
-	printf "\e[01;%dm %d;-- \e[0m" $f $f
-	for b in {40..47}; do
-		printf "\e[01;%d;%dm %d;%d \e[0m" $f $b $f $b
-	done
-	echo
-done
+my @colours = ('black','red','green','yellow','blue','magenta','cyan','white');
 
+for ($fg = 30; $fg < 38; $fg++) {
+	for ($th = 0; $th <= 1; $th++) {
+		printf("%8s  \e[%d;%dm %d;-- ",
+			$th ? '' : $colours[$fg-30], $th, $fg, $fg);
+		for ($bg = 40; $bg < 48; $bg++) {
+			printf("\e[%d;%d;%dm %d;%d\e[0;%d;%dm ",
+					$th, $fg, $bg, $fg, $bg, $fg, $bg);
+		}
+		print "\e[0m\n";
+	}
+}
