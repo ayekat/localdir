@@ -149,6 +149,7 @@ static const char *lcdupcmd[] = { "sudo", "lcdctl", "increase", NULL };
 static const char *lcddowncmd[] = { "sudo", "lcdctl", "decrease", NULL };
 static const char *kbdupcmd[] = { "sudo", "lcdctl", "increase", "keyboard", NULL };
 static const char *kbddowncmd[] = { "sudo", "lcdctl", "decrease", "keyboard", NULL };
+static const char *timetablecmd[] = { "firefox", "http://localhost/timetable_ba4.png", NULL };
 
 static Key keys[] = {
 	/* modifier           key        function        argument */
@@ -182,7 +183,7 @@ static Key keys[] = {
 	{ MODKEY,             XK_h,      setmfact,       {.f = -0.02} },
 	{ MODKEY,             XK_l,      setmfact,       {.f = +0.02} },
 	{ MODKEY,             XK_Return, zoom,           {0} },
-	{ Mod5Mask,           XK_Return, zoom,           {0} },
+	//{ Mod5Mask,           XK_Return, zoom,           {0} },
 
 	// layouts:
 	{ MODKEY,             XK_comma,  incnmaster,     {.i = +1 } },
@@ -219,6 +220,9 @@ static Key keys[] = {
 	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },
 	{ MODKEY|ShiftMask,             XK_z, quit,  {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_z, spawn, {.v = quitcmd } },
+
+	// show timetable:
+	{ MODKEY|ControlMask, XK_t,     spawn,       {.v = timetablecmd } },
 };
 
 /* button definitions */
