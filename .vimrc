@@ -68,6 +68,10 @@ set encoding=utf8
 	set list listchars=tab:→\ ,trail:·
 	hi SpecialKey ctermfg=darkgrey
 
+	" Highlight maching parantheses:
+	set showmatch
+	hi MatchParen ctermfg=magenta ctermbg=none
+
 
 " ------------------------------------------------------------------------------
 " STATUS BAR {{{
@@ -260,9 +264,6 @@ set nomodeline
 
 
 " NORMAL MODE >
-
-	" Highlight matching braces:
-	set showmatch
 
 	" Display commands when typing:
 	set showcmd
