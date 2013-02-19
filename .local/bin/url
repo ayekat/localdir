@@ -1,0 +1,35 @@
+#!/usr/bin/perl
+# URL-encodes or -decodes a string.
+# This is a rewrite of a bash script that did the same thing.
+# Written by ayekat on a boring tuesday morning in februrary 2013.
+
+use File::Basename;
+
+my $command = $ARGV[0];
+my $string = <STDIN>;
+
+if ($command eq 'encode') {
+	$string =~ s/#/%23/g;
+	$string =~ s/&/%26/g;
+	$string =~ s/\//%2F/g;
+	$string =~ s/:/%3A/g;
+	$string =~ s/=/%3D/g;
+	$string =~ s/\?/%3F/g;
+	print $string;
+} elsif ($command eq 'decode') {
+	$string =~ s/%23/#/g;
+	$string =~ s/%26/&/g;
+	$string =~ s/%2F/\//g;
+	$string =~ s/%3A/:/g;
+	$string =~ s/%3D/=/g;
+	$string =~ s/%3F/\?/g;
+	print $string;
+} elsif ($command =~ m/^-{1,2}h(elp)?$/) {
+	printf("Synopsis:  %s \e[4mCOMMAND\e[0m|\e[4mOPTION\e[0m\n\n",basename($0));
+	print  "Commands:  decode         Decodes the input.\n";
+	print  "           encode         Encodes the input.\n";
+	print "\n";
+	print  "Options:   -h, --help     Display this help.\n";
+} else {
+	print "unknown command: $command\n";
+}
