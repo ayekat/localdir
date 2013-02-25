@@ -1,0 +1,13 @@
+#!/usr/bin/perl
+
+# Displays a bar with a user-defined number of columns in legth.
+# Default is 85 (since ayekat likes to have 85 columns in his terminals).
+# Written by ayekat on a boring afternoon in february 2013.
+
+my $cols = 85;
+
+if ($ARGV[0] != '') {
+	$cols = $ARGV[0];
+}
+print '#' x $cols;
+print "\n";
