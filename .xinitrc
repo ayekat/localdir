@@ -45,6 +45,9 @@ if [[ -d $HOME/.local/bin/altera ]]; then
 	unset ALTERA
 fi
 
+# This was removed, dunno why:
+export XDG_CONFIG_HOME=$HOME/.config
+
 
 # SERVICES ---------------------------------------------------------------------
 
