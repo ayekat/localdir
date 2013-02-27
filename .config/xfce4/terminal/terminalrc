@@ -1,6 +1,8 @@
 # Configuration file for xfce4-terminal
 [Configuration]
 
+#BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
+#BackgroundDarkness=0.90
 ColorForeground=#AAAAAA
 ColorBackground=#111111
 ColorCursor=

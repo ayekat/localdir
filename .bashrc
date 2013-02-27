@@ -18,17 +18,20 @@ complete -cf sudo
 # Read operating system information (if available):
 if [[ -e /etc/os-release ]]; then
 	arch=$(grep ID /etc/os-release | cut -c 4-)
+elif [[ $(uname) = "Darwin" ]]; then
+	arch="darwin"
+elif [[ -e /etc/gentoo-release ]]; then
+	arch="gentoo"
 else
-	if [[ $(uname) = "Darwin" ]]; then
-		arch="darwin"
-	else
-		arch="WARNING >> missing file: /etc/os-release"
-	fi
+	arch="unknown"
 fi
 
 # Determine if desktop (Xorg exists or OS X):
-test -e /usr/bin/xinit -o $arch = "darwin"
-IS_DESKTOP=$((! $?))
+if [[ -e /usr/bin/xinit || $arch = "darwin" ]]; then
+	IS_DESKTOP=1
+else
+	IS_DESKTOP=0
+fi
 
 # Delete the 'Desktop' folder if not on OS X:
 if [[ $arch != "darwin" ]]; then
@@ -173,8 +176,19 @@ printlogo() {
 			printf       "                             \n"
 			printf "\e[0m                              \n"
 			;;
-		*)
-			printf "unknown logo: '%s'\n" $1
+		gentoo)
+			printf "\e[36m           __                \n"
+			printf       "       .-d§§§§§bc,           \n"
+			printf       "      /§§§§§*\"*Y§§§c.       \n"
+			printf       "     (§§§§§§.   )§§§§b,      \n"
+			printf       "     '(§§§§§§bxxI§§§§§§b     \e[0m `uname -s -r`\n"
+			printf "\e[36m       \`\">§§§§§§§§§§§§§§)    \e[0m on `uname -n`\n"
+			printf "\e[36m       .?§§§§§§§§§§§§§P\`    \n"
+			printf       "     .A§§§§§§§§§§§§§*'       \n"
+			printf       "     §§§§§§§§§§§\$*\`        \n"
+			printf       "     V§§§§§§§*'\`            \n"
+			printf       "       \`\"\`\`              \n"
+			printf  "\e[0m                             \n"
 			;;
 	esac
 }
