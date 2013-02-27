@@ -10,14 +10,14 @@
 /* appearance */
 static const char font[]            = "Fixed Medium Semi-Condensed 10";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1";
-/* // orange
+// orange
 static const char normbordercolor[] = "#222222";
 static const char selbordercolor[]  = "#E04613";
 static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#AAAAAA";
 static const char selbgcolor[]      = "#E04613";
 static const char selfgcolor[]      = "#FFFFFF";
-*/
+/*
 // blue
 static const char normbordercolor[] = "#222222";
 static const char selbordercolor[]  = "#4499CC";
@@ -25,8 +25,9 @@ static const char normbgcolor[]     = "#222222";
 static const char normfgcolor[]     = "#999999";
 static const char selbgcolor[]      = "#4499CC";
 static const char selfgcolor[]      = "#FFFFFF";
+*/
 
-static const unsigned int borderpx  = 3;        /* border pixel of windows */
+static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 20;       /* snap pixel */
 static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
