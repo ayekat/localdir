@@ -150,7 +150,7 @@ static const char *lcdupcmd[] = { "sudo", "lcdctl", "increase", NULL };
 static const char *lcddowncmd[] = { "sudo", "lcdctl", "decrease", NULL };
 static const char *kbdupcmd[] = { "sudo", "lcdctl", "increase", "keyboard", NULL };
 static const char *kbddowncmd[] = { "sudo", "lcdctl", "decrease", "keyboard", NULL };
-static const char *timetablecmd[] = { "firefox", "http://localhost/timetable_ba4.png", NULL };
+static const char *timetablecmd[] = { "firefox", "http://localhost/timetable.png", NULL };
 
 static Key keys[] = {
 	/* modifier           key        function        argument */
