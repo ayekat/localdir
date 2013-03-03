@@ -34,12 +34,14 @@ wmname LG3D
 # NOTE: These are Xorg specific variables only (see also .bash_profile).
 
 # Altera:
-# (user is recommended to be in 'plugdev' group, for using USB device)
+# - user is recommended to be in 'plugdev' group, for using USB device
+# - quartus starts Quartus
+# - vsim starts ModelSim
 if [[ -d $HOME/.local/bin/altera ]]; then
 	ALTERA="$HOME/.local/bin/altera"
-	export PATH="$ALTERA/quartus/bin:$PATH"      # Quartus
-	export PATH="$ALTERA/modelsim_ase/bin:$PATH" # ModelSim
-	export PATH="$ALTERA/nios2eds/bin:$PATH"     # NIOS2
+	export PATH="$ALTERA/quartus/bin:$PATH"        # Quartus
+	export PATH="$ALTERA/modelsim_ase/linux:$PATH" # ModelSim
+	export PATH="$ALTERA/nios2eds/bin:$PATH"       # NIOS2
 	export PATH="$ALTERA/nios2eds/sdk2/bin:$PATH"
 	export PATH="$ALTERA/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$PATH"
 	unset ALTERA
