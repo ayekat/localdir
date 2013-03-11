@@ -1,0 +1,7 @@
+#!/bin/sh
+# Prints the [n] most used commands based on the shell's history file where [n]
+# is an optional argument (default: 10).
+
+[ $1 == '' ] && LINES=10 || LINES=$1
+awk '{print $1}' < $HISTFILE | sort | uniq -c | sort -rn | head -n $LINES
+

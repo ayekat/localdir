@@ -16,3 +16,11 @@ for ($fg = 30; $fg < 38; $fg++) {
 		print "\e[0m\n";
 	}
 }
+
+# Here is a list of escape sequences not related to colour:
+#  1: bold
+#  2: thin/weak
+#  4: underlined
+#  7: inverted
+#  8: hidden
+#  9: canceled

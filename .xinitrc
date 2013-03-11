@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Xinit ressource file for starting dwm
 # Written by ayekat on a rainy day in october 2012
 
@@ -11,16 +11,10 @@ cd
 # MONITOR OPTIONS --------------------------------------------------------------
 
 # Get the number of monitors:
-export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
+export NUMSCREENS=`xrandr | grep ' connected ' | wc -l`
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start
-
-# Xrandr examples (not for daily use, graphic card driver usually takes care of
-# this):
-#xrandr --output VGA-0 --mode 1920x1050
-#xrandr --output VGA-0 --right-of LVDS
-#xrandr --output VGA-0 --off
 
 
 # DWM --------------------------------------------------------------------------
@@ -37,7 +31,7 @@ wmname LG3D
 # - user is recommended to be in 'plugdev' group, for using USB device
 # - quartus starts Quartus
 # - vsim starts ModelSim
-if [[ -d $HOME/.local/bin/altera ]]; then
+if [ -d $HOME/.local/bin/altera ]; then
 	ALTERA="$HOME/.local/bin/altera"
 	export PATH="$ALTERA/quartus/bin:$PATH"        # Quartus
 	export PATH="$ALTERA/modelsim_ase/linux:$PATH" # ModelSim
@@ -60,16 +54,14 @@ thunar --daemon &
 nitrogen --restore &
 
 # Activate Japanese input:
-if [[ -e /usr/bin/uim-xim ]]; then
+if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE='uim'
 	export XMODIFIERS=@im='anthy'
 	uim-xim &
 fi
 
 # Swap keys for MacBooks:
-if [[ -e ~/.Xmodmap ]]; then
-	xmodmap ~/.Xmodmap
-fi
+[ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 
 # SESSION ----------------------------------------------------------------------
