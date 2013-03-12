@@ -35,8 +35,11 @@ autoload -U colors && colors
 # Enable and format VCS:
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:*' stagedstr "%{$fg[green]%}●"
+zstyle ':vcs_info:*' unstagedstr "%{$fg[red]%}●"
+zstyle ':vcs_info:git*' check-for-changes true
 zstyle ':vcs_info:git*' formats \
-"%{$fg[black]%}[%{$fg[green]%}%b%{$fg[black]%}]%{$reset_color%} "
+		"%{$fg[black]%}[%{$fg[green]%}%b%u%c%{$fg[black]%}]%{$reset_color%} "
 precmd() { vcs_info; }      # update before displaying prompt
 
 # Left prompt (hostname + pwd):
