@@ -32,6 +32,13 @@ fi
 # Enable colours:
 autoload -U colors && colors
 
+# Enable and format VCS:
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable git
+zstyle ':vcs_info:git*' formats \
+"%{$fg[black]%}[%{$fg[green]%}%b%{$fg[black]%}]%{$reset_color%} "
+precmd() { vcs_info; }      # update before displaying prompt
+
 # Left prompt (hostname + pwd):
 [ $IS_DESKTOP ] && PROMPT="%{$fg[yellow]%}" || PROMPT="%{$fg[magenta]%}"
 PROMPT+="%m "
@@ -44,7 +51,8 @@ TMOUT=1                     # timeout (interval)
 TRAPALRM() {                # event, every $TMOUT seconds:
 	zle reset-prompt        # -> update the prompt
 }
-RPROMPT='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
+RPROMPT='%B${vcs_info_msg_0_}%b'
+RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
 
 
 # ------------------------------------------------------------------------------

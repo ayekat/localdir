@@ -57,6 +57,9 @@ set encoding=utf8
 
 	" Without any syntax highlighting, programming is a pain:
 	syntax on
+
+	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
+	let g:is_posix=1
 	
 	" I wanna stay inside the 80 columns, so display a black bar after 80 chars:
 	if version >= 703
