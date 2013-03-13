@@ -39,7 +39,7 @@ zstyle ':vcs_info:*' stagedstr "%{$fg[green]%}●"
 zstyle ':vcs_info:*' unstagedstr "%{$fg[red]%}●"
 zstyle ':vcs_info:git*' check-for-changes true
 zstyle ':vcs_info:git*' formats \
-		"%{$fg[black]%}[%{$fg[green]%}%b%u%c%{$fg[black]%}]%{$reset_color%} "
+		"%%B%{$fg[black]%}[%{$fg[green]%}%b%%b%u%c%%B%{$fg[black]%}]%%b"
 precmd() { vcs_info; }      # update before displaying prompt
 
 # Left prompt (hostname + pwd):
@@ -54,7 +54,7 @@ TMOUT=1                     # timeout (interval)
 TRAPALRM() {                # event, every $TMOUT seconds:
 	zle reset-prompt        # -> update the prompt
 }
-RPROMPT='%B${vcs_info_msg_0_}%b'
+RPROMPT='${vcs_info_msg_0_} '
 RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
 
 
