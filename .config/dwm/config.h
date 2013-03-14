@@ -33,8 +33,8 @@ static const Bool showbar           = True;     /* False means no bar */
 static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "" };
-#include "shiftview.c" // cycle through tags
+static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "", "" };
+//#include "shiftview.c" // cycle through tags
 
 static const Rule rules[] = {
 // floating windows:
@@ -44,7 +44,7 @@ static const Rule rules[] = {
 	{ "MPlayer",        NULL,    NULL,         0,        True,      -1 },
 	{ "Nitrogen",       NULL,    NULL,         0,        True,      -1 },
 	{ "Firefox",        NULL,    "Downloads",  0,        True,      -1 },
-	{ "Xfce4-terminal", NULL,    "Scratchpad", 0,        True,      -1 },
+	{ "Xfce4-terminal", NULL,    "Scratchpad", 1<<9,     True,      -1 },
 	{ "Lxappearance",   NULL,    NULL,         0,        True,      -1 },
 
 // categories:
@@ -97,6 +97,38 @@ void prevlayout(const Arg *arg)
 		setlayout(&((Arg) { .v = &layouts[LENGTH(layouts) - 2] }));
 }
 
+/** Function to shift the current view to the left/right
+ *
+ * @param: "arg->i" stores the number of tags to shift right (positive value)
+ *          or left (negative value)
+ */
+void
+shiftview(const Arg *arg) {
+	Arg shifted, scratch;
+
+	// strip scratchpad:
+	int sp = (selmon->tagset[selmon->seltags] & (1<<(LENGTH(tags)-1)));
+	scratch.ui = (selmon->tagset[selmon->seltags] & ((1<<(LENGTH(tags)-1))-1));
+	if (sp > 0 && scratch.ui > 0) {
+		view(&scratch);
+	}
+
+	// circular shift:
+	if (arg->i > 0) // left
+		shifted.ui = (selmon->tagset[selmon->seltags] << arg->i)
+		   | (selmon->tagset[selmon->seltags] >> (LENGTH(tags) - arg->i));
+	else // right
+		shifted.ui = selmon->tagset[selmon->seltags] >> (- arg->i)
+		   | selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i);
+	view(&shifted);
+
+	// readd scratchpad:
+	if (sp > 0 && scratch.ui > 0) {
+		scratch.ui = (selmon->tagset[selmon->seltags] | (1<<(LENGTH(tags)-1)));
+		view(&scratch);
+	}
+}
+
 /* move and follow window to next tag */
 void movefollowtag(const Arg *arg)
 {
@@ -119,6 +151,16 @@ void movefollowmon(const Arg *arg)
 {
 	tagmon(arg);
 	focusmon(arg);
+}
+
+/* toggle tag view and focus windows on that tag: */
+void
+focusview(const Arg *arg) {
+	Client *c;
+	toggleview(arg);
+	for(c = selmon->clients; c; c = c->next)
+		if (c->tags == arg->ui)
+			focus(c);
 }
 
 /* key definitions */
@@ -156,11 +198,14 @@ static Key keys[] = {
 	/* modifier           key        function        argument */
 	{ MODKEY,             XK_p,      spawn,          {.v = dmenucmd } },
 	{ MODKEY|ControlMask, XK_j,      spawn,          {.v = termcmd } },
-	{ MODKEY,             XK_Tab,    spawn,          {.v = scratchpadcmd } },
 	{ 0,                  XK_Print,  spawn,          {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,      spawn,          {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,      spawn,          {.v = redshiftcmd } },
 	{ MODKEY|ShiftMask,   XK_c,      killclient,     {0} },
+
+	// scratchpad:
+	{ MODKEY,             XK_Tab,    focusview,      {.ui=1<<(LENGTH(tags)-1)}},
+	{ MODKEY|ShiftMask,   XK_Tab,    spawn,          {.v = scratchpadcmd } },
 
 	// volume keys:
 	{ 0,                  0x1008FF11,spawn,          {.v = vollowercmd } },
@@ -245,4 +290,3 @@ static Button buttons[] = {
 	 * - ClkTagBar:     tag list
 	 */
 };
-

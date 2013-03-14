@@ -19,7 +19,7 @@ dzenconky_start() {
 	# (if .conkyrc is available):
 	numscreens=$(xrandr | grep '*' | wc -l)
 	screenwidth=($(xrandr | grep '*' | cut -c 4-7))
-	tagwidth=219
+	tagwidth=242
 	for ((i=0; i<$numscreens; i++)); do
 		dzenwidth=$((${screenwidth[$i]}-$tagwidth))
 		conkyrc=$(printf "%s/conky/%s_%d.conkyrc" \

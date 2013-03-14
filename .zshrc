@@ -35,8 +35,8 @@ autoload -U colors && colors
 # Enable and format VCS:
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' stagedstr "%{$fg[green]%}●"
-zstyle ':vcs_info:*' unstagedstr "%{$fg[red]%}●"
+zstyle ':vcs_info:*' stagedstr " %{$fg[green]%}●"
+zstyle ':vcs_info:*' unstagedstr " %{$fg[red]%}●"
 zstyle ':vcs_info:git*' check-for-changes true
 zstyle ':vcs_info:git*' formats \
 		"%%B%{$fg[black]%}[%{$fg[green]%}%b%%b%u%c%%B%{$fg[black]%}]%%b"
