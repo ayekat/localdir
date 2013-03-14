@@ -159,8 +159,10 @@ focusview(const Arg *arg) {
 	Client *c;
 	toggleview(arg);
 	for(c = selmon->clients; c; c = c->next)
-		if (c->tags == arg->ui)
+		if (c->tags == arg->ui) {
 			focus(c);
+			XRaiseWindow(dpy, c->win);
+		}
 }
 
 /* key definitions */

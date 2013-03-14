@@ -68,6 +68,9 @@ compinit
 # I use vim, but I'm used to emacs-keybinds in the terminal:
 bindkey -e
 
+# However we don't need exagerate, do we?
+bindkey "[3~" delete-char
+
 # Disable zsh menu for autocompletion:
 setopt no_auto_menu
 

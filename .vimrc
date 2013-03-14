@@ -283,6 +283,8 @@ set nomodeline
 	map k gk
 	map j gj
 
+	set iskeyword-=_
+
 
 " ------------------------------------------------------------------------------
 " COMPILING
