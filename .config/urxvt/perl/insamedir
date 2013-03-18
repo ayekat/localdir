@@ -1,0 +1,33 @@
+#!/usr/bin/perl
+# Opens a new urxvt instance in the current directory.
+# Taken from here:
+# http://lists.schmorp.de/pipermail/rxvt-unicode/2012q3/001610.html
+# References: man 3 urxvtperl
+#  Debugging:   urxvt --perl-lib ${HOME}/.urxvt -pe new-window
+
+use strict;
+use warnings;
+use Cwd;
+
+sub new_window {
+	my ($self) = @_;
+	my $ccwd = readlink("/proc/".$self->{child_pid}."/cwd");
+	system "urxvt -cd \Q$ccwd\E &";
+}
+
+sub on_child_start {
+	my ($self,$pid) = @_;
+
+	$self->{child_pid} = $pid;  # keep for later determining our shells
+	                            # CWD for relative path names
+	()
+}
+
+sub on_user_command {
+	my ($self, $cmd) = @_;
+
+	if ($cmd eq "insamedir:open") {
+		new_window($self);
+	}
+}
+

@@ -62,8 +62,7 @@ RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
 # FEEL
 
 # Enable autocompletion feature:
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 
 # I use vim, but I'm used to emacs-keybinds in the terminal:
 bindkey -e
@@ -115,7 +114,8 @@ man() {
 # Arch specific aliases:
 if [ $arch = "arch" ]; then
 	alias cal="cal -m -3"
-	[ $IS_DESKTOP -a $TERM = "linux" ] && alias x="xinit -nolisten tcp & exit"
+	[ $IS_DESKTOP -a $TERM = "linux" ] &&
+			alias x="startx -- -nolisten tcp & disown && exit"
 fi
 
 

@@ -1,45 +1,89 @@
 ! COLOURS ----------------------------------------------------------------------
 
-! Black:
-*color0          :#222222
-*color8          :#555555
-! Red:
-*color1          :#DD5544
-*color9          :#FF5555
-! Green:
-*color2          :#00AA00
-*color10         :#55FF55
-! Yellow:
-*color3          :#BDBD00
-*color11         :#FFFF55
-! Blue:
-*color4          :#2277BB
-*color12         :#4499CC
-! Magenta:
-*color5          :#CC00CC
-*color13         :#FF55FF
-! Cyan:
-*color6          :#00C0C0
-*color14         :#55FFFF
-! White:
-*color7          :#EEEEEE
-*color15         :#FFFFFF
+! colour definitions:
+#define black        #222222
+#define red          #DD5544
+#define green        #00AA00
+#define yellow       #BDBD00
+#define blue         #2277BB
+#define magenta      #CC00CC
+#define cyan         #00C0C0
+#define white        #EEEEEE
+#define lightblack   #555555
+#define lightred     #FF5555
+#define lightgreen   #55FF55
+#define lightyellow  #FFFF55
+#define lightblue    #4499CC
+#define lightmagenta #FF55FF
+#define lightcyan    #55FFFF
+#define lightwhite   #FFFFFF
+
+#define termfg       #AAAAAA
+#define termbg       #111111
+
+
+! black:
+*color0              : black
+*color8              : lightblack
+! red:
+*color1              : red
+*color9              : lightred
+! green:
+*color2              : green
+*color10             : lightgreen
+! yellow:
+*color3              : yellow
+*color11             : lightyellow
+! blue:
+*color4              : blue
+*color12             : lightblue
+! magenta:
+*color5              : magenta
+*color13             : lightmagenta
+! cyan:
+*color6              : cyan
+*color14             : lightcyan
+! white:
+*color7              : white
+*color15             : lightwhite
 
 
 ! XTERM ------------------------------------------------------------------------
 
-xterm*background : #111111
-xterm*foreground : #AAAAAA
+xterm*foreground     : termfg
+xterm*background     : termbg
+
 
 ! URXVT ------------------------------------------------------------------------
-URxvt.background : #111111
-URxvt.cursorBlink: true
-URxvt.depth      : 32
-URxvt.foreground : #AAAAAA
-URxvt.scrollBar  : false
+
+! Look:
+URxvt*depth          : 32
+URxvt*foreground     : termfg
+URxvt*background     : termbg
+URxvt*cursorBlink    : true
+URxvt*scrollBar      : false
+URxvt*internalBorder : 0
+
+! Ignore Ctrl+Shift events:
+URxvt*iso14755       : False
+URxvt*iso14755_52    : False
+
+URxvt*font           : 6x13
+URxvt*boldFont       : 6x13bold
+
+! Perl extension for opening new window in same PWD:
+URxvt*perl-lib       : /home/ayekat/.urxvt/perl/
+URxvt.perl-ext-common: insamedir
+URxvt*keysym.M-n     : perl:insamedir:open
+
+! Scroll behaviour:
+URxvt*scrollTtyOutput: false
+URxvt*scrollTtyKeypress: true
+
 
 ! DZEN -------------------------------------------------------------------------
-dzen2.font       : Fixed-10:SemiCondensed
-dzen2.background : #222222
-dzen2.foreground : #888888
+
+dzen2.font           : Fixed-10:SemiCondensed
+dzen2.background     : black
+dzen2.foreground     : #888888
 

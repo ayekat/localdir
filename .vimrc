@@ -13,7 +13,7 @@ call pathogen#infect()
 
 
 " ------------------------------------------------------------------------------
-" DISPLAY
+" LOOK
 
 " Displays darker colours, more confortable for the eyes:
 set background=light
@@ -21,16 +21,15 @@ set background=light
 " Display and format line numbers:
 set number
 set numberwidth=5
-hi LineNr ctermbg=black ctermfg=darkgrey
+hi LineNr cterm=bold ctermbg=0 ctermfg=0
 
 " Highlight number of current line:
 set cursorline
 hi CursorLine cterm=none
-hi CursorLineNr ctermbg=black ctermfg=blue
+hi CursorLineNr cterm=bold ctermbg=black ctermfg=blue
 
 " Enable UTF-8 (I wanna see Umlauts!):
 set encoding=utf8
-
 
 " SPLIT WINDOWS >
 	
@@ -44,7 +43,7 @@ set encoding=utf8
 " FOLDING >
 
 	" Define colour:
-	hi Folded ctermbg=black ctermfg=blue
+	hi Folded cterm=bold ctermbg=0 ctermfg=blue
 
 	" Define fill characters (space=don't fill up):
 	set fillchars+=fold:\ 
@@ -64,18 +63,40 @@ set encoding=utf8
 	" I wanna stay inside the 80 columns, so display a black bar after 80 chars:
 	if version >= 703
 		set colorcolumn=81
-		hi ColorColumn ctermbg=black
+		hi ColorColumn ctermbg=0
 	endif
 
 	" I wanna see tabs and trailing whitespaces:
 	set list listchars=tab:→\ ,trail:·
-	hi SpecialKey ctermfg=darkgrey
+	hi SpecialKey cterm=bold ctermfg=0
 
 	" Highlight maching parantheses:
 	set showmatch
-	hi MatchParen ctermfg=magenta ctermbg=none
+	hi MatchParen cterm=bold ctermfg=5 ctermbg=none
 
 
+" ------------------------------------------------------------------------------
+" COLOURS {{{
+" Colours and theme redefinitions.
+
+" Fix ugly urxvt/vim yellow:
+hi Statement ctermfg=3
+hi Todo ctermbg=3
+
+" Make visual less penetrant:
+hi Visual cterm=inverse ctermbg=0
+
+" Different background for area below end of file:
+hi NonText ctermbg=0
+
+" Fancy dropdown menu:
+hi Pmenu ctermbg=0 ctermfg=2
+hi PmenuSel ctermbg=2 ctermfg=0
+hi PmenuSbar ctermbg=0
+hi PmenuThumb ctermbg=2
+
+
+" }}}
 " ------------------------------------------------------------------------------
 " STATUS BAR {{{
 " Written by ayekat on a cold day in december 2012
@@ -89,7 +110,7 @@ set noshowmode
 " Define default statusline background to get rid of funnily coloured corners:
 hi StatusLine ctermfg=black ctermbg=green
 hi StatusLineNC ctermfg=black ctermbg=red
-hi User1 ctermbg=black ctermfg=darkgrey
+hi User1 cterm=bold ctermbg=black ctermfg=black
 
 function! GetFilepath()
 	let filepath=expand("%:p")
@@ -112,55 +133,55 @@ endfunction
 " This function defines the active statusbar content:
 function! StatuslineActive(mode)
 	" Default colour:
-	hi User1 ctermbg=black ctermfg=darkgrey
+	hi User1 cterm=bold ctermbg=0 ctermfg=0
 
 	" Colour for modified flag:
-	hi User9 ctermbg=black ctermfg=yellow
+	hi User9 cterm=bold ctermbg=0 ctermfg=3
 
 	" Colours for cursor and window position:
-	hi User4 ctermbg=black ctermfg=darkgreen
+	hi User4 ctermbg=black ctermfg=green
 	if a:mode == 'I'
-		hi User2 ctermbg=darkyellow ctermfg=black
-		hi User3 ctermbg=black ctermfg=darkyellow
-		hi User5 ctermbg=darkyellow ctermfg=yellow
+		hi User2 ctermbg=3 ctermfg=0
+		hi User3 ctermbg=0 ctermfg=3
+		hi User5 cterm=bold ctermbg=3 ctermfg=3
 	elseif a:mode == 'R'
-		hi User2 ctermbg=darkred ctermfg=black
-		hi User3 ctermbg=black ctermfg=darkred
-		hi User5 ctermbg=darkred ctermfg=red
+		hi User2 ctermbg=darkred ctermfg=0
+		hi User3 ctermbg=0 ctermfg=1
+		hi User5 cterm=bold ctermbg=1 ctermfg=1
 	elseif a:mode == 'V'
-		hi User2 ctermbg=darkcyan ctermfg=black
-		hi User3 ctermbg=black ctermfg=darkcyan
-		hi User5 ctermbg=darkcyan ctermfg=cyan
+		hi User2 ctermbg=darkcyan ctermfg=0
+		hi User3 ctermbg=0 ctermfg=6
+		hi User5 cterm=bold ctermbg=6 ctermfg=6
 	else
-		hi User2 ctermbg=darkgreen ctermfg=black
-		hi User3 ctermbg=black ctermfg=darkgreen
-		hi User5 ctermbg=darkgreen ctermfg=green
+		hi User2 ctermbg=darkgreen ctermfg=0
+		hi User3 ctermbg=0 ctermfg=2
+		hi User5 cterm=bold ctermbg=2 ctermfg=2
 	endif
 
 	" Colour for file name:
 	if &readonly
-		hi User6 ctermbg=black ctermfg=red
+		hi User6 cterm=bold ctermbg=0 ctermfg=1
 	else
-		hi User6 ctermbg=black ctermfg=blue
+		hi User6 cterm=bold ctermbg=0 ctermfg=4
 	endif
 
 	" Colours and text for current mode:
 	setl statusline=%7*
 	if a:mode == 'V'
-		hi User7 ctermbg=darkcyan ctermfg=darkgrey
-		hi User8 ctermbg=black ctermfg=darkcyan
+		hi User7 ctermbg=6 ctermfg=0
+		hi User8 ctermbg=0 ctermfg=6
 		setl statusline+=\ VISUAL\ \ %8*⮀
 	elseif a:mode == 'R'
-		hi User7 ctermbg=darkred ctermfg=darkgrey
-		hi User8 ctermbg=black ctermfg=darkred
+		hi User7 ctermbg=1 ctermfg=0
+		hi User8 ctermbg=0 ctermfg=1
 		setl statusline+=\ REPLCE\ \ %8*⮀
 	elseif a:mode == 'I'
-		hi User7 ctermbg=darkyellow ctermfg=darkgrey
-		hi User8 ctermbg=black ctermfg=darkyellow
+		hi User7 ctermbg=3 ctermfg=0
+		hi User8 ctermbg=0 ctermfg=3
 		setl statusline+=\ INSERT\ \ %8*⮀
 	else
-		hi User7 ctermbg=black ctermfg=darkgreen
-		hi User8 ctermbg=black ctermfg=darkgrey
+		hi User7 cterm=none ctermbg=0 ctermfg=2
+		hi User8 ctermbg=0 ctermfg=0
 		setl statusline+=\ NORMAL\ \ %8*⮁
 	endif
 
@@ -283,7 +304,9 @@ set nomodeline
 	map k gk
 	map j gj
 
+	" Word-breaking characters:
 	set iskeyword-=_
+	set iskeyword-=[.]
 
 
 " ------------------------------------------------------------------------------
