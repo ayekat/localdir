@@ -1,13 +1,51 @@
-#!/bin/bash
+#!/bin/sh
 # bash configuration file
-# Written by ayekat on a rainy day in 2009
+# Written by ayekat on a rainy day in 2009.
 
 
 # ------------------------------------------------------------------------------
-# START-UP ACTION
+# START
 
-# Check for an interactive session (= not executed as shell script interpreter):
+# Check if this is an interactive session:
 test -z "$PS1" && return
+
+
+# ------------------------------------------------------------------------------
+# SYSTEM
+
+# Read operating system information (if available):
+if [ -e /etc/os-release ]; then
+	arch=$(grep ID /etc/os-release | cut -c 4-)
+elif [ $(uname) = "Darwin" ]; then
+	arch="darwin"
+elif [ -e /etc/gentoo-release ]; then
+	arch="gentoo"
+else
+	arch="unknown"
+fi
+
+# Determine if desktop (Xorg exists or OS X):
+[ -e /usr/bin/xinit -o $arch = "darwin" ] && IS_DESKTOP=1
+
+# If not, we are on a server, so start or reattach to screen session:
+if [ ! $IS_DESKTOP ]; then
+	[ -e /usr/bin/screen ] && screen -d -RR && exit
+fi
+
+
+# ------------------------------------------------------------------------------
+# LOOK
+
+# Configure Prompt:
+if [[ $IS_DESKTOP -eq 1 ]]; then
+	PS1="\[\e[33m\]\h \[\e[32m\]\w\[\e[0m\] "
+else
+	PS1="\[\e[35m\]\h \[\e[32m\]\w\[\e[0m\] "
+fi
+
+
+# ------------------------------------------------------------------------------
+# FEEL
 
 # Enable tab completion with sudo:
 complete -cf sudo
@@ -15,67 +53,8 @@ complete -cf sudo
 # Enable Vi/ViM-like behaviour (default: emacs):
 #set -o vi
 
-# Read operating system information (if available):
-if [[ -e /etc/os-release ]]; then
-	arch=$(grep ID /etc/os-release | cut -c 4-)
-elif [[ $(uname) = "Darwin" ]]; then
-	arch="darwin"
-elif [[ -e /etc/gentoo-release ]]; then
-	arch="gentoo"
-else
-	arch="unknown"
-fi
-
-# Determine if desktop (Xorg exists or OS X):
-if [[ -e /usr/bin/xinit || $arch = "darwin" ]]; then
-	IS_DESKTOP=1
-else
-	IS_DESKTOP=0
-fi
-
-# Delete the 'Desktop' folder if not on OS X:
-if [[ $arch != "darwin" ]]; then
-	rmdir $HOME/Desktop 2> /dev/null
-fi
-
-# TODO: ugly fix for my Debian server that doesn't correctly load locale:
-if [[ $arch = "debian" ]]; then
-	export LANG=en_GB.UTF-8
-fi
-
-# If we are on a server, start or reattach to screen session automatically:
-if [[ $IS_DESKTOP -eq 0 && -e /usr/bin/screen && $TERM != screen* ]]; then
-	screen -x && exit
-fi
-
-
-# ------------------------------------------------------------------------------
-# LOOK'N'FEEL
-
-# Configure Prompt:
-if [[ $IS_DESKTOP -eq 1 ]]; then
-	PS1="\[\e[36m\][\t] \[\e[33m\]\h \[\e[32m\]\w\[\e[0m\] "
-else
-	PS1="\[\e[36m\][\t] \[\e[35m\]\h \[\e[32m\]\w\[\e[0m\] "
-fi
-
-# By the way: these are some common escape sequences:
-#
-#  30/40: black   (fg/bg)
-#  31/41: red     (fg/bg)
-#  32/42: green   (fg/bg)
-#  33/43: yellow  (fg/bg)
-#  34/44: blue    (fg/bg)
-#  35/45: magenta (fg/bg)
-#  36/46: cyan    (fg/bg)
-#  37/47: white   (fg/bg)
-#
-#  1: bold
-#  2: thin/weak
-#  4: underlined
-#  7: inverted
-#  8: hidden
-#  9: canceled
+# Set vim as default text editor:
+export EDITOR="/usr/bin/vim"
 
 
 # ------------------------------------------------------------------------------
@@ -89,16 +68,11 @@ alias laht="ls -laht"
 alias ll="ls -lh"
 alias mv="mv -i"
 alias sudo="sudo -p \"[sudo]\"\ password:\ "
-if [[ $arch = "darwin" ]]; then
-	alias ls="ls -G"           # BSD
-else
-	alias ls="ls --color=auto" # GNU
-fi
+# BSD vs GNU:
+[ $arch = "darwin" ] && alias ls="ls -G" || alias ls="ls --color=auto"
 
 # Server only aliases (mostly additional security):
-if [[ $IS_DESKTOP -eq 0 ]]; then
-	alias rm="rm -i"
-fi
+[ ! $IS_DESKTOP ] && alias rm="rm -i"
 
 # Colored man pages (see above for format definitions):
 man() {
@@ -114,22 +88,26 @@ man() {
 }
 
 # Application specific aliases:
-if [[ -e /usr/bin/thunar ]]; then
-	alias open="thunar"; fi
-if [[ -e /usr/bin/valgrind ]]; then
-	alias valgrind="valgrind --log-file=valgrind.log"; fi
+[ -e /usr/bin/thunar ] && alias open="thunar"
+[ -e /usr/bin/valgrind ] && alias valgrind="valgrind --log-file=valgrind.log"
 
 # Arch specific aliases:
-if [[ $arch = "arch" ]]; then
+if [ $arch = "arch" ]; then
 	alias cal="cal -m -3"
-	if [[ $IS_DESKTOP -eq 1 && $TERM = "linux" ]]; then
-		alias x="startx -- -nolisten tcp & exit"
-	fi
+	[ $IS_DESKTOP -a $TERM = "linux" ] &&
+			alias x="startx -- -nolisten tcp & exit"
 fi
 
 
 # ------------------------------------------------------------------------------
-# START-UP DISPLAY
+# HISTORY
+
+export HISTIGNORE="&:[bf]g:exit"
+export HISTSIZE=10000
+
+
+# ------------------------------------------------------------------------------
+# START-UP ACTIONS
 
 # Define logos:
 printlogo() {
@@ -193,11 +171,15 @@ printlogo() {
 	esac
 }
 
-# Print right logo:
+# Delete the 'Desktop' folder if not on OS X:
+[ $arch != "darwin" ] && rmdir $HOME/Desktop 2> /dev/null
+
+# TODO: ugly fix for my Debian server that doesn't correctly load locale:
+[ $arch = "debian" ] && export LANG=en_GB.UTF-8
+
+# Print system logo:
 printlogo $arch
 
 # Display the todo file in the home directory:
-if [[ -e $HOME/TODO ]]; then
-	echo; cat $HOME/TODO; echo
-fi
+[ -e $HOME/TODO ] && { echo; cat $HOME/TODO; echo; }
 
