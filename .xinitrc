@@ -63,6 +63,9 @@ fi
 # Swap keys for MacBooks:
 [ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
+# Start a scratchpad:
+sleep 2 && scratchpad
+
 
 # SESSION ----------------------------------------------------------------------
 
