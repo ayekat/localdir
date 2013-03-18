@@ -21,18 +21,11 @@ source=(
 	$pkgname-$pkgver-attachabove.diff
 	$pkgname-$pkgver-pango.diff
 	$pkgname-5.8.2-fibonacci.diff
-	$pkgname-5.8.2-gridmode.diff
 	config.h
-	column_master.c
-	shiftview.c
-	lstack.c
 )
 
 build() {
 	cd $srcdir/$pkgname-$pkgver
-	cp $srcdir/shiftview.c shiftview.c
-	cp $srcdir/lstack.c lstack.c
-	cp $srcdir/column_master.c column_master.c
 	cp $srcdir/config.h config.h
 	# already applied patches are commented out; activate them to patch new source
 	#patch -p1 -i $srcdir/$pkgname-$pkgver-bstack.diff
@@ -41,7 +34,6 @@ build() {
 	#patch -p1 -i $srcdir/$pkgname-$pkgver-pertag.diff
 	#patch -p1 -i $srcdir/$pkgname-$pkgver-pango.diff
 	#patch -p1 -i $srcdir/$pkgname-5.8.2-fibonacci.diff
-	#patch -p1 -i $srcdir/$pkgname-5.8.2-gridmode.diff
 	sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
 	sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
 	sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk

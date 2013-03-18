@@ -1,6 +1,3 @@
-//#include "lstack.c"       // additional layout to put stack on the left
-//#include "grid.c"           //     "        "    "  arrange as Grid
-//#include "column_master.c"  //     "        "    "  split master in columns
 #include "bstack.c"         //     "        "    "  split screen vertically
 #include "fibonacci.c"      //     "        "    "  arrange as Fibonacci
 #include "push.c"           // move clients around in stack/master
@@ -11,12 +8,12 @@
 static const char font[]            = "Fixed Medium Semi-Condensed 10";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1";
 // orange
-static const char normbordercolor[] = "#222222";
-static const char selbordercolor[]  = "#E04613";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#AAAAAA";
-static const char selbgcolor[]      = "#E04613";
-static const char selfgcolor[]      = "#FFFFFF";
+static const char normbordercolor[]      = "#222222";
+static const char selbordercolor[]       = "#E04613";
+static const char normbgcolor[]          = "#222222";
+static const char normfgcolor[]          = "#AAAAAA";
+static const char selbgcolor[]           = "#E04613";
+static const char selfgcolor[]           = "#FFFFFF";
 /*
 // blue
 static const char normbordercolor[] = "#222222";
@@ -34,7 +31,6 @@ static const Bool topbar            = True;     /* False means bottom bar */
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "", " " };
-//#include "shiftview.c" // cycle through tags
 
 static const Rule rules[] = {
 // floating windows:
@@ -46,16 +42,6 @@ static const Rule rules[] = {
 	{ "Firefox",        NULL,    "Downloads",  0,        True,      -1 },
 	{ "Xfce4-terminal", NULL,    "Scratchpad", 1<<9,     True,      -1 },
 	{ "Lxappearance",   NULL,    NULL,         0,        True,      -1 },
-
-// categories:
-	/* class            instance title         tags mask isfloating monitor */
-	/* disabled, due to chat messages going unnoticed because they weren't
-	   opened on the focused tag:
-	{ "Firefox",        NULL,    NULL,         1<<4,     False,     -1 },
-	{ "Claws-mail",     NULL,    NULL,         1<<7,     False,     -1 },
-	{ "Skype",          NULL,    NULL,         1<<7,     False,     -1 },
-	{ "Pidgin",         NULL,    NULL,         1<<7,     False,     -1 },
-	*/
 };
 
 /* layout(s) */
@@ -69,9 +55,6 @@ static const Layout layouts[] = {
 	{ "",      bstack },
 	{ "[M]",      monocle },
 	{ "",      dwindle },
-//	{ "",      ltile },
-//	{ "###",      grid },
-//	{ "",      col },
 	{ .symbol = NULL,   .arrange = NULL    }, /* for cycling (see below) */
 };
 
@@ -97,8 +80,7 @@ void prevlayout(const Arg *arg)
 		setlayout(&((Arg) { .v = &layouts[LENGTH(layouts) - 2] }));
 }
 
-/** Function to shift the current view to the left/right
- *
+/* Shifts the current view to the left/right.
  * @param: "arg->i" stores the number of tags to shift right (positive value)
  *          or left (negative value)
  */
@@ -129,7 +111,8 @@ shiftview(const Arg *arg) {
 	}
 }
 
-/* move and follow window to next tag */
+/* Moves and follows window to the next tag.
+ */
 void movefollowtag(const Arg *arg)
 {
 	Arg shifted;
@@ -146,16 +129,19 @@ void movefollowtag(const Arg *arg)
 	view(&shifted);
 }
 
-/* move and follow window to next monitor */
+/* Moves and follows a window to the next monitor.
+ */
 void movefollowmon(const Arg *arg)
 {
 	tagmon(arg);
 	focusmon(arg);
 }
 
-/* toggle tag view and focus windows on that tag: */
+/* Toggles a tag view and focuses a window on that tag.
+ */
 void
-focusview(const Arg *arg) {
+focusview(const Arg *arg)
+{
 	Client *c;
 	toggleview(arg);
 	for(c = selmon->clients; c; c = c->next)
@@ -199,11 +185,13 @@ static const char *timetablecmd[] = { "firefox", "http://localhost/timetable.png
 static Key keys[] = {
 	/* modifier           key        function        argument */
 	{ MODKEY,             XK_p,      spawn,          {.v = dmenucmd } },
-	{ MODKEY|ControlMask, XK_j,      spawn,          {.v = termcmd } },
 	{ 0,                  XK_Print,  spawn,          {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,      spawn,          {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,      spawn,          {.v = redshiftcmd } },
 	{ MODKEY|ShiftMask,   XK_c,      killclient,     {0} },
+
+	// terminal:
+	{ MODKEY|ControlMask, XK_j,      spawn,          {.v = termcmd } },
 
 	// scratchpad:
 	{ MODKEY,             XK_Tab,    focusview,      {.ui=1<<(LENGTH(tags)-1)}},
@@ -217,7 +205,7 @@ static Key keys[] = {
 	{ 0,                  0x1008FF13,spawn,          {.v = volraisecmd } },
 	{ MODKEY|ControlMask, XK_Up,     spawn,          {.v = volraisecmd } },
 
-	// brightness keys:
+	// brightness keys (only used for MacBookPro):
 	{ 0,                  0x1008FF02,spawn,          {.v = lcdupcmd } },
 	{ 0,                  0x1008FF03,spawn,          {.v = lcddowncmd } },
 	{ 0,                  0x1008FF05,spawn,          {.v = kbdupcmd } },
