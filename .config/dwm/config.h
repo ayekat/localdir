@@ -167,6 +167,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "10", "-b", "-fn", font,
 		"-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf",
 		selfgcolor, "-p", "<>", NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
+static const char *termcmd_new[]  = { "urxvtc", "-e", "/bin/zsh", NULL };
 static const char *quitcmd[] = { "killall", "dwmloop", NULL };
 static const char *lockcmd[] = { "slock", NULL };
 static const char *volraisecmd[] = { "amixer", "set", "Master", "3+", "unmute", NULL };
@@ -192,6 +193,7 @@ static Key keys[] = {
 
 	// terminal:
 	{ MODKEY|ControlMask, XK_j,      spawn,          {.v = termcmd } },
+	{ MODKEY|ControlMask, XK_n,      spawn,          {.v = termcmd_new } },
 
 	// scratchpad:
 	{ MODKEY,             XK_Tab,    focusview,      {.ui=1<<(LENGTH(tags)-1)}},

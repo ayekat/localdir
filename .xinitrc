@@ -60,8 +60,17 @@ if [ -e /usr/bin/uim-xim ]; then
 	uim-xim &
 fi
 
-# Swap keys for MacBooks:
+# Apply Xmodmap if it exists:
 [ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
+
+
+# SERVICES (TERMINALS) ---------------------------------------------------------
+
+# Add personal font directory:
+xset +fp $HOME/.local/share/fonts/
+
+# Start the urxvt daemon:
+urxvtd &
 
 # Start a scratchpad:
 scratchpad &
