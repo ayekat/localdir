@@ -64,7 +64,7 @@ fi
 [ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 # Start a scratchpad:
-sleep 2 && scratchpad
+scratchpad &
 
 
 # SESSION ----------------------------------------------------------------------

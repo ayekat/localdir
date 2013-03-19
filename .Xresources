@@ -57,28 +57,30 @@ xterm*background     : termbg
 ! URXVT ------------------------------------------------------------------------
 
 ! Look:
-URxvt*depth          : 32
 URxvt*foreground     : termfg
 URxvt*background     : termbg
 URxvt*cursorBlink    : true
 URxvt*scrollBar      : false
-URxvt*internalBorder : 0
+URxvt*internalBorder : 1
+URxvt*colorBD        : lightwhite
 
 ! Ignore Ctrl+Shift events:
 URxvt*iso14755       : False
 URxvt*iso14755_52    : False
 
+! Set font:
 URxvt*font           : 6x13
 URxvt*boldFont       : 6x13bold
 
 ! Perl extension for opening new window in same PWD:
-URxvt*perl-lib       : /home/ayekat/.urxvt/perl/
+URxvt*perl-lib       : /home/ayekat/.config/urxvt/perl/
 URxvt.perl-ext-common: insamedir
 URxvt*keysym.M-n     : perl:insamedir:open
 
 ! Scroll behaviour:
 URxvt*scrollTtyOutput: false
 URxvt*scrollTtyKeypress: true
+URxvt*skipScroll     : true
 
 
 ! DZEN -------------------------------------------------------------------------

@@ -169,19 +169,19 @@ function! StatuslineActive(mode)
 	setl statusline=%7*
 	if a:mode == 'V'
 		hi User7 ctermbg=6 ctermfg=0
-		hi User8 ctermbg=0 ctermfg=6
+		hi User8 cterm=none ctermbg=0 ctermfg=6
 		setl statusline+=\ VISUAL\ \ %8*⮀
 	elseif a:mode == 'R'
 		hi User7 ctermbg=1 ctermfg=0
-		hi User8 ctermbg=0 ctermfg=1
+		hi User8 cterm=none ctermbg=0 ctermfg=1
 		setl statusline+=\ REPLCE\ \ %8*⮀
 	elseif a:mode == 'I'
 		hi User7 ctermbg=3 ctermfg=0
-		hi User8 ctermbg=0 ctermfg=3
+		hi User8 cterm=none ctermbg=0 ctermfg=3
 		setl statusline+=\ INSERT\ \ %8*⮀
 	else
 		hi User7 cterm=none ctermbg=0 ctermfg=2
-		hi User8 ctermbg=0 ctermfg=0
+		hi User8 cterm=bold ctermbg=0 ctermfg=0
 		setl statusline+=\ NORMAL\ \ %8*⮁
 	endif
 
