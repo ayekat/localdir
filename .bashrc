@@ -37,7 +37,7 @@ fi
 # LOOK
 
 # Configure Prompt:
-if [[ $IS_DESKTOP -eq 1 ]]; then
+if [ $IS_DESKTOP ]; then
 	PS1="\[\e[33m\]\h \[\e[32m\]\w\[\e[0m\] "
 else
 	PS1="\[\e[35m\]\h \[\e[32m\]\w\[\e[0m\] "
