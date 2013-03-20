@@ -28,8 +28,8 @@ fi
 [ -e /usr/bin/xinit -o $arch = "darwin" ] && IS_DESKTOP=1
 
 # If not, we are on a server, so start or reattach to screen session:
-if [ ! $IS_DESKTOP -a $TERM != 'screen' ]; then
-	[ -e /usr/bin/screen ] && screen -x && exit
+if [ ! $IS_DESKTOP ]; then
+	[ -e /usr/bin/screen ] && [ $TERM != 'screen' ] && screen -x && exit
 fi
 
 
@@ -59,7 +59,6 @@ export EDITOR="/usr/bin/vim"
 
 # ------------------------------------------------------------------------------
 # ALIASES
-
 alias cp="cp -i"
 alias grep="grep --color=auto"
 alias la="ls -a"
@@ -94,7 +93,7 @@ man() {
 # Arch specific aliases:
 if [ $arch = "arch" ]; then
 	alias cal="cal -m -3"
-	[ $IS_DESKTOP -a $TERM = "linux" ] &&
+	[ $IS_DESKTOP ] && [ $TERM = "linux" ] &&
 			alias x="startx -- -nolisten tcp & exit"
 fi
 
