@@ -34,7 +34,7 @@ set encoding=utf8
 " SPLIT WINDOWS >
 	
 	" Define border colour:
-	hi VertSplit ctermfg=black ctermbg=red
+	hi VertSplit ctermfg=0 ctermbg=1
 
 	" Fill up with solid bar:
 	set fillchars=vert:┃
@@ -43,7 +43,7 @@ set encoding=utf8
 " FOLDING >
 
 	" Define colour:
-	hi Folded cterm=bold ctermbg=0 ctermfg=blue
+	hi Folded cterm=bold ctermbg=0 ctermfg=4
 
 	" Define fill characters (space=don't fill up):
 	set fillchars+=fold:\ 
@@ -108,9 +108,9 @@ set laststatus=2
 set noshowmode
 
 " Define default statusline background to get rid of funnily coloured corners:
-hi StatusLine ctermfg=black ctermbg=green
-hi StatusLineNC ctermfg=black ctermbg=red
-hi User1 cterm=bold ctermbg=black ctermfg=black
+hi StatusLine ctermfg=0 ctermbg=2
+hi StatusLineNC ctermfg=0 ctermbg=1
+hi User1 cterm=bold ctermbg=0 ctermfg=0
 
 function! GetFilepath()
 	let filepath=expand("%:p")
