@@ -15,6 +15,9 @@ call pathogen#infect()
 " ------------------------------------------------------------------------------
 " LOOK
 
+" Enable 256 colours mode:
+set t_Co=256
+
 " Displays darker colours, more confortable for the eyes:
 set background=light
 
@@ -34,7 +37,7 @@ set encoding=utf8
 " SPLIT WINDOWS >
 	
 	" Define border colour:
-	hi VertSplit ctermfg=0 ctermbg=1
+	hi VertSplit ctermfg=0 ctermbg=232
 
 	" Fill up with solid bar:
 	set fillchars=vert:┃
@@ -86,9 +89,6 @@ hi Todo ctermbg=3
 " Make visual less penetrant:
 hi Visual cterm=inverse ctermbg=0
 
-" Different background for area below end of file:
-hi NonText ctermbg=0
-
 " Fancy dropdown menu:
 hi Pmenu ctermbg=0 ctermfg=2
 hi PmenuSel ctermbg=2 ctermfg=0
@@ -108,9 +108,8 @@ set laststatus=2
 set noshowmode
 
 " Define default statusline background to get rid of funnily coloured corners:
-hi StatusLine ctermfg=0 ctermbg=2
-hi StatusLineNC ctermfg=0 ctermbg=1
-hi User1 cterm=bold ctermbg=0 ctermfg=0
+hi StatusLine cterm=none ctermfg=0 ctermbg=0
+hi StatusLineNC cterm=none ctermfg=2 ctermbg=0
 
 function! GetFilepath()
 	let filepath=expand("%:p")
@@ -121,91 +120,74 @@ function! GetFilepath()
 	return filepath
 endfunction
 
+" Base:
+hi User1 cterm=none ctermbg=0 ctermfg=244
+
+" Error:
+hi User6 cterm=bold ctermbg=0 ctermfg=1
+
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
 	" Display the filename:
-	set statusline=%1*\ \ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
-
-	" Display the number of lines in file:
-	set statusline+=%=(%L)
+	set statusline=%1*\ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
 endfunction
 
 " This function defines the active statusbar content:
 function! StatuslineActive(mode)
-	" Default colour:
-	hi User1 cterm=bold ctermbg=0 ctermfg=0
-
-	" Colour for modified flag:
-	hi User9 cterm=bold ctermbg=0 ctermfg=3
-
-	" Colours for cursor and window position:
-	hi User4 ctermbg=black ctermfg=green
-	if a:mode == 'I'
-		hi User2 ctermbg=3 ctermfg=0
-		hi User3 ctermbg=0 ctermfg=3
-		hi User5 cterm=bold ctermbg=3 ctermfg=3
-	elseif a:mode == 'R'
-		hi User2 ctermbg=darkred ctermfg=0
-		hi User3 ctermbg=0 ctermfg=1
-		hi User5 cterm=bold ctermbg=1 ctermfg=1
-	elseif a:mode == 'V'
-		hi User2 ctermbg=darkcyan ctermfg=0
-		hi User3 ctermbg=0 ctermfg=6
-		hi User5 cterm=bold ctermbg=6 ctermfg=6
-	else
-		hi User2 ctermbg=darkgreen ctermfg=0
-		hi User3 ctermbg=0 ctermfg=2
-		hi User5 cterm=bold ctermbg=2 ctermfg=2
-	endif
-
-	" Colour for file name:
-	if &readonly
-		hi User6 cterm=bold ctermbg=0 ctermfg=1
-	else
-		hi User6 cterm=bold ctermbg=0 ctermfg=4
-	endif
-
-	" Colours and text for current mode:
-	setl statusline=%7*
+	" Mode:
+	setl statusline=%2*
 	if a:mode == 'V'
-		hi User7 ctermbg=6 ctermfg=0
-		hi User8 cterm=none ctermbg=0 ctermfg=6
-		setl statusline+=\ VISUAL\ \ %8*⮀
+		hi User2 ctermbg=6 ctermfg=23
+		hi User3 ctermfg=6
+		setl statusline+=\ VISUAL\ 
 	elseif a:mode == 'R'
-		hi User7 ctermbg=1 ctermfg=0
-		hi User8 cterm=none ctermbg=0 ctermfg=1
-		setl statusline+=\ REPLCE\ \ %8*⮀
+		hi User2 ctermbg=1 ctermfg=0
+		hi User3 ctermfg=1
+		setl statusline+=\ REPLCE\ 
 	elseif a:mode == 'I'
-		hi User7 ctermbg=3 ctermfg=0
-		hi User8 cterm=none ctermbg=0 ctermfg=3
-		setl statusline+=\ INSERT\ \ %8*⮀
+		hi User2 ctermbg=3 ctermfg=58
+		hi User3 ctermfg=3
+		setl statusline+=\ INSERT\ 
 	else
-		hi User7 cterm=none ctermbg=0 ctermfg=2
-		hi User8 cterm=bold ctermbg=0 ctermfg=0
-		setl statusline+=\ NORMAL\ \ %8*⮁
+		hi User2 ctermbg=70 ctermfg=22
+		hi User3 ctermfg=70
+		setl statusline+=\ NORMAL\ 
 	endif
+	setl statusline+=%3*⮀
 
-	" File name:
-	setl statusline+=\ \ %6*%{GetFilepath()}%9*
-
-	" Modified flag:
+	" File Name:
+	hi User3 ctermbg=238
+	hi User8 ctermbg=238
+	hi User4 ctermfg=250 ctermbg=238
+	hi User5 ctermfg=238 ctermbg=0
+	setl statusline+=%4*\ \ %{GetFilepath()}\ 
 	if &modified
-		setl statusline+=\ *%1*⮁
+		setl statusline+=*
 	else
-		setl statusline+=\ \ %1*⮁
+		setl statusline+=\ 
 	endif
+	setl statusline+=%5*⮀
 
-	" Change to right side:
+	" Read Only:
+	if &readonly
+		setl statusline+=%6*\ (readonly)
+	endif
+	setl statusline+=%1*
+
+	" Change to the right side:
 	setl statusline+=%=
 
-	" Display file type:
-	setl statusline+=%y
+	" File Type:
+	setl statusline+=%5*⮃%1*\ \ %Y
 
-	" Display cursor position:
-	setl statusline+=\ \ %3*⮂%2*\ %5*⭡%2*\ \ %l\,%02c%02V
+	" Buffer Position:
+	setl statusline+=\ \ %5*⮂%4*\ \ %P/%L
 
-	" Display window position:
-	setl statusline+=\ %5*⮃%2*⮂%4*\ \ %P\ %1*(%L)%1*
+	" Cursor Position:
+	hi User7 ctermbg=248 ctermfg=0
+	hi User8 ctermfg=248
+	setl statusline+=\ \ %8*⮂%7*\ \ ⭡\ \ %l:%02c%02V\ %1*
+" ⮀⮁⮃⮂
 endfunction
 
 " Draws all the statuslines:
