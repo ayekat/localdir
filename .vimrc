@@ -114,9 +114,6 @@ hi StatusLineNC cterm=none ctermfg=2 ctermbg=0
 function! GetFilepath()
 	let filepath=expand("%:p")
 	let filepath=(filepath == '')?"[No Name]":filepath
-
-	" TODO crop filepath name to fit into the statusline
-
 	return filepath
 endfunction
 
@@ -129,7 +126,7 @@ hi User6 cterm=bold ctermbg=0 ctermfg=1
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
 	" Display the filename:
-	set statusline=%1*\ \ \ \ \ \ \ \ ⮁\ \ %{GetFilepath()}\ \ ⮁
+	set statusline=%1*\ \ \ \ \ \ \ \ ⮁\ \ %<%{GetFilepath()}\ \ ⮁
 endfunction
 
 " This function defines the active statusbar content:
@@ -160,7 +157,7 @@ function! StatuslineActive(mode)
 	hi User8 ctermbg=238
 	hi User4 ctermfg=250 ctermbg=238
 	hi User5 ctermfg=238 ctermbg=0
-	setl statusline+=%4*\ \ %{GetFilepath()}\ 
+	setl statusline+=%4*\ \ %<%{GetFilepath()}\ 
 	if &modified
 		setl statusline+=*
 	else
@@ -178,15 +175,15 @@ function! StatuslineActive(mode)
 	setl statusline+=%=
 
 	" File Type:
-	setl statusline+=%5*⮃%1*\ \ %Y
+	setl statusline+=\ \ %5*⮃%1*\ \ %02c(%02v)
 
 	" Buffer Position:
-	setl statusline+=\ \ %5*⮂%4*\ \ %P/%L
+	setl statusline+=\ %5*⮂%4*\ \ ⭡\ \ %02l/%L\ (%P)
 
 	" Cursor Position:
 	hi User7 ctermbg=248 ctermfg=0
 	hi User8 ctermfg=248
-	setl statusline+=\ \ %8*⮂%7*\ \ ⭡\ \ %l:%02c%02V\ %1*
+	setl statusline+=\ %8*⮂%7*\ %Y\ %1*
 endfunction
 
 " Draws all the statuslines:
