@@ -28,8 +28,8 @@ fi
 [ -e /usr/bin/xinit -o $arch = "darwin" ] && IS_DESKTOP=1
 
 # If not, we are on a server, so start or reattach to screen session:
-if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/screen ] && screen -d -RR && exit
+if [ ! $IS_DESKTOP -a $TERM != 'screen' ]; then
+	[ -e /usr/bin/screen ] && screen -x && exit
 fi
 
 
