@@ -187,7 +187,6 @@ function! StatuslineActive(mode)
 	hi User7 ctermbg=248 ctermfg=0
 	hi User8 ctermfg=248
 	setl statusline+=\ \ %8*⮂%7*\ \ ⭡\ \ %l:%02c%02V\ %1*
-" ⮀⮁⮃⮂
 endfunction
 
 " Draws all the statuslines:
