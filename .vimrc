@@ -29,7 +29,10 @@ hi LineNr cterm=bold ctermbg=0 ctermfg=0
 " Highlight number of current line:
 set cursorline
 hi CursorLine cterm=none
-hi CursorLineNr cterm=bold ctermbg=black ctermfg=blue
+hi CursorLineNr cterm=bold ctermbg=232 ctermfg=blue
+
+" Highlight end of file:
+hi NonText cterm=bold ctermbg=232 ctermfg=blue
 
 " Enable UTF-8 (I wanna see Umlauts!):
 set encoding=utf8
@@ -65,8 +68,9 @@ set encoding=utf8
 	
 	" I wanna stay inside the 80 columns, so display a black bar after 80 chars:
 	if version >= 703
-		set colorcolumn=81
-		hi ColorColumn ctermbg=0
+		"set colorcolumn=81
+		let &colorcolumn=join(range(81,999),",")
+		hi ColorColumn ctermbg=232
 	endif
 
 	" I wanna see tabs and trailing whitespaces:
@@ -121,17 +125,17 @@ endfunction
 hi User1 cterm=none ctermbg=0 ctermfg=244
 
 " Error:
-hi User6 cterm=bold ctermbg=0 ctermfg=1
+hi User9 cterm=none ctermbg=0 ctermfg=1
 
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
 	" Display the filename:
-	set statusline=%1*\ \ \ \ \ \ \ \ ⮁\ \ %<%{GetFilepath()}\ \ ⮁
+	set statusline=%1*\ \ \ ⮁\ \ %<%{GetFilepath()}\ \ ⮁
 endfunction
 
 " This function defines the active statusbar content:
 function! StatuslineActive(mode)
-	" Mode:
+	" mode:
 	setl statusline=%2*
 	if a:mode == 'V'
 		hi User2 ctermbg=6 ctermfg=23
@@ -146,44 +150,44 @@ function! StatuslineActive(mode)
 		hi User3 ctermfg=3
 		setl statusline+=\ INSERT\ 
 	else
-		hi User2 ctermbg=70 ctermfg=22
-		hi User3 ctermfg=70
-		setl statusline+=\ NORMAL\ 
+		hi User2 ctermbg=148 ctermfg=28
+		hi User3 ctermfg=148
+		setl statusline+=\ n\ 
 	endif
+	hi User3 ctermbg=239
 	setl statusline+=%3*⮀
 
-	" File Name:
-	hi User3 ctermbg=238
-	hi User8 ctermbg=238
-	hi User4 ctermfg=250 ctermbg=238
-	hi User5 ctermfg=238 ctermbg=0
-	setl statusline+=%4*\ \ %<%{GetFilepath()}\ 
+	" transition: white > medium > black
+	hi User4 ctermfg=0 ctermbg=252
+	hi User5 ctermfg=252 ctermbg=239
+	hi User6 ctermfg=239 ctermbg=0
+
+	" File name (with modified flag):
+	setl statusline+=%5*\ \ %<%{GetFilepath()}\ 
 	if &modified
 		setl statusline+=*
 	else
 		setl statusline+=\ 
 	endif
-	setl statusline+=%5*⮀
+	setl statusline+=%6*⮀
 
-	" Read Only:
+	" readonly?
 	if &readonly
-		setl statusline+=%6*\ (readonly)
+		setl statusline+=%9*\ (readonly)
 	endif
 	setl statusline+=%1*
 
-	" Change to the right side:
+	" change to the right side:
 	setl statusline+=%=
 
-	" File Type:
-	setl statusline+=\ \ %5*⮃%1*\ \ %02c(%02v)
+	" cursor position (column):
+	setl statusline+=\ \ ⮃\ \ %02c(%02v)%6*
 
-	" Buffer Position:
-	setl statusline+=\ %5*⮂%4*\ \ ⭡\ \ %02l/%L\ (%P)
+	" buffer position (line):
+	setl statusline+=\ ⮂%5*\ \ ⭡\ \ %02l/%L\ (%P)
 
-	" Cursor Position:
-	hi User7 ctermbg=248 ctermfg=0
-	hi User8 ctermfg=248
-	setl statusline+=\ %8*⮂%7*\ %Y\ %1*
+	" file type:
+	setl statusline+=\ ⮂%4*\ %Y\ %1*
 endfunction
 
 " Draws all the statuslines:
