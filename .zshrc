@@ -33,6 +33,7 @@ fi
 autoload -U colors && colors
 
 # Enable and format VCS:
+setopt prompt_subst         # override instead of append updated prompt
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:*' stagedstr " %{$fg[green]%}●"
@@ -47,15 +48,18 @@ precmd() { vcs_info; }      # update before displaying prompt
 PROMPT+="%m "
 PROMPT+="%{$fg[green]%}%~%{$reset_color%} "
 
-# Right prompt (updating clock - *yuck!*).
+# Right prompt
+RPROMPT='${vcs_info_msg_0_}'
+
+# Constantly updating clock if not in tmux (*yuck!*)
 # Thanks to this guy: http://www.zsh.org/mla/users/2007/msg00944.html
-setopt prompt_subst         # override instead of append updated prompt
-TMOUT=1                     # timeout (interval)
-TRAPALRM() {                # event, every $TMOUT seconds:
-	zle reset-prompt        # -> update the prompt
-}
-RPROMPT='${vcs_info_msg_0_} '
-RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
+if [ $TERM != 'screen-256color' ]; then
+	TMOUT=1                     # timeout (interval)
+	TRAPALRM() {                # event, every $TMOUT seconds:
+		zle reset-prompt        # -> update the prompt
+	}
+	RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
+fi
 
 
 # ------------------------------------------------------------------------------
@@ -80,19 +84,19 @@ zstyle ':completion:*' special-dirs true
 # ------------------------------------------------------------------------------
 # ALIASES
 
-alias cp="cp -i"
-alias grep="grep --color=auto"
-alias la="ls -a"
-alias lah="ls -lah"
-alias laht="ls -laht"
-alias ll="ls -lh"
-alias mv="mv -i"
-alias sudo="sudo -p \"[sudo]\"\ password:\ "
+alias cp='cp -i'
+alias grep='grep --color=auto'
+alias la='ls -a'
+alias lah='ls -lah'
+alias laht='ls -laht'
+alias ll='ls -lh'
+alias mv='mv -i'
+alias sudo='sudo -p "[sudo]" password:\ '
 # BSD vs GNU:
-[ $arch = "darwin" ] && alias ls="ls -G" || alias ls="ls --color=auto"
+[ $arch = 'darwin' ] && alias ls='ls -G' || alias ls='ls --color=auto'
 
 # Server only aliases (mostly additional security):
-[ ! $IS_DESKTOP ] && alias rm="rm -i"
+[ ! $IS_DESKTOP ] && alias rm='rm -i'
 
 # Colored man pages (see above for format definitions):
 man() {
@@ -108,14 +112,15 @@ man() {
 }
 
 # Application specific aliases:
-[ -e /usr/bin/thunar ] && alias open="thunar"
-[ -e /usr/bin/valgrind ] && alias valgrind="valgrind --log-file=valgrind.log"
+[ -e /usr/bin/thunar ] && alias open='thunar'
+[ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
+[ -e /usr/bin/tmux ] && alias tmux='TERM=xterm-256color tmux'
 
 # Arch specific aliases:
-if [ $arch = "arch" ]; then
-	alias cal="cal -m -3"
-	[ $IS_DESKTOP -a $TERM = "linux" ] &&
-			alias x="startx -- -nolisten tcp & disown && exit"
+if [ $arch = 'arch' ]; then
+	alias cal='cal -m -3'
+	[ $IS_DESKTOP -a $TERM = 'linux' ] &&
+			alias x='startx -- -nolisten tcp & disown && exit'
 fi
 
 
@@ -197,10 +202,10 @@ printlogo() {
 }
 
 # Delete the 'Desktop' folder if not on OS X:
-[ $arch != "darwin" ] && rmdir $HOME/Desktop 2> /dev/null
+[ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
 
 # TODO: ugly fix for my Debian server that doesn't correctly load locale:
-[ $arch = "debian" ] && export LANG=en_GB.UTF-8
+[ $arch = 'debian' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch
