@@ -1,8 +1,9 @@
-#!/bin/bash
+#!/bin/sh
 # executes dwm in a loop to allow on-the-fly restarts
 
 while true; do
-	sleep 2 && dzenconky start &
+	[ $HOST = 'phobia' ] && sleep 2
+	dzenconky start &
 	dwm &> /tmp/dwm-$USER.log
 	dzenconky stop
 done

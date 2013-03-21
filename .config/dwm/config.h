@@ -24,10 +24,13 @@ static const char selbgcolor[]      = "#4499CC";
 static const char selfgcolor[]      = "#FFFFFF";
 */
 
-static const unsigned int borderpx  = 2;        /* border pixel of windows */
-static const unsigned int snap      = 20;       /* snap pixel */
-static const Bool showbar           = True;     /* False means no bar */
-static const Bool topbar            = True;     /* False means bottom bar */
+static const unsigned int borderpx= 2;    /* border pixel of windows */
+static const unsigned int snap    = 20;   /* snap pixel */
+static const Bool showbar         = True; /* False means no bar */
+static const Bool topbar          = True; /* False means bottom bar */
+static const float mfact          = 0.5;  /* Default factor of master area size [0.05..0.95] */
+static const int nmaster          = 1;    /* Default number of clients in master area */
+static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
 
 /* tagging */
 static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "", " " };
@@ -45,10 +48,6 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
-static const float mfact      = 0.5; /* factor of master area size [0.05..0.95] */
-static const int nmaster      = 1;    /* number of clients in master area */
-static const Bool resizehints = False; /* True means respect size hints in tiled resizals */
-
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",      tile },    /* first entry is default */
@@ -167,7 +166,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-l", "10", "-b", "-fn", font,
 		"-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbordercolor, "-sf",
 		selfgcolor, "-p", "<>", NULL };
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
-static const char *termcmd_new[]  = { "urxvtc", "-e", "/bin/zsh", NULL };
+static const char *termcmd_new[]  = { "urxvtc", NULL };
 static const char *quitcmd[] = { "killall", "dwmloop", NULL };
 static const char *lockcmd[] = { "slock", NULL };
 static const char *volraisecmd[] = { "amixer", "set", "Master", "3+", "unmute", NULL };
