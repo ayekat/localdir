@@ -16,16 +16,16 @@ test -z "$PS1" && return
 # Read operating system information (if available):
 if [ -e /etc/os-release ]; then
 	arch=$(grep ID /etc/os-release | cut -c 4-)
-elif [ $(uname) = "Darwin" ]; then
-	arch="darwin"
+elif [ $(uname) = 'Darwin' ]; then
+	arch='darwin'
 elif [ -e /etc/gentoo-release ]; then
-	arch="gentoo"
+	arch='gentoo'
 else
-	arch="unknown"
+	arch='unknown'
 fi
 
 # Determine if desktop (Xorg exists or OS X):
-[ -e /usr/bin/xinit -o $arch = "darwin" ] && IS_DESKTOP=1
+[ -e /usr/bin/xinit -o $arch = 'darwin' ] && IS_DESKTOP=1
 
 # If not, we are on a server, so start or reattach to screen session:
 if [ ! $IS_DESKTOP ]; then
@@ -53,25 +53,22 @@ complete -cf sudo
 # Enable Vi/ViM-like behaviour (default: emacs):
 #set -o vi
 
-# Set vim as default text editor:
-export EDITOR="/usr/bin/vim"
-
 
 # ------------------------------------------------------------------------------
 # ALIASES
-alias cp="cp -i"
-alias grep="grep --color=auto"
-alias la="ls -a"
-alias lah="ls -lah"
-alias laht="ls -laht"
-alias ll="ls -lh"
-alias mv="mv -i"
-alias sudo="sudo -p \"[sudo]\"\ password:\ "
+alias cp='cp -i'
+alias grep='grep --color=auto'
+alias la='ls -a'
+alias lah='ls -lah'
+alias laht='ls -laht'
+alias ll='ls -lh'
+alias mv='mv -i'
+alias sudo='sudo -p "[sudo]"\ password:\ '
 # BSD vs GNU:
-[ $arch = "darwin" ] && alias ls="ls -G" || alias ls="ls --color=auto"
+[ $arch = 'darwin' ] && alias ls='ls -G' || alias ls='ls --color=auto'
 
 # Server only aliases (mostly additional security):
-[ ! $IS_DESKTOP ] && alias rm="rm -i"
+[ ! $IS_DESKTOP ] && alias rm='rm -i'
 
 # Colored man pages (see above for format definitions):
 man() {
@@ -87,22 +84,22 @@ man() {
 }
 
 # Application specific aliases:
-[ -e /usr/bin/thunar ] && alias open="thunar"
-[ -e /usr/bin/valgrind ] && alias valgrind="valgrind --log-file=valgrind.log"
-[ -e /usr/bin/tmux ] && alias tmux="TERM=xterm-256color tmux"
+[ -e /usr/bin/thunar ] && alias open='thunar'
+[ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
+[ -e /usr/bin/tmux ] && alias tmux='TERM=xterm-256color tmux'
 
 # Arch specific aliases:
-if [ $arch = "arch" ]; then
-	alias cal="cal -m -3"
-	[ $IS_DESKTOP ] && [ $TERM = "linux" ] &&
-			alias x="startx -- -nolisten tcp & exit"
+if [ $arch = 'arch' ]; then
+	alias cal='cal -m -3'
+	[ $IS_DESKTOP ] && [ $TERM = 'linux' ] &&
+			alias x='startx -- -nolisten tcp & exit'
 fi
 
 
 # ------------------------------------------------------------------------------
 # HISTORY
 
-export HISTIGNORE="&:[bf]g:exit"
+export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=10000
 
 
@@ -172,10 +169,10 @@ printlogo() {
 }
 
 # Delete the 'Desktop' folder if not on OS X:
-[ $arch != "darwin" ] && rmdir $HOME/Desktop 2> /dev/null
+[ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
 
 # TODO: ugly fix for my Debian server that doesn't correctly load locale:
-[ $arch = "debian" ] && export LANG=en_GB.UTF-8
+[ $arch = 'debian' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch

@@ -244,8 +244,8 @@ nnoremap <silent> . .:call UpdateStatusline(1, 'N')<CR>
 set scrolloff=3
 	
 " Simplify window scrolling:
-map <Up> <C-y><C-y><C-y>
-map <Down> <C-e><C-e><C-e>
+map <Up> 3<C-y>
+map <Down> 3<C-e>
 
 " Modelines are evil!
 set nomodeline

@@ -9,20 +9,20 @@
 # Read operating system information (if available):
 if [ -e /etc/os-release ]; then
 	arch=$(grep ID /etc/os-release | cut -c 4-)
-elif [ $(uname) = "Darwin" ]; then
-	arch="darwin"
+elif [ $(uname) = 'Darwin' ]; then
+	arch='darwin'
 elif [ -e /etc/gentoo-release ]; then
-	arch="gentoo"
+	arch='gentoo'
 else
-	arch="unknown"
+	arch='unknown'
 fi
 
 # Determine if desktop (Xorg exists or OS X):
-[ -e /usr/bin/xinit -o $arch = "darwin" ] && IS_DESKTOP=1
+[ -e /usr/bin/xinit -o $arch = 'darwin' ] && IS_DESKTOP=1
 
 # If not, we are on a server, so start or reattach to screen session:
 if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/screen ] && screen -d -RR && exit
+	[ -e /usr/bin/screen ] && [ $TERM != 'screen' ] && screen -x && exit
 fi
 
 
