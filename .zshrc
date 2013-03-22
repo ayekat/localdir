@@ -114,7 +114,7 @@ man() {
 # Application specific aliases:
 [ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
-[ -e /usr/bin/tmux ] && alias tmux='TERM=xterm-256color tmux'
+[ -e /usr/bin/tmux ] && alias tmux=ltmux
 
 # Arch specific aliases:
 if [ $arch = 'arch' ]; then

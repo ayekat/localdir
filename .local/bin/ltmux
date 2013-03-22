@@ -1,0 +1,5 @@
+#!/bin/sh
+# tmux for lazy people: attempts to attach to an existing tmux session, and
+# opens a new one if it fails.
+
+TERM=xterm-256color tmux attach &> /dev/null || TERM=xterm-256color tmux
