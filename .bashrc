@@ -27,9 +27,9 @@ fi
 # Determine if desktop (Xorg exists or OS X):
 [ -e /usr/bin/xinit -o $arch = 'darwin' ] && IS_DESKTOP=1
 
-# If not, we are on a server, so start or reattach to screen session:
+# If not, we are on a server, so start or reattach to tmux session:
 if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/screen ] && [ $TERM != 'screen' ] && screen -x && exit
+	[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && ltmux && exit
 fi
 
 

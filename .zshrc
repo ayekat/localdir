@@ -22,7 +22,7 @@ fi
 
 # If not, we are on a server, so start or reattach to screen session:
 if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/screen ] && [ $TERM != 'screen' ] && screen -x && exit
+	[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && ltmux && exit
 fi
 
 
@@ -48,18 +48,17 @@ precmd() { vcs_info; }      # update before displaying prompt
 PROMPT+="%m "
 PROMPT+="%{$fg[green]%}%~%{$reset_color%} "
 
-# Right prompt
+# Right prompt:
 RPROMPT='${vcs_info_msg_0_}'
 
-# Constantly updating clock if not in tmux (*yuck!*)
+# Constantly updating clock (*yuck!*)
 # Thanks to this guy: http://www.zsh.org/mla/users/2007/msg00944.html
-if [ $TERM != 'screen-256color' ]; then
-	TMOUT=1                     # timeout (interval)
-	TRAPALRM() {                # event, every $TMOUT seconds:
-		zle reset-prompt        # -> update the prompt
-	}
-	RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
-fi
+# Disabled, as it causes some annoying effects when resizing the terminal.
+#TMOUT=1                     # timeout (interval)
+#TRAPALRM() {                # event, every $TMOUT seconds:
+#	zle reset-prompt        # -> update the prompt
+#}
+#RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
 
 
 # ------------------------------------------------------------------------------
@@ -119,7 +118,7 @@ man() {
 # Arch specific aliases:
 if [ $arch = 'arch' ]; then
 	alias cal='cal -m -3'
-	[ $IS_DESKTOP -a $TERM = 'linux' ] &&
+	[ $IS_DESKTOP ] && [ $TERM = 'linux' ] &&
 			alias x='startx -- -nolisten tcp & disown && exit'
 fi
 
