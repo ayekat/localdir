@@ -2,7 +2,7 @@
 # executes dwm in a loop to allow on-the-fly restarts
 
 while true; do
-	[ $HOST = 'phobia' ] && sleep 2
+	[ $HOSTNAME = 'phobia' ] && sleep 2
 	dzenconky start &
 	dwm &> /tmp/dwm-$USER.log
 	dzenconky stop
