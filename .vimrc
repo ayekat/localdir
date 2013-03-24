@@ -138,7 +138,7 @@ function! StatuslineActive(mode)
 	" mode:
 	setl statusline=%2*
 	if a:mode == 'V'
-		hi User2 ctermbg=6 ctermfg=23
+		hi User2 ctermbg=6 ctermfg=0
 		hi User3 ctermfg=6
 		setl statusline+=\ VISUAL\ 
 	elseif a:mode == 'R'
@@ -146,7 +146,7 @@ function! StatuslineActive(mode)
 		hi User3 ctermfg=1
 		setl statusline+=\ REPLCE\ 
 	elseif a:mode == 'I'
-		hi User2 ctermbg=3 ctermfg=58
+		hi User2 ctermbg=3 ctermfg=0
 		hi User3 ctermfg=3
 		setl statusline+=\ INSERT\ 
 	else
@@ -157,7 +157,7 @@ function! StatuslineActive(mode)
 	hi User3 ctermbg=239
 	setl statusline+=%3*⮀
 
-	" transition: white > medium > black
+	" transition: white > grey > black
 	hi User4 ctermfg=0 ctermbg=252
 	hi User5 ctermfg=252 ctermbg=239
 	hi User6 ctermfg=239 ctermbg=0
