@@ -33,7 +33,7 @@ if [ ! $IS_DESKTOP ]; then
 	if [ $HOSTNAME = 'rowland' ]; then
 		[ -e /usr/bin/screen ] && [ $TERM != 'screen-bce' ] && screen -x && exit
 	else
-		[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && tmx && exit
+		[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && tmx 0 && exit
 	fi
 fi
 

@@ -16,7 +16,7 @@ trim() { echo $1; }
 
 if [[ -z "$1" ]]; then
 	echo "Specify session name as the first argument"
-	exit
+	exit 1
 fi
 
 # Only because I often issue `ls` to this script by accident
