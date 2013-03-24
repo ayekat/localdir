@@ -29,7 +29,12 @@ fi
 
 # If not, we are on a server, so start or reattach to tmux session:
 if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && ltmux && exit
+	# Hosteurope fuckery: tmux does not run correctly, so fallback to screen:
+	if [ $HOSTNAME = 'rowland' ]; then
+		[ -e /usr/bin/screen ] && [ $TERM != 'screen-bce' ] && screen -x && exit
+	else
+		[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && tmx && exit
+	fi
 fi
 
 
@@ -86,7 +91,6 @@ man() {
 # Application specific aliases:
 [ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
-[ -e /usr/bin/tmux ] && alias tmux=ltmux
 
 # Arch specific aliases:
 if [ $arch = 'arch' ]; then
@@ -171,8 +175,8 @@ printlogo() {
 # Delete the 'Desktop' folder if not on OS X:
 [ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
 
-# TODO: ugly fix for my Debian server that doesn't correctly load locale:
-[ $arch = 'debian' ] && export LANG=en_GB.UTF-8
+# Hosteurope fuckery: force loading correct locale:
+[ $HOSTNAME = 'rowland' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch

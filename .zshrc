@@ -1,5 +1,7 @@
 #!/bin/sh
 # zsh configuration file
+# As there is currently no sane combination of terminal+zsh that works for me,
+# I don't use zsh; thus this configuration file is rather theoretical.
 # Written by ayekat on a cold night in march 2013.
 
 
@@ -20,9 +22,14 @@ fi
 # Determine if desktop (Xorg exists or OS X):
 [ -e /usr/bin/xinit -o $arch = 'darwin' ] && IS_DESKTOP=1
 
-# If not, we are on a server, so start or reattach to screen session:
+# If not, we are on a server, so start or reattach to tmux session:
 if [ ! $IS_DESKTOP ]; then
-	[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && ltmux && exit
+	# Hosteurope fuckery: tmux does not run correctly, so fallback to screen:
+	if [ $HOSTNAME = 'rowland' ]; then
+		[ -e /usr/bin/screen ] && [ $TERM != 'screen-bce' ] && screen -x && exit
+	else
+		[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && tmx 0 && exit
+	fi
 fi
 
 
@@ -53,12 +60,13 @@ RPROMPT='${vcs_info_msg_0_}'
 
 # Constantly updating clock (*yuck!*)
 # Thanks to this guy: http://www.zsh.org/mla/users/2007/msg00944.html
-# Disabled, as it causes some annoying effects when resizing the terminal.
-#TMOUT=1                     # timeout (interval)
-#TRAPALRM() {                # event, every $TMOUT seconds:
-#	zle reset-prompt        # -> update the prompt
-#}
-#RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
+# It's recommended to disable this, as in theory it may sound nifty to have a
+# timestamp for each command, but in practice it causes annoying things.
+TMOUT=1                     # timeout (interval)
+TRAPALRM() {                # event, every $TMOUT seconds:
+	zle reset-prompt        # -> update the prompt
+}
+RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
 
 
 # ------------------------------------------------------------------------------
@@ -70,8 +78,10 @@ autoload -Uz compinit && compinit
 # I use vim, but I'm used to emacs-keybinds in the terminal:
 bindkey -e
 
-# However we don't need exagerate, do we?
+# However we don't need to exagerate, do we?
 bindkey "[3~" delete-char
+# This --^ does not get displayed well on github; actually it is "^[[3~", where
+# ^[ is achieved by pressing Ctrl-v, Esc.
 
 # Disable zsh menu for autocompletion:
 setopt no_auto_menu
@@ -113,7 +123,6 @@ man() {
 # Application specific aliases:
 [ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
-[ -e /usr/bin/tmux ] && alias tmux=ltmux
 
 # Arch specific aliases:
 if [ $arch = 'arch' ]; then
@@ -203,8 +212,8 @@ printlogo() {
 # Delete the 'Desktop' folder if not on OS X:
 [ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
 
-# TODO: ugly fix for my Debian server that doesn't correctly load locale:
-[ $arch = 'debian' ] && export LANG=en_GB.UTF-8
+# Hosteurope fuckery: force loading correct locale:
+[ $HOSTNAME = 'rowland' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch
