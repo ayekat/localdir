@@ -17,7 +17,7 @@ termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
 defbce on
 
 # Draw a pretty statusline:
-hardstatus alwayslastline "%{= yk} screen %{= kK}  %-w%{+ kw}%n %t%{-}%+w%=%{= kw}%H %{= wk} %0c "
+hardstatus alwayslastline "%{= yK} screen %{= kK}  %-w%{+ kw}%n %t%{-}%+w%=%{= Kw} %H %{= wK} %0c "
 
 # ------------------------------------------------------------------------------
 # FEEL

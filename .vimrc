@@ -68,9 +68,10 @@ set encoding=utf8
 	
 	" I wanna stay inside the 80 columns, so display a black bar after 80 chars:
 	if version >= 703
-		"set colorcolumn=81
-		let &colorcolumn=join(range(81,999),",")
-		hi ColorColumn ctermbg=232
+		set colorcolumn=81
+		hi ColorColumn ctermbg=0
+		"let &colorcolumn=join(range(81,999),",")
+		"hi ColorColumn ctermbg=232
 	endif
 
 	" I wanna see tabs and trailing whitespaces:
@@ -158,7 +159,7 @@ function! StatuslineActive(mode)
 	setl statusline+=%3*⮀
 
 	" transition: white > grey > black
-	hi User4 ctermfg=0 ctermbg=252
+	hi User4 ctermfg=239 ctermbg=252
 	hi User5 ctermfg=252 ctermbg=239
 	hi User6 ctermfg=239 ctermbg=0
 
