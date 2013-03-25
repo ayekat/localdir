@@ -1,39 +1,47 @@
 #!/bin/bash
-
 #
-# Modified TMUX start script from:
+# This script is responsible for starting a new tmux session and attaching it to
+# the windows of an already running one. The reason this cannot be done by a
+# simple 'tmux attach' is that tmux is not sophisticated enough to allow
+# different views on a single session.
+#
+# This script was originally written here:
 # http://forums.gentoo.org/viewtopic-t-836006-start-0.html
 #
-# Store it to `~/bin/tmx` and issue `chmod +x`.
-#
-# Written by Brandur, taken from:
+# Later it was taken and modified by Brandur here:
 # https://mutelight.org/practical-tmux
 #
+# And finally copied and (slightly) modified by ayekat on a sick sunday morning
+# in march 2013.
+
+
+# 256 colours support in tmux requires this:
+export TERM=xterm-256color
 
 # Works because bash automatically trims by assigning to variables and by
-# passing arguments
+# passing arguments:
 trim() { echo $1; }
 
-if [[ -z "$1" ]]; then
+if [ -z "$1" ]; then
 	echo "Specify session name as the first argument"
 	exit 1
 fi
 
-# Only because I often issue `ls` to this script by accident
-if [[ "$1" == "ls" ]]; then
+# Only because I often issue 'ls' to this script by accident:
+if [ "$1" = 'ls' ]; then
 	tmux ls
 	exit
 fi
 
 base_session="$1"
-# This actually works without the trim() on all systems except OSX
+# This actually works without the trim() on all systems except OSX:
 tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
 if [[ "$tmux_nb" == "0" ]]; then
-	echo "Launching tmux base session $base_session ..."
-	TERM=xterm-256color tmux new-session -s $base_session
+	printf "Launching tmux base session %s ...\n" $base_session
+	tmux new-session -s $base_session
 else
-	# Make sure we are not already in a tmux session
-	if [[ -z "$TMUX" ]]; then
+	# Make sure we are not already in a tmux session:
+	if [ -z "$TMUX" ]; then
 		# Kill defunct sessions first
 		old_sessions=$(tmux ls 2>/dev/null | egrep "^[0-9]{14}.*[0-9]+\)$" | cut -f 1 -d:)
 		for old_session_id in $old_sessions; do
@@ -41,16 +49,16 @@ else
 		done
 
 		echo "Launching copy of base session $base_session ..."
-		# Session is is date and time to prevent conflict
+		# Session ID is date and time to prevent conflict:
 		session_id=`date +%Y%m%d%H%M%S`
 		# Create a new session (without attaching it) and link to base session
-		# to share windows
+		# to share windows:
 		tmux new-session -d -t $base_session -s $session_id
-		# Create a new window in that session
+		# Enable this line to create a new window in that session:
 		#tmux new-window
-		# Attach to the new session
-		TERM=xterm-256color tmux attach-session -t $session_id
-		# When we detach from it, kill the session
+		# Attach to the new session:
+		tmux attach-session -t $session_id
+		# After having detached from it, kill the session:
 		tmux kill-session -t $session_id
 	fi
 fi

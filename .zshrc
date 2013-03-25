@@ -79,9 +79,8 @@ autoload -Uz compinit && compinit
 bindkey -e
 
 # However we don't need to exagerate, do we?
+# github: should look like "^[[3~"
 bindkey "[3~" delete-char
-# This --^ does not get displayed well on github; actually it is "^[[3~", where
-# ^[ is achieved by pressing Ctrl-v, Esc.
 
 # Disable zsh menu for autocompletion:
 setopt no_auto_menu

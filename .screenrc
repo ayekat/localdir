@@ -23,6 +23,7 @@ hardstatus alwayslastline "%{= yK} screen %{= kK}  %-w%{+ kw}%n %t%{-}%+w%=%{= K
 # FEEL
 
 # Set escape character to Ctrl-b, as in tmux:
+# github: should look like "^Bb"
 escape "b"
 
 

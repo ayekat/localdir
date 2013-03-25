@@ -139,15 +139,15 @@ function! StatuslineActive(mode)
 	" mode:
 	setl statusline=%2*
 	if a:mode == 'V'
-		hi User2 ctermbg=6 ctermfg=0
+		hi User2 ctermbg=6 ctermfg=8
 		hi User3 ctermfg=6
 		setl statusline+=\ VISUAL\ 
 	elseif a:mode == 'R'
-		hi User2 ctermbg=1 ctermfg=0
+		hi User2 ctermbg=1 ctermfg=8
 		hi User3 ctermfg=1
 		setl statusline+=\ REPLCE\ 
 	elseif a:mode == 'I'
-		hi User2 ctermbg=3 ctermfg=0
+		hi User2 ctermbg=3 ctermfg=8
 		hi User3 ctermfg=3
 		setl statusline+=\ INSERT\ 
 	else
@@ -155,13 +155,13 @@ function! StatuslineActive(mode)
 		hi User3 ctermfg=148
 		setl statusline+=\ n\ 
 	endif
-	hi User3 ctermbg=239
+	hi User3 ctermbg=8
 	setl statusline+=%3*⮀
 
 	" transition: white > grey > black
-	hi User4 ctermfg=239 ctermbg=252
-	hi User5 ctermfg=252 ctermbg=239
-	hi User6 ctermfg=239 ctermbg=0
+	hi User4 ctermfg=8 ctermbg=7
+	hi User5 ctermfg=7 ctermbg=8
+	hi User6 ctermfg=8 ctermbg=0
 
 	" File name (with modified flag):
 	setl statusline+=%5*\ \ %<%{GetFilepath()}\ 
@@ -266,8 +266,10 @@ set nomodeline
 	set autoindent
 	set copyindent
 
-	" Don't break lines in the middle of words:
+	" Wrap lines, but break words:
+	set wrap
 	set linebreak
+	set nolist
 
 
 " NORMAL MODE >
