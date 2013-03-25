@@ -1,0 +1,29 @@
+# Configuration file for zathura.
+# Written by ayekat on a monday night travel in march 2013.
+
+
+# ------------------------------------------------------------------------------
+# LOOK
+
+# Set window background to my terminal background:
+set default-bg "#111111"
+
+# Set font (TODO: Fixed SemiCondensed?):
+set font "monospace normal 8"
+
+# Set statusbar colours:
+set statusbar-fg "#AAAAAA"            # statusbar
+set statusbar-bg "#222222"
+set inputbar-fg "#EEEEEE"             # input line
+set inputbar-bg "#111111"
+set completion-fg "#E04613"           # completion; default
+set completion-bg "#000000"
+set completion-highlight-fg "#000000" # ... and highlighted
+set completion-highlight-bg "#E04613"
+
+# ------------------------------------------------------------------------------
+# FEEL
+
+# Maximize PDF to fit width (rather than height):
+set adjust-open "width"
+
