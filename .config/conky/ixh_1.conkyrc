@@ -12,7 +12,7 @@ update_interval 1
 TEXT
 ^i(/home/ayekat/.config/conky/graphics/glyph_cpu.xbm)  \
 ^fg(\#FFFFFF)[${cpu cpu0}%] [${cpu cpu1}%]^fg()  \
-${execi 5 echo $(($(cat /sys/class/hwmon/hwmon0/temp1_input)/1000))}°C\
+${execi 5 echo $(($(cat /sys/class/hwmon/hwmon0/device/temp1_input)/1000))}°C\
    \
 ^fg(\#555555)^i(/home/ayekat/.config/conky/graphics/glyph_2B81.xbm)^fg()\
    \
