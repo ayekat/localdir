@@ -130,8 +130,20 @@ hi User9 cterm=none ctermbg=0 ctermfg=1
 
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
-	" Display the filename:
+	" filename:
 	set statusline=%1*\ \ \ ⮁\ \ %<%{GetFilepath()}\ \ ⮁
+
+	" change to the right side:
+	set statusline+=%=
+
+	" cursor position (column):
+	set statusline+=\ \ ⮃\ \ %02c(%02v)
+
+	" buffer position (line):
+	set statusline+=\ ⮃\ \ ⭡\ \ %02l/%L\ (%P)
+
+	" file type:
+	set statusline+=\ ⮃\ %Y\ %1*
 endfunction
 
 " This function defines the active statusbar content:
@@ -163,7 +175,7 @@ function! StatuslineActive(mode)
 	hi User5 ctermfg=7 ctermbg=8
 	hi User6 ctermfg=8 ctermbg=0
 
-	" File name (with modified flag):
+	" filename (with modified flag):
 	setl statusline+=%5*\ \ %<%{GetFilepath()}\ 
 	if &modified
 		setl statusline+=*
@@ -269,7 +281,6 @@ set nomodeline
 	" Wrap lines, but break words:
 	set wrap
 	set linebreak
-	set nolist
 
 
 " NORMAL MODE >
