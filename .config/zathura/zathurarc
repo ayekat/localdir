@@ -21,9 +21,16 @@ set completion-bg "#000000"
 set completion-highlight-fg "#000000" # ... and highlighted
 set completion-highlight-bg "#E04613"
 
+# Recoloured ('inverted') colours:
+set recolor-darkcolor "#EEEEEE"       # 'foreground'
+set recolor-lightcolor "#111111"      # 'background'
+
 # ------------------------------------------------------------------------------
 # FEEL
 
 # Maximize PDF to fit width (rather than height):
 set adjust-open "width"
+
+# Center PDF horizontally when zooming:
+set zoom-center true
 
