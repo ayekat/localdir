@@ -82,6 +82,9 @@ set encoding=utf8
 	set showmatch
 	hi MatchParen cterm=bold ctermfg=5 ctermbg=none
 
+	" Style the Syntastic bar on the left:
+	hi SignColumn ctermbg=0
+
 
 " ------------------------------------------------------------------------------
 " COLOURS {{{
@@ -90,6 +93,7 @@ set encoding=utf8
 " Fix ugly urxvt/vim yellow:
 hi Statement ctermfg=3
 hi Todo ctermbg=3
+hi Search ctermbg=3 ctermfg=0
 
 " Make visual less penetrant:
 hi Visual cterm=inverse ctermbg=0
@@ -154,10 +158,6 @@ function! StatuslineActive(mode)
 		hi User2 ctermbg=6 ctermfg=8
 		hi User3 ctermfg=6
 		setl statusline+=\ VISUAL\ 
-	elseif a:mode == 'R'
-		hi User2 ctermbg=1 ctermfg=8
-		hi User3 ctermfg=1
-		setl statusline+=\ REPLCE\ 
 	elseif a:mode == 'I'
 		hi User2 ctermbg=3 ctermfg=8
 		hi User3 ctermfg=3
@@ -240,9 +240,9 @@ vnoremap <silent> x x:call UpdateStatusline(1, 'N')<CR>
 vnoremap <silent> d d:call UpdateStatusline(1, 'N')<CR>
 vnoremap <silent> y y:call UpdateStatusline(1, 'N')<CR>
 
-" Replace mode (still not correct):
-noremap <silent> r :call UpdateStatusline(1, 'R')<CR>r
-noremap <silent> R :call UpdateStatusline(1, 'R')<CR>R
+" Replace mode (disabled, as I don't use it, and the statusline doesn't work):
+map r i
+map R i
 
 " Repeating actions can only be done in normal mode, so we are sure that we can
 " display it like that:
@@ -301,7 +301,6 @@ set nomodeline
 	map j gj
 
 	" Word-breaking characters:
-	set iskeyword-=_
 	set iskeyword-=[.]
 
 
@@ -310,5 +309,5 @@ set nomodeline
 
 " F5 in a (La)TeX file recompiles the file:
 au FileType tex map <F5> :w<cr>:!pdflatex %<cr>
-"au FileType tex imap <F5> :w<cr>:!pdflatex %<cr> "not tested yet
+au FileType c map r :w<cr>:!make; ./$(basename % .c)<cr>
 
