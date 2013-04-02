@@ -27,14 +27,18 @@ dzenconky_start() {
 		dzenpos=$(sum ${screenwidth[@]:0:$i})
 		dzenpos=$(($tagwidth+$dzenpos))
 		if [[ -e $conkyrc ]]; then
-			conky -c $conkyrc | dzen2 -w $dzenwidth -h 15 -x $dzenpos -ta r &
+			if [[ $HOSTNAME = 'ixh' && -e $HOME/dev/dzenstat ]]; then
+				cd $HOME/dev/dzenstat
+				./dzenstat | dzen2 -w $dzenwidth -h 15 -x $dzenpos -ta r &
+			else
+				conky -c $conkyrc | dzen2 -w $dzenwidth -h 15 -x $dzenpos -ta r &
+			fi
 		fi
 	done
 }
 
 dzenconky_stop() {
 	killall dzen2
-	killall conky
 }
 
 dzenconky_help() {
