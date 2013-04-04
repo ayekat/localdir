@@ -4,4 +4,5 @@
 set editor=urxvt\ -e\ vim
 set hintchars=hjklasdfgzuiopqwertnmyxcvb
 colorscheme indigo
+set toolbars=tabs
 
