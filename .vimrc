@@ -66,13 +66,18 @@ set encoding=utf8
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
 	
-	" I wanna stay inside the 80 columns, so display a black bar after 80 chars:
+	" Display a bar after a reasonable number of columns:
 	if version >= 703
 		set colorcolumn=81
 		hi ColorColumn ctermbg=0
 		"let &colorcolumn=join(range(81,999),",")
 		"hi ColorColumn ctermbg=232
+		au FileType gitcommit set colorcolumn=73
 	endif
+
+	" Automatically wrap after a certain number of columns:
+	set textwidth=80
+	au FileType gitcommit set textwidth=72
 
 	" I wanna see tabs and trailing whitespaces:
 	set list listchars=tab:→\ ,trail:·
