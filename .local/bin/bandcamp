@@ -1,0 +1,6 @@
+#!/bin/bash
+# Plays an album from a bandcamp page as a playlist in mplayer.
+# By d3lxa
+
+mplayer -playlist <(curl -Ss "$1" | perl -ne 'print "$1\n" while (m{"file":"(http://.*?)"}g)')
+
