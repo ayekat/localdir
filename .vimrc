@@ -73,11 +73,12 @@ set encoding=utf8
 		"let &colorcolumn=join(range(81,999),",")
 		"hi ColorColumn ctermbg=232
 		au FileType gitcommit set colorcolumn=73
+		au FileType asm set colorcolumn=41,81
 	endif
 
 	" Automatically wrap after a certain number of columns:
-	set textwidth=80
-	au FileType gitcommit set textwidth=72
+	"set textwidth=80
+	"au FileType gitcommit set textwidth=72
 
 	" I wanna see tabs and trailing whitespaces:
 	set list listchars=tab:→\ ,trail:·
