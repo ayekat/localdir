@@ -63,6 +63,9 @@ set encoding=utf8
 	" Without any syntax highlighting, programming is a pain:
 	syntax on
 
+	" (La)TeX files are sometimes not recognised correctly:
+	au BufRead,BufNewFile *.tex set filetype=tex
+
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
 	
@@ -313,7 +316,11 @@ set nomodeline
 " ------------------------------------------------------------------------------
 " COMPILING
 
-" F5 in a (La)TeX file recompiles the file:
-au FileType tex map <F5> :w<cr>:!pdflatex %<cr>
-au FileType c map r :w<cr>:!make; ./$(basename % .c)<cr>
+" Search for Makefile and compile:
+map r :w<cr>:!ayemake<cr>
+map R <nop>
+
+" File type specific commands:
+au FileType tex map R :w<cr>:!pdflatex %<cr>
+au FileType c map R :w<cr>:!make; ./$(basename % .c)<cr>
 
