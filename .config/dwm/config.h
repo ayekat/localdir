@@ -33,18 +33,32 @@ static const int nmaster          = 1;    /* Default number of clients in master
 static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
 
 /* tagging */
-static const char *tags[] = { "1", "2", "3", "", "", "∫", "", "", "", " " };
+static const char *tags[] = {
+	"1",
+	"2",
+	"3",
+	"∫",
+	"∫",
+	"∫",
+	"",
+	"",
+	"",
+	"",
+	"",
+	"",
+	" "
+};
 
 static const Rule rules[] = {
 // floating windows:
-	/* class            instance title         tags mask isfloating monitor */
-	{ "Eog",            NULL,    NULL,         0,        True,      -1 },
-	{ "Gimp",           NULL,    NULL,         0,        True,      -1 },
-	{ "MPlayer",        NULL,    NULL,         0,        True,      -1 },
-	{ "Nitrogen",       NULL,    NULL,         0,        True,      -1 },
-	{ "Firefox",        NULL,    "Downloads",  0,        True,      -1 },
-	{ "Xfce4-terminal", NULL,    "Scratchpad", 1<<9,     True,      -1 },
-	{ "Lxappearance",   NULL,    NULL,         0,        True,      -1 },
+	/* class       instance   title         tags mask      isfloating  monitor*/
+	{ "Eog",            NULL, NULL,         0,                   True, -1 },
+	{ "Gimp",           NULL, NULL,         0,                   True, -1 },
+	{ "MPlayer",        NULL, NULL,         0,                   True, -1 },
+	{ "Nitrogen",       NULL, NULL,         0,                   True, -1 },
+	{ "Firefox",        NULL, "Downloads",  0,                   True, -1 },
+	{ "Xfce4-terminal", NULL, "Scratchpad", 1<<(LENGTH(tags)-1), True, -1 },
+	{ "Lxappearance",   NULL, NULL,         0,                   True, -1 },
 };
 
 /* layout(s) */
@@ -188,7 +202,7 @@ static Key keys[] = {
 	{ 0,                  XK_Print,  spawn,          {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,      spawn,          {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,      spawn,          {.v = redshiftcmd } },
-	{ MODKEY|ShiftMask,   XK_c,      killclient,     {0} },
+	{ MODKEY,             XK_F4,     killclient,     {0} },
 
 	// terminal:
 	{ MODKEY|ControlMask, XK_j,      spawn,          {.v = termcmd } },
@@ -243,15 +257,18 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_m,      movefollowmon, {.i = +1 } },
 
 	// tag keys (arranged in a square):
-	TAGKEYS( XK_1, 0)
-	TAGKEYS( XK_2, 1)
-	TAGKEYS( XK_3, 2)
-	TAGKEYS( XK_q, 3)
-	TAGKEYS( XK_w, 4)
-	TAGKEYS( XK_e, 5)
-	TAGKEYS( XK_a, 6)
-	TAGKEYS( XK_s, 7)
-	TAGKEYS( XK_d, 8)
+	TAGKEYS( XK_1,  0)
+	TAGKEYS( XK_2,  1)
+	TAGKEYS( XK_3,  2)
+	TAGKEYS( XK_q,  3)
+	TAGKEYS( XK_w,  4)
+	TAGKEYS( XK_e,  5)
+	TAGKEYS( XK_a,  6)
+	TAGKEYS( XK_s,  7)
+	TAGKEYS( XK_d,  8)
+	TAGKEYS( XK_y,  9)
+	TAGKEYS( XK_x, 10)
+	TAGKEYS( XK_c, 11)
 
 	// session commands:
 	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },

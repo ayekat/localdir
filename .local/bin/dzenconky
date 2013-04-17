@@ -19,7 +19,7 @@ dzenconky_start() {
 	# (if .conkyrc is available):
 	numscreens=$(xrandr | grep '*' | wc -l)
 	screenwidth=($(xrandr | grep '*' | cut -c 4-7))
-	tagwidth=238
+	tagwidth=295
 	for ((i=0; i<$numscreens; i++)); do
 		dzenwidth=$((${screenwidth[$i]}-$tagwidth))
 		conkyrc=$(printf "%s/conky/%s_%d.conkyrc" \
@@ -42,21 +42,13 @@ dzenconky_stop() {
 }
 
 dzenconky_help() {
-	printf "dzenconky  \e[1mstart\e[0m | \e[1mstop\e[0m | \e[1mrestart\e[0m\n"
+	echo "$(basename $0) start|stop|restart"
 }
 
 case $1 in
-	start)
-		dzenconky_start
-		;;
-	stop)
-		dzenconky_stop
-		;;
-	restart)
-		dzenconky_stop
-		dzenconky_start
-		;;
-	*)
-		dzenconky_help
+	start)   dzenconky_start                 ;;
+	stop)    dzenconky_stop                  ;;
+	restart) dzenconky_stop; dzenconky_start ;;
+	*)       dzenconky_help
 esac
 
