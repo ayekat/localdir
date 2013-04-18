@@ -26,10 +26,12 @@ set number
 set numberwidth=5
 hi LineNr cterm=bold ctermbg=0 ctermfg=0
 
-" Highlight number of current line:
-set cursorline
-hi CursorLine cterm=none
-hi CursorLineNr cterm=bold ctermbg=232 ctermfg=blue
+" Highlight number of current line (if not on my laggy laptop):
+if hostname() != "ixh"
+	set cursorline
+	hi CursorLine cterm=none
+	hi CursorLineNr cterm=bold ctermbg=232 ctermfg=blue
+endif
 
 " Highlight end of file:
 hi NonText cterm=bold ctermbg=232 ctermfg=blue
