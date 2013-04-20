@@ -22,7 +22,7 @@ dzenconky_start() {
 	if [[ $HOSTNAME = 'phobia' ]]; then
 		tagwidth=106
 	else
-		tagwidth=295
+		tagwidth=299
 	fi
 	for ((i=0; i<$numscreens; i++)); do
 		dzenwidth=$((${screenwidth[$i]}-$tagwidth))

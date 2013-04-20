@@ -11,7 +11,7 @@ cd
 # MONITOR OPTIONS --------------------------------------------------------------
 
 # Get the number of monitors:
-export NUMSCREENS=`xrandr | grep ' connected ' | wc -l`
+export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start

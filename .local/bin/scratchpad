@@ -1,3 +1,30 @@
 #!/bin/sh
+# Creates a new window titled "Scratchpad" that almost covers the screen, with
+# some gap at the border. See the dwm config for how to use it.
+# Written by ayekat in february 2013
 
-xfce4-terminal --title Scratchpad --geometry 144x45+250+15 -x tmx 0
+
+# gap to screen edge
+MARGIN_TOP=30
+MARGIN_RIGHT=20
+MARGIN_BOTTOM=20
+MARGIN_LEFT=20
+
+# terminal information:
+FWIDTH=6     # font glyph width
+FHEIGHT=13   # font glyph height
+PADDING=1    # terminal padding
+BORDER=1     # terminal border width
+
+# screen resolution:
+res=$(xrandr | grep '*' | cut -c 4-12)
+xres=$(echo $res | sed 's/x[0-9]*//g')
+yres=$(echo $res | sed 's/[0-9]*x//g')
+
+# calculate window dimension:
+xgres=$(($(($xres-$MARGIN_LEFT-$MARGIN_RIGHT-2*$BORDER-2*$PADDING))/$FWIDTH))
+ygres=$(($(($yres-$MARGIN_TOP-$MARGIN_BOTTOM-2*$BORDER-2*$PADDING))/$FHEIGHT))
+
+xfce4-terminal --title Scratchpad \
+		--geometry $(($xgres))x$ygres+$MARGIN_LEFT+$MARGIN_TOP -x tmx 0
+
