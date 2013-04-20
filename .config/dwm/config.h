@@ -35,6 +35,9 @@ static const int nmaster          = 1;    /* Default number of clients in master
 static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
 
 /* tagging */
+#ifdef HOST_phobia
+static const char *tags[] = { "1", "2", "3", " " };
+#else
 static const char *tags[] = {
 	"_",
 	"_",
@@ -50,6 +53,7 @@ static const char *tags[] = {
 	"",
 	" "
 };
+#endif
 
 static const Rule rules[] = {
 // floating windows:
@@ -272,6 +276,7 @@ static Key keys[] = {
 	TAGKEYS( XK_1,  0)
 	TAGKEYS( XK_2,  1)
 	TAGKEYS( XK_3,  2)
+#ifndef HOST_phobia
 	TAGKEYS( XK_q,  3)
 	TAGKEYS( XK_w,  4)
 	TAGKEYS( XK_e,  5)
@@ -281,6 +286,7 @@ static Key keys[] = {
 	TAGKEYS( XK_y,  9)
 	TAGKEYS( XK_x, 10)
 	TAGKEYS( XK_c, 11)
+#endif
 
 	// session commands:
 	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },
