@@ -17,7 +17,7 @@ PADDING=1    # terminal padding
 BORDER=1     # terminal border width
 
 # screen resolution:
-res=$(xrandr | grep '*' | cut -c 4-12)
+res=$(xrandr | grep '*' | head -n 1 | cut -c 4-12)
 xres=$(echo $res | sed 's/x[0-9]*//g')
 yres=$(echo $res | sed 's/[0-9]*x//g')
 
