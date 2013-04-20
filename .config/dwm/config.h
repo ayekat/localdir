@@ -36,7 +36,7 @@ static const Bool resizehints     = False;/* True means respect size hints in ti
 
 /* tagging */
 #ifdef HOST_phobia
-static const char *tags[] = { "1", "2", "3", " " };
+static const char *tags[] = { "a", "s", "d", " " };
 #else
 static const char *tags[] = {
 	"_",
@@ -50,7 +50,7 @@ static const char *tags[] = {
 	"",
 	"",
 	"",
-	"",
+	//"",
 	" "
 };
 #endif
@@ -218,7 +218,7 @@ static Key keys[] = {
 	{ 0,                  XK_Print,   spawn,         {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,       spawn,         {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,       spawn,         {.v = redshiftcmd } },
-	{ MODKEY|ShiftMask,   XK_i,       killclient,    {0} },
+	{ MODKEY|ShiftMask,   XK_c,       killclient,    {0} },
 
 	// terminal:
 	{ MODKEY|ControlMask, XK_j,       spawn,         {.v = termcmd } },
@@ -273,10 +273,14 @@ static Key keys[] = {
 	{ MODKEY|ControlMask|ShiftMask, XK_m,      movefollowmon, {.i = +1 } },
 
 	// tag keys (arranged in a square):
+#ifdef HOST_phobia
+	TAGKEYS( XK_a,  0)
+	TAGKEYS( XK_s,  1)
+	TAGKEYS( XK_d,  2)
+#else
 	TAGKEYS( XK_1,  0)
 	TAGKEYS( XK_2,  1)
 	TAGKEYS( XK_3,  2)
-#ifndef HOST_phobia
 	TAGKEYS( XK_q,  3)
 	TAGKEYS( XK_w,  4)
 	TAGKEYS( XK_e,  5)
@@ -285,7 +289,6 @@ static Key keys[] = {
 	TAGKEYS( XK_d,  8)
 	TAGKEYS( XK_y,  9)
 	TAGKEYS( XK_x, 10)
-	TAGKEYS( XK_c, 11)
 #endif
 
 	// session commands:
@@ -296,14 +299,25 @@ static Key keys[] = {
 
 /* button definitions */
 static Button buttons[] = {
-	/* click                event mask      button          function        argument */
-	{ ClkRootWin,           MODKEY,         Button1,        spawn,          {.v = termcmd } },
+	/* click         event mask button   function     argument */
+	{ ClkClientWin,  MODKEY,    Button1, movemouse,   {0} },
+	{ ClkClientWin,  MODKEY,    Button3, resizemouse, {0} },
 
-	{ ClkClientWin,         MODKEY,         Button1,        movemouse,      {0} },
-	{ ClkClientWin,         MODKEY,         Button3,        resizemouse,    {0} },
+	{ ClkTagBar,     0,         Button1, view,        {0} },
+	{ ClkTagBar,     0,         Button3, toggleview,  {0} },
 
-	{ ClkTagBar,            0,              Button1,        view,           {0} },
-	{ ClkTagBar,            0,              Button3,        toggleview,     {0} },
+#ifdef HOST_phobia
+	{ ClkRootWin,    0,         Button4, shiftview,   {.i = -1} },
+	{ ClkWinTitle,   0,         Button4, shiftview,   {.i = -1} },
+	{ ClkStatusText, 0,         Button4, shiftview,   {.i = -1 } },
+	{ ClkTagBar,     0,         Button4, shiftview,   {.i = -1 } },
+
+	{ ClkRootWin,    0,         Button5, shiftview,   {.i = +1} },
+	{ ClkWinTitle,   0,         Button5, shiftview,   {.i = +1} },
+	{ ClkStatusText, 0,         Button5, shiftview,   {.i = +1 } },
+	{ ClkTagBar,     0,         Button5, shiftview,   {.i = +1 } },
+#endif
+
 	/* Possible clicks:
 	 * - ClkRootWin:    desktop
 	 * - ClkClientWin:  client/window
