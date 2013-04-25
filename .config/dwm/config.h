@@ -18,12 +18,12 @@ static const char selbgcolor[]           = "#E04613";
 static const char selfgcolor[]           = "#FFFFFF";
 */
 
-// green
+// yellow
 static const char normbordercolor[]      = "#222222";
-static const char selbordercolor[]       = "#AFD700";
+static const char selbordercolor[]       = "#AAAA55";
 static const char normbgcolor[]          = "#222222";
 static const char normfgcolor[]          = "#888888";
-static const char selbgcolor[]           = "#AFD700";
+static const char selbgcolor[]           = "#AAAA55";
 static const char selfgcolor[]           = "#222222";
 
 /*
@@ -36,7 +36,7 @@ static const char selbgcolor[]      = "#4499CC";
 static const char selfgcolor[]      = "#FFFFFF";
 */
 
-static const unsigned int borderpx= 1;    /* border pixel of windows */
+static const unsigned int borderpx= 2;    /* border pixel of windows */
 static const unsigned int snap    = 20;   /* snap pixel */
 static const Bool showbar         = True; /* False means no bar */
 static const Bool topbar          = True; /* False means bottom bar */
@@ -49,9 +49,9 @@ static const Bool resizehints     = False;/* True means respect size hints in ti
 static const char *tags[] = { "a", "s", "d", " " };
 #else
 static const char *tags[] = {
-	"_",
-	"_",
-	"_",
+	"×",
+	"×",
+	"×",
 	"∫",
 	"∫",
 	"∫",
@@ -228,7 +228,7 @@ static Key keys[] = {
 	{ 0,                  XK_Print,   spawn,         {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,       spawn,         {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,       spawn,         {.v = redshiftcmd } },
-	{ MODKEY|ShiftMask,   XK_v,       killclient,    {0} },
+	{ MODKEY|ShiftMask,   XK_i,       killclient,    {0} },
 
 	// terminal:
 	{ MODKEY|ControlMask, XK_j,       spawn,         {.v = termcmd } },
