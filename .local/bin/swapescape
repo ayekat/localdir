@@ -1,0 +1,14 @@
+#!/bin/sh
+# On-the-fly keyboard remappings. This is for machines where you have no root
+# permission (for example for the machines at the EPFL).
+
+# swap Escape and CapsLock:
+xmodmap -e 'remove Lock = Caps_Lock'
+xmodmap -e 'keycode 9 = Caps_Lock'
+xmodmap -e 'keycode 66 = Escape'
+xmodmap -e 'add Lock = Caps_Lock'
+
+# more ergonomic Backspace/Delete (doesn't work on EPFL machines):
+xmodmap -e 'keycode 44 = j J BackSpace BackSpace'
+xmodmap -e 'keycode 45 = k K Delete Delete'
+

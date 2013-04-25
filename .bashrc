@@ -185,8 +185,8 @@ printlogo() {
 	esac
 }
 
-# Delete the 'Desktop' folder if not on OS X:
-[ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
+# Delete the 'Desktop' folder if on an Arch installation:
+[ $arch = 'arch' ] && rmdir $HOME/Desktop 2> /dev/null
 
 # Hosteurope fuckery: force loading correct locale:
 [ $HOSTNAME = 'rowland' ] && export LANG=en_GB.UTF-8
