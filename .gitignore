@@ -1,4 +1,6 @@
 *.swp
+.config/conky/img
+.config/conky/.albumart.jpg
 .config/dwm/src
 .config/dwm/pkg
 .config/dwm/*.tar.xz

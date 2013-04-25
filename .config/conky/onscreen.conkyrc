@@ -3,15 +3,16 @@
 # the desktop in a tiling WM (as they behave a bit differently).
 
 # Define position/size:
-alignment middle_middle
-gap_y -200
-gap_x 320
+alignment top_left
+gap_y 60
+gap_x 45
 
 # Set font/colour:
-default_color 555555
+#default_color AAAAAA
+default_color 888888
 draw_shades no
 use_xft yes
-xftfont Gill Sans:weight=thin:size=100
+xftfont Gill Sans:weight=thin:size=16
 
 
 # BEHAVIOUR --------------------------------------------------------------------
@@ -26,5 +27,15 @@ update_interval 5
 
 # CONTENT ----------------------------------------------------------------------
 
+#${time %H:%M}\
 TEXT
-${time %H:%M}\
+${if_mpd_playing}\
+                   \
+${color AAAA55}${font Gill Sans:weight=normal:size=18}${mpd_title}$font$color
+                   \
+${mpd_artist}
+                   \
+${font Gill Sans:slant=italic:weight=thin:size=18}${mpd_album}$font
+${exec mpd_cover}${image /home/ayekat/.config/conky/.albumart.jpg -n -s 100x100}
+$endif
+

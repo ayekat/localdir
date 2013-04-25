@@ -1,0 +1,10 @@
+#!/bin/sh
+# Takes an album name and transforms it into a "valid" (= reasonable) filename.
+# Written by ayekat on a frustrating tuesday evening for conky.
+
+FILE=$XDG_CONFIG_HOME/conky/img/$(mpc -f "%album%" | head -n1 | \
+tr -d '[\"?!\[\],\(\):]' | sed "s/[ '\/]/_/g" | sed "s/ñ/n/g" | \
+tr '[:upper:]' '[:lower:]').jpg
+
+ln -fs "$FILE" $XDG_CONFIG_HOME/conky/.albumart.jpg
+
