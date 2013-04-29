@@ -16,10 +16,10 @@ set statusbar-fg "#AAAAAA"            # statusbar
 set statusbar-bg "#222222"
 set inputbar-fg "#EEEEEE"             # input line
 set inputbar-bg "#111111"
-set completion-fg "#E04613"           # completion; default
-set completion-bg "#000000"
-set completion-highlight-fg "#000000" # ... and highlighted
-set completion-highlight-bg "#E04613"
+set completion-fg "#AAAA55"           # completion; default
+set completion-bg "#222222"
+set completion-highlight-fg "#FFFFFF" # ... and highlighted
+set completion-highlight-bg "#000000"
 
 # Recoloured ('inverted') colours:
 set recolor-darkcolor "#AAAAAA"       # 'foreground'
