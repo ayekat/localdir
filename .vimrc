@@ -15,7 +15,7 @@ call pathogen#infect()
 " ------------------------------------------------------------------------------
 " LOOK
 
-" Enable 256 colours mode:
+" Enable 256 colours mode (we handle the TTY case further below):
 set t_Co=256
 
 " Displays darker colours, more confortable for the eyes:
@@ -26,15 +26,10 @@ set number
 set numberwidth=5
 hi LineNr cterm=bold ctermbg=0 ctermfg=0
 
-" Highlight number of current line (if not on my laggy laptop):
-if hostname() != "ixh"
-	set cursorline
-	hi CursorLine cterm=none
-	hi CursorLineNr cterm=bold ctermbg=232 ctermfg=blue
+" Highlight end of file (only in non-TTY):
+if $TERM != "linux"
+	hi NonText cterm=bold ctermbg=232 ctermfg=blue
 endif
-
-" Highlight end of file:
-hi NonText cterm=bold ctermbg=232 ctermfg=blue
 
 " Enable UTF-8 (I wanna see Umlauts!):
 set encoding=utf8
@@ -67,6 +62,9 @@ set encoding=utf8
 
 	" (La)TeX files are sometimes not recognised correctly:
 	au BufRead,BufNewFile *.tex set filetype=tex
+
+	" Header files ending with .h are C:
+	au BufRead,BufNewFile *.h set filetype=c
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
@@ -128,63 +126,125 @@ set laststatus=2
 set noshowmode
 
 " Define default statusline background to get rid of funnily coloured corners:
-hi StatusLine cterm=none ctermfg=0 ctermbg=0
-hi StatusLineNC cterm=none ctermfg=2 ctermbg=0
+hi StatusLine   ctermfg=0 ctermbg=0 cterm=none
+hi StatusLineNC ctermfg=8 ctermbg=0 cterm=none
+hi User0        ctermfg=8 ctermbg=0 cterm=none
+hi User9        ctermfg=1 ctermbg=0 cterm=none
+hi CursorLine cterm=none
 
+" Define seperator icons:
+if $TERM == "linux"
+	let lsep="|"
+	let lfsep=""
+	let rsep="|"
+	let rfsep=""
+	let lnum="LN"
+else
+	let lsep="⮃"
+	let lfsep="⮂"
+	let rsep="⮁"
+	let rfsep="⮀"
+	let lnum="⭡"
+endif
+
+" This function determines the filename:
 function! GetFilepath()
 	let filepath=expand("%:p")
 	let filepath=(filepath == '')?"[No Name]":filepath
 	return filepath
 endfunction
 
-" Base:
-hi User1 cterm=none ctermbg=0 ctermfg=244
-
-" Error:
-hi User9 cterm=none ctermbg=0 ctermfg=1
-
 " This function defines the inactive statusbar content:
 function! StatuslineInactive()
 	" filename:
-	set statusline=%1*\ \ \ ⮁\ \ %<%{GetFilepath()}\ \ ⮁
+	set statusline=%0*\ \ \ \ \ \ \ \ %{rsep}\ \ %<%{GetFilepath()}\ \ %{rsep}
 
 	" change to the right side:
 	set statusline+=%=
 
 	" cursor position (column):
-	set statusline+=\ \ ⮃\ \ %02c(%02v)
+	set statusline+=\ \ %{lsep}\ \ %02c(%02v)
 
 	" buffer position (line):
-	set statusline+=\ ⮃\ \ ⭡\ \ %02l/%L\ (%P)
+	set statusline+=\ %{lsep}\ \ %{lnum}\ \ %02l/%L\ (%P)
 
 	" file type:
-	set statusline+=\ ⮃\ %Y\ %1*
+	set statusline+=\ %{lsep}\ %Y\ %0*
 endfunction
 
 " This function defines the active statusbar content:
 function! StatuslineActive(mode)
-	" mode:
-	setl statusline=%2*
-	if a:mode == 'V'
-		hi User2 ctermbg=6 ctermfg=8
-		hi User3 ctermfg=6
-		setl statusline+=\ VISUAL\ 
-	elseif a:mode == 'I'
-		hi User2 ctermbg=3 ctermfg=8
-		hi User3 ctermfg=3
-		setl statusline+=\ INSERT\ 
-	else
-		hi User2 ctermbg=148 ctermfg=28
-		hi User3 ctermfg=148
-		setl statusline+=\ n\ 
-	endif
-	hi User3 ctermbg=8
-	setl statusline+=%3*⮀
+	" middle part:
+	hi User1 ctermfg=244 ctermbg=0 cterm=none
 
-	" transition: white > grey > black
+	" seperator mode>grey:
+	hi User3             ctermbg=8
+
+	" white > grey > black:
 	hi User4 ctermfg=8 ctermbg=7
 	hi User5 ctermfg=7 ctermbg=8
 	hi User6 ctermfg=8 ctermbg=0
+
+	" mode:
+	if a:mode == 'V'
+		hi User2 ctermbg=208 ctermfg=52
+		hi User3 ctermfg=208
+	elseif a:mode == 'I'
+		hi CursorLineNr cterm=bold ctermbg=232 ctermfg=4
+		hi User2 ctermfg=8  ctermbg=7
+		hi User3 ctermfg=7  ctermbg=31
+		hi User5 ctermfg=7  ctermbg=31
+		hi User6 ctermfg=31 ctermbg=23
+		hi User1 ctermfg=45 ctermbg=23
+		hi User9            ctermbg=23
+	else
+		hi User2 ctermfg=22  ctermbg=148
+		hi User3 ctermfg=148
+		hi User1 ctermfg=244 ctermbg=0
+		hi User9             ctermbg=0
+
+		" Disable current line highlight:
+	endif
+endfunction
+
+" This function defines the active statusbar content (in a TTY):
+function! StatuslineActiveTTY(mode)
+	" center part:
+	hi User1 ctermfg=0 ctermbg=0 cterm=bold
+
+	" white > grey > black:
+	hi User4 ctermfg=0 ctermbg=7
+	hi User5 ctermfg=7 ctermbg=232
+	hi User6 ctermfg=0 ctermbg=0 cterm=bold
+
+	" mode:
+	if a:mode == 'V'
+		hi User2 ctermfg=0 ctermbg=3 cterm=none
+	elseif a:mode == 'I'
+		hi CursorLineNr cterm=none ctermfg=6
+		hi User2 ctermfg=4  ctermbg=7
+		hi User4 ctermfg=4
+		hi User5            ctermbg=4
+	else
+		hi User2 ctermfg=0  ctermbg=2
+		hi User1 ctermfg=0  cterm=bold
+	endif
+endfunction
+
+" This function draws the statusbar content:
+function! DrawStatusline(mode)
+	" mode:
+	setl statusline=%2*
+	if a:mode == 'V'
+		setl statusline+=\ VISUAL\ 
+	elseif a:mode == 'I'
+		setl statusline+=\ INSERT\ 
+		set cursorline
+	else
+		setl statusline+=\ NORMAL\ 
+		set nocursorline
+	endif
+	setl statusline+=%3*%{rfsep}
 
 	" filename (with modified flag):
 	setl statusline+=%5*\ \ %<%{GetFilepath()}\ 
@@ -193,32 +253,37 @@ function! StatuslineActive(mode)
 	else
 		setl statusline+=\ 
 	endif
-	setl statusline+=%6*⮀
+	setl statusline+=%6*%{rfsep}
 
 	" readonly?
 	if &readonly
-		setl statusline+=%9*\ (readonly)
+		setl statusline+=%9*\ (readonly)%1*%{rsep}
 	endif
-	setl statusline+=%1*
+	setl statusline+=
 
 	" change to the right side:
-	setl statusline+=%=
+	setl statusline+=%=%1*
 
 	" cursor position (column):
-	setl statusline+=\ \ ⮃\ \ %02c(%02v)%6*
+	setl statusline+=\ \ %{lsep}\ \ %02c(%02v)%6*
 
 	" buffer position (line):
-	setl statusline+=\ ⮂%5*\ \ ⭡\ \ %02l/%L\ (%P)
+	setl statusline+=\ %{lfsep}%5*\ \ %{lnum}\ \ %02l/%L\ (%P)
 
 	" file type:
-	setl statusline+=\ ⮂%4*\ %Y\ %1*
+	setl statusline+=\ %{lfsep}%4*\ %Y\ %1*
 endfunction
 
 " Draws all the statuslines:
 function! UpdateStatusline(focused, mode)
 	call StatuslineInactive()
 	if a:focused
-		call StatuslineActive(a:mode)
+		if $TERM == "linux"
+			call StatuslineActiveTTY(a:mode)
+		else
+			call StatuslineActive(a:mode)
+		endif
+		call DrawStatusline(a:mode)
 	endif
 endfunction
 
@@ -229,12 +294,14 @@ au! BufLeave,WinLeave * call UpdateStatusline(0, 'N')
 
 " Trigger update of the modified flag on certain occasions:
 au! BufWritePost * call UpdateStatusline(1, 'N')
-noremap <silent> p p:call UpdateStatusline(1, 'N')<CR>
-noremap <silent> u u:call UpdateStatusline(1, 'N')<CR>
-noremap <silent> dd dd:call UpdateStatusline(1, 'N')<CR>
-noremap <silent> dw dw:call UpdateStatusline(1, 'N')<CR>
-noremap <silent> x x:call UpdateStatusline(1, 'N')<CR>
-noremap <silent> <C-r> <C-r>:call UpdateStatusline(1, 'N')<CR>
+if !&modified
+	noremap <silent> p p:call UpdateStatusline(1, 'N')<CR>
+	noremap <silent> u u:call UpdateStatusline(1, 'N')<CR>
+	noremap <silent> dd dd:call UpdateStatusline(1, 'N')<CR>
+	noremap <silent> dw dw:call UpdateStatusline(1, 'N')<CR>
+	noremap <silent> x x:call UpdateStatusline(1, 'N')<CR>
+	noremap <silent> <C-r> <C-r>:call UpdateStatusline(1, 'N')<CR>
+endif
 
 " As there are no predefined events for visual and replace mode, I need to
 " manually define them:
