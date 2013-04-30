@@ -45,7 +45,11 @@ set encoding=utf8
 " FOLDING >
 
 	" Define colour:
-	hi Folded cterm=bold ctermbg=0 ctermfg=4
+	if $TERM == "linux"
+		hi Folded ctermfg=3 ctermbg=255 cterm=none
+	else
+		hi Folded ctermfg=208 ctermbg=0 cterm=none
+	endif
 
 	" Define fill characters (space=don't fill up):
 	set fillchars+=fold:\ 
@@ -135,11 +139,11 @@ hi CursorLine cterm=none
 if $TERM == "linux"
 	hi CursorLineNr ctermfg=7 ctermbg=4
 else
-	hi CursorLineNr ctermfg=7 ctermbg=31
+	hi CursorLineNr ctermfg=45 ctermbg=23
 endif
 
 " Define seperator icons:
-if $TERM == "linux"
+if $TERM == "linux" || hostname() == "rowland"
 	let lsep="|"
 	let lfsep=""
 	let rsep="|"
@@ -219,7 +223,7 @@ endfunction
 " This function defines the active statusbar content (in a TTY):
 function! StatuslineActiveTTY(mode)
 	" line numbers:
-	hi LineNr ctermfg=7 ctermbg=255 cterm=none
+	hi LineNr ctermfg=0 ctermbg=0 cterm=bold
 
 	" center part:
 	hi User1 ctermfg=0 ctermbg=0 cterm=bold
@@ -231,8 +235,8 @@ function! StatuslineActiveTTY(mode)
 
 	" mode:
 	if a:mode == 'V'
-		hi LineNr ctermfg=3 ctermbg=255
-		hi User2  ctermfg=0 ctermbg=3   cterm=none
+		hi LineNr ctermfg=3 ctermbg=0 cterm=none
+		hi User2  ctermfg=0 ctermbg=3 cterm=none
 	elseif a:mode == 'I'
 		hi User2 ctermfg=4  ctermbg=7
 		hi User4 ctermfg=4
@@ -269,7 +273,7 @@ function! DrawStatusline(mode)
 
 	" readonly?
 	if &readonly
-		setl statusline+=%9*\ (readonly)%1*%{rsep}
+		setl statusline+=%9*\ (readonly)%1*\ %{rsep}
 	endif
 	setl statusline+=
 

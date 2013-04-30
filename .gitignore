@@ -1,4 +1,5 @@
 *.swp
+*.swo
 .config/conky/img
 .config/conky/.albumart.jpg
 .config/dwm/src

@@ -13,11 +13,11 @@
 # Enable 256 colours
 # Found here: https://wiki.archlinux.org/index.php/Screen#Use_256_colors
 attrcolor b ".I"
-termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo xterm "Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm"
 defbce on
 
 # Draw a pretty statusline:
-hardstatus alwayslastline "%{= yK} screen %{= kK}  %-w%{+ kw}%n %t%{-}%+w%=%{= Kw} %H %{= wK} %0c "
+hardstatus alwayslastline "%{= yk} screen %{= Kw} %H %{= kK}  %-w%{+ .w}%{+b .y}%n%{-} %t%{-}%+w%=%{= Kw} ... %{= wK} %0c "
 
 # ------------------------------------------------------------------------------
 # FEEL
