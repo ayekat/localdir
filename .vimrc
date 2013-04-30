@@ -24,7 +24,6 @@ set background=light
 " Display and format line numbers:
 set number
 set numberwidth=5
-hi LineNr cterm=bold ctermbg=0 ctermfg=0
 
 " Highlight end of file (only in non-TTY):
 if $TERM != "linux"
@@ -130,7 +129,14 @@ hi StatusLine   ctermfg=0 ctermbg=0 cterm=none
 hi StatusLineNC ctermfg=8 ctermbg=0 cterm=none
 hi User0        ctermfg=8 ctermbg=0 cterm=none
 hi User9        ctermfg=1 ctermbg=0 cterm=none
+
+" Define line number style for insert mode:
 hi CursorLine cterm=none
+if $TERM == "linux"
+	hi CursorLineNr ctermfg=7 ctermbg=4
+else
+	hi CursorLineNr ctermfg=7 ctermbg=31
+endif
 
 " Define seperator icons:
 if $TERM == "linux"
@@ -174,8 +180,11 @@ endfunction
 
 " This function defines the active statusbar content:
 function! StatuslineActive(mode)
+	" status line:
+	hi LineNr ctermfg=244 ctermbg=0
+
 	" middle part:
-	hi User1 ctermfg=244 ctermbg=0 cterm=none
+	hi User1 ctermfg=244 ctermbg=0
 
 	" seperator mode>grey:
 	hi User3             ctermbg=8
@@ -187,10 +196,10 @@ function! StatuslineActive(mode)
 
 	" mode:
 	if a:mode == 'V'
-		hi User2 ctermbg=208 ctermfg=52
-		hi User3 ctermfg=208
+		hi LineNr ctermfg=208 ctermbg=0
+		hi User2  ctermfg=52  ctermbg=208
+		hi User3  ctermfg=208
 	elseif a:mode == 'I'
-		hi CursorLineNr cterm=bold ctermbg=232 ctermfg=4
 		hi User2 ctermfg=8  ctermbg=7
 		hi User3 ctermfg=7  ctermbg=31
 		hi User5 ctermfg=7  ctermbg=31
@@ -209,19 +218,22 @@ endfunction
 
 " This function defines the active statusbar content (in a TTY):
 function! StatuslineActiveTTY(mode)
+	" line numbers:
+	hi LineNr ctermfg=7 ctermbg=255 cterm=none
+
 	" center part:
 	hi User1 ctermfg=0 ctermbg=0 cterm=bold
 
 	" white > grey > black:
 	hi User4 ctermfg=0 ctermbg=7
-	hi User5 ctermfg=7 ctermbg=232
+	hi User5 ctermfg=7 ctermbg=255
 	hi User6 ctermfg=0 ctermbg=0 cterm=bold
 
 	" mode:
 	if a:mode == 'V'
-		hi User2 ctermfg=0 ctermbg=3 cterm=none
+		hi LineNr ctermfg=3 ctermbg=255
+		hi User2  ctermfg=0 ctermbg=3   cterm=none
 	elseif a:mode == 'I'
-		hi CursorLineNr cterm=none ctermfg=6
 		hi User2 ctermfg=4  ctermbg=7
 		hi User4 ctermfg=4
 		hi User5            ctermbg=4

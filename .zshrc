@@ -213,7 +213,7 @@ printlogo() {
 [ $arch != 'darwin' ] && rmdir $HOME/Desktop 2> /dev/null
 
 # Hosteurope fuckery: force loading correct locale:
-[ $HOSTNAME = 'rowland' ] && export LANG=en_GB.UTF-8
+[ "$HOSTNAME" = 'rowland' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch
