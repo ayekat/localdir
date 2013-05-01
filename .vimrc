@@ -143,7 +143,7 @@ else
 endif
 
 " Define seperator icons:
-if $TERM == "linux" || hostname() == "rowland"
+if $TERM == "linux"
 	let lsep="|"
 	let lfsep=""
 	let rsep="|"
