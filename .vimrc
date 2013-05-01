@@ -351,8 +351,8 @@ nnoremap <silent> . .:call UpdateStatusline(1, 'N')<CR>
 set scrolloff=3
 	
 " Simplify window scrolling:
-map <Up> 3<C-y>
-map <Down> 3<C-e>
+map K 3<C-y>
+map J 3<C-e>
 
 " Modelines are evil!
 set nomodeline
@@ -396,6 +396,9 @@ set nomodeline
 
 	" Word-breaking characters:
 	set iskeyword-=[.]
+
+	" Manual pages:
+	map <C-m> :exe ":!man '".expand('<cword>')."'"<cr>
 
 
 " ------------------------------------------------------------------------------
