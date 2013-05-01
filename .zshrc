@@ -27,7 +27,7 @@ if [ ! $IS_DESKTOP ]; then
 	# Hosteurope fuckery: tmux does not run correctly, so fallback to screen:
 	if [ $HOSTNAME = 'rowland' ]; then
 		[ -e /usr/bin/screen ] && [ $TERM != 'screen-bce' ] && \
-				TERM=xterm-256color screen -x && exit
+				TERM=xterm-256color screen -U -x && exit
 	else
 		[ -e /usr/bin/tmux ] && [ $TERM != 'screen-256color' ] && tmx 0 && exit
 	fi
