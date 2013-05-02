@@ -1,0 +1,14 @@
+--- a/dwm.c	2013-05-02 00:12:41.853014034 +0200
++++ b/dwm.c	2013-05-02 12:59:05.853182551 +0200
+@@ -323,6 +323,11 @@
+ 	if(ch.res_name)
+ 		XFree(ch.res_name);
+ 	c->tags = c->tags & TAGMASK ? c->tags & TAGMASK : c->mon->tagset[c->mon->seltags];
++#ifdef SCRATCHPADNAME
++	/* prevent non-scratchpad windows from starting on scratchpad tag */
++	if (strcmp(c->name, SCRATCHPADNAME) && c->tags & TAGMASK>>1)
++		c->tags &= TAGMASK >> 1;
++#endif
+ }
+ 
+ Bool

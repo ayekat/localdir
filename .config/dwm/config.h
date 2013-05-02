@@ -3,6 +3,7 @@
 #include "bstack.c"         //     "        "    "  split screen vertically
 #include "fibonacci.c"      //     "        "    "  arrange as Fibonacci
 #include "push.c"           // move clients around in stack/master
+#include <time.h>
 
 /* appearance */
 static const char font[]            = "Fixed Medium Semi-Condensed 10";
@@ -65,16 +66,17 @@ static const char *tags[] = {
 };
 #endif
 
+#define SCRATCHPADNAME "Scratchpad"
+
 static const Rule rules[] = {
-// floating windows:
-	/* class       instance   title         tags mask      isfloating  monitor*/
-	{ "Eog",            NULL, NULL,         0,                   True, -1 },
-	{ "Gimp",           NULL, NULL,         0,                   True, -1 },
-	{ "MPlayer",        NULL, NULL,         0,                   True, -1 },
-	{ "Nitrogen",       NULL, NULL,         0,                   True, -1 },
-	{ "Firefox",        NULL, "Downloads",  0,                   True, -1 },
-	{ "Xfce4-terminal", NULL, "Scratchpad", 1<<(LENGTH(tags)-1), True, -1 },
-	{ "Lxappearance",   NULL, NULL,         0,                   True, -1 },
+/*    class         instance  title           tags mask      isfloating  monitor
+ */
+	{ "Eog",            NULL, NULL,           0,                   True, -1 },
+	{ "Gimp",           NULL, NULL,           0,                   True, -1 },
+	{ "MPlayer",        NULL, NULL,           0,                   True, -1 },
+	{ "Nitrogen",       NULL, NULL,           0,                   True, -1 },
+	{ "Xfce4-terminal", NULL, SCRATCHPADNAME, 1<<(LENGTH(tags)-1), True, -1 },
+	{ "Lxappearance",   NULL, NULL,           0,                   True, -1 },
 };
 
 /* layout(s) */
