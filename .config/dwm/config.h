@@ -3,7 +3,6 @@
 #include "bstack.c"         //     "        "    "  split screen vertically
 #include "fibonacci.c"      //     "        "    "  arrange as Fibonacci
 #include "push.c"           // move clients around in stack/master
-#include <time.h>
 
 /* appearance */
 static const char font[]            = "Fixed Medium Semi-Condensed 10";

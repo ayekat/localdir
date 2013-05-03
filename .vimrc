@@ -75,7 +75,11 @@ set encoding=utf8
 	" Display a bar after a reasonable number of columns:
 	if version >= 703
 		set colorcolumn=81
-		hi ColorColumn ctermbg=0
+		if $TERM == "linux"
+			hi ColorColumn ctermbg=255
+		else
+			hi ColorColumn ctermbg=0
+		endif
 		"let &colorcolumn=join(range(81,999),",")
 		"hi ColorColumn ctermbg=232
 		au FileType gitcommit set colorcolumn=73
@@ -410,5 +414,5 @@ map R <nop>
 
 " File type specific commands:
 au FileType tex map R :w<cr>:!pdflatex %<cr>
-au FileType c map R :w<cr>:!make; ./$(basename % .c)<cr>
+au FileType c map R :w<cr>:!gcc % -o $(basename % .c); ./$(basename % .c)<cr>
 
