@@ -4,14 +4,14 @@
 
 
 # ------------------------------------------------------------------------------
-# START
+# START {{{
 
 # Check if this is an interactive session:
 test -z "$PS1" && return
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# SYSTEM
+# SYSTEM {{{
 
 # Read operating system information (if available):
 if [ -e /etc/os-release ]; then
@@ -38,20 +38,68 @@ if [ ! $IS_DESKTOP ]; then
 	fi
 fi
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# LOOK
+# PROMPT {{{
+
+# Vim statusline colours (fg):
+#  22 normal prompt
+# 208 visual prompt
+#   7 normal filename
+# 244 normal middle
+#   8 insert prompt
+#   7 insert filename
+#  45 insert middle
+#
+# Vim statusline colours (bg):
+# 148 normal prompt
+#  52 visual prompt
+#   8 normal filename
+#   0 normal middle
+#   7 insert prompt
+#  31 insert filename
+#  23 insert middle
+
+# Create prompt:
+ayeprompt_assemble() {
+	git rev-parse 2> /dev/null && git_set=1
+	PS1=""
+
+	# Host name (only if SSH session):
+	[ -z "$SSH_TTY" ] || PS1+="\[\e[33m\]\h\[\e[0m\] "
+
+	# Git branch (only if in git repo):
+	if [ $git_set ]; then
+		git_diff=$(git diff --shortstat )
+		git_branch=$(git branch | grep '*' | cut -c 3-)
+		[ -z $git_branch ] && git_branch='empty'
+		git_status=$(git status -s)
+		git_ahead=$(git status -sb | grep ahead)
+		if [ -z "$git_diff" ] && [ -z "$git_status" ]; then
+			if [ -z "$git_ahead" ]; then git_colour=34; else git_colour=36; fi
+		else
+			git_colour=31
+		fi
+		PS1+="\[\e[${git_colour}m\][$git_branch]\[\e[0m\] "
+		unset git_colour
+	fi
+
+	# Working directory
+	PS1+="\[\e[32m\]\w\[\e[0m\] "
+
+	# Clean variables:
+	unset git_set
+	unset git_status
+	unset git_diff
+	unset git_branch
+}
 
 # Configure Prompt:
-if [ $IS_DESKTOP ]; then
-	PS1="\[\e[33m\]\h \[\e[32m\]\w\[\e[0m\] "
-else
-	PS1="\[\e[35m\]\h \[\e[32m\]\w\[\e[0m\] "
-fi
+export PROMPT_COMMAND='ayeprompt_assemble'
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# FEEL
+# FEEL {{{
 
 # Enable tab completion with sudo:
 complete -cf sudo
@@ -59,9 +107,9 @@ complete -cf sudo
 # Enable Vi/ViM-like behaviour (default: emacs):
 #set -o vi
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# ALIASES
+# ALIASES {{{
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias la='ls -a'
@@ -87,16 +135,16 @@ if [ $arch = 'arch' ]; then
 			alias x='startx -- -nolisten tcp & exit'
 fi
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# HISTORY
+# HISTORY {{{
 
 export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=10000
 
-
+# }}}
 # ------------------------------------------------------------------------------
-# START-UP ACTIONS
+# START-UP ACTIONS {{{
 
 # Define logos:
 printlogo() {
@@ -171,4 +219,6 @@ printlogo $arch
 
 # Display the todo file in the home directory:
 [ -e $HOME/TODO ] && { echo; cat $HOME/TODO; echo; }
+
+# }}}
 
