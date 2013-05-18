@@ -65,8 +65,9 @@ ayeprompt_assemble() {
 	git rev-parse 2> /dev/null && git_set=1
 	PS1=""
 
-	# Host name (only if SSH session):
-	[ -z "$SSH_TTY" ] || PS1+="\[\e[33m\]\h\[\e[0m\] "
+	# Colour prompt differently if SSH:
+	if [ -z "$SSH_TTY" ]; then host_colour=30; else host_colour=35; fi
+	PS1+="\[\e[1;${host_colour}m\]\h\[\e[0m\] "
 
 	# Git branch (only if in git repo):
 	if [ $git_set ]; then
@@ -78,7 +79,7 @@ ayeprompt_assemble() {
 		if [ -z "$git_diff" ] && [ -z "$git_status" ]; then
 			if [ -z "$git_ahead" ]; then git_colour=34; else git_colour=36; fi
 		else
-			git_colour=31
+			git_colour=33
 		fi
 		PS1+="\[\e[${git_colour}m\][$git_branch]\[\e[0m\] "
 		unset git_colour

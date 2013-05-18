@@ -402,7 +402,7 @@ set nomodeline
 	set iskeyword-=[.]
 
 	" Manual pages:
-	map <C-m> :exe ":!man '".expand('<cword>')."'"<cr>
+	map M :exe ":!man '".expand('<cword>')."'"<cr>
 
 
 " ------------------------------------------------------------------------------
