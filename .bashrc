@@ -65,9 +65,19 @@ ayeprompt_assemble() {
 	git rev-parse 2> /dev/null && git_set=1
 	PS1=""
 
-	# Colour prompt differently if SSH:
-	if [ -z "$SSH_TTY" ]; then host_colour=30; else host_colour=35; fi
-	PS1+="\[\e[1;${host_colour}m\]\h\[\e[0m\] "
+	# Hostname (only if SSH):
+	if [ -z "$SSH_TTY" ]; then
+		if [ ! $git_set ]; then
+			if [ $TERM == 'linux' ]; then
+				PS1+="\[\e[1;37m\]>\[\e[0;37m\]>\[\e[1;30m\]> "
+			else
+				PS1+="\[\e[1;38;5;250m\]>\[\e[38;5;244m\]>\[\e[38;5;238m\]> "
+			fi
+		fi
+	else
+		PS1+="\[\e[35m\]\h "
+	fi
+	PS1+="\[\e[0m\]"
 
 	# Git branch (only if in git repo):
 	if [ $git_set ]; then
