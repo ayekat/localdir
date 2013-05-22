@@ -416,3 +416,10 @@ map R <nop>
 au FileType tex map R :w<cr>:!pdflatex %<cr>
 au FileType c map R :w<cr>:!gcc % -o $(basename % .c); ./$(basename % .c)<cr>
 
+
+" ------------------------------------------------------------------------------
+" EPFL fuckery
+
+" Don't check kernel.c (Concurrency):
+au VimEnter */kernel.c SyntasticToggleMode
+
