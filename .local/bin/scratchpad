@@ -5,9 +5,9 @@
 
 
 # gap to screen edge
-MARGIN_TOP=30
+MARGIN_TOP=35
 MARGIN_RIGHT=20
-MARGIN_BOTTOM=20
+MARGIN_BOTTOM=15
 MARGIN_LEFT=20
 
 # terminal information:
