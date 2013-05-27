@@ -8,22 +8,6 @@
 cd
 
 
-# MONITOR OPTIONS --------------------------------------------------------------
-
-# Get the number of monitors:
-export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
-
-# Activate (LCD) monitor color calibration:
-lcdadjust start
-
-
-# DWM --------------------------------------------------------------------------
-
-# Some Java applications refuse to work correctly when they don't know the WM.
-# Set the WM name to a known value to fix that:
-wmname LG3D
-
-
 # VARIABLES --------------------------------------------------------------------
 # NOTE: These are Xorg specific variables only (see also .bash_profile).
 
@@ -43,6 +27,22 @@ fi
 
 # This was removed, dunno why:
 export XDG_CONFIG_HOME=$HOME/.config
+
+
+# MONITOR OPTIONS --------------------------------------------------------------
+
+# Get the number of monitors:
+export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
+
+# Activate (LCD) monitor color calibration:
+lcdadjust start
+
+
+# DWM --------------------------------------------------------------------------
+
+# Some Java applications refuse to work correctly when they don't know the WM.
+# Set the WM name to a known value to fix that:
+wmname LG3D
 
 
 # SERVICES ---------------------------------------------------------------------

@@ -1,9 +1,9 @@
 #!/bin/bash
 
 lcdadjust_start() {
-	if [[ -e ~/.config/argyll/$HOSTNAME.icc ]]; then
+	if [ -e ~/.config/argyll/$HOSTNAME.icc ]; then
 		for ((i=1; i<=$NUMSCREENS; i++)); do
-			dispwin -d $i ~/.config/argyll/$HOSTNAME.icc
+			dispwin -d $i $XDG_CONFIG_HOME/argyll/$HOSTNAME.icc
 		done
 	fi
 }
