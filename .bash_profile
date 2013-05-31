@@ -9,7 +9,12 @@ export PATH="/usr/lib/colorgcc/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 # Set vim as default text editor:
-export EDITOR='/usr/bin/vim'
+export EDITOR='vim'
+export VISUAL='vim'
+
+# Set less as default pager:
+export PAGER='less'
 
 # Source the bash configuration:
 . $HOME/.bashrc
+
