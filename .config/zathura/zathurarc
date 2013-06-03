@@ -34,3 +34,6 @@ set adjust-open "width"
 # Center PDF horizontally when zooming:
 set zoom-center true
 
+# Begin with first page on the right in dual view:
+set first-page-column 2
+
