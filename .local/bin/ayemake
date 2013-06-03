@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Searches for a Makefile in this or any parent directory and runs make.
 # Written by ayekat on an annoying tuesday afternoon in april 2013.
 

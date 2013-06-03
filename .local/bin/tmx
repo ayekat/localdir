@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/sh
 #
 # This script is responsible for starting a new tmux session and attaching it to
 # the windows of an already running one. The reason this cannot be done by a
@@ -35,8 +35,8 @@ fi
 
 base_session="$1"
 # This actually works without the trim() on all systems except OSX:
-tmux_nb=$(trim `tmux ls | grep "^$base_session" | wc -l`)
-if [[ "$tmux_nb" == "0" ]]; then
+tmux_nb=$(trim $(tmux ls | grep "^$base_session" | wc -l))
+if [ "$tmux_nb" = "0" ]; then
 	printf "Launching tmux base session %s ...\n" $base_session
 	tmux new-session -s $base_session
 else

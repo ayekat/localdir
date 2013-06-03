@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Prints the [n] most used commands based on the shell's history file where [n]
 # is an optional argument (default: 10).
 

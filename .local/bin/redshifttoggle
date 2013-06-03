@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/usr/bin/sh
 
-if [[ $(ps h -C redshift | wc -l) -eq 1 ]]; then
+if [ $(ps h -C redshift | wc -l) -eq 1 ]; then
 	killall redshift
 	lcdadjust start
 else

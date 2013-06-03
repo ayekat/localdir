@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # Adds some nice colours to man pages.
 
 if [ $TERM = 'linux' ]; then

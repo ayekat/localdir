@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/bash
 
 lcdadjust_start() {
 	if [ -e ~/.config/argyll/$HOSTNAME.icc ]; then

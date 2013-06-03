@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/sh
 # executes dwm in a loop to allow on-the-fly restarts
 
 while true; do
