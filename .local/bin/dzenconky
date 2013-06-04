@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # displays conky in dzen2
 
 sum()

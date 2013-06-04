@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # Creates a new window titled "Scratchpad" that almost covers the screen, with
 # some gap at the border. See the dwm config for how to use it.
 # Written by ayekat in february 2013

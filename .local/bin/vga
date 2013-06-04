@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # This simplifies on-the-go addition of a VGA-monitor to my laptop.
 # Written by ayekat on a boring january day.
 

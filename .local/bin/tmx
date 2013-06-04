@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 #
 # This script is responsible for starting a new tmux session and attaching it to
 # the windows of an already running one. The reason this cannot be done by a

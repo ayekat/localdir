@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 
 if [ $(ps h -C redshift | wc -l) -eq 1 ]; then
 	killall redshift

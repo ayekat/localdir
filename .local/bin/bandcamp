@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/bin/bash
 # Plays an album from a bandcamp page as a playlist in mplayer.
 # By d3lxa
 

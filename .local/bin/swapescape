@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # On-the-fly keyboard remappings. This is for machines where you have no root
 # permission (for example for the machines at the EPFL).
 
