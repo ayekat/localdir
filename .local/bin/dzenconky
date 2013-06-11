@@ -41,6 +41,7 @@ dzenconky_start() {
 }
 
 dzenconky_stop() {
+	killall dzenstat
 	killall dzen2
 }
 
