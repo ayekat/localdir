@@ -4,7 +4,7 @@
 
 while [ $PWD != / ]; do
 	if [ -e Makefile ]; then
-		make
+		make "$@"
 		exit
 	fi
 	cd ..

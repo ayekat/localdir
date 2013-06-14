@@ -37,10 +37,12 @@ fi
 
 alias cp='cp -i'
 alias grep='grep --color=auto'
+alias info='info --vi-keys'
 alias la='ls -a'
 alias lah='ls -lah'
 alias laht='ls -laht'
 alias ll='ls -lh'
+alias mk='ayemake'
 alias mv='mv -i'
 alias sudo='sudo -p "[sudo]"\ password:\ '
 # BSD vs GNU:

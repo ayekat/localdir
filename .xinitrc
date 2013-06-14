@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # Xinit ressource file for starting dwm
 # Written by ayekat on a rainy day in october 2012
 
