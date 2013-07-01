@@ -1,7 +1,6 @@
 #!/bin/bash
 # Actions taken at a login to bash.
 
-
 # Use colorgcc to colour the gcc output:
 export PATH="/usr/lib/colorgcc/bin:$PATH"
 

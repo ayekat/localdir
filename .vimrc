@@ -96,7 +96,7 @@ set encoding=utf8
 
 	" Highlight maching parantheses:
 	set showmatch
-	hi MatchParen cterm=bold ctermfg=5 ctermbg=none
+	hi MatchParen cterm=bold ctermfg=4 ctermbg=none
 
 	" Style the Syntastic bar on the left:
 	hi SignColumn ctermbg=0
