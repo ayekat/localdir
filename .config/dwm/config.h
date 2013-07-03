@@ -1,7 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "bstack.c"         //     "        "    "  split screen vertically
-#include "fibonacci.c"      //     "        "    "  arrange as Fibonacci
+#include "bstack.c"         // stack at bottom layout
+#include "fibonacci.c"      // Fibonacci layout
 #include "push.c"           // move clients around in stack/master
 
 /* appearance */

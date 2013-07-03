@@ -13,8 +13,11 @@ arch=('i686' 'x86_64')
 license=('MIT')
 options=(zipman)
 depends=('libx11' 'libxinerama')
-source=(
+sources=(
 	$pkgname-$pkgver.tar.gz
+	config.h
+)
+patches=(
 	$pkgname-$pkgver-bstack.diff
 	$pkgname-$pkgver-push.diff
 	$pkgname-$pkgver-pertag.diff
@@ -22,26 +25,26 @@ source=(
 	$pkgname-$pkgver-pango.diff
 	$pkgname-$pkgver-scratchpad.diff
 	$pkgname-5.8.2-fibonacci.diff
-	config.h
 )
+source=(${sources[@]} ${patches[@]})
 
 build() {
+	# enable for a full rebuild with patching (need to remove src directory):
+	#rebuild=1
 	cd $srcdir/$pkgname-$pkgver
-	cp $srcdir/config.h config.h
-	# already applied patches are commented out; activate them to patch new source
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-bstack.diff
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-push.diff
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-attachabove.diff
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-pertag.diff
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-pango.diff
-	#patch -p1 -i $srcdir/$pkgname-$pkgver-scratchpad.diff
-	#patch -p1 -i $srcdir/$pkgname-5.8.2-fibonacci.diff
-	#echo "CFLAGS += -DHOST_$HOSTNAME" >> config.mk
-	sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
-	sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
-	sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
-	sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
-	sed -i 's/^#LDFLAGS = -s/LDFLAGS += -s/g' config.mk
+	cp $srcdir/config.h .
+	if [ $rebuild ]; then
+		for PATCH in "${patches[@]}"; do
+			printf "\e[1mpatching %s ...\e[0m\n" "$PATCH"
+			patch -p1 -i "$srcdir"/"$PATCH"
+		done
+		sed -i 's/CPPFLAGS =/CPPFLAGS +=/g' config.mk
+		sed -i 's/^CFLAGS = -g/#CFLAGS += -g/g' config.mk
+		sed -i 's/^#CFLAGS = -std/CFLAGS += -std/g' config.mk
+		sed -i 's/^LDFLAGS = -g/#LDFLAGS += -g/g' config.mk
+		sed -i 's/^#LDFLAGS = -s/LDFLAGS += -s/g' config.mk
+		echo "CFLAGS += -DHOST_$HOSTNAME" >> config.mk
+	fi
 	make X11INC=/usr/include/X11 X11LIB=/usr/lib/X11
 }
 
