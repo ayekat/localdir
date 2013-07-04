@@ -20,8 +20,8 @@ fi
 # Determine if desktop (Xorg exists or OS X):
 [ -e /usr/bin/xinit -o $arch = 'darwin' ] && IS_DESKTOP=1
 
-# If not, we are on a server, so start or reattach to tmux session:
-if [ ! $IS_DESKTOP ]; then
+# If not, we are on a server, so start or reattach to tmux session if SSH:
+if [ ! $IS_DESKTOP ] && [ ! -z "$SSH_TTY" ]; then
 	# Hosteurope fuckery: tmux does not run correctly, so fallback to screen:
 	if [ $HOSTNAME = 'rowland' ]; then
 		[ -e /usr/bin/screen ] && [ $TERM != 'screen-bce' ] && \
