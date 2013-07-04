@@ -6,13 +6,17 @@
 # 
 # Written by ayekat on a rainy day in october 2012
 
-NITROGEN_CYCLE_DIR=$HOME/img/wallpapers/cycle
+NITROGEN_CYCLE_DIR="$HOME"/img/wallpapers/cycle
+
+# test whether directory exists:
+[ -d "$NITROGEN_CYCLE_DIR" ] || exit
 
 i=0
 while true; do
 	img=($(ls $NITROGEN_CYCLE_DIR))
-	printf "[:0.0]\nfile=%s/%s\nmode=5\nbgcolor=#000000\n" $NITROGEN_CYCLE_DIR \
-			${img[$i]} > $(printf "%s/nitrogen/bg-saved.cfg" $XDG_CONFIG_HOME)
+	printf "[:0.0]\nfile=%s/%s\nmode=5\nbgcolor=#000000\n" \
+			"$NITROGEN_CYCLE_DIR" "${img[$i]}" > \
+			$(printf "%s/nitrogen/bg-saved.cfg" $XDG_CONFIG_HOME)
 	nitrogen --restore
 	sleep 300
 	i=$((($i+1) % ${#img[@]}))
