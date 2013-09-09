@@ -63,8 +63,8 @@ fi
 # Apply Xmodmap if it exists:
 [ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
-# Enable automatic lock on timeout (TODO: put this in a script with start/stop):
-#xautolock -time 5 -locker slock &
+# Enable automatic lock on timeout:
+ayelock start
 
 # Enable wallpaper cycling:
 nitrogencycle &
