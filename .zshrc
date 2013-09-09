@@ -3,6 +3,8 @@
 # Written by ayekat on a cold night in march 2013.
 
 
+# ------------------------------------------------------------------------------
+# GENERAL (SHRC) {{{
 # Load general configuration (bash and zsh).
 # Contains:
 # - SYSTEM
@@ -10,7 +12,7 @@
 # - START-UP ACTIONS
 . ~/.shrc
 
-
+# }}}
 # ------------------------------------------------------------------------------
 # LOOK {{{
 

@@ -3,19 +3,22 @@
 # Written by ayekat on a rainy day in 2009.
 
 
-# Load general configuration (bash and zsh).
-# Contains:
-# - SYSTEM
-# - ALIASES
-# - START-UP ACTIONS
-. ~/.shrc
-
-
 # ------------------------------------------------------------------------------
 # START {{{
 
 # Check if this is an interactive session:
 test -z "$PS1" && return
+
+# }}}
+# ------------------------------------------------------------------------------
+# GENERAL (SHRC) {{{
+# Load general configuration (bash and zsh).
+# Contains:
+# - SYSTEM
+# - ALIASES
+# - START-UP ACTIONS
+
+. ~/.shrc
 
 # }}}
 # ------------------------------------------------------------------------------
