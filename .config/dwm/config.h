@@ -1,66 +1,52 @@
 /* See LICENSE file for copyright and license details. */
 
-#include "bstack.c"         // stack at bottom layout
-#include "fibonacci.c"      // Fibonacci layout
 #include "push.c"           // move clients around in stack/master
 
 /* appearance */
 static const char font[]            = "Fixed Medium Semi-Condensed 10";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1";
 
-/*
-// orange
+/* colours */
+#define GLOBAL_COLOUR "#AAAA55"
 static const char normbordercolor[]      = "#222222";
-static const char selbordercolor[]       = "#E04613";
-static const char normbgcolor[]          = "#222222";
-static const char normfgcolor[]          = "#AAAAAA";
-static const char selbgcolor[]           = "#E04613";
-static const char selfgcolor[]           = "#FFFFFF";
-*/
-
-// yellow
-static const char normbordercolor[]      = "#222222";
-static const char selbordercolor[]       = "#AAAA55";
+static const char selbordercolor[]       = GLOBAL_COLOUR;
 static const char normbgcolor[]          = "#222222";
 static const char normfgcolor[]          = "#888888";
-static const char selbgcolor[]           = "#AAAA55";
+static const char selbgcolor[]           = GLOBAL_COLOUR;
 static const char selfgcolor[]           = "#222222";
 
-/*
-// blue
-static const char normbordercolor[] = "#222222";
-static const char selbordercolor[]  = "#4499CC";
-static const char normbgcolor[]     = "#222222";
-static const char normfgcolor[]     = "#999999";
-static const char selbgcolor[]      = "#4499CC";
-static const char selfgcolor[]      = "#FFFFFF";
-*/
-
-static const unsigned int borderpx= 2;    /* border pixel of windows */
-static const unsigned int snap    = 20;   /* snap pixel */
+/* general settings */
+static const unsigned int snap    = 10;   /* snap pixel */
 static const Bool showbar         = True; /* False means no bar */
 static const Bool topbar          = True; /* False means bottom bar */
 static const float mfact          = 0.5;  /* Default factor of master area size [0.05..0.95] */
 static const int nmaster          = 1;    /* Default number of clients in master area */
 static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
 
+/* general settings (machine dependent):
+ * - gap pixel between windows
+ * - border pixel of windows
+ */
+#ifdef HOST_phobia
+static const unsigned int borderpx= 4;
+static const unsigned int gappx   = 13;
+#else
+static const unsigned int borderpx= 2;
+static const unsigned int gappx   = 0;
+#endif
+
 /* tagging */
 #ifdef HOST_phobia
-static const char *tags[] = { "a", "s", "d", " " };
+static const char *tags[] = {
+	"a", "s", "d",
+	" "
+};
 #else
 static const char *tags[] = {
-	"×",
-	"×",
-	"×",
-	"∫",
-	"∫",
-	"∫",
-	"",
-	"",
-	"",
-	"",
-	"",
-	"",
+	"×","×","×",
+	"∫","∫","∫",
+	"","","",
+	"","","",
 	" "
 };
 #endif
@@ -79,6 +65,8 @@ static const Rule rules[] = {
 };
 
 /* layout(s) */
+#include "bstack.c"         // stack at bottom layout
+#include "fibonacci.c"      // Fibonacci layout
 static const Layout layouts[] = {
 	/* symbol     arrange function */
 	{ "",        tile },    /* first entry is default */
