@@ -38,7 +38,7 @@ fi
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias info='info --vi-keys'
-alias la='ls -a'
+alias la='ls -A'
 alias lah='ls -lah'
 alias laht='ls -laht'
 alias ll='ls -lh'
