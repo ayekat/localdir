@@ -5,10 +5,12 @@
 
 
 # gap to screen edge
-MARGIN_TOP=35
-MARGIN_RIGHT=20
-MARGIN_BOTTOM=15
-MARGIN_LEFT=20
+SIZE_BAR=15
+if [ $HOSTNAME = 'phobia' ]; then
+	MARGIN=40
+else
+	MARGIN=20
+fi
 
 # terminal information:
 FWIDTH=6     # font glyph width
@@ -22,9 +24,9 @@ xres=$(echo $res | sed 's/x[0-9]*//g')
 yres=$(echo $res | sed 's/[0-9]*x//g')
 
 # calculate window dimension:
-xgres=$(($(($xres-$MARGIN_LEFT-$MARGIN_RIGHT-2*$BORDER-2*$PADDING))/$FWIDTH))
-ygres=$(($(($yres-$MARGIN_TOP-$MARGIN_BOTTOM-2*$BORDER-2*$PADDING))/$FHEIGHT))
+xgres=$(($(($xres-2*$MARGIN-2*$BORDER-2*$PADDING))/$FWIDTH))
+ygres=$(($(($yres-2*$MARGIN-$SIZE_BAR-2*$BORDER-2*$PADDING))/$FHEIGHT))
 
 xfce4-terminal --title Scratchpad \
-		--geometry $(($xgres))x$ygres+$MARGIN_LEFT+$MARGIN_TOP -x tmx 0
+		--geometry $(($xgres))x$ygres+$MARGIN+$(($MARGIN+$SIZE_BAR)) -x tmx 0
 

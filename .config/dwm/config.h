@@ -28,8 +28,8 @@ static const Bool resizehints     = False;/* True means respect size hints in ti
  * - border pixel of windows
  */
 #ifdef HOST_phobia
-static const unsigned int borderpx= 4;
-static const unsigned int gappx   = 13;
+static const unsigned int borderpx= 5;
+static const unsigned int gappx   = 15;
 #else
 static const unsigned int borderpx= 2;
 static const unsigned int gappx   = 0;
