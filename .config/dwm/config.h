@@ -76,7 +76,7 @@ static const Layout layouts[] = {
 	{ .symbol = NULL,   .arrange = NULL    }, /* for cycling (see below) */
 };
 
-/* cycling through layouts (provided by bob127) here:
+/* Cycle through layouts (provided by bob127) here:
  * https://bbs.archlinux.org/viewtopic.php?pid=817499#p817499
  */
 void
@@ -100,7 +100,7 @@ prevlayout(const Arg *arg)
 		setlayout(&((Arg) { .v = &layouts[LENGTH(layouts) - 2] }));
 }
 
-/* Shifts the current view to the left/right.
+/* Shift the current view to the left/right.
  * @param: "arg->i" stores the number of tags to shift right (positive value)
  *          or left (negative value)
  */
@@ -131,7 +131,7 @@ shiftview(const Arg *arg) {
 	}
 }
 
-/* Moves and follows window to the next tag.
+/* Move and follows window to the next tag.
  */
 void
 movefollowtag(const Arg *arg)
@@ -150,7 +150,7 @@ movefollowtag(const Arg *arg)
 	view(&shifted);
 }
 
-/* Moves and follows a window to the next monitor.
+/* Move and follows a window to the next monitor.
  */
 void
 movefollowmon(const Arg *arg)
@@ -159,7 +159,7 @@ movefollowmon(const Arg *arg)
 	focusmon(arg);
 }
 
-/* Toggles a tag view and focuses a window on that tag.
+/* Toggle a tag view and focuses a window on that tag.
  */
 void
 focusview(const Arg *arg)

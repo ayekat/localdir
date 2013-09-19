@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/bin/sh
 # Unified shell configuration file for bash and zsh.
 # Written by ayekat on a warm summer day in 2013.
 
@@ -39,8 +39,8 @@ alias cp='cp -i'
 alias grep='grep --color=auto'
 alias info='info --vi-keys'
 alias la='ls -A'
-alias lah='ls -lah'
-alias laht='ls -laht'
+alias lah='ls -lAh'
+alias laht='ls -lAht'
 alias ll='ls -lh'
 alias mk='ayemake'
 alias mv='mv -i'
