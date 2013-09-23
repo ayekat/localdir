@@ -27,6 +27,6 @@ yres=$(echo $res | sed 's/[0-9]*x//g')
 xgres=$(($(($xres-2*$MARGIN-2*$BORDER-2*$PADDING))/$FWIDTH))
 ygres=$(($(($yres-2*$MARGIN-$SIZE_BAR-2*$BORDER-2*$PADDING))/$FHEIGHT))
 
-xfce4-terminal --title Scratchpad \
-		--geometry $(($xgres))x$ygres+$MARGIN+$(($MARGIN+$SIZE_BAR)) -x tmx 0
+roxterm --title=Scratchpad \
+		--geometry=$(($xgres))x$ygres+$MARGIN+$(($MARGIN+$SIZE_BAR)) -e tmx 0
 

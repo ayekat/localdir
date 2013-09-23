@@ -1,0 +1,4 @@
+[roxterm options]
+geometry=220x54+20+35
+warn_close=1
+only_warn_running=1
