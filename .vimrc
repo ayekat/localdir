@@ -25,9 +25,10 @@ set background=light
 set number
 set numberwidth=5
 
-" Highlight end of file (only in non-TTY):
+" Separate content and empty parts of file (only if non-TTY):
 if $TERM != "linux"
-	hi NonText cterm=bold ctermbg=232 ctermfg=blue
+	hi Normal ctermbg=233
+	hi NonText cterm=bold ctermbg=black ctermfg=blue
 endif
 
 " Enable UTF-8 (I wanna see Umlauts!):
