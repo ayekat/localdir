@@ -21,6 +21,7 @@ MiscToolbarDefault=FALSE
 MiscConfirmClose=TRUE
 MiscCycleTabs=TRUE
 MiscHighlightUrls=TRUE
+MiscBell=TRUE
 
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 ScrollingLines=10000
