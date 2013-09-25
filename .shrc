@@ -87,6 +87,10 @@ if [ $arch = 'arch' ]; then
 			alias x='startx -- -nolisten tcp & disown && exit'
 fi
 
+# EPFL fuckery: SwEng project
+alias fuck='cd ~/dev/sweng/SwEng2013QuizApp/'
+
+
 # }}}
 # ------------------------------------------------------------------------------
 # START-UP ACTIONS {{{

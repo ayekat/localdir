@@ -365,11 +365,11 @@ set nomodeline
 
 " INSERT MODE >
 
-	" Except in LaTeX and Scala, we use 4 spaces per tab:
+	" Except in LaTeX and Scala, we use 4 spaces per tab and tabs:
 	set noexpandtab
 	set tabstop=4
 	set shiftwidth=4
-	au FileType tex,scala set expandtab
+	au FileType tex,scala,java,xml set expandtab " XML = EPFL fuckery
 	au FileType tex,scala set tabstop=2
 	au FileType tex,scala set shiftwidth=2
 
