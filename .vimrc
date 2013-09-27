@@ -121,6 +121,43 @@ hi PmenuSel ctermbg=2 ctermfg=0
 hi PmenuSbar ctermbg=0
 hi PmenuThumb ctermbg=2
 
+" Custom colour scheme for X vim:
+"if $TERM != "linux"
+"	" comment
+"	hi Comment           ctermfg=8
+"
+"	" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
+"	hi Constant          ctermfg=31
+"		hi String        ctermfg=31
+"		hi Character     ctermfg=69 "
+"		hi Number        ctermfg=31
+"		hi Boolean       ctermfg=31
+"		hi Float         ctermfg=31
+"
+"	" any statement | if then else endif switch | for do while | case default |
+"	" sizeof + * | any other keyword | exception
+"	hi Statement         ctermfg=142
+"		hi Conditional   ctermfg=142
+"		hi Repeat        ctermfg=142
+"		hi Label         ctermfg=142
+"		hi Operator      ctermfg=142
+"		hi Keyword       ctermfg=142
+"		hi Exception     ctermfg=142
+"
+"	" any preprocessor | #include | #define | macro | #if #else #endif
+"	hi PreProc           ctermfg=109
+"		hi Include       ctermfg=109
+"		hi Define        ctermfg=109
+"		hi Macro         ctermfg=109
+"		hi PreCondit     ctermfg=109
+"
+"	" int long char | static register volatile | struct union enum | typedef
+"	hi Type              ctermfg=202
+"		hi StorageClass  ctermfg=202
+"		hi Structure     ctermfg=202
+"		hi Typedef       ctermfg=202
+"endif
+
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -169,7 +206,16 @@ function! GetFilepath()
 	return filepath
 endfunction
 
-" This function defines the inactive statusbar content:
+" This function determines the file format (unix, dos, mac):
+function! GetFileformat(var)
+	if a:var == 'unix'
+		return ''
+	else
+		return a:var
+	endif
+endfunction
+
+" This function draws the inactive statusbar:
 function! StatuslineInactive()
 	" filename:
 	set statusline=%0*\ \ \ \ \ \ \ \ %{rsep}\ \ %<%{GetFilepath()}\ \ %{rsep}
@@ -187,7 +233,7 @@ function! StatuslineInactive()
 	set statusline+=\ %{lsep}\ %Y\ %0*
 endfunction
 
-" This function defines the active statusbar content:
+" This function styles the active statusbar:
 function! StatuslineActive(mode)
 	" status line:
 	hi LineNr ctermfg=244 ctermbg=0
@@ -225,7 +271,7 @@ function! StatuslineActive(mode)
 	endif
 endfunction
 
-" This function defines the active statusbar content (in a TTY):
+" This function styles the active statusbar (TTY):
 function! StatuslineActiveTTY(mode)
 	" line numbers:
 	hi LineNr ctermfg=0 ctermbg=0 cterm=bold
@@ -252,7 +298,7 @@ function! StatuslineActiveTTY(mode)
 	endif
 endfunction
 
-" This function draws the statusbar content:
+" This function draws the active statusbar:
 function! DrawStatusline(mode)
 	" mode:
 	setl statusline=%2*
@@ -285,8 +331,11 @@ function! DrawStatusline(mode)
 	" change to the right side:
 	setl statusline+=%=%1*
 
+	" file format:
+	setl statusline+=%9*\ \ %{GetFileformat(&fileformat)}
+
 	" cursor position (column):
-	setl statusline+=\ \ %{lsep}\ \ %02c(%02v)%6*
+	setl statusline+=%1*\ \ %{lsep}\ \ %02c(%02v)%6*
 
 	" buffer position (line):
 	setl statusline+=\ %{lfsep}%5*\ \ %{lnum}\ \ %02l/%L\ (%P)
