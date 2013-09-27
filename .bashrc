@@ -93,7 +93,7 @@ ayeprompt_assemble() {
 	unset git_branch
 }
 
-# Configure Prompt:
+# Print Prompt:
 PROMPT_COMMAND='ayeprompt_assemble'
 
 # }}}
@@ -112,6 +112,20 @@ complete -cf sudo
 
 export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=10000
+
+# }}}
+# ------------------------------------------------------------------------------
+# TIMESTAMP {{{
+# Allows the usage of preexec() like in zsh.
+. $HOME/.bash_preexec.sh
+
+# Print timestamp after having typed command:
+preexec() {
+	printf "\e[30;1m\e[1A\e[1024G\e[6D[%s]\e[0m" $(date +%H:%M)
+}
+
+# Initialise the whole stuff
+preexec_install
 
 # }}}
 
