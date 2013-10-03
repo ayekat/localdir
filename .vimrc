@@ -28,7 +28,7 @@ set numberwidth=5
 " Separate content and empty parts of file (only if non-TTY):
 if $TERM != "linux"
 	hi Normal ctermbg=233
-	hi NonText cterm=bold ctermbg=black ctermfg=blue
+	hi NonText cterm=bold ctermbg=232 ctermfg=0
 endif
 
 " Enable UTF-8 (I wanna see Umlauts!):

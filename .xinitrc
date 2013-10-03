@@ -67,7 +67,7 @@ fi
 ayelock start
 
 # Enable wallpaper cycling:
-nitrogencycle &
+#nitrogencycle &
 
 
 # SERVICES (TERMINALS) ---------------------------------------------------------

@@ -121,7 +121,7 @@ export HISTSIZE=10000
 
 # Print timestamp after having typed command:
 preexec() {
-	printf "\e[30;1m\e[1A\e[1024G\e[6D[%s]\e[0m" $(date +%H:%M)
+	printf "\e[30;1m\e[1A\e[1024G\e[10D[%s]\n\e[0m" $(date +%H:%M:%S)
 }
 
 # Initialise the whole stuff
