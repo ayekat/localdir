@@ -17,23 +17,13 @@ static const char selfgcolor[]           = "#222222";
 
 /* general settings */
 static const unsigned int snap    = 10;   /* snap pixel */
+static const unsigned int borderpx= 2;    /* border pixel of windows */
 static const Bool showbar         = True; /* False means no bar */
 static const Bool topbar          = True; /* False means bottom bar */
-static const float mfact          = 0.5;  /* Default factor of master area size [0.05..0.95] */
-static const int nmaster          = 1;    /* Default number of clients in master area */
+static const float mfact          = 0.50; /* factor of master area size [0.05..0.95] */
+static const float smfact         = 0.50; /* factor of tiled client [0.05..0.95] */
+static const int nmaster          = 1;    /* number of clients in master area */
 static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
-
-/* general settings (machine dependent):
- * - gap pixel between windows
- * - border pixel of windows
- */
-#ifdef HOST_phobia
-static const unsigned int borderpx= 5;
-static const unsigned int gappx   = 15;
-#else
-static const unsigned int borderpx= 2;
-static const unsigned int gappx   = 0;
-#endif
 
 /* tagging */
 #ifdef HOST_phobia
@@ -191,7 +181,7 @@ static const char *scratchpadcmd[] = { "scratchpad", NULL };
 
 /* session commands */
 static const char *quitcmd[] = { "killall", "dwmloop", NULL };
-static const char *lockcmd[] = { "slock", NULL };
+static const char *lockcmd[] = { "xtrlock", NULL };
 
 /* hardware commands */
 static const char *volraisecmd[] = { "amixer", "set", "Master", "3+", "unmute", NULL };

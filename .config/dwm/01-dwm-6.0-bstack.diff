@@ -25,13 +25,13 @@ diff -r ec4baab78314 bstack.c
 +		if(i < m->nmaster) {
 +			w = (m->ww - mx) / (MIN(n, m->nmaster) - i);
 +			resize(c, m->wx + mx, m->wy, w - (2 * c->bw), mh - (2 * c->bw), False);
-+			mx += WIDTH(c) + 2*gappx;
++			mx += WIDTH(c);
 +		} 
 +		else {
 +			h = m->wh - mh;
 +			resize(c, tx, ty, tw - (2 * c->bw), h - (2 * c->bw), False);
 +			if(tw != m->ww)
-+				tx += WIDTH(c) + 2*gappx;
++				tx += WIDTH(c);
 +		}
 +	}
 +}
@@ -61,12 +61,12 @@ diff -r ec4baab78314 bstackhoriz.c
 +		if(i < m->nmaster) {
 +			w = (m->ww - mx) / (MIN(n, m->nmaster) - i);
 +			resize(c, m->wx + mx, m->wy, w - (2 * c->bw), mh - (2 * c->bw), False);
-+			mx += WIDTH(c) + 2*gappx;
++			mx += WIDTH(c);
 +		} 
 +		else {
 +			resize(c, tx, ty, m->ww - (2 * c->bw), th - (2 * c->bw), False);
 +			if(th != m->wh)
-+				ty += HEIGHT(c) + 2*gappx;
++				ty += HEIGHT(c);
 +		}
 +	}
 +}
