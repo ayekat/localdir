@@ -1,0 +1,20 @@
+#!/bin/sh
+# This file takes a java JAR file name as an argument and runs it if it's
+# located in the 'jars' directory.
+# Written by ayekat on a stressed sunday afternoon in october 2013.
+
+# first argument = JAR file name:
+jarfile=$1
+jarpath="$(dirname $0)"/jars/"$jarfile"
+shift
+
+# check if JAR file exits:
+if [ ! -f "$jarpath" ]; then
+	printf "could not find corresponding jarfile %s in %s\n" \
+			"$jarfile" "$(dirname "$jarpath")" >&2
+	exit 1
+fi
+
+# execute with the remainder of arguments passed to the JAR file:
+java -jar "$jarpath" "$@"
+

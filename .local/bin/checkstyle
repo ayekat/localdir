@@ -1,0 +1,5 @@
+#!/bin/sh
+# 'jarwrapper' wrapper for checkstyle
+
+jarwrapper checkstyle-5.6-all.jar "$@"
+
