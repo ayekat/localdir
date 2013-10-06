@@ -418,7 +418,7 @@ set nomodeline
 	set noexpandtab
 	set tabstop=4
 	set shiftwidth=4
-	au FileType tex,scala,java,xml set expandtab " XML = EPFL fuckery
+	au FileType tex,scala,java,xml,ant set expandtab " XML = EPFL fuckery
 	au FileType tex,scala set tabstop=2
 	au FileType tex,scala set shiftwidth=2
 

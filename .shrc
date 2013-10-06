@@ -88,7 +88,7 @@ if [ $arch = 'arch' ]; then
 fi
 
 # EPFL fuckery: SwEng project
-alias fuck='cd ~/dev/sweng/SwEng2013QuizApp/'
+alias fuck='cd ~/dev/sweng/SwEng2013QuizAppTest/'
 
 
 # }}}
@@ -159,9 +159,6 @@ printlogo() {
 
 # Delete the 'Desktop' folder if on an Arch installation:
 [ $arch = 'arch' ] && rmdir $HOME/Desktop 2> /dev/null
-
-# Hosteurope fuckery: force loading correct locale:
-[ $HOSTNAME = 'rowland' ] && export LANG=en_GB.UTF-8
 
 # Print system logo:
 printlogo $arch
