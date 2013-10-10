@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Actions taken at a login to bash.
 
 # Use colorgcc to colour the gcc output:
