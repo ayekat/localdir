@@ -1,0 +1,11 @@
+--- a/dwm.c	2013-10-04 13:17:26.418185895 +0200
++++ b/dwm.c	2013-10-09 21:32:52.140133531 +0200
+@@ -798,7 +798,7 @@
+ 		dc.x += dc.w;
+ 	}
+ 	dc.w = blw = TEXTW(m->ltsymbol);
+-	drawtext(m->ltsymbol, dc.norm, False);
++	drawtext(m->ltsymbol, dc.sel, False);
+ 	dc.x += dc.w;
+ 	x = dc.x;
+ 	if(m == selmon) { /* status is only drawn on selected monitor */
