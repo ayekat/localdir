@@ -124,8 +124,8 @@
     browser = /usr/bin/dwb -e 1
 
 [frame]
-    width = 2
-    color = "#AAAA55"
+    width = 1
+    color = "#AFD700"
 
 [shortcuts]
     # shortcuts are specified as [modifier+][modifier+]...key

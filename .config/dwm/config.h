@@ -7,21 +7,24 @@ static const char font[]            = "Fixed Medium Semi-Condensed 10";
 //static const char font[]            = "-misc-fixed-medium-r-semicondensed--13-100-100-100-c-60-iso8859-1";
 
 /* colours */
-#define GLOBAL_COLOUR "#AAAA55"
-static const char normbordercolor[]      = "#222222";
+#define GLOBAL_COLOUR "#AFD700"
 static const char selbordercolor[]       = GLOBAL_COLOUR;
+static const char normbordercolor[]      = "#222222";
+static const char normfgcolor[]          = "#555555";
 static const char normbgcolor[]          = "#222222";
-static const char normfgcolor[]          = "#888888";
-static const char selbgcolor[]           = GLOBAL_COLOUR;
-static const char selfgcolor[]           = "#222222";
+static const char selfgcolor[]           = GLOBAL_COLOUR;
+static const char selbgcolor[]           = "#222222";
+static const char dmenunormfgcolor[]     = "#888888";
+static const char dmenunormbgcolor[]     = "#222222";
+static const char dmenuselbgcolor[]      = "#555555";
+static const char dmenuselfgcolor[]      = GLOBAL_COLOUR;
 
 /* general settings */
 static const unsigned int snap    = 10;   /* snap pixel */
-static const unsigned int borderpx= 2;    /* border pixel of windows */
+static const unsigned int borderpx= 1;    /* border pixel of windows */
 static const Bool showbar         = True; /* False means no bar */
 static const Bool topbar          = True; /* False means bottom bar */
 static const float mfact          = 0.50; /* factor of master area size [0.05..0.95] */
-static const float smfact         = 0.50; /* factor of tiled client [0.05..0.95] */
 static const int nmaster          = 1;    /* number of clients in master area */
 static const Bool resizehints     = False;/* True means respect size hints in tiled resizals */
 
@@ -182,6 +185,7 @@ static const char *scratchpadcmd[] = { "scratchpad", NULL };
 /* session commands */
 static const char *quitcmd[] = { "killall", "dwmloop", NULL };
 static const char *lockcmd[] = { "xtrlock", NULL };
+static const char *lockcmd_full[] = { "slock", NULL };
 
 /* hardware commands */
 static const char *volraisecmd[] = { "amixer", "set", "Master", "3+", "unmute", NULL };
@@ -196,9 +200,10 @@ static const char *kbddowncmd[] = { "sudo", "lcdctl", "decrease", "keyboard", NU
 static const char *prtscrcmd[] = { "scrot", "/home/ayekat/img/screenshots/%Y-%m-%d_%H%M%S.png", NULL };
 static const char *dzenconkycmd[] = { "dzenconky", "restart", NULL };
 static const char *redshiftcmd[] = { "redshifttoggle", NULL };
+static const char *dwbcsscmd[] = { "dwbcsstoggle", NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-l", "8", "-b", "-fn", font,
-		"-nb", normbgcolor, "-nf", normfgcolor, "-sb", selbgcolor, "-sf",
-		selfgcolor, "-p", "$", NULL };
+		"-nb", dmenunormbgcolor, "-nf", dmenunormfgcolor,
+		"-sb", dmenuselbgcolor, "-sf", dmenuselfgcolor, "-p", "$", NULL };
 
 /* key definitions */
 static Key keys[] = {
@@ -207,6 +212,7 @@ static Key keys[] = {
 	{ 0,                  XK_Print,   spawn,         {.v = prtscrcmd } },
 	{ MODKEY,             XK_b,       spawn,         {.v = dzenconkycmd } },
 	{ MODKEY,             XK_r,       spawn,         {.v = redshiftcmd } },
+	{ MODKEY,             XK_u,       spawn,         {.v = dwbcsscmd } },
 	{ MODKEY|ShiftMask,   XK_i,       killclient,    {0} },
 
 	// terminal:
@@ -283,7 +289,8 @@ static Key keys[] = {
 
 	// session commands:
 	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },
-	{ MODKEY|ShiftMask,             XK_z, quit,  {0} },
+	{ MODKEY|ShiftMask,             XK_z, spawn, {.v = lockcmd_full } },
+	{ MODKEY|ControlMask,           XK_z, quit,  {0} },
 	{ MODKEY|ControlMask|ShiftMask, XK_z, spawn, {.v = quitcmd } },
 };
 

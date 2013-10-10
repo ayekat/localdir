@@ -14,16 +14,16 @@ set font "monospace normal 8"
 # Set statusbar colours:
 set statusbar-fg "#AAAAAA"            # statusbar
 set statusbar-bg "#222222"
-set inputbar-fg "#EEEEEE"             # input line
+set inputbar-fg "#AAAAAA"             # input line
 set inputbar-bg "#111111"
-set completion-fg "#AAAA55"           # completion; default
+set completion-fg "#AFD700"           # completion; default
 set completion-bg "#222222"
 set completion-highlight-fg "#FFFFFF" # ... and highlighted
-set completion-highlight-bg "#000000"
+set completion-highlight-bg "#333333"
 
 # Recoloured ('inverted') colours:
 set recolor-darkcolor "#AAAAAA"       # 'foreground'
-set recolor-lightcolor "#111111"      # 'background'
+set recolor-lightcolor "#222222"      # 'background'
 
 # ------------------------------------------------------------------------------
 # FEEL
