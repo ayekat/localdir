@@ -88,7 +88,15 @@ if [ $arch = 'arch' ]; then
 fi
 
 # EPFL fuckery: SwEng project
-alias fuck='cd ~/dev/sweng/SwEng2013QuizAppTest/'
+fuck() {
+	case $1 in
+		1) target=SwEngTutorial;;
+		2) target=SwEng2013QuizApp;;
+		3) target=SwEng2013QuizAppTest;;
+		*) target='';
+	esac
+	cd ~/dev/sweng/"$target"
+}
 
 
 # }}}
