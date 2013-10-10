@@ -64,7 +64,7 @@ fi
 [ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 # Enable automatic lock on timeout:
-ayelock start
+ayelock start 5
 
 # Enable wallpaper cycling:
 #nitrogencycle &

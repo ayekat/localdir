@@ -1,25 +1,33 @@
 #!/bin/sh
 # Starts or stops an xautolock session.
 
+# your lock programme (e.g. xtrlock, slock, ...)
+LOCKAPP=xtrlock
+
 ayelock_start() {
 	if [ -z "$1" ]; then
 		ayelock_help
 	else
-		xautolock -time $1 -locker slock &
+		printf "starting %s ...\n" $(basename $0)
+		xautolock -time $1 -locker $LOCKAPP &
 	fi
 }
 
 ayelock_stop() {
+	printf "stopping %s ...\n" $(basename $0)
 	xautolock -exit
 }
 
 ayelock_help() {
-	printf "Usage: %s {start \033[4mdelay\033[0m|stop}\n" $(basename $0)
+	printf "Usage: %s {start \033[4mdelay\033[0m|stop|restart " $(basename $0)
+	printf "\033[4mdelay\033[0m} "
+	echo '(delay = min)'
 }
 
 case "$1" in
-	start) ayelock_start "$2";;
-	stop)  ayelock_stop;;
-	*)     ayelock_help;;
+	start)   ayelock_start "$2";;
+	stop)    ayelock_stop;;
+	restart) "$0" stop; "$0" start "$2";;
+	*)       ayelock_help;;
 esac
 
