@@ -51,25 +51,25 @@ ayeprompt_assemble() {
 	if [ -z "$SSH_TTY" ]; then
 		if [ ! $git_set ]; then
 			if [ $TERM = 'linux' ]; then
-				PS1+="\[\e[1m\]"
+				PS1+="\[\033[1m\]"
 				for c in 32 33 31 35 34 36; do
-					PS1+="\[\e[${c}m\]:"
+					PS1+="\[\033[${c}m\]:"
 				done
 			else
 				for c in 10 11 9 13 12 14; do
-					PS1+="\[\e[38;5;${c}m\]:"
+					PS1+="\[\033[38;5;${c}m\]:"
 				done
 			fi
-			PS1+="\[\e[0m\] "
+			PS1+="\[\033[0m\] "
 		fi
 	else
-		PS1+="\[\e[35m\]\h "
+		PS1+="\[\033[35m\]\h "
 	fi
-	PS1+="\[\e[0m\]"
+	PS1+="\[\033[0m\]"
 
 	# Git branch (only if in git repo):
 	if [ $git_set ]; then
-		git_diff=$(git diff --shortstat )
+		git_diff=$(git diff --shortstat 2> /dev/null)
 		git_branch=$(git branch | grep '*' | cut -c 3-)
 		[ -z $git_branch ] && git_branch='empty'
 		git_status=$(git status -s)
@@ -79,12 +79,12 @@ ayeprompt_assemble() {
 		else
 			git_colour=33
 		fi
-		PS1+="\[\e[${git_colour}m\][$git_branch]\[\e[0m\] "
+		PS1+="\[\033[${git_colour}m\][$git_branch]\[\033[0m\] "
 		unset git_colour
 	fi
 
 	# Working directory
-	PS1+="\[\e[32m\]\w\[\e[0m\] "
+	PS1+="\[\033[32m\]\w\[\033[0m\] "
 
 	# Clean variables:
 	unset git_set
@@ -111,7 +111,7 @@ complete -cf sudo
 # HISTORY {{{
 
 export HISTIGNORE='&:[bf]g:exit'
-export HISTSIZE=10000
+export HISTSIZE=100000
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -121,7 +121,7 @@ export HISTSIZE=10000
 
 # Print timestamp after having typed command:
 preexec() {
-	printf "\e[30;1m\e[1A\e[1024G\e[10D[%s]\n\e[0m" $(date +%H:%M:%S)
+	printf "\033[1A\033[1024G\033[10D\033[34m[%s]\033[0m\n" $(date +%H:%M:%S)
 }
 
 # Initialise the whole stuff
