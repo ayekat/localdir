@@ -109,7 +109,6 @@ set encoding=utf8
 
 " Fix ugly urxvt/vim yellow:
 hi Statement ctermfg=3
-hi Todo ctermbg=3
 hi Search ctermbg=3 ctermfg=0
 
 " Make visual less penetrant:
@@ -122,41 +121,49 @@ hi PmenuSbar ctermbg=0
 hi PmenuThumb ctermbg=2
 
 " Custom colour scheme for X vim:
-"if $TERM != "linux"
-"	" comment
-"	hi Comment           ctermfg=8
-"
-"	" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
-"	hi Constant          ctermfg=31
-"		hi String        ctermfg=31
-"		hi Character     ctermfg=69 "
-"		hi Number        ctermfg=31
-"		hi Boolean       ctermfg=31
-"		hi Float         ctermfg=31
-"
-"	" any statement | if then else endif switch | for do while | case default |
-"	" sizeof + * | any other keyword | exception
-"	hi Statement         ctermfg=142
-"		hi Conditional   ctermfg=142
-"		hi Repeat        ctermfg=142
-"		hi Label         ctermfg=142
-"		hi Operator      ctermfg=142
-"		hi Keyword       ctermfg=142
-"		hi Exception     ctermfg=142
-"
-"	" any preprocessor | #include | #define | macro | #if #else #endif
-"	hi PreProc           ctermfg=109
-"		hi Include       ctermfg=109
-"		hi Define        ctermfg=109
-"		hi Macro         ctermfg=109
-"		hi PreCondit     ctermfg=109
-"
-"	" int long char | static register volatile | struct union enum | typedef
-"	hi Type              ctermfg=202
-"		hi StorageClass  ctermfg=202
-"		hi Structure     ctermfg=202
-"		hi Typedef       ctermfg=202
-"endif
+if $TERM != "linux"
+	" comment
+	hi Comment           ctermfg=8
+
+	" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
+	hi Constant          ctermfg=2
+		hi String        ctermfg=2
+		hi Character     ctermfg=2
+		hi Number        ctermfg=2
+		hi Boolean       ctermfg=2
+		hi Float         ctermfg=2
+
+	" any statement | if then else endif switch | for do while | case default |
+	" sizeof + * | any other keyword | exception
+	hi Statement         ctermfg=178
+		hi Conditional   ctermfg=178
+		hi Repeat        ctermfg=178
+		hi Label         ctermfg=178
+		hi Operator      ctermfg=178
+		hi Keyword       ctermfg=178
+		hi Exception     ctermfg=178
+
+	" any preprocessor | #include | #define | macro | #if #else #endif
+	hi PreProc           ctermfg=64
+		hi Include       ctermfg=30
+		hi Define        ctermfg=30
+		hi Macro         ctermfg=30
+		hi PreCondit     ctermfg=30
+
+	" int long char | static register volatile | struct union enum | typedef
+	hi Type              ctermfg=12
+		hi StorageClass  ctermfg=12
+		hi Structure     ctermfg=12
+		hi Typedef       ctermfg=12
+	
+	" Special
+	hi Special           ctermfg=64
+
+	" Todo
+	hi Todo              ctermfg=22 ctermbg=148
+else
+	hi Todo ctermbg=3
+endif
 
 
 " }}}
