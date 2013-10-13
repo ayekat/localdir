@@ -95,7 +95,7 @@ set encoding=utf8
 	set list listchars=tab:→\ ,trail:·
 	hi SpecialKey cterm=bold ctermfg=0
 
-	" Highlight maching parantheses:
+	" Highlight matching parentheses:
 	set showmatch
 	hi MatchParen cterm=bold ctermfg=4 ctermbg=none
 
@@ -123,44 +123,53 @@ hi PmenuThumb ctermbg=2
 " Custom colour scheme for X vim:
 if $TERM != "linux"
 	" comment
-	hi Comment           ctermfg=8
+	hi Comment            ctermfg=242
 
 	" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
-	hi Constant          ctermfg=2
-		hi String        ctermfg=2
-		hi Character     ctermfg=2
-		hi Number        ctermfg=2
-		hi Boolean       ctermfg=2
-		hi Float         ctermfg=2
+	hi Constant           ctermfg=2
+		"hi String         ctermfg=
+		"hi Character      ctermfg=
+		"hi Number         ctermfg=
+		"hi Boolean        ctermfg=
+		"hi Float          ctermfg=
+
+	" any variable name | function name (also: methods for classes)
+	hi Identifier         ctermfg=166
+		"hi Function       ctermfg=
 
 	" any statement | if then else endif switch | for do while | case default |
 	" sizeof + * | any other keyword | exception
-	hi Statement         ctermfg=178
-		hi Conditional   ctermfg=178
-		hi Repeat        ctermfg=178
-		hi Label         ctermfg=178
-		hi Operator      ctermfg=178
-		hi Keyword       ctermfg=178
-		hi Exception     ctermfg=178
+	hi Statement          ctermfg=142
+		"hi Conditional    ctermfg=
+		"hi Repeat         ctermfg=
+		"hi Label          ctermfg=
+		"hi Operator       ctermfg=
+		"hi Keyword        ctermfg=
+		"hi Exception      ctermfg=
 
 	" any preprocessor | #include | #define | macro | #if #else #endif
-	hi PreProc           ctermfg=64
-		hi Include       ctermfg=30
-		hi Define        ctermfg=30
-		hi Macro         ctermfg=30
-		hi PreCondit     ctermfg=30
+	hi PreProc            ctermfg=30
+		"hi Include        ctermfg=
+		"hi Define         ctermfg=
+		"hi Macro          ctermfg=
+		"hi PreCondit      ctermfg=
 
 	" int long char | static register volatile | struct union enum | typedef
-	hi Type              ctermfg=12
-		hi StorageClass  ctermfg=12
-		hi Structure     ctermfg=12
-		hi Typedef       ctermfg=12
+	hi Type               ctermfg=12
+		"hi StorageClass   ctermfg=
+		"hi Structure      ctermfg=
+		"hi Typedef        ctermfg=
 	
 	" Special
-	hi Special           ctermfg=64
+	hi Special            ctermfg=136
+		"hi SpecialChar    ctermfg=
+		"hi Tag            ctermfg=
+		"hi Delimiter      ctermfg=
+		hi SpecialComment ctermfg=58
+		"hi Debug          ctermfg=
 
 	" Todo
-	hi Todo              ctermfg=22 ctermbg=148
+	hi Todo               ctermfg=22 ctermbg=148
 else
 	hi Todo ctermbg=3
 endif
@@ -184,7 +193,7 @@ hi User0        ctermfg=8 ctermbg=0 cterm=none
 hi User9        ctermfg=1 ctermbg=0 cterm=none
 
 " Define line number style for insert mode:
-hi CursorLine cterm=none
+hi CursorLine ctermbg=0 cterm=none
 if $TERM == "linux"
 	hi CursorLineNr ctermfg=7 ctermbg=4
 else
@@ -242,7 +251,7 @@ endfunction
 
 " This function styles the active statusbar:
 function! StatuslineActive(mode)
-	" status line:
+	" line numbers:
 	hi LineNr ctermfg=244 ctermbg=0
 
 	" middle part:

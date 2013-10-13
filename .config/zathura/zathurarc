@@ -23,7 +23,7 @@ set completion-highlight-bg "#333333"
 
 # Recoloured ('inverted') colours:
 set recolor-darkcolor "#AAAAAA"       # 'foreground'
-set recolor-lightcolor "#222222"      # 'background'
+set recolor-lightcolor "#333333"      # 'background'
 
 # ------------------------------------------------------------------------------
 # FEEL
