@@ -3,18 +3,27 @@
 # located in the 'jars' directory.
 # Written by ayekat on a stressed sunday afternoon in october 2013.
 
-# first argument = JAR file name:
-jarfile=$1
-jarpath="$(dirname $0)"/jars/"$jarfile"
-shift
+jardir="$0".d
 
-# check if JAR file exits:
-if [ ! -f "$jarpath" ]; then
-	printf "could not find corresponding jarfile %s in %s\n" \
-			"$jarfile" "$(dirname "$jarpath")" >&2
-	exit 1
+jarwrapper_run() {
+	if [ ! -f "$jardir"/"$1" ]; then
+		printf "could not find corresponding jarfile '%s' in %s\n" \
+				"$1" "$jardir" >&2
+		exit 1
+	fi
+
+	java -jar "$jardir"/"$1" "$@"
+}
+
+jarwrapper_help() {
+	printf "Usage: %s \033[4mjarfile\033[0m " "$(basename "$0")"
+	printf "[\033[4marguments\033[0m ...]\n"
+}
+
+if [ $# -eq 0 ]; then
+	jarwrapper_help
+	exit 2
 fi
 
-# execute with the remainder of arguments passed to the JAR file:
-java -jar "$jarpath" "$@"
+jarwrapper_run "$@"
 
