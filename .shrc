@@ -91,9 +91,8 @@ fi
 fuck() {
 	case $1 in
 		1) target=SwEngTutorial;;
-		2) target=SwEng2013QuizApp;;
 		3) target=SwEng2013QuizAppTest;;
-		*) target='';
+		2|*) target=SwEng2013QuizApp;;
 	esac
 	cd ~/dev/sweng/"$target"
 }

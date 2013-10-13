@@ -7,6 +7,6 @@
 .config/dwm/*.tar.xz
 .config/dwm/dwm-6.0
 .local/bin/altera
-.local/bin/jars
+.local/bin/*.d
 .vim/.netrwhist
 .vimperator/info
