@@ -1,0 +1,37 @@
+#!/bin/bash
+# Start and position dzenstat/dzen2 to the right places.
+# Written by ayekat, improved in october 2013.
+
+# calculate offset depending on tag width:
+[ "$HOSTNAME" = 'phobia' ] && tagwidth=106 || tagwidth=299
+
+dzenstat_draw() {
+	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return false
+	cd "$HOME"/dev/dzenstat
+	./dzenstat | dzen2 -xs "$1" -ta right -x "$tagwidth" &
+}
+
+dzenstat_start() {
+	# check for changes in .Xresources (needed by dzen2):
+	xrdb ~/.Xresources
+
+	numscreens="$(xrandr | grep '*' | wc -l)"
+	dzenstat_draw 1
+	[ "$numscreens" = '2' ] && dzenstat_draw 2
+}
+
+dzenstat_stop() {
+	killall dzenstat
+}
+
+dzenstat_help() {
+	echo "$(basename "$0") start|stop|restart"
+}
+
+case $1 in
+	start)   dzenstat_start                ;;
+	stop)    dzenstat_stop                 ;;
+	restart) dzenstat_stop; dzenstat_start ;;
+	*)       dzenstat_help
+esac
+

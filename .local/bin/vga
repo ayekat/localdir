@@ -1,35 +1,53 @@
 #!/bin/sh
-# This simplifies on-the-go addition of a VGA-monitor to my laptop.
-# Written by ayekat on a boring january day.
+# Script for simplifying on-the-go addition of a VGA-monitor to my laptop.
+# Written by ayekat on a boring january day; improved in october 2013.
 
-export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
+vganame='VGA-0'
+appname="$(basename "$0")"
+export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l) # TODO legacy
 
 vga_add() {
-	xrandr --output VGA-0 --mode "$1"
-	xrandr --output VGA-0 --right-of LVDS
-	dzenconky restart
+	# mode:
+	modeline="$(xrandr | grep -A 1 "$vganame connected" | tail -n +2)"
+	if [ -z "$modeline" ]; then
+		printf "[%s] %s is not connected\n" "$appname" "$vganame"
+		exit 1
+	fi
+	mode="$(echo "$modeline" | cut -c 4- | cut -d ' ' -f 1)"
+
+	# position:
+	position="$1"
+	if [ $position = 'right' ] || [ $position = 'left' ]; then
+		position="${position}-of"
+	fi
+	printf "[%s] %s: adding %s with mode %s...\n" \
+			"$(date +%H:%M:%S)" "$appname" "$vganame" "$mode"
+	xrandr --output "$vganame" --mode "$mode" --${position} LVDS || exit 1
+	dynenv VGA_ISSET=1
+	dynenv VGA_RES="$mode"
+	dzenstat restart
 }
 
 vga_remove() {
-	xrandr --output VGA-0 --off
-	dzenconky start
+	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$vganame"
+	xrandr --output "$vganame" --off
+	dynenv VGA_ISSET=0
+	dzenstat restart
 }
 
 vga_help() {
-	printf "%s (add|readd) \e[0;4mMODE\e[0m|remove\n" $(basename $0)
+	printf "%s add (right|left|above|below)|remove\n" "$appname"
 }
 
-case "$1" in
-	add|readd)
-		[ "$1" = 'readd' ] && vga_remove
-		if [ $# -eq 2 ] && [ $NUMSCREENS -eq 2 ]; then
-			vga_add "$2"
-		else
-			echo 'VGA error'
-		fi ;;
+command="$1"
+shift
+
+case "$command" in
+	add)
+		vga_add "$@";;
 
 	remove)
-		vga_remove ;;
+		vga_remove;;
 
 	*)
 		vga_help
