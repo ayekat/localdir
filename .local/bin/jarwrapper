@@ -4,6 +4,7 @@
 # Written by ayekat on a stressed sunday afternoon in october 2013.
 
 jardir="$0".d
+appname="$(basename "$0")"
 
 jarwrapper_run() {
 	if [ ! -f "$jardir"/"$1" ]; then
@@ -16,7 +17,7 @@ jarwrapper_run() {
 }
 
 jarwrapper_help() {
-	printf "Usage: %s \033[4mjarfile\033[0m " "$(basename "$0")"
+	printf "Usage: %s \033[4mjarfile\033[0m " "$appname"
 	printf "[\033[4marguments\033[0m ...]\n"
 }
 
