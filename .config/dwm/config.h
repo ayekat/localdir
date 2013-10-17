@@ -198,7 +198,7 @@ static const char *kbddowncmd[] = { "sudo", "lcdctl", "decrease", "keyboard", NU
 
 /* miscellaneous commands */
 static const char *prtscrcmd[] = { "scrot", "/home/ayekat/img/screenshots/%Y-%m-%d_%H%M%S.png", NULL };
-static const char *dzenconkycmd[] = { "dzenconky", "restart", NULL };
+static const char *dzenstatcmd[] = { "dzenstat", "restart", NULL };
 static const char *redshiftcmd[] = { "redshifttoggle", NULL };
 static const char *dwbcsscmd[] = { "dwbcsstoggle", NULL };
 static const char *dmenucmd[] = { "dmenu_run", "-l", "8", "-b", "-fn", font,
@@ -210,7 +210,7 @@ static Key keys[] = {
 	/* modifier           key         function       argument */
 	{ MODKEY,             XK_p,       spawn,         {.v = dmenucmd } },
 	{ 0,                  XK_Print,   spawn,         {.v = prtscrcmd } },
-	{ MODKEY,             XK_b,       spawn,         {.v = dzenconkycmd } },
+	{ MODKEY,             XK_b,       spawn,         {.v = dzenstatcmd } },
 	{ MODKEY,             XK_r,       spawn,         {.v = redshiftcmd } },
 	{ MODKEY,             XK_u,       spawn,         {.v = dwbcsscmd } },
 	{ MODKEY|ShiftMask,   XK_i,       killclient,    {0} },
