@@ -3,7 +3,7 @@
 
 while true; do
 	[ $HOSTNAME = 'phobia' ] && sleep 2
-	dzenconky start &
+	dzenstat start &
 	dwm > /tmp/dwm-$USER.log
 	dzenconky stop
 done

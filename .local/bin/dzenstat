@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Start and position dzenstat/dzen2 to the right places.
 # Written by ayekat, improved in october 2013.
 
@@ -9,6 +9,8 @@ dzenstat_draw() {
 	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return false
 	cd "$HOME"/dev/dzenstat
 	./dzenstat | dzen2 -xs "$1" -ta right -x "$tagwidth" &
+	dynenv DZEN2_ID_"$1"="$(jobs -p)"
+	disown
 }
 
 dzenstat_start() {
@@ -21,17 +23,26 @@ dzenstat_start() {
 }
 
 dzenstat_stop() {
-	killall dzenstat
+	kill $(dynenv DZEN2_ID_1)
+	[ $(dynenv NUM_SCREENS) -eq 2 ] && kill $(dynenv DZEN2_ID_2)
 }
 
 dzenstat_help() {
 	echo "$(basename "$0") start|stop|restart"
 }
 
-case $1 in
-	start)   dzenstat_start                ;;
-	stop)    dzenstat_stop                 ;;
-	restart) dzenstat_stop; dzenstat_start ;;
-	*)       dzenstat_help
+case "$1" in
+	start)
+		dzenstat_start;;
+
+	stop)
+		dzenstat_stop;;
+
+	restart)
+		dzenstat stop
+		dzenstat start;;
+
+	*)
+		dzenstat_help
 esac
 
