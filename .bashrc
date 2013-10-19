@@ -69,11 +69,11 @@ ayeprompt_assemble() {
 
 	# Git branch (only if in git repo):
 	if [ $git_set ]; then
-		git_diff=$(git diff --shortstat 2> /dev/null)
-		git_branch=$(git branch | grep '*' | cut -c 3-)
-		[ -z $git_branch ] && git_branch='empty'
-		git_status=$(git status -s)
-		git_ahead=$(git status -sb | grep ahead)
+		git_diff="$(git diff --shortstat 2> /dev/null)"
+		git_branch="$(git branch | grep '*' | cut -c 3-)"
+		[ -z "$git_branch" ] && git_branch='empty'
+		git_status="$(git status -s)"
+		git_ahead="$(git status -sb | grep ahead)"
 		if [ -z "$git_diff" ] && [ -z "$git_status" ]; then
 			if [ -z "$git_ahead" ]; then git_colour=34; else git_colour=36; fi
 		else
