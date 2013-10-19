@@ -17,21 +17,22 @@ vga_add() {
 
 	# position:
 	position="$1"
-	if [ $position = 'right' ] || [ $position = 'left' ]; then
+	if [ "$position" = 'right' ] || [ "$position" = 'left' ]; then
 		position="${position}-of"
 	fi
 	printf "[%s] %s: adding %s with mode %s...\n" \
 			"$(date +%H:%M:%S)" "$appname" "$vganame" "$mode"
 	xrandr --output "$vganame" --mode "$mode" --${position} LVDS || exit 1
-	dynenv VGA_ISSET=1
-	dynenv VGA_RES="$mode"
+
+	# variables:
+	dynenv NUM_SCREENS=2
 	dzenstat restart
 }
 
 vga_remove() {
 	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$vganame"
 	xrandr --output "$vganame" --off
-	dynenv VGA_ISSET=0
+	dynenv NUM_SCREENS=1
 	dzenstat restart
 }
 
@@ -44,6 +45,7 @@ shift
 
 case "$command" in
 	add)
+		[ $# -ne 1 ] && { vga_help; exit 1; }
 		vga_add "$@";;
 
 	remove)
