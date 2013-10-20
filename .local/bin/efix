@@ -1,0 +1,101 @@
+#!/bin/bash
+# Searches a directory for Java source files that might be formatted incorrectly
+# by eclipse-folks/your teammates.
+# Written by ayekat after a really annoying week in october 2013.
+
+appname="$(basename "$0")"
+
+# FUNCTIONS --------------------------------------------------------------------
+
+# checks environment:
+efix_checkenv() {
+	which "$1" 1>/dev/null 2>&1 && return 0
+	printf "ERROR: %s does not seem to exist on the system.\n" "$1" 1>&2
+	printf "       %s requires %s to run correctly.\n" "$appname" "$1" 1>&2
+	return 1
+}
+
+# displays warning message:
+efix_git() {
+	echo 'It appears that you have got uncommited changes in your working tree.'
+	echo 'Please stash or commit your changes before running this script.'
+}
+efix_nogit() {
+	echo 'It appears that you are not in a git repository.'
+	echo 'Please run this script from within a git repository.'
+}
+
+# displays help:
+efix_help() {
+	printf "Usage: %s \033[4mDIR\033[0m\n" "$appname"
+}
+
+# SETUP ------------------------------------------------------------------------
+
+# check environment:
+for p in 'git' 'ex' 'grep' 'file' 'dos2unix'; do
+	efix_checkenv "$p" || exit 1
+done
+
+# check git status:
+git rev-parse 2>/dev/null && git_set=1
+if [ $git_set ]; then
+	if [ -n "$(git status -s)" ]; then
+		efix_git
+		exit 1
+	fi
+else
+	efix_nogit
+	exit 1
+fi
+
+# check arguments:
+if [ $# -ne 1 ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
+	efix_help
+	exit 1
+fi
+
+# check if directory exists:
+if [ ! -d "$1" ]; then
+	printf "Directory '%s' does not exist\n" "$1" 1>&2
+	exit 1
+fi
+
+# get files:
+files=$(find "$1" -name *.java | grep -v *.swp)
+
+# FIX WHITESPACES  -------------------------------------------------------------
+
+echo 'Fixing whitespaces...'
+for f in $files; do
+	printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
+done
+
+# FIX LINE ENDINGS -------------------------------------------------------------
+
+echo 'Fixing line endings...'
+for f in $files; do
+	dos2unix "$f" 1>/dev/null 2>&1
+done
+
+# SCAN FILE TYPES --------------------------------------------------------------
+
+echo 'Scanning file types...'
+{ for f in $files; do printf '  '; file -b "$f"; done; } | sort | uniq
+
+# check if a verbose file type list is requested:
+while true; do
+	printf 'Show a verbose list of files for the file types above? [y/N]: '
+	read -n 1 answer # TODO bashism
+	if [ "$answer" = 'n' ] || [ "$answer" = 'N' ] || [ "$answer" = '' ]; then
+		[ "$answer" != '' ] && echo
+		exit
+	fi
+	if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
+		break
+	fi
+done
+for f in $files; do
+	file "$f"
+done
+
