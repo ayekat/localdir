@@ -26,15 +26,20 @@ vga_add() {
 
 	# variables:
 	dynenv NUM_SCREENS=2
-	dzenstat restart
+	vga_setup
 }
 
 vga_remove() {
 	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$vganame"
 	xrandr --output "$vganame" --off
-	xrandr --output LVDS --dpi 96
 	dynenv NUM_SCREENS=1
+	vga_setup
+}
+
+vga_setup() {
+	xrandr --output LVDS --dpi 96
 	dzenstat restart
+	nitrogen --restore
 }
 
 vga_help() {
