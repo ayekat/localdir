@@ -2,33 +2,36 @@
 
 lcdadjust_start() {
 	if [ -e ~/.config/argyll/$HOSTNAME.icc ]; then
-		for ((i=1; i<=$NUMSCREENS; i++)); do
+		for ((i=1; i<=$(dynenv NUMSCREENS); i++)); do
 			dispwin -d $i $XDG_CONFIG_HOME/argyll/$HOSTNAME.icc
 		done
 	fi
 }
 
 lcdadjust_stop() {
-	for ((i=1; i<=$NUMSCREENS; i++)); do
-		dispwin -d $i -C
+	for ((i=1; i<=$(dynenv NUMSCREENS); i++)); do
+		true # TODO find out how to disable a display calibration
 	done
 }
 
 lcdadjust_help() {
-	printf "lcdadjust  \e[1mstart\e[0m|\e[1mstop\e[0m|\e[1mrestart\e[0m\n"
+	printf "%s (start|restart) |stop\n" $(basename $0) "$specialswitch"
 }
 
-case $1 in
+command="$1"
+shift
+
+case "$command" in
 	start)
-		lcdadjust_start
-		;;
+		lcdadjust_start;;
+
 	stop)
-		lcdadjust_stop
-		;;
+		lcdadjust_stop;;
+
 	restart)
 		lcdadjust_stop
-		lcdadjust_start
-		;;
+		lcdadjust_start;;
+
 	*)
 		lcdadjust_help
 esac

@@ -32,7 +32,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 # MONITOR OPTIONS --------------------------------------------------------------
 
 # Get the number of monitors:
-export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
+dynenv NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start
