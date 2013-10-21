@@ -19,13 +19,13 @@ diff -r ec4baab78314 dwm.c
  
  void
 +attachabove(Client *c) {
-+	if(c->mon->sel == NULL || c->mon->sel == c->mon->clients || c->mon->sel->isfloating) {
++	if(c->mon->sel == NULL) {
 +		attach(c);
 +		return;
 +	}
 +
 +	Client *at;
-+	for(at = c->mon->clients; at->next != c->mon->sel; at = at->next);
++	for(at = c->mon->clients; at != c->mon->sel && at->next != NULL; at = at->next);
 +	c->next = at->next;
 +	at->next = c;
 +}

@@ -21,7 +21,7 @@ patches=(
 	01-dwm-6.0-bstack.diff
 	02-dwm-6.0-push.diff
 	03-dwm-6.0-pertag.diff
-	04-dwm-6.0-attachabove.diff
+	04-dwm-6.0-attachbelow.diff
 	05-dwm-6.0-pango.diff
 	06-dwm-6.0-scratchpad.diff
 	07-dwm-5.8.2-fibonacci.diff
