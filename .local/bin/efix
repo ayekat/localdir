@@ -1,53 +1,84 @@
 #!/bin/bash
-# Searches a directory for Java source files that might be formatted incorrectly
-# by eclipse-folks/your teammates.
+
+# Search a directory for Java source files that might be formatted incorrectly.
+#
+# Note that this script will not replace checkstyle; in particular, it does:
+# - fix tabs that should be 4 spaces
+# - transforms \r\n to \n
+# - lists file encodings (for detecting non UTF-8 or non ASCII files)
+#
 # Written by ayekat after a really annoying week in october 2013.
+
 
 appname="$(basename "$0")"
 
+
 # FUNCTIONS --------------------------------------------------------------------
-
-# checks environment:
-efix_checkenv() {
-	which "$1" 1>/dev/null 2>&1 && return 0
-	printf "ERROR: %s does not seem to exist on the system.\n" "$1" 1>&2
-	printf "       %s requires %s to run correctly.\n" "$appname" "$1" 1>&2
-	return 1
-}
-
-# displays warning message:
-efix_git() {
-	echo 'It appears that you have got uncommited changes in your working tree.'
-	echo 'Please stash or commit your changes before running this script.'
-}
-efix_nogit() {
-	echo 'It appears that you are not in a git repository.'
-	echo 'Please run this script from within a git repository.'
-}
 
 # displays help:
 efix_help() {
 	printf "Usage: %s \033[4mDIR\033[0m\n" "$appname"
 }
 
-# SETUP ------------------------------------------------------------------------
-
-# check environment:
-for p in 'git' 'ex' 'grep' 'file' 'dos2unix'; do
-	efix_checkenv "$p" || exit 1
-done
-
-# check git status:
-git rev-parse 2>/dev/null && git_set=1
-if [ $git_set ]; then
-	if [ -n "$(git status -s)" ]; then
-		efix_git
-		exit 1
+# asks for confirmation:
+efix_confirmation() {
+	# print question:
+	if [ "$1" = '' ]; then
+		printf "Do you want to continue? "
+	else
+		printf "%s " "$1"
 	fi
-else
-	efix_nogit
-	exit 1
-fi
+	if [ "$2" = 'n' ]; then
+		printf '[y/N] '
+	else
+		printf '[Y/n] '
+	fi
+
+	# wait for answer:
+	read -n 1 a # TODO POSIX-compliance
+	[ "$a" != '' ] && echo
+	case "$a" in
+		Y|y) true;;
+		N|n) false;;
+		'') [ "$2" != 'n' ];;
+		*) efix_confirmation "$1" "$2" # TODO stack overflow?
+	esac
+}
+
+# checks for a fix/test hook whether an array of commands exist on the system:
+efix_init() {
+	question="$1";shift
+	printf "\033[1m%s...\033[0m\n" "$question"
+	efix_checkenv "$@"
+}
+
+efix_checkenv() {
+	if [ -z "$1" ]; then
+		true
+	elif which "$1" 1>/dev/null 2>&1; then
+		shift
+		efix_checkenv "$@"
+	else
+		printf "WARNING: %s does not seem to exist on this system.\n" "$1"
+		false
+	fi
+}
+
+# git warning messages:
+efix_git_norepo() {
+	echo 'WARNING: It appears that you are not in a git repository.'
+	efix_confirmation 'Are you sure you want to continue?' n || exit
+}
+efix_git_uncommitted() {
+	echo 'WARNING: It appears that you have got uncommited changes in your'
+	echo 'working tree. It is recommended to stash or commit the changes before'
+	echo 'running this script, since it modifies entire files and might'
+	echo 'obfuscate your commit diffs.'
+	efix_confirmation 'Are you sure you want to continue?' n || exit
+}
+
+
+# SETUP ------------------------------------------------------------------------
 
 # check arguments:
 if [ $# -ne 1 ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
@@ -57,45 +88,57 @@ fi
 
 # check if directory exists:
 if [ ! -d "$1" ]; then
-	printf "Directory '%s' does not exist\n" "$1" 1>&2
+	printf "ERROR: Directory '%s' does not exist\n" "$1" 1>&2
 	exit 1
+fi
+
+# check for git existence:
+efix_checkenv git || \
+efix_confirmation 'Are you sure you want to continue?' n || \
+exit 1
+
+# check git repo:
+if git rev-parse 1>/dev/null 2>&1; then  # are we in a git repo?
+	if [ -n "$(git status -s)" ]; then   # are there uncommmitted changes?
+		efix_git_uncommitted
+	fi
+else
+	efix_git_norepo
 fi
 
 # get files:
 files=$(find "$1" -name *.java | grep -v *.swp)
 
+
 # FIX WHITESPACES  -------------------------------------------------------------
 
-echo 'Fixing whitespaces...'
-for f in $files; do
-	printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
-done
+if efix_init 'fixing whitespaces' ex; then
+	for f in $files; do
+		printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
+	done
+fi
+
 
 # FIX LINE ENDINGS -------------------------------------------------------------
 
-echo 'Fixing line endings...'
-for f in $files; do
-	dos2unix "$f" 1>/dev/null 2>&1
-done
+if efix_init 'fixing line endings' dos2unix; then
+	for f in $files; do
+		dos2unix "$f" 1>/dev/null 2>&1
+	done
+fi
+
 
 # SCAN FILE TYPES --------------------------------------------------------------
 
-echo 'Scanning file types...'
-{ for f in $files; do printf '  '; file -b "$f"; done; } | sort | uniq
+if efix_init 'scanning file encodings' file uniq sort; then
+	{ for f in $files; do printf '  '; file -b "$f"; done; } | sort | uniq
 
-# check if a verbose file type list is requested:
-while true; do
-	printf 'Show a verbose list of files for the file types above? [y/N]: '
-	read -n 1 answer # TODO bashism
-	if [ "$answer" = 'n' ] || [ "$answer" = 'N' ] || [ "$answer" = '' ]; then
-		[ "$answer" != '' ] && echo
-		exit
-	fi
-	if [ "$answer" = 'y' ] || [ "$answer" = 'Y' ]; then
-		break
-	fi
-done
-for f in $files; do
-	file "$f"
-done
+	# check if a verbose file type list is requested:
+	efix_confirmation 'Show a verbose list for these file encodings?' n || exit
+	for f in $files; do
+		printf '  '; file "$f"
+	done
+	echo 'Consider using iconv if you want to change the encoding of one of'
+	echo 'these files.'
+fi
 
