@@ -2,22 +2,28 @@
 
 # Search a directory for Java source files that might be formatted incorrectly.
 #
-# Note that this script will not replace checkstyle; in particular, it does:
-# - fix tabs that should be 4 spaces
-# - transforms \r\n to \n
-# - lists file encodings (for detecting non UTF-8 or non ASCII files)
+# Note that this script will not replace checkstyle; in particular, it will
+# - fix tabs that should be 4 spaces,
+# - purge trailing whitespaces,
+# - transform DOS line endings (\r\n) to Unix line endings (\n),
+# - converts unaccepted file encodings (e.g. for detecting ISO-8859 files).
 #
 # Written by ayekat after a really annoying week in october 2013.
 
 
-appname="$(basename "$0")"
+# CONFIG -----------------------------------------------------------------------
+# Feel free to change these settings!
+
+FILETYPE='.java'           # file types to search for
+ENCODINGS='utf-8 us-ascii' # accepted file encodings
+TMPFILE='efix.tmp'         # temporary file for iconv
 
 
 # FUNCTIONS --------------------------------------------------------------------
 
 # displays help:
 efix_help() {
-	printf "Usage: %s \033[4mDIR\033[0m\n" "$appname"
+	printf "Usage: %s \033[4mDIR\033[0m\n" "$cmdname"
 }
 
 # asks for confirmation:
@@ -64,21 +70,40 @@ efix_checkenv() {
 	fi
 }
 
-# git warning messages:
-efix_git_norepo() {
-	echo 'WARNING: It appears that you are not in a git repository.'
-	efix_confirmation 'Are you sure you want to continue?' n || exit
+# warning messages:
+efix_warn_tmpfile() {
+	echo "WARNING: $TMPFILE seems to exist already; $cmdname will possibly"
+	echo 'overwrite and delete it.'
+	efix_confirmation 'Are you sure you want to continue?' n || exit 1
 }
-efix_git_uncommitted() {
+efix_warn_git_norepo() {
+	echo 'WARNING: It appears that you are not in a git repository.'
+	efix_confirmation 'Are you sure you want to continue?' n || exit 1
+}
+efix_warn_git_uncommitted() {
 	echo 'WARNING: It appears that you have got uncommited changes in your'
 	echo 'working tree. It is recommended to stash or commit the changes before'
-	echo 'running this script, since it modifies entire files and might'
-	echo 'obfuscate your commit diffs.'
-	efix_confirmation 'Are you sure you want to continue?' n || exit
+	echo "running $cmdname, since it modifies entire files and might obfuscate"
+	echo 'your commit diffs.'
+	efix_confirmation 'Are you sure you want to continue?' n || exit 1
+}
+
+# checks if a string value contains a certain word:
+efix_contains() {
+	for word in $1; do
+		[ "$word" = "$2" ] && return 0
+	done
+	false
 }
 
 
 # SETUP ------------------------------------------------------------------------
+
+# get command name:
+cmdname="$(basename "$0")"
+
+# check environment:
+[ -f efix.tmp ] && efix_warn_tmpfile
 
 # check arguments:
 if [ $# -ne 1 ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
@@ -100,14 +125,14 @@ exit 1
 # check git repo:
 if git rev-parse 1>/dev/null 2>&1; then  # are we in a git repo?
 	if [ -n "$(git status -s)" ]; then   # are there uncommmitted changes?
-		efix_git_uncommitted
+		efix_warn_git_uncommitted
 	fi
 else
-	efix_git_norepo
+	efix_warn_git_norepo
 fi
 
 # get files:
-files=$(find "$1" -name *.java | grep -v *.swp)
+files=$(find "$1" -name *$FILETYPE)
 
 
 # FIX WHITESPACES  -------------------------------------------------------------
@@ -115,6 +140,7 @@ files=$(find "$1" -name *.java | grep -v *.swp)
 if efix_init 'fixing whitespaces' ex; then
 	for f in $files; do
 		printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
+		[ $? -ne 0 ] && echo "There was an error while fixing $f" 1>&2
 	done
 fi
 
@@ -124,21 +150,34 @@ fi
 if efix_init 'fixing line endings' dos2unix; then
 	for f in $files; do
 		dos2unix "$f" 1>/dev/null 2>&1
+		[ $? -ne 0 ] && echo "There was an error while fixing $f" 1>&2
 	done
 fi
 
 
 # SCAN FILE TYPES --------------------------------------------------------------
 
-if efix_init 'scanning file encodings' file uniq sort; then
-	{ for f in $files; do printf '  '; file -b "$f"; done; } | sort | uniq
-
-	# check if a verbose file type list is requested:
-	efix_confirmation 'Show a verbose list for these file encodings?' n || exit
+if efix_init 'scanning file encodings' file iconv; then
+	enc_found=''
 	for f in $files; do
-		printf '  '; file "$f"
+		enc="$(file -b -i "$f" | cut -d '=' -f 2)"
+		enc_human="$(file -b "$f")"
+		if efix_contains "$ENCODINGS" "$enc"; then
+			if efix_contains "$enc_found" "$enc"; then true; else
+				enc_found="$enc_found $enc"
+				printf "  \033[32m%s\033[0m\n" "$enc_human"
+			fi
+		else
+			printf "  \033[31m%s (%s)\033[0m: \033[1m%s\033[0m\n" \
+					"$enc_human" "$enc" "$f"
+			efix_confirmation '    convert to UTF-8 (utf-8)?' || continue
+			printf '    converting %s... ' "$f"
+			iconv -f "$enc" -t 'utf-8' "$f" > "$TMPFILE" || \
+					{ printf "\033[31merror [iconv]\033[0m\n" 1>&2; continue; }
+			mv -f "$TMPFILE" "$f" || \
+					{ printf "\033[31merror [mv]\033[0m\n" 1>&2; continue; }
+			printf "\033[032msuccess\033[0m\n"
+		fi
 	done
-	echo 'Consider using iconv if you want to change the encoding of one of'
-	echo 'these files.'
 fi
 
