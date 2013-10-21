@@ -3,6 +3,7 @@
 # Written by ayekat on a boring january day; improved in october 2013.
 
 vganame='VGA-0'
+lcdname='LVDS'
 appname="$(basename "$0")"
 export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l) # TODO legacy
 
@@ -22,7 +23,8 @@ vga_add() {
 	fi
 	printf "[%s] %s: adding %s with mode %s...\n" \
 			"$(date +%H:%M:%S)" "$appname" "$vganame" "$mode"
-	xrandr --output "$vganame" --mode "$mode" --${position} LVDS || exit 1
+	xrandr --output "$lcdname" --auto
+	xrandr --output "$vganame" --mode "$mode" --${position} "$lcdname" || exit 1
 
 	# variables:
 	dynenv NUM_SCREENS=2
