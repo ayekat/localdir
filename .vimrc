@@ -81,9 +81,8 @@ set encoding=utf8
 		else
 			hi ColorColumn ctermbg=0
 		endif
-		"let &colorcolumn=join(range(81,999),",")
-		"hi ColorColumn ctermbg=232
 		au FileType gitcommit set colorcolumn=73
+		au FileType java set colorcolumn=121
 		au FileType asm set colorcolumn=41,81
 	endif
 
@@ -442,16 +441,17 @@ set nomodeline
 	set autoindent
 	set copyindent
 
-	" Wrap lines, but break words:
+	" Wrap lines (except in Java), and break words:
 	set wrap
-	set linebreak
+	au FileType java set nowrap
+	set linebreak      " doesn't seem to work correctly
 
 
 " NORMAL MODE >
 
 	" Display commands when typing:
 	set showcmd
-	
+
 	" Highlight search results and display them immediately as they are typed:
 	set hlsearch
 	set incsearch
@@ -459,7 +459,7 @@ set nomodeline
 	" Ignore case when searching, except when explicitely using majuscules:
 	set ignorecase
 	set smartcase
-	
+
 	" Moving the cursor on visual lines is much more intuitive with 'g':
 	map k gk
 	map j gj
