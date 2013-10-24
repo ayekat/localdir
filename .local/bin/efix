@@ -184,20 +184,14 @@ fi
 
 # UNNECESSARY EMPTY LINES IN JAVADOC COMMENTS ----------------------------------
 
-if efix_init 'fixing unnecessary empty lines in javadoc' ex; then
-	for f in $files; do
-		# leading lines:
-		sed -n '1h;1!H;${g;s/\/\*\*\n\([ ]*\*\n\)*/\/\*\*\n/g;p}' \
-				"$f" >"$TMPFILE"
-		[ $? -eq 0 ] || { printf "\033[31merror [ex]\033[0m\n" 1>&2; continue; }
-		mv -f "$TMPFILE" "$f"
-		[ $? -eq 0 ] || { printf "\033[31merror [mv]\033[0m\n" 1>&2; continue; }
-
-		# trailing lines:
-		# TODO
-		#printf "%%s/%s/%s/g\nw\nq\n" '\([ ]*\)\*\/\n' '\1\*\/\r' #| \
-				#ex -s "$f" 1>/dev/null || \
-				#{ printf "\033[31merror [ex]\033[0m\n" 1>&2; break; }
-	done
+echo 'The following feature is experimental and might break your code.'
+if efix_confirmation 'Do you want to continue?' n; then
+	if efix_init 'fixing unnecessary empty lines in javadoc' ex; then
+		for f in $files; do
+			sed -n '1h;1!H;${g;s/\/\*\*\n\([ ]*\*\n\)*/\/\*\*\n/g;p}' "$f" | \
+					sed -n '1h;1!H;${g;s/\(\*\n[ ]*\)*\*\//\*\//g;p}'>"$TMPFILE"
+			mv -f "$TMPFILE" "$f" || printf "\033[31merror [mv]\033[0m\n" 1>&2
+		done
+	fi
 fi
 
