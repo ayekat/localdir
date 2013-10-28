@@ -1,5 +1,1 @@
-#!/bin/sh
-# 'jarwrapper' wrapper for checkstyle
-
-jarwrapper checkstyle.jar "$@"
-
+jarwrapper

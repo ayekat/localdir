@@ -1,30 +1,17 @@
 #!/bin/sh
-# This file takes a java JAR file name as an argument and runs it if it's
-# located in the 'jars' directory.
+# This file can be linked under a different name to launch corresponding Java
+# JAR files in the jarwrapper.d.
 # Written by ayekat on a stressed sunday afternoon in october 2013.
 
-jardir="$0".d
-appname="$(basename "$0")"
+cmdname="$(basename "$0")"
+scriptname="$(dirname "$0")/$(test -L "$0" && readlink "$0" || echo "$0")"
+jardir="$scriptname".d
 
-jarwrapper_run() {
-	if [ ! -f "$jardir"/"$1" ]; then
-		printf "could not find corresponding jarfile '%s' in %s\n" \
-				"$1" "$jardir" >&2
-		exit 1
-	fi
-
-	java -jar "$jardir"/"$1" "$@"
-}
-
-jarwrapper_help() {
-	printf "Usage: %s \033[4mjarfile\033[0m " "$appname"
-	printf "[\033[4marguments\033[0m ...]\n"
-}
-
-if [ $# -eq 0 ]; then
-	jarwrapper_help
-	exit 2
+if [ ! -f "$jardir"/"$cmdname".jar ]; then
+	printf "could not find corresponding jarfile '%s.jar' in %s\n" \
+			"$cmdname" "$jardir" >&2
+	exit 1
 fi
 
-jarwrapper_run "$@"
+java -jar "$jardir"/"$cmdname".jar "$@"
 
