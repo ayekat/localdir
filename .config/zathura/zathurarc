@@ -22,6 +22,7 @@ set completion-highlight-fg "#FFFFFF" # ... and highlighted
 set completion-highlight-bg "#333333"
 
 # Recoloured ('inverted') colours:
+set recolor "true"
 set recolor-darkcolor "#AAAAAA"       # 'foreground'
 set recolor-lightcolor "#333333"      # 'background'
 
