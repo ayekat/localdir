@@ -186,7 +186,7 @@ fi
 
 echo 'The following feature is experimental and might break your code.'
 if efix_confirmation 'Do you want to continue?' n; then
-	if efix_init 'fixing unnecessary empty lines in javadoc' ex; then
+	if efix_init 'fixing unnecessary empty lines in javadoc' grep; then
 		for f in $files; do
 			sed -n '1h;1!H;${g;s/\/\*\*\n\([ ]*\*\n\)*/\/\*\*\n/g;p}' "$f" | \
 					sed -n '1h;1!H;${g;s/\(\*\n[ ]*\)*\*\//\*\//g;p}'>"$TMPFILE"
