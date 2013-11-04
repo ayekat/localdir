@@ -427,6 +427,17 @@ set nomodeline
 "au FileType gitcommit set textwidth=72
 "au FileType java set textwidth=120
 
+" Fix trailing whitespaces:
+function! StripTrailingWhitespaces()
+	let _s=@/
+	let l=line('.')
+	let c=col('.')
+	%s/\s\+$//eg
+	call cursor(l,c)
+	let @/=_s
+endfunction
+au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces()
+
 
 " INSERT MODE >
 
