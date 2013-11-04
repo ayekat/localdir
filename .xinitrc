@@ -86,5 +86,5 @@ scratchpad &
 
 # dwmloop runs dwm in a loop, to allow on-the-fly restarts.
 # See the file for more information:
-exec dwmloop
+exec dwm > /tmp/dwm-$USER.log
 
