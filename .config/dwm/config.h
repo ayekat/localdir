@@ -137,7 +137,7 @@ movefollowtag(const Arg *arg)
 	else // move and follow to the left:
 		shifted.ui = (selmon->tagset[selmon->seltags] >> (-arg->i))
 				| (selmon->tagset[selmon->seltags] << (LENGTH(tags) + arg->i));
-	
+
 	// move and follow:
 	tag(&shifted);
 	view(&shifted);
@@ -159,11 +159,27 @@ focusview(const Arg *arg)
 {
 	Client *c;
 	toggleview(arg);
-	for(c = selmon->clients; c; c = c->next)
+	for (c = selmon->clients; c; c = c->next) {
 		if (c->tags == arg->ui) {
 			focus(c);
 			XRaiseWindow(dpy, c->win);
 		}
+	}
+}
+
+/* helper for spawning shell commands in the pre dwm-5.0 fashion */
+#define SHCMD(cmd) &((Arg) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } })
+
+/* startup actions */
+void
+custom_startup(void) {
+	spawn(SHCMD("dzenstat start"));
+}
+
+/* shutdown actions */
+void
+custom_shutdown(void) {
+	spawn(SHCMD("dzenstat stop"));
 }
 
 /* key definitions */
@@ -173,9 +189,6 @@ focusview(const Arg *arg)
 	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
 	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
 	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
-
-/* helper for spawning shell commands in the pre dwm-5.0 fashion */
-#define SHCMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* terminal commands */
 static const char *termcmd[]  = { "xfce4-terminal", NULL };
