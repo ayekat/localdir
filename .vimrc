@@ -86,10 +86,6 @@ set encoding=utf8
 		au FileType asm set colorcolumn=41,81
 	endif
 
-	" Automatically wrap after a certain number of columns:
-	"set textwidth=80
-	"au FileType gitcommit set textwidth=72
-
 	" I wanna see tabs and trailing whitespaces:
 	set list listchars=tab:→\ ,trail:·
 	hi SpecialKey cterm=bold ctermfg=0
@@ -192,10 +188,10 @@ hi User0        ctermfg=8 ctermbg=0 cterm=none
 hi User9        ctermfg=1 ctermbg=0 cterm=none
 
 " Define line number style for insert mode:
-hi CursorLine ctermbg=0 cterm=none
 if $TERM == "linux"
 	hi CursorLineNr ctermfg=7 ctermbg=4
 else
+	hi CursorLine ctermbg=234 cterm=none
 	hi CursorLineNr ctermfg=45 ctermbg=23
 endif
 
@@ -425,6 +421,11 @@ map J 3<C-e>
 
 " Modelines are evil!
 set nomodeline
+
+" Automatically wrap after a certain number of columns:
+"set textwidth=80
+"au FileType gitcommit set textwidth=72
+"au FileType java set textwidth=120
 
 
 " INSERT MODE >
