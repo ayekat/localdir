@@ -1,9 +1,7 @@
-#!/bin/bash
-# Plays an album from a bandcamp page as a playlist in mplayer.
+#!/bin/sh
+# Gives a list of URLs to sound files contained in the HTML file of a bancamp
+# page.
 # By d3lxa
 
-mplayer -playlist <(curl -Ss "$1" | perl -ne 'print "$1\n" while (m{"file":"(http://.*?)"}g)')
-
-# This doesn't work anymore, since bandcamp changed their format.
-# Need to fix this one day.
+curl -L -sS "$1" | perl -ne 'print "$1\n" while (m{"mp3-128":"([^"]+)"}g); print "tag: $1\n" if m{<a class="tag" href="[^"]+/([^"]+)};'
 
