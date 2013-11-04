@@ -23,7 +23,7 @@ TMPFILE='efix.tmp'         # temporary file for iconv
 
 # displays help:
 efix_help() {
-	printf "Usage: %s \033[4mDIR\033[0m\n" "$cmdname"
+	printf "Usage: %s \033[4mDIR\033[0m/\033[4mFILE\033[0m\n" "$cmdname"
 }
 
 # asks for confirmation:
