@@ -196,7 +196,6 @@ static const char *termcmd_new[]  = { "urxvtc", NULL };
 static const char *scratchpadcmd[] = { "scratchpad", NULL };
 
 /* session commands */
-static const char *quitcmd[] = { "killall", "dwmloop", NULL };
 static const char *lockcmd[] = { "xtrlock", NULL };
 static const char *lockcmd_full[] = { "slock", NULL };
 
@@ -301,10 +300,10 @@ static Key keys[] = {
 #endif
 
 	// session commands:
-	{ MODKEY,                       XK_z, spawn, {.v = lockcmd } },
-	{ MODKEY|ShiftMask,             XK_z, spawn, {.v = lockcmd_full } },
-	{ MODKEY|ControlMask,           XK_z, quit,  {0} },
-	{ MODKEY|ControlMask|ShiftMask, XK_z, spawn, {.v = quitcmd } },
+	{ MODKEY,                       XK_z, spawn,  {.v = lockcmd } },
+	{ MODKEY|ShiftMask,             XK_z, spawn,  {.v = lockcmd_full } },
+	{ MODKEY|ControlMask,           XK_z, restart,{0} },
+	{ MODKEY|ControlMask|ShiftMask, XK_z, quit,   {0} },
 };
 
 /* button definitions */

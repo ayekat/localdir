@@ -27,6 +27,7 @@ patches=(
 	07-dwm-5.8.2-fibonacci.diff
 	10-dwm-6.0-taags.diff
 	11-dwm-6.0-startup.diff
+	12-dwm-6.0-restart.diff
 )
 patches_disabled=(
 	08-dwm-6.0-trivial_single_tagset.diff

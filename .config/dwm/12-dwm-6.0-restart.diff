@@ -1,0 +1,40 @@
+--- a/dwm.c	2013-11-04 22:13:20.606395705 +0100
++++ b/dwm.c	2013-11-04 22:14:12.839722473 +0100
+@@ -229,6 +229,7 @@
+ static void resizeclient(Client *c, int x, int y, int w, int h);
+ static void resizemouse(const Arg *arg);
+ static void restack(Monitor *m);
++static void restart(const Arg *arg);
+ static void run(void);
+ static void scan(void);
+ static Bool sendevent(Client *c, Atom proto);
+@@ -295,6 +296,7 @@
+ 	[UnmapNotify] = unmapnotify
+ };
+ static Atom wmatom[WMLast], netatom[NetLast];
++static Bool restarting = False;
+ static Bool running = True;
+ static Cursor cursor[CurLast];
+ static Display *dpy;
+@@ -1478,6 +1480,12 @@
+ }
+ 
+ void
++restart(const Arg *arg) {
++	running = False;
++	restarting = True;
++}
++
++void
+ run(void) {
+ 	XEvent ev;
+ 	/* main event loop */
+@@ -2233,5 +2241,8 @@
+ 	custom_shutdown();
+ 	cleanup();
+ 	XCloseDisplay(dpy);
++	if (restarting == True) {
++		execl("/usr/bin/dwm", "dwm", NULL);
++	}
+ 	return EXIT_SUCCESS;
+ }
