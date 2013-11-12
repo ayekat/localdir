@@ -91,12 +91,12 @@ fi
 fuck() {
 	case "$1" in
 		x|xt) base=~/dev/swengtest;;
-		*) base=~/dev/sweng;;
+		*)    base=~/dev/sweng;;
 	esac
 	case "$1" in
-		1) target=SwEngTutorial;;
-		3|xt) target=SwEng2013QuizAppTest;;
-		2|*) target=SwEng2013QuizApp;;
+		1)    target=SwEngTutorial;;
+		t|xt) target=SwEng2013QuizAppTest;;
+		*)    target=SwEng2013QuizApp;;
 	esac
 	cd "$base"/"$target"
 }
