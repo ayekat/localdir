@@ -3,6 +3,7 @@
 # some gap at the border. See the dwm config for how to use it.
 # Written by ayekat in february 2013
 
+SCRATCHPAD_APP=xfce4-terminal
 
 # gap to screen edge
 SIZE_BAR=15
@@ -27,7 +28,8 @@ yres=$(echo $res | sed 's/[0-9]*x//g')
 xgres=$(($(($xres-2*$MARGIN-2*$BORDER-2*$PADDING))/$FWIDTH))
 ygres=$(($(($yres-2*$MARGIN-$SIZE_BAR-2*$BORDER-2*$PADDING))/$FHEIGHT))
 
-roxterm --title=Scratchpad \
+$SCRATCHPAD_APP \
+		--title=Scratchpad \
 		--geometry=$(($xgres))x$ygres+$MARGIN+$(($MARGIN+$SIZE_BAR)) \
-		-e tmx SCRATCHPAD
+		--execute tmx SCRATCHPAD
 

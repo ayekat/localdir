@@ -54,6 +54,7 @@ static const Rule rules[] = {
 	{ "MPlayer",        NULL, NULL,           0,                   True, -1 },
 	{ "Nitrogen",       NULL, NULL,           0,                   True, -1 },
 	{ "Roxterm",        NULL, SCRATCHPADNAME, 1<<(LENGTH(tags)-1), True, -1 },
+	{ "Xfce4-terminal", NULL, SCRATCHPADNAME, 1<<(LENGTH(tags)-1), True, -1 },
 	{ "Lxappearance",   NULL, NULL,           0,                   True, -1 },
 };
 
