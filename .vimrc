@@ -8,8 +8,29 @@
 " No compatibility with vi => more tasty features:
 set nocompatible
 
-" Activate pathogen => even *more* tasty features:
-call pathogen#infect()
+
+" ------------------------------------------------------------------------------
+" BUNDLES
+
+" Bundles are managed by vundle, so enable it here:
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+" Managed bundles:
+Bundle 'gmarik/vundle'
+Bundle 'spolu/dwm.vim'
+Bundle 'Lokaltog/vim-easymotion'
+Bundle 'tpope/vim-fugitive'
+Bundle 'tpope/vim-surround'
+Bundle 'scrooloose/syntastic'
+
+" Make EasyMotion work with f/F:
+let g:EasyMotion_mapping_w='f'
+let g:EasyMotion_mapping_b='F'
+
+" Disable scala and java syntax checkers, as they are slow as hell:
+let g:syntastic_java_checkers=[]
+let g:syntastic_scala_checkers=[]
 
 
 " ------------------------------------------------------------------------------
@@ -317,10 +338,10 @@ function! DrawStatusline(mode)
 		setl statusline+=\ VISUAL\ 
 	elseif a:mode == 'I'
 		setl statusline+=\ INSERT\ 
-		set cursorline
+		setl cursorline
 	else
 		setl statusline+=\ NORMAL\ 
-		set nocursorline
+		setl nocursorline
 	endif
 	setl statusline+=%3*%{rfsep}
 
