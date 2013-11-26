@@ -31,9 +31,6 @@ export XDG_CONFIG_HOME=$HOME/.config
 
 # MONITOR OPTIONS --------------------------------------------------------------
 
-# Get the number of monitors:
-dynenv NUMSCREENS=$(xrandr | grep ' connected ' | wc -l)
-
 # Activate (LCD) monitor color calibration:
 lcdadjust start
 
@@ -84,7 +81,5 @@ scratchpad &
 
 # SESSION ----------------------------------------------------------------------
 
-# dwmloop runs dwm in a loop, to allow on-the-fly restarts.
-# See the file for more information:
 exec dwm > /tmp/dwm-$USER.log
 

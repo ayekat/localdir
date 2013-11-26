@@ -5,7 +5,6 @@
 vganame='VGA-0'
 lcdname='LVDS'
 appname="$(basename "$0")"
-export NUMSCREENS=$(xrandr | grep ' connected ' | wc -l) # TODO legacy
 
 vga_add() {
 	# mode:

@@ -6,7 +6,6 @@
 [ "$HOSTNAME" = 'phobia' ] && tagwidth=106 || tagwidth=299
 
 dzenstat_draw() {
-	echo "starting dzenstat on screen $1"
 	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return false
 	cd "$HOME"/dev/dzenstat
 	./dzenstat | dzen2 -xs $1 -ta right -x "$tagwidth" &
