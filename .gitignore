@@ -8,5 +8,3 @@
 .config/dwm/dwm-6.0
 .local/bin/altera
 .local/bin/*.d
-.vim
-.vimperator/info
