@@ -1,8 +1,0 @@
-" Vimperator resource file
-" Written by ayekat on a rainy day in november 2012
-
-set editor=urxvt\ -e\ vim
-set hintchars=hjklasdfgzuiopqwertnmyxcvb
-colorscheme indigo
-set toolbars=tabs
-
