@@ -8,6 +8,6 @@ case $SHELL in
 	*)         printf "unknown shell: %s\n" $SHELL >&2; exit 1 ;;
 esac
 
-[ $# -eq 0 ] && LINES=10 || LINES=$1
+[ $# -eq 0 ] && LINES=10 || LINES=$(($1))
 awk '{print $1}' < $HISTFILE | sort | uniq -c | sort -rn | head -n $LINES
 

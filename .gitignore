@@ -7,4 +7,6 @@
 .config/dwm/*.tar.xz
 .config/dwm/dwm-6.0
 .local/bin/altera
+.local/bin/checkstyle
+.local/bin/nios2sim
 .local/bin/*.d
