@@ -1,0 +1,14 @@
+#!/bin/sh
+# Installs vundle in ~/.vim/bundle/vundle; called by vim if it detects that
+# vundle is missing.
+
+# Don't boostrap vundle if it's already there.
+if [ -d ~/.vim/bundle/vundle ]; then
+	echo "Vundle is already installed, leaving."
+	exit
+fi
+
+printf "\n\033[1mBootstrapping vundle...\033[0m\n"
+mkdir -p ~/.vim/bundle/vundle
+git clone https://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+
