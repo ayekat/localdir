@@ -112,8 +112,8 @@ if [ $# -ne 1 ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
 fi
 
 # check if directory exists:
-if [ ! -d "$1" ]; then
-	printf "ERROR: Directory '%s' does not exist\n" "$1" 1>&2
+if [ ! -e "$1" ]; then
+	printf "ERROR: '%s' does not exist\n" "$1" 1>&2
 	exit 1
 fi
 
@@ -134,15 +134,7 @@ fi
 # get files:
 files=$(find "$1" -name *$FILETYPE)
 
-
-# FIX WHITESPACES  -------------------------------------------------------------
-
-if efix_init 'fixing whitespaces' ex; then
-	for f in $files; do
-		printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
-		[ $? -ne 0 ] && echo "There was an error while fixing $f" 1>&2
-	done
-fi
+echo $files
 
 
 # FIX LINE ENDINGS -------------------------------------------------------------
@@ -150,6 +142,16 @@ fi
 if efix_init 'fixing line endings' dos2unix; then
 	for f in $files; do
 		dos2unix "$f" 1>/dev/null 2>&1
+		[ $? -ne 0 ] && echo "There was an error while fixing $f" 1>&2
+	done
+fi
+
+
+# FIX WHITESPACES  -------------------------------------------------------------
+
+if efix_init 'fixing whitespaces' ex; then
+	for f in $files; do
+		printf "%%s/\\t/    /g\n%%s/[ ]*$//g\nw\nq\n" | ex -s "$f" 1>/dev/null
 		[ $? -ne 0 ] && echo "There was an error while fixing $f" 1>&2
 	done
 fi
