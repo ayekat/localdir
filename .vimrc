@@ -1,5 +1,5 @@
 " Vim configuration file
-" written by ayekat in a snowy day in january 2010
+" Initially written by ayekat in a snowy day in january 2010
 
 
 " ------------------------------------------------------------------------------
@@ -7,30 +7,6 @@
 
 " No compatibility with vi => more tasty features:
 set nocompatible
-
-
-" ------------------------------------------------------------------------------
-" BUNDLES
-
-" Bundles are managed by vundle, so enable it here:
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Managed bundles:
-Bundle 'gmarik/vundle'
-Bundle 'spolu/dwm.vim'
-Bundle 'Lokaltog/vim-easymotion'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-surround'
-Bundle 'scrooloose/syntastic'
-
-" Make EasyMotion work with f/F:
-let g:EasyMotion_mapping_w='f'
-let g:EasyMotion_mapping_b='F'
-
-" Disable scala and java syntax checkers, as they are slow as hell:
-let g:syntastic_java_checkers=[]
-let g:syntastic_scala_checkers=[]
 
 
 " ------------------------------------------------------------------------------
@@ -224,11 +200,11 @@ if $TERM == "linux"
 	let rfsep=""
 	let lnum="LN"
 else
-	let lsep="⮃"
-	let lfsep="⮂"
-	let rsep="⮁"
-	let rfsep="⮀"
-	let lnum="⭡"
+	let lsep=""
+	let lfsep=""
+	let rsep=""
+	let rfsep=""
+	let lnum=""
 endif
 
 " This function determines the filename:
@@ -521,4 +497,40 @@ au FileType c map R :w<cr>:!gcc % -o $(basename % .c); ./$(basename % .c)<cr>
 
 " Don't check kernel.c (Concurrency):
 au VimEnter */kernel.c SyntasticToggleMode
+
+
+" ------------------------------------------------------------------------------
+" BUNDLES
+
+" Bundles are handled by vundle, so initialise it hereby:
+function! InitVundle()
+	set runtimepath+=~/.vim/bundle/vundle/
+	call vundle#rc()
+
+	Bundle 'gmarik/vundle'
+	Bundle 'spolu/dwm.vim'
+	Bundle 'Lokaltog/vim-easymotion'
+	Bundle 'tpope/vim-fugitive'
+	Bundle 'tpope/vim-surround'
+	Bundle 'scrooloose/syntastic'
+endfunction
+" This is going to be called at the end of .vimrc, so everything is pretty. ^^
+
+" Bootstrap vundle (here goes my thanks to flor):
+if !isdirectory(glob('~/.vim/bundle/vundle'))
+	" see .local/bin/vundlebootstrap
+	!vundlebootstrap
+	call InitVundle()
+	BundleInstall
+else
+	call InitVundle()
+endif
+
+" Make EasyMotion work with f/F:
+let g:EasyMotion_mapping_w='f'
+let g:EasyMotion_mapping_b='F'
+
+" Disable scala and java syntax checkers, as they are slow as hell:
+let g:syntastic_java_checkers=[]
+let g:syntastic_scala_checkers=[]
 
