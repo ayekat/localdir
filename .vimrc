@@ -24,7 +24,6 @@ set numberwidth=5
 
 " Separate content and empty parts of file (only if non-TTY):
 if $TERM != "linux"
-	hi Normal ctermbg=233
 	hi NonText cterm=bold ctermbg=232 ctermfg=0
 endif
 
@@ -132,36 +131,41 @@ if $TERM != "linux"
 	" any statement | if then else endif switch | for do while | case default |
 	" sizeof + * | any other keyword | exception
 	hi Statement          ctermfg=142
-		"hi Conditional    ctermfg=
-		"hi Repeat         ctermfg=
-		"hi Label          ctermfg=
-		"hi Operator       ctermfg=
-		"hi Keyword        ctermfg=
-		"hi Exception      ctermfg=
+		"hi Conditional
+		"hi Repeat
+		"hi Label
+		"hi Operator
+		"hi Keyword
+		"hi Exception
 
 	" any preprocessor | #include | #define | macro | #if #else #endif
 	hi PreProc            ctermfg=30
-		"hi Include        ctermfg=
-		"hi Define         ctermfg=
-		"hi Macro          ctermfg=
-		"hi PreCondit      ctermfg=
+		"hi Include
+		"hi Define
+		"hi Macro
+		"hi PreCondit
 
 	" int long char | static register volatile | struct union enum | typedef
 	hi Type               ctermfg=12
-		"hi StorageClass   ctermfg=
-		"hi Structure      ctermfg=
-		"hi Typedef        ctermfg=
+		"hi StorageClass
+		"hi Structure
+		"hi Typedef
 	
 	" Special
 	hi Special            ctermfg=136
-		"hi SpecialChar    ctermfg=
-		"hi Tag            ctermfg=
-		"hi Delimiter      ctermfg=
+		"hi SpecialChar
+		"hi Tag
+		"hi Delimiter
 		hi SpecialComment ctermfg=58
-		"hi Debug          ctermfg=
+		"hi Debug
 
 	" Todo
 	hi Todo               ctermfg=22 ctermbg=148
+
+	" Error
+	hi Error              cterm=bold ctermfg=88 ctermbg=9
+		"hi SyntasticErrorSign
+
 else
 	hi Todo ctermbg=3
 endif
@@ -490,13 +494,6 @@ map R <nop>
 " File type specific commands:
 au FileType tex map R :w<cr>:!pdflatex %<cr>
 au FileType c map R :w<cr>:!gcc % -o $(basename % .c); ./$(basename % .c)<cr>
-
-
-" ------------------------------------------------------------------------------
-" EPFL fuckery
-
-" Don't check kernel.c (Concurrency):
-au VimEnter */kernel.c SyntasticToggleMode
 
 
 " ------------------------------------------------------------------------------

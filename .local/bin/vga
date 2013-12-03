@@ -13,17 +13,14 @@ vga_add() {
 		printf "[%s] %s is not connected\n" "$appname" "$vganame"
 		exit 1
 	fi
-	mode="$(echo "$modeline" | cut -c 4- | cut -d ' ' -f 1)"
 
 	# position:
 	position="$1"
-	if [ "$position" = 'right' ] || [ "$position" = 'left' ]; then
-		position="${position}-of"
-	fi
-	printf "[%s] %s: adding %s with mode %s...\n" \
-			"$(date +%H:%M:%S)" "$appname" "$vganame" "$mode"
-	xrandr --output "$lcdname" --auto
-	xrandr --output "$vganame" --mode "$mode" --${position} "$lcdname" || exit 1
+	case "$position" in
+		right|left) position="${position}-of";;
+	esac
+	xrandr --output "$lcdname" --auto || exit 1
+	xrandr --output "$vganame" --auto --${position} "$lcdname" || exit 1
 
 	# variables:
 	dynenv NUM_SCREENS=2
@@ -32,7 +29,7 @@ vga_add() {
 
 vga_remove() {
 	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$vganame"
-	xrandr --output "$vganame" --off
+	xrandr --output "$vganame" --off || exit 1
 	dynenv NUM_SCREENS=1
 	vga_setup
 }
