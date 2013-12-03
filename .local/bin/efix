@@ -112,7 +112,12 @@ if [ $# -ne 1 ] || [ "$1" = '--help' ] || [ "$1" = '-h' ]; then
 fi
 
 # check if directory exists:
-if [ ! -e "$1" ]; then
+if [ -d "$1" ]; then
+	# get files:
+	files=$(find "$1" -name *$FILETYPE)
+elif [ -f "$1" ]; then
+	files="$1"
+else
 	printf "ERROR: '%s' does not exist\n" "$1" 1>&2
 	exit 1
 fi
@@ -130,11 +135,6 @@ if git rev-parse 1>/dev/null 2>&1; then  # are we in a git repo?
 else
 	efix_warn_git_norepo
 fi
-
-# get files:
-files=$(find "$1" -name *$FILETYPE)
-
-echo $files
 
 
 # FIX LINE ENDINGS -------------------------------------------------------------
