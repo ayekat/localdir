@@ -114,18 +114,4 @@ export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=100000
 
 # }}}
-# ------------------------------------------------------------------------------
-# TIMESTAMP {{{
-# Allows the usage of preexec() like in zsh.
-. $HOME/.bash_preexec.sh
-
-# Print timestamp after having typed command:
-#preexec() {
-#	printf "\033[1A\033[1024G\033[10D\033[34m[%s]\033[0m\n" $(date +%H:%M:%S)
-#}
-
-# Initialise the whole stuff
-preexec_install
-
-# }}}
 
