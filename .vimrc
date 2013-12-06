@@ -311,11 +311,7 @@ set laststatus=2
 " Don't display the mode in the ruler; we display it in the statusline:
 set noshowmode
 
-" Default statusline (will get overridden below):
-hi StatusLine   ctermfg=0 ctermbg=7 cterm=none
-hi StatusLineNC ctermfg=7 ctermbg=4 cterm=none
-
-" define seperators:
+" Separators {{{
 if $TERM == "linux"
 	let lsep="|"
 	let lfsep="|"
@@ -330,38 +326,49 @@ else
 	let rfsep=""
 	let lnum=""
 	let branch=""
-endif
+endif " }}}
 
-" define colours:
-if $TERM != 'linux'
+" Colours {{{
+if $TERM == 'linux'
+	hi StatusLine   ctermfg=0 ctermbg=7 cterm=none
+	hi StatusLineNC ctermfg=7 ctermbg=4 cterm=none
+else
 	" normal statusline:
-	hi normal_mode           ctermfg=22  ctermbg=148
-	hi normal_mode_end       ctermfg=148 ctermbg=8
-	hi normal_git            ctermfg=248 ctermbg=8
-	hi normal_file           ctermfg=7   ctermbg=8
-	hi normal_file_modified  ctermfg=3   ctermbg=8   cterm=bold
-	hi normal_file_end       ctermfg=8   ctermbg=0
-	hi normal_middle         ctermfg=241 ctermbg=0
-	hi normal_warning        ctermfg=1   ctermbg=0   cterm=bold
-	hi normal_pos_start      ctermfg=8   ctermbg=0
-	hi normal_pos            ctermfg=248 ctermbg=8
-	hi normal_filetype_start ctermfg=7   ctermbg=8
-	hi normal_filetype       ctermfg=8   ctermbg=7
+	hi normal_mode           ctermfg=22   ctermbg=148
+	hi normal_mode_end       ctermfg=148  ctermbg=8
+	hi normal_git_mod        ctermfg=3    ctermbg=8
+	hi normal_git_clean      ctermfg=70   ctermbg=8
+	hi normal_git_branch     ctermfg=7    ctermbg=8
+	hi normal_file           ctermfg=none ctermbg=8
+	hi normal_file_emphasise ctermfg=7    ctermbg=8
+	hi normal_file_modified  ctermfg=3    ctermbg=8   cterm=bold
+	hi normal_file_end       ctermfg=8    ctermbg=0
+	hi normal_middle         ctermfg=241  ctermbg=0
+	hi normal_warning        ctermfg=1    ctermbg=0   cterm=bold
+	hi normal_pos_start      ctermfg=8    ctermbg=0
+	hi normal_pos            ctermfg=11   ctermbg=8
+	hi normal_cursor_start   ctermfg=7    ctermbg=8
+	hi normal_cursor         ctermfg=0    ctermbg=7
+	hi normal_cursor_line    ctermfg=0    ctermbg=7   cterm=bold
+	hi normal_cursor_col     ctermfg=none ctermbg=7
 
-	hi visual_mode           ctermfg=52  ctermbg=208
-	hi visual_mode_end       ctermfg=208 ctermbg=8
+	hi visual_mode           ctermfg=52   ctermbg=208
+	hi visual_mode_end       ctermfg=208  ctermbg=8
 
-	hi insert_mode           ctermfg=8   ctermbg=7
-	hi insert_mode_end       ctermfg=7   ctermbg=31
-	hi insert_git            ctermfg=250 ctermbg=31
-	hi insert_file           ctermfg=7   ctermbg=31
-	hi insert_file_modified  ctermfg=3   ctermbg=31  cterm=bold
-	hi insert_file_end       ctermfg=31  ctermbg=23
-	hi insert_warning        ctermfg=1   ctermbg=23  cterm=bold
-	hi insert_middle         ctermfg=45  ctermbg=23
-	hi insert_pos_start      ctermfg=31  ctermbg=23
-	hi insert_pos            ctermfg=250 ctermbg=31
-	hi insert_filetype_start ctermfg=7   ctermbg=31
+	hi insert_mode           ctermfg=8    ctermbg=7
+	hi insert_mode_end       ctermfg=7    ctermbg=31
+	hi insert_git_mod        ctermfg=249  ctermbg=31
+	hi insert_git_clean      ctermfg=249  ctermbg=31
+	hi insert_git_branch     ctermfg=7    ctermbg=31
+	hi insert_file           ctermfg=249  ctermbg=31
+	hi insert_file_emphasise ctermfg=7    ctermbg=31
+	hi insert_file_modified  ctermfg=3    ctermbg=31  cterm=bold
+	hi insert_file_end       ctermfg=31   ctermbg=23
+	hi insert_warning        ctermfg=1    ctermbg=23  cterm=bold
+	hi insert_middle         ctermfg=45   ctermbg=23
+	hi insert_pos_start      ctermfg=31   ctermbg=23
+	hi insert_pos            ctermfg=11   ctermbg=31
+	hi insert_cursor_start   ctermfg=7    ctermbg=31
 
 	" command statusline:
 	hi cmd_mode               ctermfg=15  ctermbg=64
@@ -372,29 +379,26 @@ if $TERM != 'linux'
 	hi CursorLine ctermbg=234 cterm=none
 	hi CursorLineNr ctermfg=45 ctermbg=23
 
-	" inactive statusline:
+	" default statusline:
+	hi StatusLine   ctermfg=0   ctermbg=0 cterm=none
 	hi StatusLineNC ctermfg=241 ctermbg=0 cterm=none
 endif
+" }}}
 
-" Determines the filename:
-function! GetFilepath()
-	let filepath = expand("%:p")
-	return (filepath == '') ? "[No Name]" : filepath
+function! UpdateGit()
+	let g:git_branch = fugitive#head()
+	if g:git_branch != ''
+		let g:git_mod = system('git status -s')
+	endif
 endfunction
 
-" Determines the file format (unix, dos, mac):
-function! GetFileformat(var)
-	return (a:var == 'unix') ? '' : a:var
-endfunction
-
-" Draws the active statusline:
+" Active Statusline {{{
 function! StatuslineActive()
 	let l:statusline = ''
 	let l:mode = mode()
-	let l:branch = fugitive#head()
 	let l:unite = unite#get_status_string()
 
-	" mode:
+	" Mode {{{
 	if l:mode ==? 'v' || l:mode == ''
 		let l:statusline .= '%#visual_mode#'
 		if l:mode ==# 'v'
@@ -411,26 +415,51 @@ function! StatuslineActive()
 		let l:statusline .= '%#normal_mode# NORMAL %#normal_mode_end#'
 	endif
 	let l:statusline .= '%{rfsep}'
+	" }}}
 
-	" git:
-	if l:branch != '' && l:unite == ''
-		if l:mode == 'i'
-			let l:statusline .= '%#insert_git#'
+	" Git {{{
+	if g:git_branch != ''
+		if g:git_mod == ''
+			if l:mode == 'i'
+				let l:statusline .= '%#insert_git_clean#'
+			else
+				let l:statusline .= '%#normal_git_clean#'
+			endif
 		else
-			let l:statusline .= '%#normal_git#'
+			if l:mode == 'i'
+				let l:statusline .= '%#insert_git_mod#'
+			else
+				let l:statusline .= '%#normal_git_mod#'
+			endif
 		endif
-		let l:statusline .= ' %{branch} '.l:branch.' %{rsep}'
-	endif
+		let l:statusline .= ' %{branch} '
+		if l:mode == 'i'
+			let l:statusline .= '%#insert_git_branch#'
+		else
+			let l:statusline .= '%#normal_git_branch#'
+		endif
+		let l:statusline .= g:git_branch
+	endif " }}}
 
-	" filename/unite:
+	" Filename {{{
 	if l:mode == 'i'
 		let l:statusline .= '%#insert_file#'
 	else
 		let l:statusline .= '%#normal_file#'
 	endif
-	let l:statusline .= ' %<%{GetFilepath()} '
+	if g:git_branch != ''
+		let l:statusline .= ' %{rsep}'
+	endif
+	let l:statusline.=' %<%{expand("%:p:h")}/'
+	if l:mode == 'i'
+		let l:statusline.='%#insert_file_emphasise#'
+	else
+		let l:statusline.='%#normal_file_emphasise#'
+	endif
+	let l:statusline.='%{expand("%:t")} '
+	" }}}
 
-	" modified:
+	" Modified {{{
 	if &modified
 		if l:mode == 'i'
 			let l:statusline .= '%#insert_file_modified#'
@@ -439,6 +468,7 @@ function! StatuslineActive()
 		endif
 		let l:statusline .= '* '
 	endif
+	" }}}
 
 	if l:mode == 'i'
 		let l:statusline .= '%#insert_file_end#%{rfsep}%#insert_middle#'
@@ -446,7 +476,7 @@ function! StatuslineActive()
 		let l:statusline .= '%#normal_file_end#%{rfsep}%#normal_middle#'
 	endif
 
-	" readonly:
+	" Readonly {{{
 	if &readonly
 		if l:mode == 'i'
 			let l:statusline .= ' %#insert_warning#X%#insert_middle#'
@@ -454,40 +484,54 @@ function! StatuslineActive()
 			let l:statusline .= ' %#normal_warning#X%#normal_middle#'
 		endif
 	endif
+	" }}}
 
-	" unite.vim:
+	" Unite.vim {{{
 	if l:unite != ''
 		let l:statusline .= ' '.l:unite
 	endif
+	" }}}
 
-	" align right:
 	let l:statusline .= '%='
 
-	" file format:
-	let l:statusline .= '%{GetFileformat(&fileformat)} '
+	" File format, encoding, type {{{
+	if l:unite == ''
+		if &fileformat != 'unix'
+			let l:statusline .= &fileformat.' %{lsep} '
+		endif
+		if &fileencoding != 'utf-8' && &fileencoding != 'ascii'
+			let l:statusline .= &fileencoding.' %{lsep} '
+		endif
+		let l:statusline .= &filetype.' %{lsep} '
+		let l:statusline .= '%L %{lnum} '
+	endif
+	" }}}
 
-	" cursor position:
-	let l:statusline .= '%{lsep} %02c(%02v) '
-	
+	" Buffer position {{{
 	if l:mode == 'i'
 		let l:statusline .= '%#insert_pos_start#%{lfsep}%#insert_pos#'
 	else
 		let l:statusline .= '%#normal_pos_start#%{lfsep}%#normal_pos#'
 	endif
-	let l:statusline .= '  %{lnum}  %02l/%L (%P) '
+	let l:statusline .= '  %P '
+	" }}}
 
-	" file type:
+	" Cursor position {{{
 	if l:mode == 'i'
-		let l:statusline .= '%#insert_filetype_start#'
+		let l:statusline .= '%#insert_cursor_start#'
 	else
-		let l:statusline .= '%#normal_filetype_start#'
+		let l:statusline .= '%#normal_cursor_start#'
 	endif
-	let l:statusline .= '%{lfsep}%#normal_filetype# %Y '
+	let l:statusline .= '%{lfsep}'
+	let l:statusline .= '%#normal_cursor_line# %4l'
+	let l:statusline .= '%#normal_cursor_col#:%02c %#normal_middle#'
+	" }}}
 
 	return l:statusline
 endfunction
+" }}}
 
-" Draws the inactive statusline:
+" Inactive Statusline {{{
 function! StatuslineInactive()
 	let l:statusline = ''
 	let l:branch = fugitive#head()
@@ -496,59 +540,50 @@ function! StatuslineInactive()
 	" mode:
 	let l:statusline .= '        %{rsep}'
 
-	" git:
-	if l:branch != ''
-		let l:statusline.=' %{branch} '.l:branch.' %{rsep}'
-	endif
-
 	" filename:
-	let l:statusline.=' %<%{GetFilepath()} %{rsep}'
+	let l:statusline.=' %<%t %{rsep}'
 
 	" change to the right side:
 	let l:statusline.='%='
 
-	" cursor position (column):
-	let l:statusline.='%{lsep} %02c(%02v) '
+	" buffer position:
+	let l:statusline.='%{lsep}  %P '
 
-	" buffer position (line):
-	let l:statusline.='%{lsep}  %{lnum}  %02l/%L (%P) '
-
-	" file type:
-	let l:statusline.='%{lsep} %Y '
+	" cursor position:
+	let l:statusline .= '%{lsep} %4l:%02c '
 
 	return l:statusline
-endfunction
+endfunction " }}}
 
-" Draws the command statusline:
-function! StatuslineCommand()
+function! StatuslineCommand() " {{{
 	return '%#cmd_mode# COMMAND %#cmd_mode_end#%{rfsep}'
-endfunction
+endfunction " }}}
 
 " define when which statusline is displayed:
-au! BufEnter,WinEnter,VimEnter * setl statusline=%!StatuslineActive()
+au! BufEnter,WinEnter * setl statusline=%!StatuslineActive()
 au! BufLeave,WinLeave * set statusline=%!StatuslineInactive()
 au! CmdwinEnter * setl statusline=%!StatuslineCommand()
+au! VimEnter,BufWritePost * call UpdateGit()
 
 " }}}
 " ------------------------------------------------------------------------------
 " LINE NUMBERS {{{
 " Make line number design change as a function of mode.
 
-" Sets the line number colour:
-function! SetLineNr(mode)
-	if a:mode == 'v'
-		hi LineNr ctermfg=208 ctermbg=0
-	else
-		hi LineNr ctermfg=241 ctermbg=0
-	endif
-endfunction
-
 if $TERM != 'linux'
+	function! SetLineNr(mode)
+		if a:mode == 'v'
+			hi LineNr ctermfg=208 ctermbg=0
+		else
+			hi LineNr ctermfg=241 ctermbg=0
+		endif
+	endfunction
+
 	" insert mode:
 	au! InsertEnter * set cursorline | call SetLineNr('i')
 	au! InsertLeave * set nocursorline
 
-	" visual mode:
+	" visual mode (ugly, since there is no VisualEnter/VisualLeave):
 	noremap <silent> v :call SetLineNr('v')<CR>v
 	noremap <silent> V :call SetLineNr('v')<CR>V
 	noremap <silent> <C-v> :call SetLineNr('v')<CR><C-v>
