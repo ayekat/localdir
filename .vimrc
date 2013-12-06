@@ -51,6 +51,7 @@ set t_Co=256
 " Display and format line numbers:
 set number
 set numberwidth=5
+hi LineNr ctermfg=3 ctermbg=0
 
 " Separate content and empty parts of file (only if non-TTY):
 if $TERM != "linux"
@@ -62,17 +63,19 @@ set encoding=utf8
 
 " SPLIT WINDOWS >
 	
-	" Define border colour:
-	hi VertSplit ctermfg=0 ctermbg=232
-
-	" Fill up with solid bar:
-	set fillchars=vert:┃
+	if $TERM == 'linux'
+		hi VertSplit ctermfg=4 ctermbg=4 cterm=none
+		set fillchars=vert:.
+	else
+		hi VertSplit ctermfg=0 ctermbg=232
+		set fillchars=vert:┃
+	endif
 	
 
 " FOLDING >
 
 	" Define colour:
-	if $TERM == "linux"
+	if $TERM == 'linux'
 		hi Folded ctermfg=3 ctermbg=8 cterm=none
 	else
 		hi Folded ctermfg=208 ctermbg=0 cterm=none
@@ -101,7 +104,7 @@ set encoding=utf8
 	if version >= 703
 		set colorcolumn=81
 		if $TERM == "linux"
-			hi ColorColumn ctermbg=255
+			hi ColorColumn ctermbg=1 cterm=bold
 		else
 			hi ColorColumn ctermbg=0
 		endif
@@ -310,14 +313,14 @@ set noshowmode
 
 " Default statusline (will get overridden below):
 hi StatusLine   ctermfg=0 ctermbg=7 cterm=none
-hi StatusLineNC ctermfg=7 ctermbg=0 cterm=none
+hi StatusLineNC ctermfg=7 ctermbg=4 cterm=none
 
 " define seperators:
 if $TERM == "linux"
 	let lsep="|"
-	let lfsep=""
+	let lfsep="|"
 	let rsep="|"
-	let rfsep=""
+	let rfsep="|"
 	let lnum="LN"
 	let branch="|'"
 else
@@ -533,33 +536,25 @@ au! CmdwinEnter * setl statusline=%!StatuslineCommand()
 
 " Sets the line number colour:
 function! SetLineNr(mode)
-	if $TERM == 'linux'
-		if a:mode == 'v'
-			hi LineNr ctermfg=3 ctermbg=240
-		else
-			hi LineNr ctermfg=7 ctermbg=240
-		endif
+	if a:mode == 'v'
+		hi LineNr ctermfg=208 ctermbg=0
 	else
-		if a:mode == 'v'
-			hi LineNr ctermfg=208 ctermbg=0
-		else
-			hi LineNr ctermfg=241 ctermbg=0
-		endif
+		hi LineNr ctermfg=241 ctermbg=0
 	endif
 endfunction
 
-" insert mode:
 if $TERM != 'linux'
+	" insert mode:
 	au! InsertEnter * set cursorline | call SetLineNr('i')
 	au! InsertLeave * set nocursorline
-endif
 
-" visual mode (quite ugly, since there is no VisualEnter or VisualLeave):
-noremap <silent> v :call SetLineNr('v')<CR>v
-noremap <silent> V :call SetLineNr('v')<CR>V
-noremap <silent> <C-v> :call SetLineNr('v')<CR><C-v>
-set updatetime=0
-au! CursorHold * call SetLineNr('n')
+	" visual mode:
+	noremap <silent> v :call SetLineNr('v')<CR>v
+	noremap <silent> V :call SetLineNr('v')<CR>V
+	noremap <silent> <C-v> :call SetLineNr('v')<CR><C-v>
+	set updatetime=0
+	au! CursorHold * call SetLineNr('n')
+endif
 
 " }}}
 
