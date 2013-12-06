@@ -41,6 +41,8 @@ let g:unite_force_overwrite_statusline = 0
 " Don't use default keybindings of DWM plugin:
 let g:dwm_map_keys = 0
 
+" Further settings are defined in the 'behaviour' part.
+
 " }}}
 " ------------------------------------------------------------------------------
 " LOOK {{{
@@ -51,12 +53,6 @@ set t_Co=256
 " Display and format line numbers:
 set number
 set numberwidth=5
-hi LineNr ctermfg=3 ctermbg=0
-
-" Separate content and empty parts of file (only if non-TTY):
-if $TERM != "linux"
-	hi NonText cterm=bold ctermbg=232 ctermfg=0
-endif
 
 " Enable UTF-8 (I wanna see Umlauts!):
 set encoding=utf8
@@ -64,27 +60,18 @@ set encoding=utf8
 " SPLIT WINDOWS >
 	
 	if $TERM == 'linux'
-		hi VertSplit ctermfg=4 ctermbg=4 cterm=none
 		set fillchars=vert:.
 	else
-		hi VertSplit ctermfg=0 ctermbg=232
 		set fillchars=vert:┃
 	endif
 	
 
 " FOLDING >
 
-	" Define colour:
-	if $TERM == 'linux'
-		hi Folded ctermfg=3 ctermbg=8 cterm=none
-	else
-		hi Folded ctermfg=208 ctermbg=0 cterm=none
-	endif
-
-	" Define fill characters (space=don't fill up):
+	" Fill characters (space=don't fill up):
 	set fillchars+=fold:\ 
 
-	" Specify how vim autofolds:
+	" Autofolds behaviour:
 	set foldmethod=marker
 
 
@@ -103,11 +90,6 @@ set encoding=utf8
 	" Display a bar after a reasonable number of columns:
 	if version >= 703
 		set colorcolumn=81
-		if $TERM == "linux"
-			hi ColorColumn ctermbg=1 cterm=bold
-		else
-			hi ColorColumn ctermbg=0
-		endif
 		au FileType gitcommit set colorcolumn=73
 		au FileType java set colorcolumn=121
 		au FileType asm set colorcolumn=41,81
@@ -115,14 +97,9 @@ set encoding=utf8
 
 	" I wanna see tabs and trailing whitespaces:
 	set list listchars=tab:→\ ,trail:·
-	hi SpecialKey cterm=bold ctermfg=0
 
 	" Highlight matching parentheses:
 	set showmatch
-	hi MatchParen cterm=bold ctermfg=4 ctermbg=none
-
-	" Style the Syntastic bar on the left:
-	hi SignColumn ctermbg=0
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -221,82 +198,109 @@ au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces
 " Make visual less penetrant:
 hi Visual cterm=inverse ctermbg=0
 
-" Custom colour scheme for X vim:
+" Non-printable characters (tabs, spaces, special keys):
+hi SpecialKey cterm=bold ctermfg=238
+
+" Matching parentheses:
+hi MatchParen cterm=bold ctermfg=4 ctermbg=none
+
 if $TERM != "linux"
+	" Custom colour scheme for X vim {{{
 	" Dropdown menu:
-	hi Pmenu      ctermfg=244 ctermbg=0
+	hi Pmenu      ctermfg=244 ctermbg=234
 	hi PmenuSel   ctermfg=45  ctermbg=23
-	hi PmenuSbar              ctermbg=0
+	hi PmenuSbar              ctermbg=234
 	hi PmenuThumb             ctermbg=31
 
-	" comment
-	hi Comment            ctermfg=241
+	" Folding:
+	hi Folded ctermfg=96 ctermbg=235 cterm=none
 
-	" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
-	hi Constant           ctermfg=2
+	" Separate normal text from non-file-text:
+	"hi Normal                 ctermbg=234
+	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
+	"
+	" Line numbers and syntastic column:
+	hi SignColumn ctermbg=234
+	hi LineNr     ctermbg=232
+
+	" Window separator:
+	hi VertSplit ctermfg=238 ctermbg=232
+
+	" 80 columns indicator:
+	hi ColorColumn ctermbg=235
+
+	" Search:
+	hi Search             ctermfg=0  ctermbg=136
+
+	" Diffs:
+	hi DiffAdd                       ctermbg=22
+	hi DiffChange                    ctermbg=24
+	hi DiffDelete                    ctermbg=52
+	hi DiffText                      ctermbg=94
+
+	" Syntax:
+	hi Comment            ctermfg=239
+	hi Constant           ctermfg=28
+		" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
 		"hi String         ctermfg=
 		"hi Character      ctermfg=
 		"hi Number         ctermfg=
 		"hi Boolean        ctermfg=
 		"hi Float          ctermfg=
-
-	" any variable name | function name (also: methods for classes)
-	hi Identifier         ctermfg=166
+	hi Identifier         ctermfg=96
+		" any variable name | function name (also: methods for classes)
 		"hi Function       ctermfg=
-
-	" any statement | if then else endif switch | for do while | case default |
-	" sizeof + * | any other keyword | exception
-	hi Statement          ctermfg=142
+	hi Statement          ctermfg=136
+		" any statement | if then else endif switch | for do while |
+		" case default | sizeof + * | any other keyword | exception
 		"hi Conditional
 		"hi Repeat
 		"hi Label
 		"hi Operator
 		"hi Keyword
 		"hi Exception
-
-	" any preprocessor | #include | #define | macro | #if #else #endif
-	hi PreProc            ctermfg=30
+	hi PreProc            ctermfg=23
+		" any preprocessor | #include | #define | macro | #if #else #endif
 		"hi Include
 		"hi Define
 		"hi Macro
 		"hi PreCondit
-
-	" int long char | static register volatile | struct union enum | typedef
-	hi Type               ctermfg=12
+	hi Type               ctermfg=31
+		" int long char | static register volatile | struct union enum | typedef
 		"hi StorageClass
 		"hi Structure
 		"hi Typedef
-	
-	" Special
-	hi Special            ctermfg=136
+	hi Special            ctermfg=94
 		"hi SpecialChar
 		"hi Tag
 		"hi Delimiter
 		hi SpecialComment ctermfg=58
 		"hi Debug
-
-	" Todo
-	hi Todo               ctermfg=22 ctermbg=148
-
-	" Error
+	" TODO
+	hi Todo               ctermfg=148 ctermbg=22
 	hi Error              ctermfg=88 ctermbg=9 cterm=bold
 		"hi SyntasticErrorSign
-
-	" Diffs
-	hi DiffAdd                       ctermbg=22
-	hi DiffChange                    ctermbg=24
-	hi DiffDelete                    ctermbg=52
-	hi DiffText                      ctermbg=94
-
-	" Search
-	hi Search             ctermfg=0  ctermbg=3
+	" }}}
 else
-	" Use dark colours (for terminal)
+	" Custom colour scheme for TTY vim {{{
 	set background=light
-	hi Statement ctermfg=3
 
-	" Todo
+	" Window separator:
+	hi VertSplit ctermfg=4 ctermbg=4 cterm=none
+
+	" Folding:
+	hi Folded ctermfg=3 ctermbg=8 cterm=none
+
+	" Line numbers:
+	hi LineNr ctermfg=3 ctermbg=0
+
+	" Search:
+	hi Search             ctermfg=0  ctermbg=3
+
+	" Syntax:
+	hi Statement ctermfg=3
 	hi Todo ctermbg=3
+	" }}}
 endif
 
 
@@ -339,18 +343,18 @@ else
 	hi normal_git_mod        ctermfg=3    ctermbg=8
 	hi normal_git_clean      ctermfg=70   ctermbg=8
 	hi normal_git_branch     ctermfg=7    ctermbg=8
-	hi normal_file           ctermfg=none ctermbg=8
+	hi normal_file           ctermfg=247  ctermbg=8
 	hi normal_file_emphasise ctermfg=7    ctermbg=8
 	hi normal_file_modified  ctermfg=3    ctermbg=8   cterm=bold
-	hi normal_file_end       ctermfg=8    ctermbg=0
-	hi normal_middle         ctermfg=241  ctermbg=0
-	hi normal_warning        ctermfg=1    ctermbg=0   cterm=bold
-	hi normal_pos_start      ctermfg=8    ctermbg=0
+	hi normal_file_end       ctermfg=8    ctermbg=236
+	hi normal_middle         ctermfg=241  ctermbg=236
+	hi normal_warning        ctermfg=1    ctermbg=236 cterm=bold
+	hi normal_pos_start      ctermfg=8    ctermbg=236
 	hi normal_pos            ctermfg=11   ctermbg=8
 	hi normal_cursor_start   ctermfg=7    ctermbg=8
 	hi normal_cursor         ctermfg=0    ctermbg=7
-	hi normal_cursor_line    ctermfg=0    ctermbg=7   cterm=bold
-	hi normal_cursor_col     ctermfg=none ctermbg=7
+	hi normal_cursor_line    ctermfg=238  ctermbg=7   cterm=bold
+	hi normal_cursor_col     ctermfg=242  ctermbg=7
 
 	hi visual_mode           ctermfg=52   ctermbg=208
 	hi visual_mode_end       ctermfg=208  ctermbg=8
@@ -376,12 +380,12 @@ else
 	hi cmd_info               ctermfg=7   ctermbg=0
 
 	" cursor:
-	hi CursorLine ctermbg=234 cterm=none
+	hi CursorLine              ctermbg=233 cterm=none
 	hi CursorLineNr ctermfg=45 ctermbg=23
 
 	" default statusline:
-	hi StatusLine   ctermfg=0   ctermbg=0 cterm=none
-	hi StatusLineNC ctermfg=241 ctermbg=0 cterm=none
+	hi StatusLine   ctermfg=0   ctermbg=236 cterm=none
+	hi StatusLineNC ctermfg=241 ctermbg=236 cterm=none
 endif
 " }}}
 
@@ -471,9 +475,9 @@ function! StatuslineActive()
 	" }}}
 
 	if l:mode == 'i'
-		let l:statusline .= '%#insert_file_end#%{rfsep}%#insert_middle#'
+		let l:statusline .= '%#insert_file_end#%{rfsep}%#insert_middle# '
 	else
-		let l:statusline .= '%#normal_file_end#%{rfsep}%#normal_middle#'
+		let l:statusline .= '%#normal_file_end#%{rfsep}%#normal_middle# '
 	endif
 
 	" Readonly {{{
@@ -523,7 +527,7 @@ function! StatuslineActive()
 		let l:statusline .= '%#normal_cursor_start#'
 	endif
 	let l:statusline .= '%{lfsep}'
-	let l:statusline .= '%#normal_cursor_line# %4l'
+	let l:statusline .= '%#normal_cursor_line# %3l'
 	let l:statusline .= '%#normal_cursor_col#:%02c %#normal_middle#'
 	" }}}
 
@@ -550,7 +554,7 @@ function! StatuslineInactive()
 	let l:statusline.='%{lsep}  %P '
 
 	" cursor position:
-	let l:statusline .= '%{lsep} %4l:%02c '
+	let l:statusline .= '%{lsep} %3l:%02c '
 
 	return l:statusline
 endfunction " }}}
@@ -573,9 +577,9 @@ au! VimEnter,BufWritePost * call UpdateGit()
 if $TERM != 'linux'
 	function! SetLineNr(mode)
 		if a:mode == 'v'
-			hi LineNr ctermfg=208 ctermbg=0
+			hi LineNr ctermfg=208
 		else
-			hi LineNr ctermfg=241 ctermbg=0
+			hi LineNr ctermfg=238
 		endif
 	endfunction
 

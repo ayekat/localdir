@@ -18,8 +18,8 @@
 #define lightcyan    #55FFFF
 #define lightwhite   #FFFFFF
 
-#define termfg       #AAAAAA
-#define termbg       #111111
+#define termfg       #8F8F8F
+#define termbg       #1C1C1C
 
 
 ! black:
