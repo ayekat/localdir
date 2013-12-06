@@ -3,14 +3,14 @@
 
 #BackgroundMode=TERMINAL_BACKGROUND_TRANSPARENT
 #BackgroundDarkness=0.90
-ColorForeground=#AAAAAA
+ColorForeground=#999999
 ColorBackground=#111111
 ColorCursor=
 ColorBoldUseDefault=FALSE
 ColorPalette=#222222;#DD5544;#00AA00;#BDBD00;#2277BB;#CC00CC;#00C0C0;#EEEEEE;#555555;#FF5555;#55FF55;#FFFF55;#4499CC;#FF55FF;#55FFFF;#FFFFFF
 
 FontName=Fixed Medium Semi-Condensed 10
-#FontName=Dina 11
+#FontName=Dina 9
 
 MiscAlwaysShowTabs=FALSE
 MiscCursorBlinks=TRUE
