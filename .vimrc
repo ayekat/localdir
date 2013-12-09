@@ -213,18 +213,18 @@ if $TERM != "linux"
 	hi PmenuThumb             ctermbg=31
 
 	" Folding:
-	hi Folded ctermfg=96 ctermbg=235 cterm=none
+	hi Folded ctermfg=96 ctermbg=232 cterm=none
 
 	" Separate normal text from non-file-text:
 	"hi Normal                 ctermbg=234
 	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 	"
+	" Window separator:
+	hi VertSplit  ctermfg=236 ctermbg=236
+	"
 	" Line numbers and syntastic column:
 	hi SignColumn ctermbg=234
 	hi LineNr     ctermbg=232
-
-	" Window separator:
-	hi VertSplit ctermfg=238 ctermbg=232
 
 	" 80 columns indicator:
 	hi ColorColumn ctermbg=235
@@ -233,10 +233,10 @@ if $TERM != "linux"
 	hi Search             ctermfg=0  ctermbg=136
 
 	" Diffs:
-	hi DiffAdd                       ctermbg=22
-	hi DiffChange                    ctermbg=24
-	hi DiffDelete                    ctermbg=52
-	hi DiffText                      ctermbg=94
+	hi DiffAdd            ctermfg=46  ctermbg=22
+	hi DiffChange         ctermfg=51  ctermbg=24
+	hi DiffDelete         ctermfg=52  ctermbg=52
+	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
 
 	" Syntax:
 	hi Comment            ctermfg=239
@@ -344,17 +344,17 @@ else
 	hi normal_git_clean      ctermfg=70   ctermbg=8
 	hi normal_git_branch     ctermfg=7    ctermbg=8
 	hi normal_file           ctermfg=247  ctermbg=8
-	hi normal_file_emphasise ctermfg=7    ctermbg=8
+	hi normal_file_emphasise ctermfg=7    ctermbg=8   cterm=bold
 	hi normal_file_modified  ctermfg=3    ctermbg=8   cterm=bold
 	hi normal_file_end       ctermfg=8    ctermbg=236
 	hi normal_middle         ctermfg=241  ctermbg=236
 	hi normal_warning        ctermfg=1    ctermbg=236 cterm=bold
 	hi normal_pos_start      ctermfg=8    ctermbg=236
-	hi normal_pos            ctermfg=11   ctermbg=8
+	hi normal_pos            ctermfg=11   ctermbg=8   cterm=bold
 	hi normal_cursor_start   ctermfg=7    ctermbg=8
 	hi normal_cursor         ctermfg=0    ctermbg=7
-	hi normal_cursor_line    ctermfg=238  ctermbg=7   cterm=bold
-	hi normal_cursor_col     ctermfg=242  ctermbg=7
+	hi normal_cursor_line    ctermfg=236  ctermbg=7   cterm=bold
+	hi normal_cursor_col     ctermfg=8    ctermbg=7
 
 	hi visual_mode           ctermfg=52   ctermbg=208
 	hi visual_mode_end       ctermfg=208  ctermbg=8
@@ -366,9 +366,9 @@ else
 	hi insert_git_branch     ctermfg=7    ctermbg=31
 	hi insert_file           ctermfg=249  ctermbg=31
 	hi insert_file_emphasise ctermfg=7    ctermbg=31
-	hi insert_file_modified  ctermfg=3    ctermbg=31  cterm=bold
+	hi insert_file_modified  ctermfg=3    ctermbg=31
 	hi insert_file_end       ctermfg=31   ctermbg=23
-	hi insert_warning        ctermfg=1    ctermbg=23  cterm=bold
+	hi insert_warning        ctermfg=1    ctermbg=23
 	hi insert_middle         ctermfg=45   ctermbg=23
 	hi insert_pos_start      ctermfg=31   ctermbg=23
 	hi insert_pos            ctermfg=11   ctermbg=31

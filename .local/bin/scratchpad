@@ -10,7 +10,7 @@ SIZE_BAR=15
 if [ $HOSTNAME = 'phobia' ]; then
 	MARGIN=40
 else
-	MARGIN=10
+	MARGIN=30
 fi
 
 # terminal information:
