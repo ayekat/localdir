@@ -82,7 +82,7 @@ set encoding=utf8
 
 	" Fix unrecognised file types:
 	au BufRead,BufNewFile *.tex set filetype=tex
-	au BufRead,BufNewFile *.h set filetype=c
+	au BufRead,BufNewFile *.h,*.xbm set filetype=c
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
@@ -96,7 +96,8 @@ set encoding=utf8
 	endif
 
 	" I wanna see tabs and trailing whitespaces:
-	set list listchars=tab:→\ ,trail:·
+	set list
+	set listchars=tab:→\ ,trail:·
 
 	" Highlight matching parentheses:
 	set showmatch
@@ -136,7 +137,7 @@ au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces
 	set noexpandtab
 	set tabstop=4
 	set shiftwidth=4
-	au FileType tex,scala,java,xml,ant set expandtab " XML = EPFL fuckery
+	au FileType tex,scala,java,ant set expandtab
 	au FileType tex,scala set tabstop=2
 	au FileType tex,scala set shiftwidth=2
 
@@ -145,10 +146,13 @@ au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces
 	set copyindent
 	filetype plugin indent on
 
-	" Wrap lines (except in Java), and break words:
+	" Visually wrap lines (except in Java), and break words:
 	set wrap
 	au FileType java set nowrap
-	set linebreak      " doesn't seem to work correctly
+	set linebreak      " wrap at words (does not work with list)
+
+	" Physically wrap lines for certain file types:
+	au FileType tex,html,gitcommit,php set textwidth=80
 
 	" Remove delay for leaving insert mode:
 	set noesckeys
@@ -340,8 +344,7 @@ else
 	" normal statusline:
 	hi normal_mode           ctermfg=22   ctermbg=148
 	hi normal_mode_end       ctermfg=148  ctermbg=8
-	hi normal_git_mod        ctermfg=3    ctermbg=8
-	hi normal_git_clean      ctermfg=70   ctermbg=8
+	hi normal_git_symbol     ctermfg=7    ctermbg=8
 	hi normal_git_branch     ctermfg=7    ctermbg=8
 	hi normal_file           ctermfg=247  ctermbg=8
 	hi normal_file_emphasise ctermfg=7    ctermbg=8   cterm=bold
@@ -361,17 +364,16 @@ else
 
 	hi insert_mode           ctermfg=8    ctermbg=7
 	hi insert_mode_end       ctermfg=7    ctermbg=31
-	hi insert_git_mod        ctermfg=249  ctermbg=31
-	hi insert_git_clean      ctermfg=249  ctermbg=31
+	hi insert_git_symbol     ctermfg=7    ctermbg=31
 	hi insert_git_branch     ctermfg=7    ctermbg=31
 	hi insert_file           ctermfg=249  ctermbg=31
-	hi insert_file_emphasise ctermfg=7    ctermbg=31
-	hi insert_file_modified  ctermfg=3    ctermbg=31
+	hi insert_file_emphasise ctermfg=7    ctermbg=31  cterm=bold
+	hi insert_file_modified  ctermfg=3    ctermbg=31  cterm=bold
 	hi insert_file_end       ctermfg=31   ctermbg=23
-	hi insert_warning        ctermfg=1    ctermbg=23
 	hi insert_middle         ctermfg=45   ctermbg=23
+	hi insert_warning        ctermfg=1    ctermbg=23  cterm=bold
 	hi insert_pos_start      ctermfg=31   ctermbg=23
-	hi insert_pos            ctermfg=11   ctermbg=31
+	hi insert_pos            ctermfg=11   ctermbg=31  cterm=bold
 	hi insert_cursor_start   ctermfg=7    ctermbg=31
 
 	" command statusline:
@@ -389,18 +391,12 @@ else
 endif
 " }}}
 
-function! UpdateGit()
-	let g:git_branch = fugitive#head()
-	if g:git_branch != ''
-		let g:git_mod = system('git status -s')
-	endif
-endfunction
-
 " Active Statusline {{{
 function! StatuslineActive()
 	let l:statusline = ''
 	let l:mode = mode()
 	let l:unite = unite#get_status_string()
+	let l:git_branch = fugitive#head()
 
 	" Mode {{{
 	if l:mode ==? 'v' || l:mode == ''
@@ -422,19 +418,11 @@ function! StatuslineActive()
 	" }}}
 
 	" Git {{{
-	if g:git_branch != ''
-		if g:git_mod == ''
-			if l:mode == 'i'
-				let l:statusline .= '%#insert_git_clean#'
-			else
-				let l:statusline .= '%#normal_git_clean#'
-			endif
+	if l:git_branch != ''
+		if l:mode == 'i'
+			let l:statusline .= '%#insert_git_symbol#'
 		else
-			if l:mode == 'i'
-				let l:statusline .= '%#insert_git_mod#'
-			else
-				let l:statusline .= '%#normal_git_mod#'
-			endif
+			let l:statusline .= '%#normal_git_symbol#'
 		endif
 		let l:statusline .= ' %{branch} '
 		if l:mode == 'i'
@@ -442,7 +430,7 @@ function! StatuslineActive()
 		else
 			let l:statusline .= '%#normal_git_branch#'
 		endif
-		let l:statusline .= g:git_branch
+		let l:statusline .= l:git_branch
 	endif " }}}
 
 	" Filename {{{
@@ -451,7 +439,7 @@ function! StatuslineActive()
 	else
 		let l:statusline .= '%#normal_file#'
 	endif
-	if g:git_branch != ''
+	if l:git_branch != ''
 		let l:statusline .= ' %{rsep}'
 	endif
 	let l:statusline.=' %<%{expand("%:p:h")}/'
@@ -498,7 +486,7 @@ function! StatuslineActive()
 
 	let l:statusline .= '%='
 
-	" File format, encoding, type {{{
+	" File format, encoding, type, line count {{{
 	if l:unite == ''
 		if &fileformat != 'unix'
 			let l:statusline .= &fileformat.' %{lsep} '
@@ -550,6 +538,9 @@ function! StatuslineInactive()
 	" change to the right side:
 	let l:statusline.='%='
 
+	" line count:
+	let l:statusline .= '%L %{lnum} '
+
 	" buffer position:
 	let l:statusline.='%{lsep}  %P '
 
@@ -567,7 +558,6 @@ endfunction " }}}
 au! BufEnter,WinEnter * setl statusline=%!StatuslineActive()
 au! BufLeave,WinLeave * set statusline=%!StatuslineInactive()
 au! CmdwinEnter * setl statusline=%!StatuslineCommand()
-au! VimEnter,BufWritePost * call UpdateGit()
 
 " }}}
 " ------------------------------------------------------------------------------
