@@ -152,7 +152,8 @@ au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces
 	set linebreak      " wrap at words (does not work with list)
 
 	" Physically wrap lines for certain file types:
-	au FileType tex,html,gitcommit,php set textwidth=80
+	au FileType tex,html,php set textwidth=80
+	au FileType gitcommit set textwidth=72
 
 	" Remove delay for leaving insert mode:
 	set noesckeys
