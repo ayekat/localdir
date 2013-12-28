@@ -152,7 +152,7 @@ au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces
 	set linebreak      " wrap at words (does not work with list)
 
 	" Physically wrap lines for certain file types:
-	au FileType tex,html,php set textwidth=80
+	au FileType tex,html,php,markdown set textwidth=80
 	au FileType gitcommit set textwidth=72
 
 	" Remove delay for leaving insert mode:
@@ -239,8 +239,8 @@ if $TERM != "linux"
 
 	" Diffs:
 	hi DiffAdd            ctermfg=46  ctermbg=22
-	hi DiffChange         ctermfg=51  ctermbg=24
-	hi DiffDelete         ctermfg=52  ctermbg=52
+	hi DiffChange         ctermfg=45  ctermbg=24
+	hi DiffDelete         ctermfg=52  ctermbg=232
 	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
 
 	" Syntax:

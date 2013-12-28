@@ -29,17 +29,16 @@ fi
 export XDG_CONFIG_HOME=$HOME/.config
 
 
-# MONITOR OPTIONS --------------------------------------------------------------
+# OUTPUT -----------------------------------------------------------------------
 
 # Activate (LCD) monitor color calibration:
 lcdadjust start
 
 
-# DWM --------------------------------------------------------------------------
+# INPUT ------------------------------------------------------------------------
 
-# Some Java applications refuse to work correctly when they don't know the WM.
-# Set the WM name to a known value to fix that:
-wmname LG3D
+# Load swiss keyboard layout and swap Escape and Caps Lock:
+setxkbmap -layout ch -option 'caps:swapescape' &
 
 
 # SERVICES ---------------------------------------------------------------------
@@ -79,7 +78,16 @@ urxvtd &
 scratchpad &
 
 
-# SESSION ----------------------------------------------------------------------
+# WM ---------------------------------------------------------------------------
 
-exec dwm > /tmp/dwm-$USER.log
+# Some Java applications refuse to work correctly when they don't know the WM.
+# Set the WM name to a value known to Java to fix that:
+wmname LG3D
+
+# Start WM:
+case "$WM" in
+	dwm|stwm|openbox) ;;
+	*) WM=stwm;;  #default to stwm
+esac
+exec "$WM" > /tmp/xorg-"$USER".log 2>&1
 
