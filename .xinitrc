@@ -72,10 +72,10 @@ ayelock start 5
 xset +fp $HOME/.local/share/fonts/
 
 # Start the urxvt daemon:
-urxvtd &
+#urxvtd &
 
 # Start a scratchpad:
-scratchpad &
+{ xfce4-terminal --execute tmx SCRATCHPAD; } &
 
 
 # WM ---------------------------------------------------------------------------
