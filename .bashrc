@@ -50,7 +50,7 @@ ayeprompt_assemble() {
 	# Hostname (only if SSH):
 	if [ -z "$SSH_TTY" ]; then
 		if [ ! $git_set ]; then
-			if [ $TERM = 'linux' ]; then
+			if [ "$TERM" = 'linux' ]; then
 				PS1+="\[\033[1m\]"
 				for c in 32 33 31 35 34 36; do
 					PS1+="\[\033[${c}m\]:"
