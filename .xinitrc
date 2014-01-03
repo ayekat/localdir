@@ -86,8 +86,8 @@ wmname LG3D
 
 # Start WM:
 case "$WM" in
-	dwm|stwm|openbox) ;;
-	*) WM=stwm;;  #default to stwm
+	dwm|karuiwm|openbox) ;;
+	*) WM=karuiwm;;  #default to karuiwm
 esac
 exec "$WM" > /tmp/xorg-"$USER".log 2>&1
 
