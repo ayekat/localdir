@@ -25,6 +25,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Bundles I use:
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'spolu/dwm.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
@@ -348,16 +349,16 @@ else
 	hi normal_git_symbol     ctermfg=7    ctermbg=8
 	hi normal_git_branch     ctermfg=7    ctermbg=8
 	hi normal_file           ctermfg=247  ctermbg=8
-	hi normal_file_emphasise ctermfg=7    ctermbg=8   cterm=bold
-	hi normal_file_modified  ctermfg=3    ctermbg=8   cterm=bold
+	hi normal_file_emphasise ctermfg=7    ctermbg=8
+	hi normal_file_modified  ctermfg=3    ctermbg=8
 	hi normal_file_end       ctermfg=8    ctermbg=236
 	hi normal_middle         ctermfg=241  ctermbg=236
-	hi normal_warning        ctermfg=1    ctermbg=236 cterm=bold
+	hi normal_warning        ctermfg=1    ctermbg=236
 	hi normal_pos_start      ctermfg=8    ctermbg=236
-	hi normal_pos            ctermfg=11   ctermbg=8   cterm=bold
+	hi normal_pos            ctermfg=11   ctermbg=8
 	hi normal_cursor_start   ctermfg=7    ctermbg=8
 	hi normal_cursor         ctermfg=0    ctermbg=7
-	hi normal_cursor_line    ctermfg=236  ctermbg=7   cterm=bold
+	hi normal_cursor_line    ctermfg=236  ctermbg=7
 	hi normal_cursor_col     ctermfg=8    ctermbg=7
 
 	hi visual_mode           ctermfg=52   ctermbg=208
@@ -368,13 +369,13 @@ else
 	hi insert_git_symbol     ctermfg=7    ctermbg=31
 	hi insert_git_branch     ctermfg=7    ctermbg=31
 	hi insert_file           ctermfg=249  ctermbg=31
-	hi insert_file_emphasise ctermfg=7    ctermbg=31  cterm=bold
-	hi insert_file_modified  ctermfg=3    ctermbg=31  cterm=bold
+	hi insert_file_emphasise ctermfg=7    ctermbg=31
+	hi insert_file_modified  ctermfg=3    ctermbg=31
 	hi insert_file_end       ctermfg=31   ctermbg=23
 	hi insert_middle         ctermfg=45   ctermbg=23
-	hi insert_warning        ctermfg=1    ctermbg=23  cterm=bold
+	hi insert_warning        ctermfg=1    ctermbg=23
 	hi insert_pos_start      ctermfg=31   ctermbg=23
-	hi insert_pos            ctermfg=11   ctermbg=31  cterm=bold
+	hi insert_pos            ctermfg=11   ctermbg=31
 	hi insert_cursor_start   ctermfg=7    ctermbg=31
 
 	" command statusline:
