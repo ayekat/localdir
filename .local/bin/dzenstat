@@ -6,7 +6,7 @@
 [ "$HOSTNAME" = 'phobia' ] && tagwidth=106 || tagwidth=299
 
 dzenstat_draw() {
-	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return false
+	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return 1
 	cd "$HOME"/dev/dzenstat
 	./dzenstat | dzen2 -xs $1 -ta right -x "$tagwidth" &
 	dynenv DZEN2_ID_"$1"=$(($(jobs -p)+1))
