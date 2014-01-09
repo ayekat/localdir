@@ -32,7 +32,7 @@ export XDG_CONFIG_HOME=$HOME/.config
 # OUTPUT -----------------------------------------------------------------------
 
 # Activate (LCD) monitor color calibration:
-lcdadjust start
+[ "$HOSTNAME" = 'phobia' ] && lcdadjust start
 
 
 # INPUT ------------------------------------------------------------------------
