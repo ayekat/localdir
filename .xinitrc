@@ -15,8 +15,8 @@ cd
 # - user is recommended to be in 'plugdev' group, for using USB device
 # - quartus starts Quartus
 # - vsim starts ModelSim
-if [ -d $HOME/.local/bin/altera ]; then
-	ALTERA="$HOME/.local/bin/altera"
+if [ -d "$HOME"/.local/bin/altera ]; then
+	ALTERA="$HOME"/.local/bin/altera
 	export PATH="$ALTERA/quartus/bin:$PATH"        # Quartus
 	export PATH="$ALTERA/modelsim_ase/linux:$PATH" # ModelSim
 	export PATH="$ALTERA/nios2eds/bin:$PATH"       # NIOS2
@@ -26,19 +26,25 @@ if [ -d $HOME/.local/bin/altera ]; then
 fi
 
 # This was removed, dunno why:
-export XDG_CONFIG_HOME=$HOME/.config
+export XDG_CONFIG_HOME="$HOME"/.config
 
 
 # OUTPUT -----------------------------------------------------------------------
 
-# Activate (LCD) monitor color calibration:
-[ "$HOSTNAME" = 'phobia' ] && lcdadjust start
+# Enable colour profile:
+lcdadjust &
 
 
 # INPUT ------------------------------------------------------------------------
 
 # Load swiss keyboard layout and swap Escape and Caps Lock:
 setxkbmap -layout ch -option 'caps:swapescape' &
+
+# Sanitise Thinkpad mouse:
+if [ "$HOSTNAME" = 'ixh' ]; then
+	xmodmap -e 'pointer = 3 2 1 6 7 8 9 10 11 12 4 5'
+	synclient TouchpadOff=1
+fi
 
 
 # SERVICES ---------------------------------------------------------------------
@@ -80,14 +86,14 @@ xset +fp $HOME/.local/share/fonts/
 
 # WM ---------------------------------------------------------------------------
 
+# If no WM is specified, default to karuiwm:
+[ -z "$WM" ] && WM=karuiwm
+
 # Some Java applications refuse to work correctly when they don't know the WM.
 # Set the WM name to a value known to Java to fix that:
-wmname LG3D
-
-# Start WM:
 case "$WM" in
-	dwm|karuiwm|openbox) ;;
-	*) WM=karuiwm;;  #default to karuiwm
+	xmonad|dwm|karuiwm) wmname LG3D ;;
+	openbox) ;;
 esac
-exec "$WM" > /tmp/xorg-"$USER".log 2>&1
+exec "$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
 
