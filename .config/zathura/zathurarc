@@ -5,8 +5,7 @@
 # ------------------------------------------------------------------------------
 # LOOK
 
-# Set window background to my terminal background:
-set default-bg "#111111"
+set default-bg "#000000"
 
 # Set font (TODO: Fixed SemiCondensed?):
 set font "monospace normal 8"
@@ -16,15 +15,15 @@ set statusbar-fg "#AAAAAA"            # statusbar
 set statusbar-bg "#222222"
 set inputbar-fg "#AAAAAA"             # input line
 set inputbar-bg "#111111"
-set completion-fg "#AFD700"           # completion; default
+set completion-fg "#AAAAAA"           # completion; default
 set completion-bg "#222222"
-set completion-highlight-fg "#FFFFFF" # ... and highlighted
+set completion-highlight-fg "#AFD700" # ... and highlighted
 set completion-highlight-bg "#333333"
 
 # Recoloured ('inverted') colours:
 set recolor "true"
-set recolor-darkcolor "#AAAAAA"       # 'foreground'
-set recolor-lightcolor "#333333"      # 'background'
+set recolor-darkcolor "#8F8F8F"       # 'foreground'
+set recolor-lightcolor "#1C1C1C"      # 'background'
 
 # ------------------------------------------------------------------------------
 # FEEL
