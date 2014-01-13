@@ -25,7 +25,7 @@ MiscBell=TRUE
 
 ScrollingBar=TERMINAL_SCROLLBAR_NONE
 ScrollingLines=10000
-ScrollingSingleLine=FALSE
+ScrollingSingleLine=TRUE
 ScrollingOnOutput=FALSE
 
 ShortcutsNoMenukey=TRUE
