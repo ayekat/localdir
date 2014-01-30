@@ -2,8 +2,8 @@
 
 ICC_PROFILE=''   # initial profile is undefined
 case "$HOSTNAME" in
-	ixh)    ICC_PROFILE=lenovo_thinkpad_x230 ;;
-	phobia) ICC_PROFILE=phobia phobia ;;
+	ixh)    ICC_PROFILE='lenovo_thinkpad_x230' ;;
+	phobia) ICC_PROFILE='asus asus' ;;
 esac
 if [ -z "$ICC_PROFILE" ]; then
 	echo "no colour profile defined for $HOSTNAME" >&2
