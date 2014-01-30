@@ -44,6 +44,7 @@ test -z "$PS1" && return
 
 # Create prompt:
 ayeprompt_assemble() {
+	# Determine whether we're in a git repo; initialise prompt:
 	git rev-parse 2> /dev/null && git_set=1
 	PS1=""
 
@@ -100,8 +101,9 @@ PROMPT_COMMAND='ayeprompt_assemble'
 # ------------------------------------------------------------------------------
 # FEEL {{{
 
-# Enable tab completion with sudo:
+# Enable tab completion with sudo/man:
 complete -cf sudo
+complete -cf man
 
 # Enable Vi/ViM-like behaviour (default: emacs):
 #set -o vi

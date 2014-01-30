@@ -245,7 +245,7 @@ if $TERM != "linux"
 	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
 
 	" Syntax:
-	hi Comment            ctermfg=239
+	hi Comment            ctermfg=240
 	hi Constant           ctermfg=28
 		" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
 		"hi String         ctermfg=
@@ -265,7 +265,7 @@ if $TERM != "linux"
 		"hi Operator
 		"hi Keyword
 		"hi Exception
-	hi PreProc            ctermfg=23
+	hi PreProc            ctermfg=60
 		" any preprocessor | #include | #define | macro | #if #else #endif
 		"hi Include
 		"hi Define

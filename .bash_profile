@@ -2,18 +2,18 @@
 # Actions taken at a login to bash.
 
 # Use colorgcc to colour the gcc output:
-export PATH="/usr/lib/colorgcc/bin:$PATH"
+[ -d '/usr/lib/colorgcc/bin' ] && export PATH="/usr/lib/colorgcc/bin:$PATH"
 
 # Add user specific local bin folder:
-export PATH="$HOME/.local/bin:$PATH"
+[ -d ~/.local/bin ] && export PATH="$HOME/.local/bin:$PATH"
+[ -d ~/.cabal/bin ] && export PATH="$HOME/.cabal/bin:$PATH"
 
 # Set vim as default text editor:
-export EDITOR='vim'
-export VISUAL='vim'
+which vim >/dev/null 2>&1 && { export EDITOR='vim'; export VISUAL='vim'; }
 
 # Set less as default pager:
-export PAGER='less'
+which less >/dev/null 2>&1 && export PAGER='less'
 
 # Source the bash configuration:
-. $HOME/.bashrc
+[ -f ~/.bashrc ] && . ~/.bashrc
 

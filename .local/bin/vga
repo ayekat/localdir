@@ -2,8 +2,8 @@
 # Script for simplifying on-the-go addition of a VGA-monitor to my laptop.
 # Written by ayekat on a boring january day; improved in october 2013.
 
-vganame='VGA-0'
-lcdname='LVDS'
+vganame='VGA1'
+lcdname='LVDS1'
 appname="$(basename "$0")"
 
 vga_add() {

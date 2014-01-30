@@ -100,11 +100,11 @@ xset +fp $HOME/.local/share/fonts/
 # If no WM is specified, default to karuiwm:
 [ -z "$WM" ] && WM=karuiwm
 
-# Some Java applications refuse to work correctly when they don't know the WM.
-# Set the WM name to a value known to Java to fix that:
+# Some Java applications refuse to work correctly when they don't know the WM
+# (happens often with tiling WMs); set the WM name to a value known to Java to
+# fix that:
 case "$WM" in
 	xmonad|dwm|karuiwm) wmname LG3D ;;
-	openbox) ;;
 esac
 exec "$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
 
