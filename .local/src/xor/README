@@ -1,0 +1,19 @@
+NAME
+	xor - XOR files
+
+SYNOPSIS
+	xor [STRING]
+
+DESCRIPTION
+	Performs XOR on data provided by stdin with a provided string STRING, and
+	prints the resulting data to stdout. STRING is repeated and/or cropped as
+	necessary to equal the data's length.
+	If STRING is omitted, xor performs XOR on the data with all bits set to 1.
+
+EXAMPLE
+	xor 'mypassphrase' < porn.tgz > scrambled_porn_muahaha
+
+RETURNS
+	If the wrong number of arguments (more than 1) is given, xor returns
+	EXIT_FAILURE as defined in the C standard library; otherwise xor shall
+	return 0.
