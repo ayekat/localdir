@@ -29,7 +29,8 @@ main(int argc, char **argv)
 	else {
 		f = fopen(argv[1], "r");
 		if (f == NULL) {
-			fputs(strerror(errno), stderr);
+			fprintf(stderr, "could not open %s for reading: %s",
+					argv[1], strerror(errno));
 			return EXIT_FAILURE;
 		}
 

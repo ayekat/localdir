@@ -116,4 +116,14 @@ export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=100000
 
 # }}}
+#-------------------------------------------------------------------------------
+# PKGFILE {{{
+
+# If an unknown command is issued, pkgfile will answer where the command might
+# possibly be found:
+pkgfilesrc='/usr/share/doc/pkgfile/command-not-found.bash'
+[ -e "$pkgfilesrc" ] && . "$pkgfilesrc"
+unset pkgfilesrc
+
+# }}}
 
