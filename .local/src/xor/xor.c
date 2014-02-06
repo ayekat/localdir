@@ -5,30 +5,47 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 
 int
 main(int argc, char **argv)
 {
-	size_t pos, len;
-	char *data;
-	int c;
+	FILE *f;
+	int d, k;
 
 	if (argc > 2) {
-		fprintf(stderr, "usage: %s [STRING]\n", argv[0]);
+		fprintf(stderr, "usage: %s [KEYFILE]\n", argv[0]);
 		return EXIT_FAILURE;
-	} else if (argc == 2) {
-		data = argv[1];
-		len = strlen(data);
-	} else {
-		data = malloc(1);
-		data[0] = 0xFF;
-		len = 1;
 	}
 
-	pos = 0;
-	while ((c = getchar()) != EOF) {
-		putchar(c ^ data[pos]);
-		pos = (pos+1)%len;
+	/* no argument, swap all bits */
+	if (argc == 1) {
+		while ((d = getchar()) != EOF) {
+			putchar(d ^ 0xFF);
+		}
 	}
+
+	/* file specified, read content */
+	else {
+		f = fopen(argv[1], "r");
+		if (f == NULL) {
+			fputs(strerror(errno), stderr);
+			return EXIT_FAILURE;
+		}
+
+		while ((d = getchar()) != EOF) {
+			if ((k = fgetc(f)) == EOF) {
+				rewind(f);
+				if ((k = fgetc(f)) == EOF) {
+					fprintf(stderr, "cannot use %s as key: file is empty\n",
+							argv[1]);
+					return EXIT_FAILURE;
+				}
+			}
+			putchar(d ^ k);
+		}
+		fclose(f);
+	}
+	return EXIT_SUCCESS;
 }
 
