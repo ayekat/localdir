@@ -43,18 +43,28 @@ setxkbmap -layout ch -option 'caps:swapescape' &
 # Sanitise Thinkpad mouse:
 if [ "$HOSTNAME" = 'ixh' ]; then
 	# Swap left and right button:
-	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10 11 12'
+	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10'
 
 	# Enable scrolling through middle click + trackpad:
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation" 1
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Button" 2
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Wheel Emulation Axes" 6 7 4 5
+	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation' 1
+	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Button' 2
+	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Axes' 6 7 4 5
 
 	# Enable middle click drag&drop (work-around for above option):
-	xinput set-prop "TPPS/2 IBM TrackPoint" "Evdev Middle Button Emulation" 1
+	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Middle Button Emulation' 1
 
-	# Disable touchpad, it's horrible:
-	synclient TouchpadOff=1
+# Sanitise Thinkpad USB keyboard/mouse:
+elif [ "$HOSTNAME" = 'phobia' ]; then
+	# Swap left and right button:
+	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24'
+
+	# Enable scrolling through middle click + trackpad:
+	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation' 1
+	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation Button' 2
+	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation Axes' 6 7 4 5
+
+	# Enable middle click drag&drop (work-around for above option):
+	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Middle Button Emulation' 1
 fi
 
 
