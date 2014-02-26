@@ -1,7 +1,7 @@
 ! COLOURS ----------------------------------------------------------------------
 
 ! colour definitions:
-#define black        #222222
+#define black        #282828
 #define red          #DD5544
 #define green        #00AA00
 #define yellow       #BDBD00
@@ -18,8 +18,8 @@
 #define lightcyan    #55FFFF
 #define lightwhite   #FFFFFF
 
-#define termfg       #8F8F8F
-#define termbg       #1C1C1C
+#define termfg       #AAAAAA
+#define termbg       #111111
 
 
 ! black:

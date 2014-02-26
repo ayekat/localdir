@@ -223,14 +223,14 @@ if $TERM != "linux"
 
 	" Separate normal text from non-file-text:
 	"hi Normal                 ctermbg=234
-	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
+	hi NonText    ctermfg=0   ctermbg=235 cterm=bold
 	"
 	" Window separator:
-	hi VertSplit  ctermfg=236 ctermbg=236
+	hi VertSplit  ctermfg=0 ctermbg=0
 	"
 	" Line numbers and syntastic column:
-	hi SignColumn ctermbg=234
-	hi LineNr     ctermbg=232
+	hi SignColumn ctermbg=none
+	hi LineNr     ctermbg=0
 
 	" 80 columns indicator:
 	hi ColorColumn ctermbg=235
@@ -245,18 +245,18 @@ if $TERM != "linux"
 	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
 
 	" Syntax:
-	hi Comment            ctermfg=240
-	hi Constant           ctermfg=28
+	hi Comment            ctermfg=243
+	hi Constant           ctermfg=34
 		" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
 		"hi String         ctermfg=
 		"hi Character      ctermfg=
 		"hi Number         ctermfg=
 		"hi Boolean        ctermfg=
 		"hi Float          ctermfg=
-	hi Identifier         ctermfg=96
+	hi Identifier         ctermfg=169
 		" any variable name | function name (also: methods for classes)
 		"hi Function       ctermfg=
-	hi Statement          ctermfg=136
+	hi Statement          ctermfg=172
 		" any statement | if then else endif switch | for do while |
 		" case default | sizeof + * | any other keyword | exception
 		"hi Conditional
@@ -265,22 +265,22 @@ if $TERM != "linux"
 		"hi Operator
 		"hi Keyword
 		"hi Exception
-	hi PreProc            ctermfg=60
+	hi PreProc            ctermfg=169
 		" any preprocessor | #include | #define | macro | #if #else #endif
 		"hi Include
 		"hi Define
 		"hi Macro
 		"hi PreCondit
-	hi Type               ctermfg=31
+	hi Type               ctermfg=38
 		" int long char | static register volatile | struct union enum | typedef
 		"hi StorageClass
 		"hi Structure
 		"hi Typedef
-	hi Special            ctermfg=94
+	hi Special            ctermfg=136
 		"hi SpecialChar
 		"hi Tag
 		"hi Delimiter
-		hi SpecialComment ctermfg=58
+		"hi SpecialComment
 		"hi Debug
 	" TODO
 	hi Todo               ctermfg=148 ctermbg=22
@@ -352,7 +352,7 @@ else
 	hi normal_file_emphasise ctermfg=7    ctermbg=8
 	hi normal_file_modified  ctermfg=3    ctermbg=8
 	hi normal_file_end       ctermfg=8    ctermbg=236
-	hi normal_middle         ctermfg=241  ctermbg=236
+	hi normal_middle         ctermfg=244  ctermbg=236
 	hi normal_warning        ctermfg=1    ctermbg=236
 	hi normal_pos_start      ctermfg=8    ctermbg=236
 	hi normal_pos            ctermfg=11   ctermbg=8
@@ -569,9 +569,9 @@ au! CmdwinEnter * setl statusline=%!StatuslineCommand()
 if $TERM != 'linux'
 	function! SetLineNr(mode)
 		if a:mode == 'v'
-			hi LineNr ctermfg=208
+			hi LineNr ctermfg=172
 		else
-			hi LineNr ctermfg=238
+			hi LineNr ctermfg=242
 		endif
 	endfunction
 
