@@ -1,7 +1,7 @@
 ! COLOURS ----------------------------------------------------------------------
 
 ! colour definitions:
-#define black        #282828
+#define black        #222222
 #define red          #DD5544
 #define green        #00AA00
 #define yellow       #BDBD00

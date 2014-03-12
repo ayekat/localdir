@@ -82,6 +82,7 @@ set encoding=utf8
 	syntax on
 
 	" Fix unrecognised file types:
+	au BufRead,BufNewFile *.md set filetype=markdown
 	au BufRead,BufNewFile *.tex set filetype=tex
 	au BufRead,BufNewFile *.h,*.xbm set filetype=c
 

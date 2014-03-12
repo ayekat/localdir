@@ -1,0 +1,23 @@
+#!/bin/sh
+# Takes a screenshot, notifies the users, and stores it to a given directory.
+# Written by ayekat on a rainy friday afternoon in february 2014.
+
+# place where the screenshot shall be stored to:
+DIR=~/img/scrot
+
+# tag to be added to the file's name:
+TAG="$@"
+
+# build format string:
+FORMAT='%Y-%m-%d_%H%M%S'
+if [ -n "$TAG" ]; then
+	FORMAT="${FORMAT}_${TAG}"
+fi
+FORMAT="${FORMAT}.png"
+
+# take screenshot:
+scrot "$FORMAT" -e "mv \$f '$DIR'"
+
+# notify user:
+notify-send 'PrtScr' "Screenshot taken."
+
