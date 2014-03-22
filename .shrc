@@ -67,6 +67,10 @@ man() {
 	fi
 }
 
+mutt() {
+	TERM=xterm-256color $(which mutt)
+}
+
 # Server only aliases (mostly additional security):
 [ ! $IS_DESKTOP ] && alias rm='rm -i'
 

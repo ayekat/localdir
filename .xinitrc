@@ -40,12 +40,6 @@ lcdadjust &
 # Load swiss keyboard layout and swap Escape and Caps Lock:
 setxkbmap -layout ch -option 'caps:swapescape' &
 
-# Swap Alt and Windows key:
-xmodmap -e 'remove mod4 = Super_L'
-xmodmap -e 'remove mod1 = Alt_L'
-xmodmap -e 'add mod1 = Super_L'
-xmodmap -e 'add mod4 = Alt_L'
-
 # Sanitise Thinkpad mouse:
 if [ "$HOSTNAME" = 'ixh' ]; then
 	# Swap left and right button:
@@ -73,6 +67,12 @@ elif [ "$HOSTNAME" = 'phobia' ]; then
 	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Middle Button Emulation' 1
 fi
 
+# Swap Alt and Windows key:
+xmodmap -e 'remove mod4 = Super_L'
+xmodmap -e 'remove mod1 = Alt_L'
+xmodmap -e 'add mod1 = Super_L'
+xmodmap -e 'add mod4 = Alt_L'
+
 
 # SERVICES ---------------------------------------------------------------------
 
@@ -88,9 +88,6 @@ if [ -e /usr/bin/uim-xim ]; then
 	export XMODIFIERS=@im='anthy'
 	uim-xim &
 fi
-
-# Apply Xmodmap if it exists:
-[ -e ~/.Xmodmap ] && xmodmap ~/.Xmodmap
 
 # Enable automatic lock on timeout:
 ayelock start 5

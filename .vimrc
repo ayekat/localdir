@@ -84,7 +84,7 @@ set encoding=utf8
 	" Fix unrecognised file types:
 	au BufRead,BufNewFile *.md set filetype=markdown
 	au BufRead,BufNewFile *.tex set filetype=tex
-	au BufRead,BufNewFile *.h,*.xbm set filetype=c
+	au BufRead,BufNewFile *.h,*.xbm,*.glsl set filetype=c
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
@@ -589,4 +589,12 @@ if $TERM != 'linux'
 endif
 
 " }}}
+" ------------------------------------------------------------------------------
+" MISC {{{
+" Rather temporary settings, but they remain for like half a year (often for
+" EPFL courses).
 
+" Don't check sytax for CG course:
+au! VimEnter /home/ayekat/epfl/cg/04/hw4/* SyntasticToggleMode
+
+" }}}
