@@ -84,7 +84,8 @@ set encoding=utf8
 	" Fix unrecognised file types:
 	au BufRead,BufNewFile *.md set filetype=markdown
 	au BufRead,BufNewFile *.tex set filetype=tex
-	au BufRead,BufNewFile *.h,*.xbm,*.glsl set filetype=c
+	au BufRead,BufNewFile *.h,*.xbm set filetype=c
+	au BufRead,BufNewFile *.glsl set filetype=glsl
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
@@ -220,11 +221,11 @@ if $TERM != "linux"
 	hi PmenuThumb             ctermbg=31
 
 	" Folding:
-	hi Folded ctermfg=96 ctermbg=232 cterm=none
+	hi Folded ctermfg=248 ctermbg=0 cterm=none
 
 	" Separate normal text from non-file-text:
 	"hi Normal                 ctermbg=234
-	hi NonText    ctermfg=0   ctermbg=235 cterm=bold
+	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 	"
 	" Window separator:
 	hi VertSplit  ctermfg=0 ctermbg=0
@@ -345,52 +346,52 @@ if $TERM == 'linux'
 	hi StatusLineNC ctermfg=7 ctermbg=4 cterm=none
 else
 	" normal statusline:
-	hi normal_mode           ctermfg=22   ctermbg=148
-	hi normal_mode_end       ctermfg=148  ctermbg=8
-	hi normal_git_symbol     ctermfg=7    ctermbg=8
-	hi normal_git_branch     ctermfg=7    ctermbg=8
-	hi normal_file           ctermfg=247  ctermbg=8
-	hi normal_file_emphasise ctermfg=7    ctermbg=8
-	hi normal_file_modified  ctermfg=3    ctermbg=8
-	hi normal_file_end       ctermfg=8    ctermbg=236
-	hi normal_middle         ctermfg=244  ctermbg=236
-	hi normal_warning        ctermfg=1    ctermbg=236
-	hi normal_pos_start      ctermfg=8    ctermbg=236
-	hi normal_pos            ctermfg=11   ctermbg=8
-	hi normal_cursor_start   ctermfg=7    ctermbg=8
-	hi normal_cursor         ctermfg=0    ctermbg=7
-	hi normal_cursor_line    ctermfg=236  ctermbg=7
-	hi normal_cursor_col     ctermfg=8    ctermbg=7
+	hi normal_mode           ctermfg=22  ctermbg=148
+	hi normal_mode_end       ctermfg=148 ctermbg=8
+	hi normal_git_symbol     ctermfg=7   ctermbg=8
+	hi normal_git_branch     ctermfg=7   ctermbg=8
+	hi normal_file           ctermfg=247 ctermbg=8
+	hi normal_file_emphasise ctermfg=7   ctermbg=8
+	hi normal_file_modified  ctermfg=3   ctermbg=8
+	hi normal_file_end       ctermfg=8   ctermbg=236
+	hi normal_middle         ctermfg=244 ctermbg=236
+	hi normal_warning        ctermfg=1   ctermbg=236
+	hi normal_pos_start      ctermfg=8   ctermbg=236
+	hi normal_pos            ctermfg=11  ctermbg=8
+	hi normal_cursor_start   ctermfg=7   ctermbg=8
+	hi normal_cursor         ctermfg=0   ctermbg=7
+	hi normal_cursor_line    ctermfg=236 ctermbg=7
+	hi normal_cursor_col     ctermfg=8   ctermbg=7
 
-	hi visual_mode           ctermfg=52   ctermbg=208
-	hi visual_mode_end       ctermfg=208  ctermbg=8
+	hi visual_mode           ctermfg=52  ctermbg=208
+	hi visual_mode_end       ctermfg=208 ctermbg=8
 
-	hi insert_mode           ctermfg=8    ctermbg=7
-	hi insert_mode_end       ctermfg=7    ctermbg=31
-	hi insert_git_symbol     ctermfg=7    ctermbg=31
-	hi insert_git_branch     ctermfg=7    ctermbg=31
-	hi insert_file           ctermfg=249  ctermbg=31
-	hi insert_file_emphasise ctermfg=7    ctermbg=31
-	hi insert_file_modified  ctermfg=3    ctermbg=31
-	hi insert_file_end       ctermfg=31   ctermbg=23
-	hi insert_middle         ctermfg=45   ctermbg=23
-	hi insert_warning        ctermfg=1    ctermbg=23
-	hi insert_pos_start      ctermfg=31   ctermbg=23
-	hi insert_pos            ctermfg=11   ctermbg=31
-	hi insert_cursor_start   ctermfg=7    ctermbg=31
+	hi insert_mode           ctermfg=8   ctermbg=7
+	hi insert_mode_end       ctermfg=7   ctermbg=31
+	hi insert_git_symbol     ctermfg=7   ctermbg=31
+	hi insert_git_branch     ctermfg=7   ctermbg=31
+	hi insert_file           ctermfg=249 ctermbg=31
+	hi insert_file_emphasise ctermfg=7   ctermbg=31
+	hi insert_file_modified  ctermfg=3   ctermbg=31
+	hi insert_file_end       ctermfg=31  ctermbg=23
+	hi insert_middle         ctermfg=45  ctermbg=23
+	hi insert_warning        ctermfg=1   ctermbg=23
+	hi insert_pos_start      ctermfg=31  ctermbg=23
+	hi insert_pos            ctermfg=11  ctermbg=31
+	hi insert_cursor_start   ctermfg=7   ctermbg=31
 
 	" command statusline:
-	hi cmd_mode               ctermfg=15  ctermbg=64
-	hi cmd_mode_end           ctermfg=64  ctermbg=0
-	hi cmd_info               ctermfg=7   ctermbg=0
+	hi cmd_mode              ctermfg=15  ctermbg=64
+	hi cmd_mode_end          ctermfg=64  ctermbg=0
+	hi cmd_info              ctermfg=7   ctermbg=0
 
 	" cursor:
-	hi CursorLine              ctermbg=233 cterm=none
-	hi CursorLineNr ctermfg=45 ctermbg=23
+	hi CursorLine                        ctermbg=235 cterm=none
+	hi CursorLineNr          ctermfg=45  ctermbg=23
 
 	" default statusline:
-	hi StatusLine   ctermfg=0   ctermbg=236 cterm=none
-	hi StatusLineNC ctermfg=241 ctermbg=236 cterm=none
+	hi StatusLine            ctermfg=0   ctermbg=236 cterm=none
+	hi StatusLineNC          ctermfg=241 ctermbg=236 cterm=none
 endif
 " }}}
 
@@ -559,8 +560,8 @@ endfunction " }}}
 
 " define when which statusline is displayed:
 au! BufEnter,WinEnter * setl statusline=%!StatuslineActive()
-au! BufLeave,WinLeave * set statusline=%!StatuslineInactive()
-au! CmdwinEnter * setl statusline=%!StatuslineCommand()
+au! BufLeave,WinLeave * set  statusline=%!StatuslineInactive()
+au! CmdwinEnter       * setl statusline=%!StatuslineCommand()
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -596,5 +597,6 @@ endif
 
 " Don't check sytax for CG course:
 au! VimEnter /home/ayekat/epfl/cg/04/hw4/* SyntasticToggleMode
+au! VimEnter /home/ayekat/epfl/cg/06/* SyntasticToggleMode
 
 " }}}
