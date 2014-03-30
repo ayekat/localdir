@@ -85,7 +85,7 @@ URxvt*skipScroll     : true
 
 ! DZEN -------------------------------------------------------------------------
 
-dzen2.font           : Fixed-10:SemiCondensed
+dzen2.font           : FFixed-10
 dzen2.background     : black
 dzen2.foreground     : #888888
 
