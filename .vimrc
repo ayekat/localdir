@@ -30,6 +30,8 @@ NeoBundle 'spolu/dwm.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'vim-scripts/glsl.vim'
+NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundleCheck
 
 " Disable scala and java syntax checkers, as they are slow as hell:

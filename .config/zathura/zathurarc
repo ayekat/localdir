@@ -11,18 +11,18 @@ set default-bg "#000000"
 set font "monospace normal 8"
 
 # Set statusbar colours:
-set statusbar-fg "#AAAAAA"            # statusbar
+set statusbar-fg "#CCCCCC"            # statusbar
 set statusbar-bg "#222222"
-set inputbar-fg "#AAAAAA"             # input line
+set inputbar-fg "#CCCCCC"             # input line
 set inputbar-bg "#111111"
-set completion-fg "#AAAAAA"           # completion; default
+set completion-fg "#CCCCCC"           # completion; default
 set completion-bg "#222222"
 set completion-highlight-fg "#AFD700" # ... and highlighted
 set completion-highlight-bg "#333333"
 
 # Recoloured ('inverted') colours:
 set recolor "true"                    # recolour by default
-set recolor-darkcolor "#AAAAAA"       # 'foreground'
+set recolor-darkcolor "#CCCCCC"       # 'foreground'
 set recolor-lightcolor "#111111"      # 'background'
 
 # ------------------------------------------------------------------------------
