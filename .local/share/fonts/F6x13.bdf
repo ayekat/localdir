@@ -1,6 +1,4 @@
 STARTFONT 2.1
-COMMENT $Id: F6x13.bdf,v 1.115 2009-04-06 18:50:15+01 mgk25 Rel $
-COMMENT Send bug reports to Markus Kuhn <http://www.cl.cam.ac.uk/~mgk25/>
 FONT -Misc-FFixed-Medium-R---13-120-75-75-C-60-ISO10646-1
 SIZE 12 75 75
 FONTBOUNDINGBOX 6 13 0 -2
