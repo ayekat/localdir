@@ -45,7 +45,9 @@ test -z "$PS1" && return
 # Create prompt:
 ayeprompt_assemble() {
 	# Determine whether we're in a git repo; initialise prompt:
-	git rev-parse 2> /dev/null && git_set=1
+	if [ "$arch" != 'ubuntu' ]; then
+		git rev-parse 2> /dev/null && git_set=1
+	fi
 	PS1=""
 
 	# Hostname (only if SSH):
@@ -88,10 +90,12 @@ ayeprompt_assemble() {
 	PS1+="\[\033[32m\]\w\[\033[0m\] "
 
 	# Clean variables:
-	unset git_set
-	unset git_status
-	unset git_diff
-	unset git_branch
+	if [ $git_set ]; then
+		unset git_set
+		unset git_status
+		unset git_diff
+		unset git_branch
+	fi
 }
 
 # Print Prompt:
