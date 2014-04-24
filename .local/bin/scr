@@ -1,0 +1,71 @@
+#!/bin/sh
+# Script for simplifying on-the-go addition of a VGA/HDMI-monitor to my laptop.
+# Written by ayekat on a boring january day; improved in october 2013; improved
+# again to support HDMI screens in april 2014.
+
+# basic values
+appname=$(basename $0)
+cmd="$1"
+shift
+
+# screen names
+scrname='unknown'
+lcdname='LVDS1'
+[ "$appname" = 'vga' ] && scrname='VGA1'
+[ "$appname" = 'hdmi' ] && scrname='HDMI1'
+if [ "$scrname" = 'unknown' ]; then
+	echo "Please invoke this script with 'vga' or 'hdmi'." >&2
+	exit 1
+fi
+
+scr_add() {
+	# mode:
+	modeline="$(xrandr | grep -A 1 "$scrname connected" | tail -n +2)"
+	if [ -z "$modeline" ]; then
+		printf "[%s] %s is not connected\n" "$appname" "$scrname"
+		exit 1
+	fi
+
+	# position:
+	position="$1"
+	case "$position" in
+		right|left) position="${position}-of";;
+	esac
+	xrandr --output "$lcdname" --auto || exit 1
+	xrandr --output "$scrname" --auto --${position} "$lcdname" || exit 1
+
+	# variables:
+	dynenv NUM_SCREENS=2
+	scr_setup
+}
+
+scr_remove() {
+	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$scrname"
+	xrandr --output "$scrname" --off || exit 1
+	dynenv NUM_SCREENS=1
+	scr_setup
+}
+
+scr_setup() {
+	xrandr --output "$lcdname" --dpi 96
+	dzenstat restart
+	nitrogen --restore
+}
+
+scr_help() {
+	printf "%s add (right|left|above|below)|remove\n" "$appname"
+}
+
+# detect action
+case "$cmd" in
+	add)
+		[ $# -ne 1 ] && { vga_help; exit 1; }
+		scr_add "$@";;
+
+	remove)
+		scr_remove;;
+
+	*)
+		scr_help
+esac
+
