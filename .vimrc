@@ -88,7 +88,8 @@ set encoding=utf8
 	au BufRead,BufNewFile *.md set filetype=markdown
 	au BufRead,BufNewFile *.tex set filetype=tex
 	au BufRead,BufNewFile *.h,*.xbm set filetype=c
-	au BufRead,BufNewFile *.glsl set filetype=glsl
+	au BufRead,BufNewFile *.glsl,*.frag,*.vert,*.geom set filetype=glsl
+	au BufRead,BufNewFile dunstrc set filetype=cfg
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
@@ -96,7 +97,7 @@ set encoding=utf8
 	" Display a bar after a reasonable number of columns:
 	if version >= 703
 		set colorcolumn=81
-		au FileType gitcommit set colorcolumn=73
+		au FileType mail,gitcommit set colorcolumn=73
 		au FileType java set colorcolumn=121
 		au FileType asm set colorcolumn=41,81
 	endif
@@ -601,5 +602,7 @@ endif
 " Don't check sytax for CG course:
 au! VimEnter /home/ayekat/epfl/cg/04/hw4/* SyntasticToggleMode
 au! VimEnter /home/ayekat/epfl/cg/06/* SyntasticToggleMode
+
+au! VimEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
 
 " }}}

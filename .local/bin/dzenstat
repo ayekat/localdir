@@ -3,7 +3,7 @@
 # Written by ayekat, improved in october 2013.
 
 # calculate offset depending on tag width:
-[ "$HOSTNAME" = 'phobia' ] && tagwidth=106 || tagwidth=299
+tagwidth=120
 
 dzenstat_draw() {
 	[ ! -x "$HOME"/dev/dzenstat/dzenstat ] && return 1
