@@ -90,6 +90,7 @@ set encoding=utf8
 	au BufRead,BufNewFile *.h,*.xbm set filetype=c
 	au BufRead,BufNewFile *.glsl,*.frag,*.vert,*.geom set filetype=glsl
 	au BufRead,BufNewFile dunstrc set filetype=cfg
+	au BufRead,BufNewFile *.target set filetype=systemd
 
 	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
 	let g:is_posix=1
