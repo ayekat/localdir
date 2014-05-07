@@ -136,7 +136,7 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-au FileType c,java,php,sh au BufWritePre <buffer> :call StripTrailingWhitespaces()
+au FileType c,java,php,sh,perl,sql,glsl,cpp au BufWritePre <buffer> :call StripTrailingWhitespaces()
 
 
 " INSERT MODE >
