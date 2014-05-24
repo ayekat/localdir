@@ -114,7 +114,7 @@ set encoding=utf8
 	let php_sql_query=1    " Highlight SQL syntax inside strings
 	let php_htmlInStrings=1         " HTML syntax inside strings
 
-	" Shell: 
+	" Shell:
 	let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
 
 	" Display a bar after a reasonable number of columns:
@@ -159,6 +159,24 @@ function! StripTrailingWhitespaces()
 	let @/=_s
 endfunction
 au FileType c,java,php,sh,perl,sql,glsl,cpp au BufWritePre <buffer> :call StripTrailingWhitespaces()
+
+" Save the undo tree between edit:
+if v:version >= 703
+	if ! isdirectory($HOME . "/.vim/undo")
+		call mkdir($HOME . "/.vim/undo", "p")
+		!chmod 700 -R ~/.vim/undo
+	endif
+	set undofile
+	" Save it in ~/.vim/undo/ if possible, otherwise same dir as edited file
+	set undodir=$HOME/.vim/undo,.
+endif
+
+" Make sure we don't generate undofiles for certain files:
+if has("autocmd")
+	autocmd BufWritePre /tmp/* setlocal noundofile
+	autocmd BufWritePre /dev/shm/* setlocal noundofile
+	autocmd BufWritePre /run/shm/* setlocal noundofile
+endif
 
 
 " INSERT MODE >
