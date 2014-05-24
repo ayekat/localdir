@@ -9,5 +9,8 @@ case $SHELL in
 esac
 
 [ $# -eq 0 ] && LINES=10 || LINES=$(($1))
-awk '{print $1}' < $HISTFILE | sort | uniq -c | sort -rn | head -n $LINES
+echo '$'
+awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $LINES | nl
+echo '#'
+grep '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $LINES | nl
 
