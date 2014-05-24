@@ -39,6 +39,13 @@ NeoBundleCheck
 let g:syntastic_java_checkers = []
 let g:syntastic_scala_checkers = []
 
+" Disable LaTeX style warnings:
+let g:syntastic_tex_chktex_args = '-m'
+
+" Change Sytastic symbols:
+let g:syntastic_warning_symbol = '!!'
+let g:syntastic_error_symbol = 'XX'
+
 " Don't make unite overwrite the statusline:
 let g:unite_force_overwrite_statusline = 0
 
@@ -87,14 +94,29 @@ set encoding=utf8
 	" Fix unrecognised file types:
 	au BufRead,BufNewFile *.md set filetype=markdown
 	au BufRead,BufNewFile *.tex set filetype=tex
-	au BufRead,BufNewFile *.h,*.xbm set filetype=c
-	au BufRead,BufNewFile *.glsl,*.frag,*.vert,*.geom set filetype=glsl
+	au BufRead,BufNewFile *.xbm set filetype=c
+	au BufRead,BufNewFile *.frag,*.vert,*.geom set filetype=glsl
 	au BufRead,BufNewFile dunstrc set filetype=cfg
 	au BufRead,BufNewFile *.target set filetype=systemd
 
-	" Treat /bin/sh as POSIX shell, not deprecated Bourne shell:
-	let g:is_posix=1
-	
+	" Assembly:
+	let asmsyntax='nasm'
+
+	" C:
+	let c_no_curly_error=1 " Allow {} inside [] and () (non-ANSI)
+	let c_space_errors=1   " Highlight trailing spaces and spaces before tabs
+	let c_syntax_for_h=1   " Treat .h as C header files (instead of C++)
+
+	" Make:
+	let make_no_commands=1 " Don't highlight commands
+
+	" PHP:
+	let php_sql_query=1    " Highlight SQL syntax inside strings
+	let php_htmlInStrings=1         " HTML syntax inside strings
+
+	" Shell: 
+	let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
+
 	" Display a bar after a reasonable number of columns:
 	if version >= 703
 		set colorcolumn=81
@@ -145,7 +167,7 @@ au FileType c,java,php,sh,perl,sql,glsl,cpp au BufWritePre <buffer> :call StripT
 	set noexpandtab
 	set tabstop=4
 	set shiftwidth=4
-	au FileType tex,scala,java,ant set expandtab
+	au FileType tex,scala,java,ant,haskell set expandtab
 	au FileType tex,scala set tabstop=2
 	au FileType tex,scala set shiftwidth=2
 
@@ -600,10 +622,6 @@ endif
 " Rather temporary settings, but they remain for like half a year (often for
 " EPFL courses).
 
-" Don't check sytax for CG course:
-au! VimEnter /home/ayekat/epfl/cg/04/hw4/* SyntasticToggleMode
-au! VimEnter /home/ayekat/epfl/cg/06/* SyntasticToggleMode
-
-au! VimEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
-
+au! BufEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
+au! BufEnter /home/ayekat/epfl/os/{*.c,*.h} set tabstop=8 shiftwidth=8
 " }}}
