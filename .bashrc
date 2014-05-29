@@ -13,10 +13,6 @@ test -z "$PS1" && return
 # ------------------------------------------------------------------------------
 # GENERAL (SHRC) {{{
 # Load general configuration (bash and zsh).
-# Contains:
-# - SYSTEM
-# - ALIASES
-# - START-UP ACTIONS
 
 . ~/.shrc
 
@@ -73,29 +69,25 @@ ayeprompt_assemble() {
 	# Git branch (only if in git repo):
 	if [ $git_set ]; then
 		git_diff="$(git diff --shortstat 2> /dev/null)"
-		git_branch="$(git branch | grep '*' | cut -c 3-)"
+		git_branch="$(git branch | $(which grep) '*' | cut -c 3-)"
 		[ -z "$git_branch" ] && git_branch='empty'
 		git_status="$(git status -s)"
-		git_ahead="$(git status -sb | grep ahead)"
+		git_ahead="$(git status -sb | $(which grep) ahead)"
 		if [ -z "$git_diff" ] && [ -z "$git_status" ]; then
 			if [ -z "$git_ahead" ]; then git_colour=34; else git_colour=36; fi
 		else
 			git_colour=33
 		fi
 		PS1+="\[\033[${git_colour}m\][$git_branch]\[\033[0m\] "
-		unset git_colour
-	fi
-
-	# Working directory
-	PS1+="\[\033[32m\]\w\[\033[0m\] "
-
-	# Clean variables:
-	if [ $git_set ]; then
 		unset git_set
+		unset git_colour
 		unset git_status
 		unset git_diff
 		unset git_branch
 	fi
+
+	# Working directory
+	PS1+="\[\033[32m\]\w\[\033[0m\] "
 }
 
 # Print Prompt:
@@ -109,8 +101,9 @@ PROMPT_COMMAND='ayeprompt_assemble'
 complete -cf sudo
 complete -cf man
 
-# Enable Vi/ViM-like behaviour (default: emacs):
+# Enable Vi/ViM-like behaviour (default: as defined in .inputrc):
 #set -o vi
+set -o emacs
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -132,4 +125,17 @@ if [ "$arch" = 'arch' ]; then
 fi
 
 # }}}
+#-------------------------------------------------------------------------------
+# BANDCAMP {{{
+# Thanks to d3lxa
 
+bcplay () {
+	mplayer -novideo -playlist <(bcurl "$1" | grep '^http://')
+	echo -e '\a'
+}
+
+bcurl () {
+	curl -L -sS "$1" | perl -ne 'print "$1\n" while (m{"mp3-128":"([^"]+)"}g); print "tag: $1\n" if m{<a class="tag" href="[^"]+/([^"]+)};'
+}
+
+# }}}

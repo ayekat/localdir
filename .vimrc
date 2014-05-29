@@ -146,6 +146,9 @@ set scrolloff=3
 map K 3<C-y>
 map J 3<C-e>
 
+" Easier to access 'back to beginning of line':
+map ä 0
+
 " Modelines are evil!
 set nomodeline
 
