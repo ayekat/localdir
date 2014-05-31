@@ -56,7 +56,7 @@ if [ "$HOSTNAME" = 'ixh' ]; then
 # Sanitise Thinkpad USB keyboard/mouse:
 elif [ "$HOSTNAME" = 'phobia' ]; then
 	# Swap left and right button:
-	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24'
+	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22'
 
 	# Enable scrolling through middle click + trackpad:
 	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation' 1
