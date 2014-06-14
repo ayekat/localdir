@@ -184,13 +184,11 @@ endif
 
 " INSERT MODE >
 
-	" Except in LaTeX and Scala, we use 4 spaces per tab and tabs:
-	set noexpandtab
-	set tabstop=4
-	set shiftwidth=4
-	au FileType tex,scala,java,ant,haskell set expandtab
-	au FileType tex,scala set tabstop=2
-	au FileType tex,scala set shiftwidth=2
+	" By default, use tabs instead of spaces, and 4 character wide tabs:
+	set noexpandtab shiftwidth=4 tabstop=4
+	au FileType c set tabstop=8 shiftwidth=8
+	au FileType tex,scala set expandtab tabstop=2 shiftwidth=2
+	au FileType java,ant,haskell,sql set expandtab
 
 	" Auto-indent, and reuse the same combination of spaces/tabs:
 	set autoindent
@@ -644,5 +642,5 @@ endif
 " EPFL courses).
 
 au! BufEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
-au! BufEnter /home/ayekat/epfl/os/{*.c,*.h} set tabstop=8 shiftwidth=8
+au! BufEnter /home/ayekat/epfl/blitzview-report/*.tex set formatoptions+=l
 " }}}

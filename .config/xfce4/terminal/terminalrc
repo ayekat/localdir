@@ -11,6 +11,7 @@ ColorPalette=#222222;#DD5544;#00AA00;#BDBD00;#2277BB;#CC00CC;#00C0C0;#EEEEEE;#55
 
 FontName=Fixed Medium Semi-Condensed 10
 #FontName=Dina 9
+#FontName=Terminus 8
 
 MiscAlwaysShowTabs=FALSE
 MiscCursorBlinks=TRUE
