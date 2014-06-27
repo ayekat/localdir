@@ -1,0 +1,42 @@
+NAME
+	scrock - lock screen with user-defined backend
+
+SYNOPSIS
+	scrock
+
+DESCRIPTION
+	Locks the X screen with a provided backend application (slock, xtrlock,
+	xscreensaver, ...), and performs a few additional actions.
+
+CONFIGURATION
+	scrock searches a configuration file in $XDG_CONFIG_HOME/scrock.
+	Configuration variables are listed below. The only mandatory variable is
+	$SCROCK_CMD; if missing, scrock will abort and return an error. If the file
+	is missing, scrock will create a sample configuration file containing all
+	variables and short descriptions for them, and exit with an error status.
+
+	$SCROCK_CMD
+		The full command line to be executed. Please try not to fork the backend
+		application, unless you know what you are doing.
+	
+	$SCROCK_PID
+		The file where the PID of the currently running screen lock instance
+		will be stored. This prevents multiple scrock instances from running
+		simultaneously.
+	
+	$SCROCK_DUNST
+		If set to 1, scrock will disable dunst while the screen lock programme
+		is running, in order to avoid flickering (and CPU usage); if set to 0,
+		no additional actions are taken.
+
+	As you may have guessed, the configuration file is simply a shell script
+	snipped that will be sourced by scrock at the beginnning of its execution.
+
+EXIT STATUS
+	If successful, scrock returns 0. Otherwise, the following return values are
+	possible:
+
+	1: Configuration file is missing and thus created.
+	2: A scrock instance is already running.
+	4: Missing $SCROCK_CMD.
+	8: Other error code.

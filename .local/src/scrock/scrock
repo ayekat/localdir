@@ -1,0 +1,97 @@
+#!/bin/sh
+# This script locks the screen with user-defined backend
+
+# variables and defaults
+scrock_dir="$XDG_CONFIG_HOME/scrock"
+scrock_file=scrockrc
+scrock_path="$scrock_dir/$scrock_file"
+scrock_pid=/tmp/scrock.pid
+scrock_dunst=0
+
+# Prints help.
+scrock_help()
+{
+	cut -c 2- << EOF >&2
+	Usage: scrock [option]
+	Options:
+		-h, --help       Display this help
+		--create-config  Create new sample config $scrock_path
+	If no options are specified, scrock is run normally (see README).
+EOF
+}
+
+# Creates configuration file.
+scrock_create_configs()
+{
+	[ -d "$scrock_dir" ] || mkdir "$scrock_dir"
+	cut -c 2- << EOF > "$scrock_path"
+	#!/bin/sh
+	# scrock configuration
+
+	# command to be run when scrock is started
+	#SCROCK_CMD='i3lock -n -i /path/to/wallpaper.png'
+	#SCROCK_CMD=slock
+	#SCROCK_CMD=xtrlock
+
+	# pid file
+	SCROCK_PID=/tmp/scrock.pid
+
+	# disable dunst while running the screen lock programme?
+	SCROCK_DUNST=0
+EOF
+	echo "created sample configuration in $scrock_path" >&2
+}
+
+# Prints error message for invalid $SCROCK_CMD.
+scrock_cmd_missing()
+{
+	echo '$SCROCK_CMD is missing. Please check your configuration.' >&2
+}
+
+# Creates a PID file or fails if it already exists.
+scrock_pidlock()
+{
+	if [ -e "$scrock_pid" ]; then
+		echo "A scrock instance seems to be running already." >&2
+		echo "If you are sure your screen is not locked, you may remove the PID file ($scrock_pid)." >&2
+		return 1
+	fi
+	echo $$ > "$scrock_pid"
+	return 0
+}
+
+# check command line
+case "$1" in
+	--create-config) scrock_create_configs; exit 1;;
+	'') continue;;
+	*) scrock_help; exit 8;;
+esac
+
+# load configuation or create it
+[ -e "$scrock_path" ] || { scrock_create_configs; exit 1; }
+source "$scrock_path"
+
+# load variables
+[ -n "$SCROCK_CMD" ] && scrock_cmd="$SCROCK_CMD" || { scrock_cmd_missing; exit 4; }
+[ -n "$SCROCK_PID" ] && scrock_pid="$SCROCK_PID"
+[ -n "$SCROCK_DUNST" ] && scrock_dunst="$SCROCK_DUNST"
+
+# try to lock scrock
+scrock_pidlock || exit 2
+
+# pause dunst
+if [ $scrock_dunst -eq 1 ]; then
+	killall -SIGUSR1 dunst &
+fi
+
+#echo "running $scrock_cmd"
+eval "$scrock_cmd"
+
+# resume dunst
+if [ $scrock_dunst -eq 1 ]; then
+	killall -SIGUSR2 dunst &
+	notify-send 'Screen unlocked'
+fi
+
+# unlock scrock
+rm "$scrock_pid"

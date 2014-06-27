@@ -11,3 +11,4 @@
 .local/bin/nios2sim
 .local/bin/*.d
 .local/bin/xor
+.local/src/dwb
