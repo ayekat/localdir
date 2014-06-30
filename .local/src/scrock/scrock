@@ -96,7 +96,7 @@ case "$1" in
 		which xautolock >/dev/null || { scrock_xautolock; exit 16; }
 		if [ "$2" = 'start' ]; then
 			echo "starting xautolock (timeout: ${scrock_idle}min)"
-			xautolock -time "$scrock_idle" -locker "$scrock_cmd" &
+			xautolock -time "$scrock_idle" -locker scrock &
 		elif [ "$2" = 'stop' ]; then
 			echo "stopping xautolock"
 			xautolock -exit
