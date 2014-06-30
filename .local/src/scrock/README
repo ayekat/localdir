@@ -2,11 +2,22 @@ NAME
 	scrock - lock screen with user-defined backend
 
 SYNOPSIS
-	scrock
+	scrock [option]
 
 DESCRIPTION
 	Locks the X screen with a provided backend application (slock, xtrlock,
 	xscreensaver, ...), and performs a few additional actions.
+
+	-h, --help
+		display help
+
+	--create-config
+		create new sample config in $XDG_CONFIG_HOME/scrock
+
+	-d, --daemon start|stop
+		start or stop an xautolock process; it may be regarded as a "daemon"
+		that locks the screen after a timeout as specified in the configuration
+		file
 
 CONFIGURATION
 	scrock searches a configuration file in $XDG_CONFIG_HOME/scrock.
@@ -30,11 +41,11 @@ CONFIGURATION
 		no additional actions are taken.
 	
 	$SCROCK_IDLE
-		Time until the screen gets locked automatically (if running daemon).
-		Requires xautolock to be installed on the system.
+		Time until the screen gets locked automatically (with the --daemon
+		option). Requires xautolock to be installed on the system.
 
 	As you may have guessed, the configuration file is simply a shell script
-	snipped that will be sourced by scrock at the beginnning of its execution.
+	snippet that will be sourced by scrock at the beginnning of its execution.
 
 EXIT STATUS
 	If successful, scrock returns 0. Otherwise, the following return values are
@@ -45,3 +56,11 @@ EXIT STATUS
 	 4: Missing $SCROCK_CMD.
 	 8: Errors in command line.
 	16: Errors related to xautolock.
+
+BUGS
+	In rare occasions the whole mechanism around dunst crashes and makes the CPU
+	go up to 100%. This should only happen after disabling the screensaver and
+	reenabling dunst. In that case simply kill dunst.
+
+SEE ALSO
+	dunst(1), xautolock(1), slock(1), xtrlock(1), xscreensaver(1), i3lock(1)

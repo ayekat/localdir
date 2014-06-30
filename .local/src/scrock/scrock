@@ -95,8 +95,8 @@ case "$1" in
 	-d|--daemon)
 		which xautolock >/dev/null || { scrock_xautolock; exit 16; }
 		if [ "$2" = 'start' ]; then
-			echo "starting xautolock (timeout: ${scrock_idle}min)"
 			xautolock -time "$scrock_idle" -locker scrock &
+			echo "starting xautolock (timeout: ${scrock_idle}min)"
 		elif [ "$2" = 'stop' ]; then
 			echo "stopping xautolock"
 			xautolock -exit
