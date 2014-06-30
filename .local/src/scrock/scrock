@@ -7,6 +7,7 @@ scrock_file=scrockrc
 scrock_path="$scrock_dir/$scrock_file"
 scrock_pid=/tmp/scrock.pid
 scrock_dunst=0
+scrock_idle=5
 
 # Prints help.
 scrock_help()
@@ -14,8 +15,10 @@ scrock_help()
 	cut -c 2- << EOF >&2
 	Usage: scrock [option]
 	Options:
-		-h, --help       Display this help
-		--create-config  Create new sample config $scrock_path
+		-h, --help               Display this help
+		--create-config          Create new sample config $scrock_path
+		-d, --daemon start|stop  Autolock after idle time (enable/disable)
+
 	If no options are specified, scrock is run normally (see README).
 EOF
 }
@@ -26,18 +29,24 @@ scrock_create_configs()
 	[ -d "$scrock_dir" ] || mkdir "$scrock_dir"
 	cut -c 2- << EOF > "$scrock_path"
 	#!/bin/sh
-	# scrock configuration
+	# scrock (screen lock) configuration file.
+	# See https://github.com/ayekat/dotfiles/tree/master/.local/src/scrock for more
+	# information.
 
-	# command to be run when scrock is started
+	# Command to be run when scrock is started (mandatory):
 	#SCROCK_CMD='i3lock -n -i /path/to/wallpaper.png'
 	#SCROCK_CMD=slock
 	#SCROCK_CMD=xtrlock
+	#SCROCK_CMD='xscreensaver-command -lock'
 
-	# pid file
+	# PID file:
 	SCROCK_PID=/tmp/scrock.pid
 
-	# disable dunst while running the screen lock programme?
+	# Disable dunst while running the screen lock programme?
 	SCROCK_DUNST=0
+
+	# Idle time (in minutes) until automatic lock (for daemon mode):
+	SCROCK_IDLE=5
 EOF
 	echo "created sample configuration in $scrock_path" >&2
 }
@@ -46,6 +55,12 @@ EOF
 scrock_cmd_missing()
 {
 	echo '$SCROCK_CMD is missing. Please check your configuration.' >&2
+}
+
+# Prints error message for missing xautolock.
+scrock_xautolock()
+{
+	echo 'Could not find an xautolock installation on the system. Aborting daemon mode.' >&2
 }
 
 # Creates a PID file or fails if it already exists.
@@ -63,18 +78,34 @@ scrock_pidlock()
 # check command line
 case "$1" in
 	--create-config) scrock_create_configs; exit 1;;
-	'') continue;;
+	''|-d|--daemon) continue;;
 	*) scrock_help; exit 8;;
 esac
 
 # load configuation or create it
 [ -e "$scrock_path" ] || { scrock_create_configs; exit 1; }
 source "$scrock_path"
-
-# load variables
 [ -n "$SCROCK_CMD" ] && scrock_cmd="$SCROCK_CMD" || { scrock_cmd_missing; exit 4; }
 [ -n "$SCROCK_PID" ] && scrock_pid="$SCROCK_PID"
 [ -n "$SCROCK_DUNST" ] && scrock_dunst="$SCROCK_DUNST"
+[ -n "$SCROCK_IDLE" ] && scrock_idle="$SCROCK_IDLE"
+
+# check command line (for daemon mode)
+case "$1" in
+	-d|--daemon)
+		which xautolock >/dev/null || { scrock_xautolock; exit 16; }
+		if [ "$2" = 'start' ]; then
+			echo "starting xautolock (timeout: ${scrock_idle}min)"
+			xautolock -time "$scrock_idle" -locker "$scrock_cmd" &
+		elif [ "$2" = 'stop' ]; then
+			echo "stopping xautolock"
+			xautolock -exit
+		else
+			scrock_help; exit 8
+		fi
+		exit 0
+		;;
+esac
 
 # try to lock scrock
 scrock_pidlock || exit 2

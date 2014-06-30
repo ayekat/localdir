@@ -90,7 +90,7 @@ if [ -e /usr/bin/uim-xim ]; then
 fi
 
 # Enable automatic lock on timeout:
-ayelock start 5
+scrock --daemon start
 
 # Enable wallpaper cycling:
 #nitrogencycle &

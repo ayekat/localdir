@@ -28,6 +28,10 @@ CONFIGURATION
 		If set to 1, scrock will disable dunst while the screen lock programme
 		is running, in order to avoid flickering (and CPU usage); if set to 0,
 		no additional actions are taken.
+	
+	$SCROCK_IDLE
+		Time until the screen gets locked automatically (if running daemon).
+		Requires xautolock to be installed on the system.
 
 	As you may have guessed, the configuration file is simply a shell script
 	snipped that will be sourced by scrock at the beginnning of its execution.
@@ -36,7 +40,8 @@ EXIT STATUS
 	If successful, scrock returns 0. Otherwise, the following return values are
 	possible:
 
-	1: Configuration file is missing and thus created.
-	2: A scrock instance is already running.
-	4: Missing $SCROCK_CMD.
-	8: Other error code.
+	 1: Configuration file is missing and thus created.
+	 2: A scrock instance is already running.
+	 4: Missing $SCROCK_CMD.
+	 8: Errors in command line.
+	16: Errors related to xautolock.
