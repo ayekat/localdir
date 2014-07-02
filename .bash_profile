@@ -17,3 +17,6 @@ which less >/dev/null 2>&1 && export PAGER='less'
 # Source the bash configuration:
 [ -f ~/.bashrc ] && . ~/.bashrc
 
+# This was removed, dunny why:
+export XDG_CONFIG_HOME="$HOME/.config"
+
