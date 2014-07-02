@@ -14,7 +14,7 @@ DESCRIPTION
 	--create-config
 		create new sample config in $XDG_CONFIG_HOME/scrock
 
-	-d, --daemon start|stop
+	-d, --daemon start|stop|status
 		start or stop an xautolock process; it may be regarded as a "daemon"
 		that locks the screen after a timeout as specified in the configuration
 		file
@@ -31,18 +31,33 @@ CONFIGURATION
 		application, unless you know what you are doing.
 	
 	$SCROCK_PID
-		The file where the PID of the currently running screen lock instance
-		will be stored. This prevents multiple scrock instances from running
-		simultaneously.
+		scrock will check whether another scrock instance is running (to avoid
+		multiple screen lockers running at the same time). It does this by
+		creating a PID file, or aborting if the the PID file already exists.
+
+		Set this value to the path where the PID file shall be placed.
 	
 	$SCROCK_DUNST
-		If set to 1, scrock will disable dunst while the screen lock programme
-		is running, in order to avoid flickering (and CPU usage); if set to 0,
-		no additional actions are taken.
+		Fullscreen screen lockers don't play nice with notifications by dunst,
+		as both will attempt to repaint any area not covered by themselves,
+		which results in flickering in the notification window's area (and thus
+		increased CPU usage).
+
+		Set this value to 1 to disable dunst while the screen is locked.
 	
 	$SCROCK_IDLE
-		Time until the screen gets locked automatically (with the --daemon
-		option). Requires xautolock to be installed on the system.
+		When running scrock with the --daemon switch, the screen will be
+		automatically locked after a certain idle time. This requires xautolock
+		to be installed on the system.
+
+		Set this value to at least 1 and at most 60.
+
+	$SCROCK_MOUSE
+		scrock will attempt to disable the mouse while running the screensaver.
+		This is mainly due to i3lock/dunst not playing well together if the
+		additionally the mouse is moved while the screen is locked.
+
+		Set this value to '' in order to disable mouse disabling.
 
 	As you may have guessed, the configuration file is simply a shell script
 	snippet that will be sourced by scrock at the beginnning of its execution.
@@ -60,7 +75,8 @@ EXIT STATUS
 BUGS
 	In rare occasions the whole mechanism around dunst crashes and makes the CPU
 	go up to 100%. This should only happen after disabling the screensaver and
-	reenabling dunst. In that case simply kill dunst.
+	reenabling dunst (where latter fails).
+	In such a case simply kill dunst.
 
 SEE ALSO
 	dunst(1), xautolock(1), slock(1), xtrlock(1), xscreensaver(1), i3lock(1)
