@@ -2,6 +2,7 @@
 # This script locks the screen with user-defined backend
 
 # variables and defaults
+[ -z "$XDG_CONFIG_HOME" ] && XDG_CONFIG_HOME=~/.config
 scrock_dir="$XDG_CONFIG_HOME/scrock"
 scrock_file=scrockrc
 scrock_path="$scrock_dir/$scrock_file"
@@ -31,7 +32,7 @@ scrock_create_configs()
 {
 	scrock_path_new="$scrock_path"
 	[ -d "$scrock_dir" ] || mkdir "$scrock_dir"
-	[ -e "$scrock_path" ] && scrock_path_new="${scrock_path_new}.new"
+	[ -f "$scrock_path" ] && scrock_path_new="${scrock_path_new}.new"
 	cut -c 2- >"$scrock_path_new" <<EOF
 	#!/bin/sh
 	# scrock (screen lock) configuration file.
@@ -78,7 +79,7 @@ scrock_xautolock()
 # Creates a PID file or fails if it already exists.
 scrock_pidlock()
 {
-	if [ ! -e "$scrock_pid" ]; then
+	if [ ! -f "$scrock_pid" ]; then
 		echo $$ > "$scrock_pid"
 		return 0
 	fi

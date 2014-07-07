@@ -18,5 +18,5 @@ which less >/dev/null 2>&1 && export PAGER='less'
 [ -f ~/.bashrc ] && . ~/.bashrc
 
 # This was removed, dunny why:
-export XDG_CONFIG_HOME="$HOME/.config"
+[ -z "$XDG_CONFIG_HOME" ] && export XDG_CONFIG_HOME="$HOME/.config"
 
