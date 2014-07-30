@@ -78,12 +78,12 @@ mutt() {
 [ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
 
-# Arch specific aliases:
-if [ "$arch" = 'arch' ]; then
-	alias cal='cal -m -3'
-	[ $IS_DESKTOP ] && [ "$TERM" = 'linux' ] &&
-			alias x='startx -- -nolisten tcp & disown && exit'
-fi
+# Arch specific aliases (TODO disabled until the systemd guys fix their shit):
+#if [ "$arch" = 'arch' ]; then
+#	alias cal='cal -m -3'
+#	[ $IS_DESKTOP ] && [ "$TERM" = 'linux' ] &&
+#			alias x='startx -- -nolisten tcp & disown && exit'
+#fi
 
 # }}}
 # ------------------------------------------------------------------------------

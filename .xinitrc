@@ -79,7 +79,7 @@ thunar --daemon &
 # Set the wallpaper:
 nitrogen --restore &
 
-# Activate Japanese input:
+# Activate Japanese input (TODO why?):
 if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE='uim'
 	export XMODIFIERS=@im='anthy'
