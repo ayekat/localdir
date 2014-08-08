@@ -35,7 +35,7 @@ lcdadjust &
 # INPUT ------------------------------------------------------------------------
 
 # Load swiss keyboard layout and swap Escape and Caps Lock:
-setxkbmap -layout ch -option 'caps:swapescape' &
+setxkbmap -layout ch -option 'caps:swapescape'
 
 # Sanitise Thinkpad mouse:
 if [ "$HOSTNAME" = 'ixh' ]; then
