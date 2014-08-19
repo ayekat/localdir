@@ -4,9 +4,9 @@
 # information.
 
 # Command to be run when scrock is started (MANDATORY):
-SCROCK_CMD='i3lock -n -i /home/ayekat/img/wallpapers/Avengers_Minions_1366.png'
+SCROCK_CMD='i3lock -n -c 000000 -i /home/ayekat/img/wallpapers/Avengers_Minions_1366.png'
 # Examples:
-#SCROCK_CMD='i3lock -n -i /path/to/wallpaper.png'
+#SCROCK_CMD='i3lock -n -c 000000 -i /path/to/wallpaper.png'
 #SCROCK_CMD=slock
 #SCROCK_CMD=xtrlock
 #SCROCK_CMD='xscreensaver-command -lock'

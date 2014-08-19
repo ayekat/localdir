@@ -42,9 +42,9 @@ scrock_create_configs()
 	# Command to be run when scrock is started (MANDATORY):
 	SCROCK_CMD=''
 	# Examples:
-	#SCROCK_CMD='i3lock -n -i /path/to/wallpaper.png'
-	#SCROCK_CMD=slock
-	#SCROCK_CMD=xtrlock
+	#SCROCK_CMD='i3lock -n -c 000000 -i /path/to/wallpaper.png'
+	#SCROCK_CMD='slock'
+	#SCROCK_CMD='xtrlock'
 	#SCROCK_CMD='xscreensaver-command -lock'
 
 	# PID file:
@@ -100,7 +100,7 @@ esac
 
 # load configuation or create it
 [ -e "$scrock_path" ] || { scrock_create_configs; exit 1; }
-source "$scrock_path"
+. "$scrock_path"
 [ -n "$SCROCK_CMD" ] && scrock_cmd="$SCROCK_CMD" || { scrock_cmd_missing; exit 4; }
 [ -n "$SCROCK_PID" ] && scrock_pid="$SCROCK_PID"
 [ -n "$SCROCK_DUNST" ] && scrock_dunst="$SCROCK_DUNST"
