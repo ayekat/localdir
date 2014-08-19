@@ -82,8 +82,9 @@ set encoding=utf8
 	" Fill characters (space=don't fill up):
 	set fillchars+=fold:\ 
 
-	" Autofolds behaviour:
+	" Autofold (except in git commit message):
 	set foldmethod=marker
+	au FileType gitcommit set foldmethod=manual
 
 
 " PROGRAMMING >
@@ -111,8 +112,8 @@ set encoding=utf8
 	let make_no_commands=1 " Don't highlight commands
 
 	" PHP:
-	let php_sql_query=1    " Highlight SQL syntax inside strings
-	let php_htmlInStrings=1         " HTML syntax inside strings
+	"let php_sql_query=1    " Highlight SQL syntax inside strings
+	"let php_htmlInStrings=1         " HTML syntax inside strings
 
 	" Shell:
 	let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
@@ -238,6 +239,9 @@ endif
 
 	" Unite window:
 	map <leader>n :Unite file<CR>
+
+	" Search for tags file recursively, up to root:
+	set tags=./tags;/
 
 " DWM:
 
