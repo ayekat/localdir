@@ -7,6 +7,7 @@
 # Add user specific local bin folder:
 [ -d ~/.local/bin ] && export PATH="$HOME/.local/bin:$PATH"
 [ -d ~/.cabal/bin ] && export PATH="$HOME/.cabal/bin:$PATH"
+[ -d ~/.gem/ruby/2.1.0/bin ] && export PATH="$HOME/.gem/ruby/2.1.0/bin:$PATH"
 
 # Set vim as default text editor:
 which vim >/dev/null 2>&1 && { export EDITOR='vim'; export VISUAL='vim'; }

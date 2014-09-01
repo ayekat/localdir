@@ -3,8 +3,8 @@
 # Taken from: http://www.cyberciti.biz/faq/linux-random-password-generator/
 
 l=$1
-[ "$l" == "" ] && l=16
-for i in {1..16}; do
+[ -z "$l" ] && l=16
+for i in $(seq 1 16); do
 	tr -dc 'A-Za-z0-9_$' < /dev/urandom | head -c ${l}
 	echo
 done

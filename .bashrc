@@ -7,7 +7,7 @@
 # START {{{
 
 # Check if this is an interactive session:
-test -z "$PS1" && return
+[ -z "$PS1" ] && return
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -104,6 +104,9 @@ complete -cf man
 # Enable Vi/ViM-like behaviour (default: as defined in .inputrc):
 #set -o vi
 set -o emacs
+
+# Update dimension information upon resize:
+shopt -s checkwinsize
 
 # }}}
 # ------------------------------------------------------------------------------

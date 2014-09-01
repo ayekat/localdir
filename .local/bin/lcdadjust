@@ -1,24 +1,24 @@
 #!/bin/sh
 
-ICC_PROFILE=''   # initial profile is undefined
-case "$HOSTNAME" in
-	ixh)    ICC_PROFILE='lenovo_thinkpad_x230' ;;
-	phobia) ICC_PROFILE='asus asus' ;;
+hostname="$(hostname)"
+[ -n "$XDG_CONFIG_HOME" ] && confdir="$XDG_CONFIG_HOME" || confdir=~/.config
+
+case "$hostname" in
+	ixh)    icc_profile='lenovo_thinkpad_x230' ;;
+	phobia) icc_profile='asus asus' ;;
+	*)      icc_profile='';;
 esac
-if [ -z "$ICC_PROFILE" ]; then
-	echo "no colour profile defined for $HOSTNAME" >&2
+if [ -z "$icc_profile" ]; then
+	echo "no colour profile defined for $hostname" >&2
 	exit 1
 fi
 i=1
-for p in $ICC_PROFILE; do
-	ICC_PATH="$XDG_CONFIG_HOME"/argyll/${p}.icc
-	if [ ! -f "$ICC_PATH" ]; then
-		echo "file not found: $ICC_PATH" >&2
+for p in $icc_profile; do
+	icc_path="$confdir"/argyll/"$p".icc
+	if [ ! -f "$icc_path" ]; then
+		echo "file not found: $icc_path" >&2
 		continue
 	fi
-	dispwin -d $i "$ICC_PATH"
+	dispwin -d $i "$icc_path"
 	i=$(($i+1))
-	unset ICC_PATH
 done
-unset ICC_PROFILE
-
