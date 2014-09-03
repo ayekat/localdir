@@ -99,6 +99,7 @@ set encoding=utf8
 	au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl set filetype=glsl
 	au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
 	au BufRead,BufNewFile *.target set filetype=systemd
+	au BufRead,BufNewFile */etc/iptables/*.rules set filetype=sh
 
 	" Assembly:
 	let asmsyntax='nasm'
@@ -375,19 +376,13 @@ set noshowmode
 
 " Separators {{{
 if $TERM == "linux"
-	let lsep="|"
-	let lfsep="|"
-	let rsep="|"
-	let rfsep="|"
+	let sep="|"
 	let lnum="LN"
 	let branch="|'"
 else
-	let lsep=""
-	let lfsep=""
-	let rsep=""
-	let rfsep=""
-	let lnum=""
-	let branch=""
+	let sep="┃"
+	let lnum="␤"
+	let branch="ᚴ"
 endif " }}}
 
 " Colours {{{
@@ -396,43 +391,35 @@ if $TERM == 'linux'
 	hi StatusLineNC ctermfg=7 ctermbg=4 cterm=none
 else
 	" normal statusline:
-	hi normal_mode           ctermfg=22  ctermbg=148
-	hi normal_mode_end       ctermfg=148 ctermbg=8
-	hi normal_git_symbol     ctermfg=7   ctermbg=8
-	hi normal_git_branch     ctermfg=7   ctermbg=8
-	hi normal_file           ctermfg=247 ctermbg=8
-	hi normal_file_emphasise ctermfg=7   ctermbg=8
-	hi normal_file_modified  ctermfg=3   ctermbg=8
-	hi normal_file_end       ctermfg=8   ctermbg=236
-	hi normal_middle         ctermfg=244 ctermbg=236
-	hi normal_warning        ctermfg=1   ctermbg=236
-	hi normal_pos_start      ctermfg=8   ctermbg=236
-	hi normal_pos            ctermfg=11  ctermbg=8
-	hi normal_cursor_start   ctermfg=7   ctermbg=8
-	hi normal_cursor         ctermfg=0   ctermbg=7
-	hi normal_cursor_line    ctermfg=236 ctermbg=7
-	hi normal_cursor_col     ctermfg=8   ctermbg=7
+	hi N_mode           ctermfg=22  ctermbg=148
+	hi N_git_branch     ctermfg=7   ctermbg=8
+	hi N_git_sep        ctermfg=236 ctermbg=8
+	hi N_file           ctermfg=247 ctermbg=8
+	hi N_file_emphasise ctermfg=7   ctermbg=8
+	hi N_file_modified  ctermfg=3   ctermbg=8
+	hi N_middle         ctermfg=244 ctermbg=236
+	hi N_middle_sep     ctermfg=8   ctermbg=236
+	hi N_warning        ctermfg=1   ctermbg=236
+	hi N_pos            ctermfg=11  ctermbg=8
+	hi N_cursor         ctermfg=0   ctermbg=7
+	hi N_cursor_line    ctermfg=236 ctermbg=7
+	hi N_cursor_col     ctermfg=8   ctermbg=7
 
-	hi visual_mode           ctermfg=52  ctermbg=208
-	hi visual_mode_end       ctermfg=208 ctermbg=8
+	hi V_mode           ctermfg=52  ctermbg=208
 
-	hi insert_mode           ctermfg=8   ctermbg=7
-	hi insert_mode_end       ctermfg=7   ctermbg=31
-	hi insert_git_symbol     ctermfg=7   ctermbg=31
-	hi insert_git_branch     ctermfg=7   ctermbg=31
-	hi insert_file           ctermfg=249 ctermbg=31
-	hi insert_file_emphasise ctermfg=7   ctermbg=31
-	hi insert_file_modified  ctermfg=3   ctermbg=31
-	hi insert_file_end       ctermfg=31  ctermbg=23
-	hi insert_middle         ctermfg=45  ctermbg=23
-	hi insert_warning        ctermfg=1   ctermbg=23
-	hi insert_pos_start      ctermfg=31  ctermbg=23
-	hi insert_pos            ctermfg=11  ctermbg=31
-	hi insert_cursor_start   ctermfg=7   ctermbg=31
+	hi I_mode           ctermfg=8   ctermbg=7
+	hi I_git_branch     ctermfg=7   ctermbg=31
+	hi I_git_sep        ctermfg=23  ctermbg=31
+	hi I_file           ctermfg=249 ctermbg=31
+	hi I_file_emphasise ctermfg=7   ctermbg=31
+	hi I_file_modified  ctermfg=3   ctermbg=31
+	hi I_middle         ctermfg=45  ctermbg=23
+	hi I_middle_sep     ctermfg=31  ctermbg=23
+	hi I_warning        ctermfg=1   ctermbg=23
+	hi I_pos            ctermfg=11  ctermbg=31
 
 	" command statusline:
 	hi cmd_mode              ctermfg=15  ctermbg=64
-	hi cmd_mode_end          ctermfg=64  ctermbg=0
 	hi cmd_info              ctermfg=7   ctermbg=0
 
 	" cursor:
@@ -441,7 +428,7 @@ else
 
 	" default statusline:
 	hi StatusLine            ctermfg=0   ctermbg=236 cterm=none
-	hi StatusLineNC          ctermfg=241 ctermbg=236 cterm=none
+	hi StatusLineNC          ctermfg=8   ctermbg=236 cterm=none
 endif
 " }}}
 
@@ -454,7 +441,7 @@ function! StatuslineActive()
 
 	" Mode {{{
 	if l:mode ==? 'v' || l:mode == ''
-		let l:statusline .= '%#visual_mode#'
+		let l:statusline .= '%#V_mode#'
 		if l:mode ==# 'v'
 			let l:statusline .= ' VISUAL '
 		elseif l:mode ==# 'V'
@@ -462,45 +449,39 @@ function! StatuslineActive()
 		else
 			let l:statusline .= ' V·BLOCK '
 		endif
-		let l:statusline .= '%#visual_mode_end#'
 	elseif l:mode == 'i'
-		let l:statusline .= '%#insert_mode# INSERT %#insert_mode_end#'
+		let l:statusline .= '%#I_mode# INSERT '
 	else
-		let l:statusline .= '%#normal_mode# NORMAL %#normal_mode_end#'
+		let l:statusline .= '%#N_mode# NORMAL '
 	endif
-	let l:statusline .= '%{rfsep}'
 	" }}}
 
 	" Git {{{
 	if l:git_branch != ''
 		if l:mode == 'i'
-			let l:statusline .= '%#insert_git_symbol#'
+			let l:statusline .= '%#I_git_branch#'
 		else
-			let l:statusline .= '%#normal_git_symbol#'
+			let l:statusline .= '%#N_git_branch#'
 		endif
-		let l:statusline .= ' %{branch} '
+		let l:statusline .= ' %{branch} '.l:git_branch
 		if l:mode == 'i'
-			let l:statusline .= '%#insert_git_branch#'
+			let l:statusline .= ' %#I_git_sep#%{sep}'
 		else
-			let l:statusline .= '%#normal_git_branch#'
+			let l:statusline .= ' %#N_git_sep#%{sep}'
 		endif
-		let l:statusline .= l:git_branch
 	endif " }}}
 
 	" Filename {{{
 	if l:mode == 'i'
-		let l:statusline .= '%#insert_file#'
+		let l:statusline .= '%#I_file#'
 	else
-		let l:statusline .= '%#normal_file#'
-	endif
-	if l:git_branch != ''
-		let l:statusline .= ' %{rsep}'
+		let l:statusline .= '%#N_file#'
 	endif
 	let l:statusline.=' %<%{expand("%:p:h")}/'
 	if l:mode == 'i'
-		let l:statusline.='%#insert_file_emphasise#'
+		let l:statusline.='%#I_file_emphasise#'
 	else
-		let l:statusline.='%#normal_file_emphasise#'
+		let l:statusline.='%#N_file_emphasise#'
 	endif
 	let l:statusline.='%{expand("%:t")} '
 	" }}}
@@ -508,26 +489,26 @@ function! StatuslineActive()
 	" Modified {{{
 	if &modified
 		if l:mode == 'i'
-			let l:statusline .= '%#insert_file_modified#'
+			let l:statusline .= '%#I_file_modified#'
 		else
-			let l:statusline .= '%#normal_file_modified#'
+			let l:statusline .= '%#N_file_modified#'
 		endif
 		let l:statusline .= '* '
 	endif
 	" }}}
 
 	if l:mode == 'i'
-		let l:statusline .= '%#insert_file_end#%{rfsep}%#insert_middle# '
+		let l:statusline .= '%#I_middle# '
 	else
-		let l:statusline .= '%#normal_file_end#%{rfsep}%#normal_middle# '
+		let l:statusline .= '%#N_middle# '
 	endif
 
 	" Readonly {{{
 	if &readonly
 		if l:mode == 'i'
-			let l:statusline .= ' %#insert_warning#X%#insert_middle#'
+			let l:statusline .= ' %#I_warning#X%#I_middle#'
 		else
-			let l:statusline .= ' %#normal_warning#X%#normal_middle#'
+			let l:statusline .= ' %#N_warning#X%#N_middle#'
 		endif
 	endif
 	" }}}
@@ -542,35 +523,46 @@ function! StatuslineActive()
 
 	" File format, encoding, type, line count {{{
 	if l:unite == ''
-		if &fileformat != 'unix'
-			let l:statusline .= &fileformat.' %{lsep} '
+		let l:ff = &fileformat
+		let l:fe = &fileencoding
+		let l:ft = &filetype
+		if l:ff != 'unix' && l:ff != ''
+			if l:mode == 'i'
+				let l:statusline .= l:ff.' %#I_middle_sep#%{sep}%#I_middle#'
+			else
+				let l:statusline .= l:ff.' %#N_middle_sep#%{sep}%#N_middle#'
+			endif
 		endif
-		if &fileencoding != 'utf-8' && &fileencoding != 'ascii'
-			let l:statusline .= &fileencoding.' %{lsep} '
+		if l:fe != 'utf-8' && l:fe != 'ascii' && l:fe != ''
+			if l:mode == 'i'
+				let l:statusline .= l:fe.' %#I_middle_sep#%{sep}%#I_middle#'
+			else
+				let l:statusline .= l:fe.' %#N_middle_sep#%{sep}%#N_middle#'
+			endif
 		endif
-		let l:statusline .= &filetype.' %{lsep} '
-		let l:statusline .= '%L %{lnum} '
+		if l:ft != ''
+			if l:mode == 'i'
+				let l:statusline .= l:ft.' %#I_middle_sep#%{sep}%#I_middle#'
+			else
+				let l:statusline .= l:ft.' %#N_middle_sep#%{sep}%#N_middle#'
+			endif
+		endif
+		let l:statusline .= ' %{lnum} %L '
 	endif
 	" }}}
 
 	" Buffer position {{{
 	if l:mode == 'i'
-		let l:statusline .= '%#insert_pos_start#%{lfsep}%#insert_pos#'
+		let l:statusline .= '%#I_pos#'
 	else
-		let l:statusline .= '%#normal_pos_start#%{lfsep}%#normal_pos#'
+		let l:statusline .= '%#N_pos#'
 	endif
-	let l:statusline .= '  %P '
+	let l:statusline .= ' %P '
 	" }}}
 
 	" Cursor position {{{
-	if l:mode == 'i'
-		let l:statusline .= '%#insert_cursor_start#'
-	else
-		let l:statusline .= '%#normal_cursor_start#'
-	endif
-	let l:statusline .= '%{lfsep}'
-	let l:statusline .= '%#normal_cursor_line# %3l'
-	let l:statusline .= '%#normal_cursor_col#:%02c %#normal_middle#'
+	let l:statusline .= '%#N_cursor_line# %3l'
+	let l:statusline .= '%#N_cursor_col#:%02c %#N_middle#'
 	" }}}
 
 	return l:statusline
@@ -584,22 +576,22 @@ function! StatuslineInactive()
 	let l:unite = unite#get_status_string()
 
 	" mode:
-	let l:statusline .= '        %{rsep}'
+	let l:statusline .= '        %{sep}'
 
 	" filename:
-	let l:statusline.=' %<%t %{rsep}'
+	let l:statusline.=' %<%t %{sep}'
 
 	" change to the right side:
 	let l:statusline.='%='
 
 	" line count:
-	let l:statusline .= '%L %{lnum} '
+	let l:statusline .= ' %{lnum} %L '
 
 	" buffer position:
-	let l:statusline.='%{lsep}  %P '
+	let l:statusline.='%{sep} %P '
 
 	" cursor position:
-	let l:statusline .= '%{lsep} %3l:%02c '
+	let l:statusline .= '%{sep} %3l:%02c '
 
 	return l:statusline
 endfunction " }}}

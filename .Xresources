@@ -1,3 +1,8 @@
+! X resources file.
+! Written by ayekat a long time ago, updated on a sunny wednesday afternoon in
+! september 2014.
+
+
 ! COLOURS ----------------------------------------------------------------------
 
 ! colour definitions:
@@ -20,7 +25,6 @@
 
 #define termfg       #AAAAAA
 #define termbg       #111111
-
 
 ! black:
 *color0              : black
@@ -50,42 +54,50 @@
 
 ! XTERM ------------------------------------------------------------------------
 
-xterm*foreground     : termfg
-xterm*background     : termbg
+xterm.foreground     : termfg
+xterm.background     : termbg
 
 
 ! URXVT ------------------------------------------------------------------------
 
-! Look:
-URxvt*foreground     : termfg
-URxvt*background     : termbg
-URxvt*cursorBlink    : true
-URxvt*scrollBar      : false
-URxvt*internalBorder : 1
-URxvt*colorBD        : lightwhite
+! look:
+URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,\
+                       -gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+URxvt.foreground     : termfg
+URxvt.background     : termbg
+URxvt.cursorBlink    : true
+URxvt.scrollBar      : false
+URxvt.internalBorder : 1
+URxvt.colorBD        : lightwhite
 
-! Ignore Ctrl+Shift events:
-URxvt*iso14755       : False
-URxvt*iso14755_52    : False
+! ignore ISO-14755 mode for Ctrl+Shift:
+URxvt.iso14755       : false
+URxvt.iso14755_52    : false
 
-! Set font:
-URxvt*font           : 6x13, -misc-ayefixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
-URxvt*boldFont       : 6x13bold, -misc-ayefixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+! settings for perl extensions:
+URxvt.perl-lib       : /home/ayekat/.config/urxvt/perl/
+URxvt.perl-ext       : insamedir
+URxvt.perl-ext-common: default,url-select,keyboard-select
 
-! Perl extension for opening new window in same PWD:
-URxvt*perl-lib       : /home/ayekat/.config/urxvt/perl/
-URxvt.perl-ext-common: insamedir
-URxvt*keysym.M-n     : perl:insamedir:open
+! open new window in same PWD:
+  URxvt.keysym.C-S-N : perl:insamedir:open
+! open URLs with keyboard (requires urxvt-perls package):
+  URxvt.url-select.launcher: /usr/bin/xdg-open
+  URxvt.url-select.underline: true
+  URxvt.keysym.C-S-K : perl:url-select:select_next
+! search buffer:
+  URxvt.keysym.C-S-F : perl:keyboard-select:search
 
-! Scroll behaviour:
-URxvt*scrollTtyOutput: false
-URxvt*scrollTtyKeypress: true
-URxvt*skipScroll     : true
+! scroll behaviour:
+URxvt.scrollTtyOutput: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt.secondaryScroll: true
 
 
 ! DZEN -------------------------------------------------------------------------
 
-dzen2.font           : FFixed-10
+dzen2.font           : Fixed-10:SemiCondensed
 dzen2.background     : black
 dzen2.foreground     : #888888
 

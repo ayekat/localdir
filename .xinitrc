@@ -95,14 +95,11 @@ scrock --daemon start
 
 # SERVICES (TERMINALS) ---------------------------------------------------------
 
-# Add personal font directory:
-xset +fp $HOME/.local/share/fonts/
-
 # Start the urxvt daemon:
-#urxvtd &
+urxvtd -f -o
 
 # Start a scratchpad:
-{ xfce4-terminal --execute tmx SCRATCHPAD; } &
+{ urxvtc -e tmx SCRATCHPAD; } &
 
 
 # WM ---------------------------------------------------------------------------
@@ -116,5 +113,7 @@ xset +fp $HOME/.local/share/fonts/
 case "$WM" in
 	xmonad|dwm|karuiwm) wmname LG3D ;;
 esac
+
+# Launch WM and log all of its output:
 exec "$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
 
