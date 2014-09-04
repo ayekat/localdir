@@ -76,7 +76,7 @@ URxvt.iso14755_52    : false
 
 ! settings for perl extensions:
 URxvt.perl-lib       : /home/ayekat/.config/urxvt/perl/
-URxvt.perl-ext       : insamedir
+URxvt.perl-ext       : insamedir,clipboard
 URxvt.perl-ext-common: default,url-select,keyboard-select
 
 ! open new window in same PWD:
@@ -87,6 +87,9 @@ URxvt.perl-ext-common: default,url-select,keyboard-select
   URxvt.keysym.C-S-K : perl:url-select:select_next
 ! search buffer:
   URxvt.keysym.C-S-F : perl:keyboard-select:search
+! copy+paste:
+  URxvt.keysym.C-S-V : perl:clipboard:paste
+  URxvt.keysym.Control-Shift-C : perl:clipboard:copy
 
 ! scroll behaviour:
 URxvt.scrollTtyOutput: false

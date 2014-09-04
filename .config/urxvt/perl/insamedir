@@ -18,14 +18,13 @@ sub new_window {
 sub on_child_start {
 	my ($self,$pid) = @_;
 
-	$self->{child_pid} = $pid;  # keep for later determining our shells
+	$self->{child_pid} = $pid;  # keep for later determining our shell's
 	                            # CWD for relative path names
-	()
+	() # TODO: what is this for?
 }
 
 sub on_user_command {
 	my ($self, $cmd) = @_;
-
 	if ($cmd eq "insamedir:open") {
 		new_window($self);
 	}

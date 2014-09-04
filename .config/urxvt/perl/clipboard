@@ -1,0 +1,27 @@
+#! /usr/bin/env perl
+
+sub paste {
+    my ($self) = @_;
+    my $content = qx{/usr/bin/xclip -loops 1 -out -selection clipboard};
+    print "paste: {$content}\n";
+    $self->tt_write ($content);
+}
+
+sub copy {
+    # TODO: doesn't work, why?
+    my ($self) = @_;
+    my $content = $self->selection;
+    print "copy: {$content}\n";
+    open(my $fh, '|-', qw{/usr/bin/xclip -loops 1 -in -selection clipboard});
+    write($fh, $content);
+    close($fh);
+}
+
+sub on_user_command {
+    my ($self, $cmd) = @_;
+    if ($cmd eq "clipboard:paste") {
+        $self->paste;
+    } elsif ($cmd eq "clipboard:copy") {
+        $self->copy;
+    }
+}
