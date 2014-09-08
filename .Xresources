@@ -70,6 +70,15 @@ URxvt.scrollBar      : false
 URxvt.internalBorder : 1
 URxvt.colorBD        : lightwhite
 
+! scrollback buffer:
+URxvt.saveLines      : 10000
+
+! scroll behaviour:
+URxvt.scrollTtyOutput: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt.secondaryScroll: true
+
 ! ignore ISO-14755 mode for Ctrl+Shift:
 URxvt.iso14755       : false
 URxvt.iso14755_52    : false
@@ -91,16 +100,10 @@ URxvt.perl-ext-common: default,url-select,keyboard-select
   URxvt.keysym.C-S-V : perl:clipboard:paste
   URxvt.keysym.Control-Shift-C : perl:clipboard:copy
 
-! scroll behaviour:
-URxvt.scrollTtyOutput: false
-URxvt.scrollTtyKeypress: true
-URxvt.scrollWithBuffer: true
-URxvt.secondaryScroll: true
-
 
 ! DZEN -------------------------------------------------------------------------
 
-dzen2.font           : Fixed-10:SemiCondensed
+dzen2.font           : Fixed-10:Medium:SemiCondensed
 dzen2.background     : black
 dzen2.foreground     : #888888
 
