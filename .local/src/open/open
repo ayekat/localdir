@@ -8,7 +8,7 @@ conffile="$confdir/mapping"
 
 #-------------------------------------------------------------------------------
 
-# create empty configuration file
+# Create empty configuration file.
 create_empty_config() {
 	cut -c 2- >"$conffile" <<EOF
 	# MIME mapping configuration file
@@ -26,7 +26,7 @@ mime_not_found() {
 	exit_value=1
 }
 
-# get value for a key
+# Get value for a key.
 value_of() {
 	line="$(grep "^[ \t]*$1[ \t]*:[ \t]*[^ \t]\\+" "$conffile")"
 	if [ -n "$line" ]; then
@@ -36,21 +36,34 @@ value_of() {
 	fi
 }
 
-# assemble commandline for mime-type
+# Get MIME type for a file.
+get_mime() {
+	file="$1"
+	mime="$(file --dereference --mime-type --brief "$file")"
+	if [ "$mime" = 'application/octet-stream' ]; then
+		x="$(echo "$file" | awk -F . '{print $NF}')"
+		m="$(value_of ".$x")"
+		[ -n "$m" ] && mime="$m"
+	fi
+	echo "$mime"
+}
+
+# Assemble commandline for a file.
 assemble_command() {
-	mime="$(file --dereference --mime-type --brief "$1")"
+	file="$1"
+	mime="$(get_mime "$file")"
+
 	cmd="$(value_of "$mime")"
-	if [ -n "$cmd" ]; then
-		if [ -n "$placeholder" ]; then
-			fsan="$(echo "$1" | sed -e 's/\//\\\//g')"
-			echo "$cmd" | grep -q "$placeholder" || cmd="$cmd $placeholder"
-			echo "$cmd" | sed -e "s/$placeholder/\"$fsan\"/g"
-		else
-			echo "$cmd \"$1\""
-		fi
-	else
+	if [ -z "$cmd" ]; then
 		mime_not_found "$mime"
 		echo ''
+	else
+		if [ -n "$placeholder" ] && echo "$cmd" | grep -q "$placeholder"; then
+			fsan="$(echo "$1" | sed -e 's/\//\\\//g')"
+			echo "$cmd" | sed -e "s/$placeholder/\"$fsan\"/g"
+		else
+			echo "$cmd \"$file\""
+		fi
 	fi
 }
 
@@ -67,7 +80,7 @@ exit_value=0
 placeholder="$(value_of 'placeholder')"
 
 if [ $# -eq 0 ]; then
-	assemble_command '.' | sh &
+	assemble_command '.' | sh
 else
 	for f in "$@"; do
 		if [ ! -e "$f" ]; then
