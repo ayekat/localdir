@@ -26,43 +26,10 @@ if [ -d "$HOME"/.local/bin/altera ]; then
 fi
 
 
-# OUTPUT -----------------------------------------------------------------------
-
-# Enable colour profile:
-lcdadjust &
-
-
-# INPUT ------------------------------------------------------------------------
+# INPUT (KEYBOARD) -------------------------------------------------------------
 
 # Load swiss keyboard layout and swap Escape and Caps Lock:
 setxkbmap -layout ch -option 'caps:swapescape'
-
-# Sanitise Thinkpad mouse:
-if [ "$HOSTNAME" = 'ixh' ]; then
-	# Swap left and right button:
-	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10'
-
-	# Enable scrolling through middle click + trackpad:
-	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation' 1
-	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Button' 2
-	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Wheel Emulation Axes' 6 7 4 5
-
-	# Enable middle click drag&drop (work-around for above option):
-	xinput set-prop 'TPPS/2 IBM TrackPoint' 'Evdev Middle Button Emulation' 1
-
-# Sanitise Thinkpad USB keyboard/mouse:
-#elif [ "$HOSTNAME" = 'phobia' ]; then
-#	# Swap left and right button:
-#	xmodmap -e 'pointer = 3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22'
-#
-#	# Enable scrolling through middle click + trackpad:
-#	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation' 1
-#	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation Button' 2
-#	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Wheel Emulation Axes' 6 7 4 5
-#
-#	# Enable middle click drag&drop (work-around for above option):
-#	xinput set-prop 'pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint' 'Evdev Middle Button Emulation' 1
-fi
 
 # Swap Alt and Windows key:
 xmodmap -e 'remove mod4 = Super_L'
@@ -71,15 +38,47 @@ xmodmap -e 'add mod1 = Super_L'
 xmodmap -e 'add mod4 = Alt_L'
 
 
+# INPUT (MOUSE) ----------------------------------------------------------------
+
+# Thinkpad mouse:
+if [ "$HOSTNAME" = 'ixh' ]; then
+	dev='TPPS/2 IBM TrackPoint'
+	ptr='3 2 1 4 5 6 7 8 9 10'
+else
+	dev='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
+	ptr='3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22'
+fi
+
+# Swap left and right button:
+xmodmap -e "pointer = $ptr"
+
+# Enable scrolling through middle click + trackpad:
+xinput set-prop "$dev" 'Evdev Wheel Emulation' 1
+xinput set-prop "$dev" 'Evdev Wheel Emulation Button' 2
+xinput set-prop "$dev" 'Evdev Wheel Emulation Axes' 6 7 4 5
+
+# Enable middle click drag&drop (work-around for above option):
+xinput set-prop "$dev" 'Evdev Middle Button Emulation' 1
+
+
+# OUTPUT -----------------------------------------------------------------------
+
+# Enable colour profile:
+lcdadjust &
+
+
 # SERVICES ---------------------------------------------------------------------
 
-# Start the thunar daemon:
-thunar --daemon &
+# Start the urxvt daemon:
+urxvtd -f -o
+
+# Start a scratchpad:
+{ urxvtc -e tmx SCRATCHPAD; } &
 
 # Set the wallpaper:
 nitrogen --restore &
 
-# Activate Japanese input (TODO why?):
+# Activate Japanese input:
 if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE='uim'
 	export XMODIFIERS=@im='anthy'
@@ -88,18 +87,6 @@ fi
 
 # Enable automatic lock on timeout:
 scrock --daemon start
-
-# Enable wallpaper cycling:
-#nitrogencycle &
-
-
-# SERVICES (TERMINALS) ---------------------------------------------------------
-
-# Start the urxvt daemon:
-urxvtd -f -o
-
-# Start a scratchpad:
-{ urxvtc -e tmx SCRATCHPAD; } &
 
 
 # WM ---------------------------------------------------------------------------
@@ -116,4 +103,3 @@ esac
 
 # Launch WM and log all of its output:
 exec "$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
-
