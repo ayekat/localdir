@@ -67,23 +67,12 @@ man() {
 	fi
 }
 
-mutt() {
-	TERM=xterm-256color $(which mutt)
-}
-
 # Server only aliases (mostly additional security):
 [ ! $IS_DESKTOP ] && alias rm='rm -i'
 
 # Application specific aliases:
 [ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
-
-# Arch specific aliases (TODO disabled until the systemd guys fix their shit):
-#if [ "$arch" = 'arch' ]; then
-#	alias cal='cal -m -3'
-#	[ $IS_DESKTOP ] && [ "$TERM" = 'linux' ] &&
-#			alias x='startx -- -nolisten tcp & disown && exit'
-#fi
 
 # }}}
 # ------------------------------------------------------------------------------

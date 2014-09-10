@@ -1,5 +1,6 @@
 altera
 *.d
 nios2sim
+checkstyle
 open
 xor

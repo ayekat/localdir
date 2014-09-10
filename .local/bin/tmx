@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 #
 # This script is responsible for starting a new tmux session and attaching it to
 # the windows of an already running one. The reason this cannot be done by a
@@ -14,9 +14,6 @@
 # And finally copied and (slightly) modified by ayekat on a sick sunday morning
 # in march 2013.
 
-
-# 256 colours support in tmux requires this:
-export TERM=xterm-256color
 
 # Works because bash automatically trims by assigning to variables and by
 # passing arguments:
