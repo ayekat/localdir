@@ -44,9 +44,9 @@ assemble_command() {
 		if [ -n "$placeholder" ]; then
 			fsan="$(echo "$1" | sed -e 's/\//\\\//g')"
 			echo "$cmd" | grep -q "$placeholder" || cmd="$cmd $placeholder"
-			echo "$cmd" | sed -e "s/$placeholder/$fsan/g"
+			echo "$cmd" | sed -e "s/$placeholder/\"$fsan\"/g"
 		else
-			echo "$cmd"
+			echo "$cmd \"$1\""
 		fi
 	else
 		mime_not_found "$mime"
@@ -73,8 +73,7 @@ else
 		if [ ! -e "$f" ]; then
 			file_not_found "$f"
 		else
-			cmd="$(assemble_command "$f")"
-			[ -n "$cmd" ] && echo $cmd | sh &
+			assemble_command "$f" | sh
 		fi
 	done
 fi
