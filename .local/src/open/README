@@ -1,5 +1,5 @@
 NAME
-	open - open files with a default programme according to its MIME type
+	open - open files/URIs with default applications as specified by the user
 
 SYNOPSIS
 	open [file|URI [...]]
@@ -31,20 +31,20 @@ FILES
 	argument somewhere inside the command line.
 	If the command line contains a sequence as defined by 'placeholder', the
 	file/URI argument is not simply appended, but substitutes the placeholder
-	sequence.
+	sequence. There may be multiple placeholders per line.
 	
 	<EXTENSION> : <MIME_TYPE>
 	In case a file type is not recognised (yields application/octet-stream), the
 	open utility shall attempt to make a second guess by looking at the file's
 	extension. The user's configuration shall be searched for a mapping from an
-	extension to a MIME type, which is used to do the usual mapping.
+	extension to a MIME type, which is then used to do the "normal" mapping.
 	<EXTENSION> MUST contain the leading .
 
 	<URI_PROTOCOL> : <MIME_TYPE>
 	In case the given argument is not a file, but a URI (e.g. http://, ftp://,
 	ssh://), the protocol will be determined, and the user's configuration shall
-	be searched for a mapping from a protocol to a MIME type, which is again
-	used to do the usual mapping.
+	be searched for a mapping from a protocol to a MIME type, which is then used
+	to do the "normal" mapping.
 	<URI_PROTOCOL> must NOT contain the trailing :
 	
 	# <COMMENT>

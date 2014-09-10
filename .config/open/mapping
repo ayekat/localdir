@@ -1,0 +1,20 @@
+# MIME mapping configuration file
+placeholder        : _FILE_
+
+# map MIME to applications:
+inode/directory    : thunar _FILE_ &
+image/png          : eog _FILE_ &
+image/jpeg         : eog _FILE_ &
+text/plain         : gedit _FILE_ &
+text/x-shellscript : gedit _FILE_ &
+application/pdf    : zathura _FILE_ &
+video/x-matroska   : mplayer
+video/mp4          : mplayer
+video/webm         : mplayer
+text/html          : dwb _FILE_ &
+
+# if application/octet-stream, map extensions to MIME:
+.html              : text/html
+
+# if URI, map protocol to MIME:
+http               : text/html
