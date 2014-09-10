@@ -1,0 +1,5 @@
+altera
+*.d
+nios2sim
+open
+xor
