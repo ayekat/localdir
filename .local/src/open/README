@@ -40,14 +40,14 @@ FILES
 		If XDG_CONFIG_HOME is not set, open will default to ~/.config.
 
 NOTE
-	If you use a file manager, you may more likely be interested in using that
-	file manager to do the MIME-to-default-application mapping, as it uses
-	Desktop files as understood by most graphical environments and defined by
-	OpenDesktop, and will more likely be portable.
+	You may most likely be interested in using a file manager to do the
+	MIME-to-default-application mapping, as it uses Desktop files as understood
+	by most graphical environments and defined by freedesktop.org; the open
+	utility is not very portable.
 
 	open was written to provide a default-application handling without the need
-	for having a full graphical file manager, hence the rather simple mapping of
-	MIME-to-binary-path, instead of Desktop files.
+	for having a full graphical file manager, or any compatibility with its
+	standards.
 
 EXIT STATUS
 	If there exists no mapping to one of the files passed, open return 1,
