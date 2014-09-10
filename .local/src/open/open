@@ -17,13 +17,18 @@ EOF
 }
 
 file_not_found() {
-	echo "open: could not open $1 (file not found)" >&2
+	echo "open: $1: file not found" >&2
 	exit_value=1
 }
 
 mime_not_found() {
 	echo "open: $1: default application not specified" >&2
 	exit_value=1
+}
+
+# Determine if a file is actually a URI.
+is_uri() {
+	echo "$1" | grep -q '^[a-zA-Z0-9]\+:/'
 }
 
 # Get value for a key.
@@ -34,6 +39,11 @@ value_of() {
 	else
 		echo ''
 	fi
+}
+
+# Get procotol of a URI.
+get_protocol() {
+	echo "$1" | grep -o '^[a-zA-Z0-9]\+'
 }
 
 # Get MIME type for a file.
@@ -51,10 +61,19 @@ get_mime() {
 # Assemble commandline for a file.
 assemble_command() {
 	file="$1"
-	mime="$(get_mime "$file")"
+	if is_uri "$file"; then
+		protocol="$(get_protocol "$file")"
+		mime="$(value_of "$protocol")"
+	elif [ -e "$file" ]; then
+		mime="$(get_mime "$file")"
+	else
+		file_not_found "$file"
+		return
+	fi
 
 	cmd="$(value_of "$mime")"
 	if [ -z "$cmd" ]; then
+		[ -n "$protocol" ] && mime="$protocol:/"
 		mime_not_found "$mime"
 		echo ''
 	else
@@ -83,10 +102,8 @@ if [ $# -eq 0 ]; then
 	assemble_command '.' | sh
 else
 	for f in "$@"; do
-		if [ ! -e "$f" ]; then
-			file_not_found "$f"
-		else
-			assemble_command "$f" | sh
-		fi
+		assemble_command "$f" | sh
 	done
 fi
+
+exit $exit_value

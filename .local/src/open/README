@@ -2,42 +2,60 @@ NAME
 	open - open files with a default programme according to its MIME type
 
 SYNOPSIS
-	open [file [...]]
+	open [file|URI [...]]
 
 DESCRIPTION
-	Detects the MIME type of a file, looks up the user's configurations to
-	determine which programme is to be executed to open the file, and forks. If
-	the MIME type is not specified in the user's configuration, the open utility
-	quits with a non-zero return value.
-
-	Each argument is treated separately, so
-
-		open wallpaper.png /etc
-
-	is equal to
-
-		open wallpaper.png; open /etc
-	
-	and will open wallpaper.png with the application associated to image/png and
-	/etc to the application associated to inode/directory.
+	Determines which application to use in order to open a file or a URI. This
+	is achieved through detecting a file's MIME type or a URI's protocol type,
+	and launching an application according to the user's configuration.
 
 	Passing no argument is equal to 'open .'
 
 FILES
-	${XDG_CONFIG_HOME}/open/mapping
-		Contains the mapping from each MIME-type to a shell commandline. Note
-		that the value to the right will be evaluated by /bin/sh, so you may
-		also specify multiple commands on the same line.
-		
-		The file given as argument will either substitute the placeholder
-		sequence, or be appended to the commandline if no such placeholder
-		exists. The placeholder sequence is defined by the 'placeholder'
-		mapping.
+	${XDG_CONFIG_HOME}/open/mapping holds the configuration and contains several
+	types of mappings. If the file does not exist upon invoking open, it shall
+	be created with an empty configuration.
 
-		If the file does not exist, it is created with an empty configuration;
-		invoke open once after the installation to create the file.
+	If ${XDG_CONFIG_HOME} is not set, open will default to ~/.config.
 
-		If XDG_CONFIG_HOME is not set, open will default to ~/.config.
+	The mappings may be of following types:
+
+	<MIME_TYPE> : <SHELL_COMMAND>
+	This is probably the main usecase: it maps a MIME type to a specified
+	command line. Note that the command will be passed to /bin/sh, which allows
+	the definition of multiple commands, as in regular shell scripting.
+
+	placeholder : <PLACEHOLDER_SEQUENCE>
+	Usually the file/URI argument is simply appended to the command line.
+	However it may be useful for certain commands to insert the file/URI
+	argument somewhere inside the command line.
+	If the command line contains a sequence as defined by 'placeholder', the
+	file/URI argument is not simply appended, but substitutes the placeholder
+	sequence.
+	
+	<EXTENSION> : <MIME_TYPE>
+	In case a file type is not recognised (yields application/octet-stream), the
+	open utility shall attempt to make a second guess by looking at the file's
+	extension. The user's configuration shall be searched for a mapping from an
+	extension to a MIME type, which is used to do the usual mapping.
+	<EXTENSION> MUST contain the leading .
+
+	<URI_PROTOCOL> : <MIME_TYPE>
+	In case the given argument is not a file, but a URI (e.g. http://, ftp://,
+	ssh://), the protocol will be determined, and the user's configuration shall
+	be searched for a mapping from a protocol to a MIME type, which is again
+	used to do the usual mapping.
+	<URI_PROTOCOL> must NOT contain the trailing :
+	
+	# <COMMENT>
+	Technically speaking, everything that is unlikely to be mapped is ignored,
+	so it is not mandatory to put # in front of comments. However it improves
+	human readability, and also greatly reduces the risk of accidentally being
+	used for a mapping.
+
+EXAMPLE
+	An example mapping file may be found here:
+		http://github.com/ayekat/dotfiles/tree/master/.config/open/mapping
 
 NOTE
 	You may most likely be interested in using a file manager to do the
@@ -46,12 +64,23 @@ NOTE
 	utility is not very portable.
 
 	open was written to provide a default-application handling without the need
-	for having a full graphical file manager, or any compatibility with its
-	standards.
+	for having a full graphical file manager or keeping any compatibility with
+	standards, and to provide simple, hand-written configuration.
 
 EXIT STATUS
-	If there exists no mapping to one of the files passed, open return 1,
-	otherwise the return value is 0.
+	If a file/URI can be successfully mapped to a command line, open shall
+	return 0; in all other cases, it shall return a non-zero value.
+
+DEPENDENCIES
+	The open utility makes use of very basic utilities that should be available
+	on all Unix-like systems (grep, awk, file, sh, cut, sed, echo).
+
+AUTHOR
+	Written by Tinu Weber (http://ayekat.ch/).
+
+COPYRIGHT
+	Copyright (c) 2014 Tinu Weber. Licensed under the GNU General Public License
+	version 3 (GPLv3, <http://gnu.org/licenses/gpl.html>).
 
 SEE ALSO
 	xdg-open(1), thunar(1), file(1)
