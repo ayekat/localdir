@@ -1,0 +1,57 @@
+NAME
+	open - open files with a default programme according to its MIME type
+
+SYNOPSIS
+	open [file [...]]
+
+DESCRIPTION
+	Detects the MIME type of a file, looks up the user's configurations to
+	determine which programme is to be executed to open the file, and forks. If
+	the MIME type is not specified in the user's configuration, the open utility
+	quits with a non-zero return value.
+
+	Each argument is treated separately, so
+
+		open wallpaper.png /etc
+
+	is equal to
+
+		open wallpaper.png; open /etc
+	
+	and will open wallpaper.png with the application associated to image/png and
+	/etc to the application associated to inode/directory.
+
+	Passing no argument is equal to 'open .'
+
+FILES
+	${XDG_CONFIG_HOME}/open/mapping
+		Contains the mapping from each MIME-type to a shell commandline. Note
+		that the value to the right will be evaluated by /bin/sh, so you may
+		also specify multiple commands on the same line.
+		
+		The file given as argument will either substitute the placeholder
+		sequence, or be appended to the commandline if no such placeholder
+		exists. The placeholder sequence is defined by the 'placeholder'
+		mapping.
+
+		If the file does not exist, it is created with an empty configuration;
+		invoke open once after the installation to create the file.
+
+		If XDG_CONFIG_HOME is not set, open will default to ~/.config.
+
+NOTE
+	If you use a file manager, you may more likely be interested in using that
+	file manager to do the MIME-to-default-application mapping, as it uses
+	Desktop files as understood by most graphical environments and defined by
+	OpenDesktop, and will more likely be portable.
+
+	open was written to provide a default-application handling without the need
+	for having a full graphical file manager, hence the rather simple mapping of
+	MIME-to-binary-path, instead of Desktop files.
+
+EXIT STATUS
+	If there exists no mapping to one of the files passed, open return 1,
+	otherwise the return value is 0.
+
+SEE ALSO
+	xdg-open(1), thunar(1), file(1)

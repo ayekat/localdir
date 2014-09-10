@@ -1,0 +1,80 @@
+#!/bin/sh
+# Opens files with a default programme according to its MIME type.
+# Written by ayekat on a cold morning in september 2014.
+
+[ -n "$XDG_CONFIG_HOME" ] || XDG_CONFIG_HOME=~/.config
+confdir="$XDG_CONFIG_HOME/open"
+conffile="$confdir/mapping"
+
+#-------------------------------------------------------------------------------
+
+# create empty configuration file
+create_empty_config() {
+	cut -c 2- >"$conffile" <<EOF
+	# MIME mapping configuration file
+	placeholder : _FILE_
+EOF
+}
+
+file_not_found() {
+	echo "open: could not open $1 (file not found)" >&2
+	exit_value=1
+}
+
+mime_not_found() {
+	echo "open: $1: default application not specified" >&2
+	exit_value=1
+}
+
+# get value for a key
+value_of() {
+	line="$(grep "^[ \t]*$1[ \t]*:[ \t]*[^ \t]\\+" "$conffile")"
+	if [ -n "$line" ]; then
+		echo "$line" | sed -e 's/^[^:]*:[ \t]*//' -e 's/[ \t]*$//'
+	else
+		echo ''
+	fi
+}
+
+# assemble commandline for mime-type
+assemble_command() {
+	mime="$(file --dereference --mime-type --brief "$1")"
+	cmd="$(value_of "$mime")"
+	if [ -n "$cmd" ]; then
+		if [ -n "$placeholder" ]; then
+			fsan="$(echo "$1" | sed -e 's/\//\\\//g')"
+			echo "$cmd" | grep -q "$placeholder" || cmd="$cmd $placeholder"
+			echo "$cmd" | sed -e "s/$placeholder/$fsan/g"
+		else
+			echo "$cmd"
+		fi
+	else
+		mime_not_found "$mime"
+		echo ''
+	fi
+}
+
+#-------------------------------------------------------------------------------
+
+# by default, we're successful
+exit_value=0
+
+# check whether configuration exists
+[ -d "$confdir" ] || mkdir "$confdir"
+[ -f "$conffile" ] || create_empty_config
+
+# determine placeholder sequence
+placeholder="$(value_of 'placeholder')"
+
+if [ $# -eq 0 ]; then
+	assemble_command '.' | sh &
+else
+	for f in "$@"; do
+		if [ ! -e "$f" ]; then
+			file_not_found "$f"
+		else
+			cmd="$(assemble_command "$f")"
+			[ -n "$cmd" ] && echo $cmd | sh &
+		fi
+	done
+fi

@@ -71,7 +71,6 @@ man() {
 [ ! $IS_DESKTOP ] && alias rm='rm -i'
 
 # Application specific aliases:
-[ -e /usr/bin/thunar ] && alias open='thunar'
 [ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
 
 # }}}
