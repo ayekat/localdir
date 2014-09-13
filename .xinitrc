@@ -73,10 +73,10 @@ lcdadjust &
 urxvtd -f -o
 
 # Start a scratchpad:
-{ urxvtc -e tmx SCRATCHPAD; } &
+urxvtc -e tmx SCRATCHPAD
 
 # Set the wallpaper:
-nitrogen --restore &
+nitrogen --restore
 
 # Activate Japanese input:
 if [ -e /usr/bin/uim-xim ]; then

@@ -74,7 +74,7 @@ set encoding=utf8
 	if $TERM == 'linux'
 		set fillchars=vert:.
 	else
-		set fillchars=vert:┃
+		set fillchars=vert:│
 	endif
 	
 
@@ -273,18 +273,17 @@ if $TERM != "linux"
 	hi PmenuThumb             ctermbg=31
 
 	" Folding:
-	hi Folded ctermfg=248 ctermbg=0 cterm=none
+	hi Folded     ctermfg=248 ctermbg=0   cterm=none
 
 	" Separate normal text from non-file-text:
-	"hi Normal                 ctermbg=234
 	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 	"
 	" Window separator:
-	hi VertSplit  ctermfg=0 ctermbg=0
+	hi VertSplit  ctermfg=0   ctermbg=232
 	"
 	" Line numbers and syntastic column:
-	hi SignColumn ctermbg=none
-	hi LineNr     ctermbg=0
+	hi SignColumn             ctermbg=none
+	hi LineNr                 ctermbg=0
 
 	" 80 columns indicator:
 	hi ColorColumn ctermbg=235
@@ -379,11 +378,9 @@ set noshowmode
 if $TERM == "linux"
 	let sep="|"
 	let lnum="LN"
-	let branch="|'"
 else
-	let sep="┃"
+	let sep="│"
 	let lnum="␤"
-	let branch="ᚴ"
 endif " }}}
 
 " Colours {{{
@@ -393,7 +390,7 @@ if $TERM == 'linux'
 else
 	" normal statusline:
 	hi N_mode           ctermfg=22  ctermbg=148
-	hi N_git_branch     ctermfg=7   ctermbg=8
+	hi N_git_branch     ctermfg=148 ctermbg=8
 	hi N_git_sep        ctermfg=236 ctermbg=8
 	hi N_file           ctermfg=247 ctermbg=8
 	hi N_file_emphasise ctermfg=7   ctermbg=8
@@ -409,7 +406,7 @@ else
 	hi V_mode           ctermfg=52  ctermbg=208
 
 	hi I_mode           ctermfg=8   ctermbg=7
-	hi I_git_branch     ctermfg=7   ctermbg=31
+	hi I_git_branch     ctermfg=148 ctermbg=31
 	hi I_git_sep        ctermfg=23  ctermbg=31
 	hi I_file           ctermfg=249 ctermbg=31
 	hi I_file_emphasise ctermfg=7   ctermbg=31
@@ -460,11 +457,11 @@ function! StatuslineActive()
 	" Git {{{
 	if l:git_branch != ''
 		if l:mode == 'i'
-			let l:statusline .= '%#I_git_branch#'
+			let l:statusline .= '%#I_git_branch# '
 		else
-			let l:statusline .= '%#N_git_branch#'
+			let l:statusline .= '%#N_git_branch# '
 		endif
-		let l:statusline .= ' %{branch} '.l:git_branch
+		let l:statusline .= l:git_branch
 		if l:mode == 'i'
 			let l:statusline .= ' %#I_git_sep#%{sep}'
 		else
