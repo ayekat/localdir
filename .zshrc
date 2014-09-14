@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 # zsh configuration file
 # Written by ayekat on a cold night in march 2013.
 

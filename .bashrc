@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # bash configuration file
 # Written by ayekat on a rainy day in 2009.
 

@@ -26,8 +26,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Bundles I use:
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vinarise.vim'
-NeoBundle 'spolu/dwm.vim'
-NeoBundle 'ayekat/dwm_fix.vim'
+NeoBundle 'ayekat/dwm.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'scrooloose/syntastic'
@@ -50,8 +49,9 @@ let g:syntastic_error_symbol = 'XX'
 " Don't make unite overwrite the statusline:
 let g:unite_force_overwrite_statusline = 0
 
-" Don't use default keybindings of DWM plugin:
+" Don't use default keybindings of DWM plugin; don't auto-arrange at :split:
 let g:dwm_map_keys = 0
+let g:dwm_auto_center = 0
 
 " Further settings are defined in the 'behaviour' part.
 

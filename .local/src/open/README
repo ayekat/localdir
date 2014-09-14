@@ -75,12 +75,16 @@ DEPENDENCIES
 	The open utility makes use of very basic utilities that should be available
 	on all Unix-like systems (grep, awk, file, sh, cut, sed, echo).
 
+BUGS
+	There certainly are plenty of them. Feel free to submit bug reports at
+	http://github.com/ayekat/dotfiles/. I'm an hobby developer, I won't bite ;-)
+
 AUTHOR
 	Written by Tinu Weber (http://ayekat.ch/).
 
 COPYRIGHT
 	Copyright (c) 2014 Tinu Weber. Licensed under the GNU General Public License
-	version 3 (GPLv3, <http://gnu.org/licenses/gpl.html>).
+	version 3 (GPLv3, http://gnu.org/licenses/gpl.html).
 
 SEE ALSO
 	xdg-open(1), thunar(1), file(1)
