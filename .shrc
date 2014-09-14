@@ -78,10 +78,10 @@ man() {
 # SHORTCUTS {{{
 
 # if the folder does not exist, cd will try in $CDPATH before failing:
-case "$HOSTNAME" in
-	ixh) CDPATH=".:/nas/himbeeri/public" ;;
+#case "$HOSTNAME" in
+#	ixh) CDPATH=".:/nas/himbeeri/public" ;;
 #	penrose) CDPATH=".:~/db/project" ;;
-esac
+#esac
 
 # }}}
 # ------------------------------------------------------------------------------

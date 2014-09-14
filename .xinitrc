@@ -41,7 +41,7 @@ xmodmap -e 'add mod4 = Alt_L'
 # INPUT (MOUSE) ----------------------------------------------------------------
 
 # Thinkpad mouse:
-if [ "$HOSTNAME" = 'ixh' ]; then
+if [ $(hostname) = 'ixh' ]; then
 	dev='TPPS/2 IBM TrackPoint'
 	ptr='3 2 1 4 5 6 7 8 9 10'
 else
@@ -68,6 +68,9 @@ lcdadjust &
 
 
 # SERVICES ---------------------------------------------------------------------
+
+# Load X resources:
+xrdb ~/.Xresources
 
 # Start the urxvt daemon:
 urxvtd -f -o
