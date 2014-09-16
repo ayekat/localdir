@@ -19,41 +19,74 @@
 # Enable colours:
 autoload -U colors && colors
 
-# Enable and format VCS:
-setopt prompt_subst         # override instead of append updated prompt
-autoload -Uz vcs_info
+# VCS settings:
+setopt prompt_subst
 zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:*' stagedstr " %{$fg[green]%}●"
-zstyle ':vcs_info:*' unstagedstr " %{$fg[red]%}●"
 zstyle ':vcs_info:git*' check-for-changes true
-zstyle ':vcs_info:git*' formats \
-		"%%B%{$fg[black]%}[%{$fg[green]%}%b%%b%u%c%%B%{$fg[black]%}]%%b"
-precmd() { vcs_info; }      # update before displaying prompt
+zstyle ':vcs_info:git*' formats "[%b]"
+autoload -Uz vcs_info
 
-# Left prompt (hostname + pwd):
-[ $IS_DESKTOP ] && PROMPT="%{$fg[yellow]%}" || PROMPT="%{$fg[magenta]%}"
-PROMPT+="%m "
-PROMPT+="%{$fg[green]%}%~%{$reset_color%} "
+# Run before the prompt is shown:
+precmd() {
+	# git info:
+	vcs_info
+	git_untracked="$(
+	[ -n "$(git status --porcelain 2>/dev/null | grep '^??')" ] \
+		&& printf "$fg[red]")"
+	git_unstaged="$(
+	[ -n "$(git status --porcelain 2>/dev/null | grep '^.M')" ] \
+		&& printf "$fg[red]")"
+	git_staged="$(
+	[ -n "$(git status --porcelain 2>/dev/null | grep '^M.')" ] \
+		&& printf "$fg[yellow]")"
+	git_ahead="$(
+	[ -n "$(git status --porcelain -b 2>/dev/null|head -n 1|grep -o ahead)" ] \
+		&& printf "$fg[cyan]")"
+	if [ -n "$vcs_info_msg_0_" ]; then
+		vcs_git="%{$fg[blue]$git_ahead$git_staged$git_unstaged$git_untracked%}"
+		vcs_git+="$vcs_info_msg_0_"
+	else
+		vcs_git=''
+	fi
 
-# Right prompt:
-RPROMPT='${vcs_info_msg_0_}'
-
-# Constantly updating clock (*yuck!*)
-# Thanks to this guy: http://www.zsh.org/mla/users/2007/msg00944.html
-# It's recommended to disable this, as in theory it may sound nifty to have a
-# timestamp for each command, but in practice it causes annoying things.
-TMOUT=1                     # timeout (interval)
-TRAPALRM() {                # event, every $TMOUT seconds:
-	zle reset-prompt        # -> update the prompt
+	# measure execution time:
+	if [ -n "$timer" ]; then
+		timer_show=$(($SECONDS - $timer))
+		export RPROMPT="%{$fg[red]%}%(?..[%?])"
+		if [ ${timer_show} -ne 0 ]; then
+			export RPROMPT=$RPROMPT" %{$fg[blue]%}${timer_show}s"
+		fi
+		export RPROMPT=$RPROMPT"%{$reset_color%}"
+		unset timer
+	fi
 }
-RPROMPT+='%{$fg[blue]%}[%s$(date +%H:%M:%S)]%{$reset_color%}'
+
+# Run before a command is executed:
+preexec() {
+	timer=${timer:-$SECONDS}
+}
+
+# Left prompt: pretty dots or hostname:
+vcs_empty=''
+if [ -n "$SSH_TTY" ]; then
+	vcs_empty+='%{$fg[magenta]%}%m%{$reset_color%}'
+elif [ $TERM = 'linux' ]; then
+	for c in green yellow red magenta blue cyan; do
+		vcs_empty+="%{$fg_bold[$c]%}:%{$reset_color%}"
+	done
+else
+	for c in 10 11 9 13 12 14; do
+		vcs_empty+="%{$(tput setaf $c)%}:"
+	done
+fi
+PROMPT='${vcs_git:-${vcs_empty}} %{$fg[green]%}%~%{$reset_color%} '
+
+# Right prompt: measure execution time (empty by default):
+RPROMPT=''
 
 # }}}
 # ------------------------------------------------------------------------------
 # FEEL {{{
-
-# Enable autocompletion feature:
-autoload -Uz compinit && compinit
 
 # I use vim, but I'm used to emacs-keybinds in the terminal:
 bindkey -e
@@ -63,10 +96,18 @@ bindkey -e
 bindkey "[3~" delete-char
 
 # Disable zsh menu for autocompletion:
-setopt no_auto_menu
+#setopt no_auto_menu
 
-# Enable autocompletion for special directories (such as '..'):
+# The following lines were added by compinstall
+zstyle ':completion:*' format "[%{$fg_bold[default]%}%d%{$reset_color%}]"
+zstyle ':completion:*' group-name ''
 zstyle ':completion:*' special-dirs true
+zstyle ':completion:*' ignore-parents parent pwd
+zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' squeeze-slashes true
+zstyle :compinstall filename '/home/ayekat/.zshrc'
+autoload -Uz compinit && compinit
+# End of lines added by compinstall
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -81,4 +122,3 @@ HISTSIZE=10000              # maximum history size in terminal's memory
 SAVEHIST=10000              # maximum size of history file
 
 # }}}
-

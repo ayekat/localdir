@@ -20,24 +20,6 @@
 # ------------------------------------------------------------------------------
 # PROMPT {{{
 
-# Vim statusline colours (fg):
-#  22 normal prompt
-# 208 visual prompt
-#   7 normal filename
-# 244 normal middle
-#   8 insert prompt
-#   7 insert filename
-#  45 insert middle
-#
-# Vim statusline colours (bg):
-# 148 normal prompt
-#  52 visual prompt
-#   8 normal filename
-#   0 normal middle
-#   7 insert prompt
-#  31 insert filename
-#  23 insert middle
-
 # Create prompt:
 ayeprompt_assemble() {
 	# Determine whether we're in a git repo; initialise prompt:
