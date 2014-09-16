@@ -71,7 +71,8 @@ man() {
 [ ! $IS_DESKTOP ] && alias rm='rm -i'
 
 # Application specific aliases:
-[ -e /usr/bin/valgrind ] && alias valgrind='valgrind --log-file=valgrind.log'
+which valgrind >/dev/null 2>&1 && alias valgrind='valgrind --log-file=valgrind.log'
+which ncmpcpp >/dev/null 2>&1 && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 
 # }}}
 # ------------------------------------------------------------------------------
