@@ -299,6 +299,7 @@ if $TERM != "linux"
 
 	" Syntax:
 	hi Comment            ctermfg=243
+	au FileType mail hi Comment ctermfg=34
 	hi Constant           ctermfg=34
 		" any constant | string | 'c' '\n' | 234 0xff | TRUE false | 2.3e10
 		"hi String         ctermfg=
