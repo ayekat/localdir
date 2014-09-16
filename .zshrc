@@ -46,19 +46,20 @@ precmd() {
 		vcs_git="%{$fg[blue]$git_ahead$git_staged$git_unstaged$git_untracked%}"
 		vcs_git+="$vcs_info_msg_0_"
 	else
-		vcs_git=''
+		vcs_git=""
 	fi
 
 	# measure execution time:
+	rprompt="%(?.%{$fg[black]%},.%{$fg_bold[red]%}[%?])%{$reset_color%}"
 	if [ -n "$timer" ]; then
 		timer_show=$(($SECONDS - $timer))
-		export RPROMPT="%{$fg[red]%}%(?..[%?])"
 		if [ ${timer_show} -ne 0 ]; then
-			export RPROMPT=$RPROMPT" %{$fg[blue]%}${timer_show}s"
+			rprompt+=" %{$fg[blue]%}${timer_show} sec%{$reset_color%}"
 		fi
-		export RPROMPT=$RPROMPT"%{$reset_color%}"
 		unset timer
+		unset timer_show
 	fi
+	export RPROMPT="$rprompt"
 }
 
 # Run before a command is executed:
@@ -67,12 +68,12 @@ preexec() {
 }
 
 # Left prompt: pretty dots or hostname:
-vcs_empty=''
+vcs_empty=""
 if [ -n "$SSH_TTY" ]; then
-	vcs_empty+='%{$fg[magenta]%}%m%{$reset_color%}'
+	vcs_empty+="%{$fg[magenta]%}%m"
 elif [ $TERM = 'linux' ]; then
 	for c in green yellow red magenta blue cyan; do
-		vcs_empty+="%{$fg_bold[$c]%}:%{$reset_color%}"
+		vcs_empty+="%{$fg_bold[$c]%}:"
 	done
 else
 	for c in 10 11 9 13 12 14; do
@@ -80,9 +81,6 @@ else
 	done
 fi
 PROMPT='${vcs_git:-${vcs_empty}} %{$fg[green]%}%~%{$reset_color%} '
-
-# Right prompt: measure execution time (empty by default):
-RPROMPT=''
 
 # }}}
 # ------------------------------------------------------------------------------
