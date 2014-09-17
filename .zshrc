@@ -6,15 +6,12 @@
 # ------------------------------------------------------------------------------
 # GENERAL (SHRC) {{{
 # Load general configuration (bash and zsh).
-# Contains:
-# - SYSTEM
-# - ALIASES
-# - START-UP ACTIONS
+
 . ~/.shrc
 
 # }}}
 # ------------------------------------------------------------------------------
-# LOOK {{{
+# PROMPT {{{
 
 # Enable colours:
 autoload -U colors && colors
@@ -30,14 +27,11 @@ autoload -Uz vcs_info
 precmd() {
 	# git info:
 	vcs_info
-	git_untracked="$(
-	[ -n "$(git status --porcelain 2>/dev/null | grep '^??')" ] \
-		&& printf "$fg[red]")"
 	git_unstaged="$(
-	[ -n "$(git status --porcelain 2>/dev/null | grep '^.M')" ] \
+	[ -n "$(git status --porcelain 2>/dev/null | grep '^.[M?D]')" ] \
 		&& printf "$fg[red]")"
 	git_staged="$(
-	[ -n "$(git status --porcelain 2>/dev/null | grep '^M.')" ] \
+	[ -n "$(git status --porcelain 2>/dev/null | grep '^[MAD].')" ] \
 		&& printf "$fg[yellow]")"
 	git_ahead="$(
 	[ -n "$(git status --porcelain -b 2>/dev/null|head -n 1|grep -o ahead)" ] \

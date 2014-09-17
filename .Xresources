@@ -24,7 +24,7 @@
 #define lightwhite   #FFFFFF
 
 #define termfg       #AAAAAA
-#define termbg       #111111
+#define termbg       [80]#111111
 
 ! black:
 *color0              : black
@@ -63,6 +63,7 @@ xterm.background     : termbg
 ! look:
 URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,\
                        -gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1
+URxvt.depth          : 24
 URxvt.foreground     : termfg
 URxvt.background     : termbg
 URxvt.cursorBlink    : true

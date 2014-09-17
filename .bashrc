@@ -99,18 +99,6 @@ export HISTSIZE=100000
 
 # }}}
 #-------------------------------------------------------------------------------
-# PKGFILE {{{
-
-# On Arch, if an unknown command is issued, pkgfile will answer where the
-# command might possibly be found:
-if [ "$arch" = 'arch' ]; then
-	pkgfilesrc='/usr/share/doc/pkgfile/command-not-found.bash'
-	[ -e "$pkgfilesrc" ] && . "$pkgfilesrc"
-	unset pkgfilesrc
-fi
-
-# }}}
-#-------------------------------------------------------------------------------
 # BANDCAMP {{{
 # Thanks to d3lxa
 

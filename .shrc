@@ -25,10 +25,123 @@ if [ ! $IS_DESKTOP ] && [ ! -z "$SSH_TTY" ]; then
 	[ -e /usr/bin/tmux ] && [ "$TERM" != 'screen-256color' ] && tmx 0 && exit
 fi
 
+# Determine the shell we're running:
+SHEL=$(basename $SHELL)
+
 # }}}
 # ------------------------------------------------------------------------------
-# ALIASES {{{
+# FUNCTIONS/ALIASES {{{
 
+# Coloured man pages:
+man() {
+	if [ "$TERM" = 'linux' ]; then
+		env \
+			LESS_TERMCAP_mb=$(printf "\033[34m") \
+			LESS_TERMCAP_md=$(printf "\033[1;31m") \
+			LESS_TERMCAP_me=$(printf "\033[0m") \
+			LESS_TERMCAP_se=$(printf "\033[0m") \
+			LESS_TERMCAP_so=$(printf "\033[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\033[0m") \
+			LESS_TERMCAP_us=$(printf "\033[32m") \
+					/usr/bin/man "$@"
+	else
+		env \
+			LESS_TERMCAP_mb=$(printf "\033[1;34m") \
+			LESS_TERMCAP_md=$(printf "\033[38;5;9m") \
+			LESS_TERMCAP_me=$(printf "\033[0m") \
+			LESS_TERMCAP_se=$(printf "\033[0m") \
+			LESS_TERMCAP_so=$(printf "\033[30;43m") \
+			LESS_TERMCAP_ue=$(printf "\033[0m") \
+			LESS_TERMCAP_us=$(printf "\033[38;5;10m") \
+					/usr/bin/man "$@"
+	fi
+}
+
+# Distribution logos:
+printlogo() {
+	case "$1" in
+		debian)
+			printf "\033[31m                             \n"
+			printf         "          .xd§PVkbxc.        \n"
+			printf         "         xP*'      'Vb.      \n"
+			printf         "       'd'     .,.   V.'     \n"
+			printf         "       (*    .'   .  ::      \033[0m `uname -s -r`\n"
+			printf "\033[31m       #     #      ,7       \033[0m on `uname -n`\n"
+			printf "\033[31m       V,     *-__ -'        \n"
+			printf         "       'qb                   \n"
+			printf         "         *:,                 \n"
+			printf         "           '-.               \n"
+			printf         "               '             \n"
+			printf  "\033[0m                             \n"
+			;;
+		arch)
+			printf "\033[34m                             \n"
+			printf         "              /\\            \n"
+			printf         "             /AA\\           \n"
+			printf         "            .'YAA\\          \n"
+			printf         "           /AAAAAA\\         \033[0m `uname -s -r`\n"
+			printf "\033[34m          /AAAAAAAA\\        \033[0m on `uname -n`\n"
+			printf "\033[34m         /AAA/  \\AAA\\      \n"
+			printf         "        /AAA|    |AAP\\      \n"
+			printf         "       /AAAY\\    /YAAa_     \n"
+			printf         "      />*'          '*<\\    \n"
+			printf         "     ^                  ^    \n"
+			printf  "\033[0m                             \n"
+			;;
+		darwin)
+			printf "\033[32m                  .          \n"
+			printf         "               .dA'          \n"
+			printf         "               AP'           \n"
+			printf         "        .dAAbx.,dAAAb.       \n"
+			printf "\033[33m       dAAAAAAAAAAAAP        \033[0m `uname -s -r`\n"
+			printf "\033[31m      :AAAAAAAAAAAAA         \033[0m on `uname -n`\n"
+			printf "\033[31m      'AAAAAAAAAAAAA.        \n"
+			printf "\033[35m       YAAAAAAAAAAAAAx.      \n"
+			printf "\033[34m        \\AAAAAAAAAAAAP      \n"
+			printf "\033[36m         '<AV*''*\\AP'       \n"
+			printf         "                             \n"
+			printf  "\033[0m                             \n"
+			;;
+		gentoo)
+			printf "\033[36m           __                \n"
+			printf         "       .-d§§§§§bc,           \n"
+			printf         "      /§§§§§*\"*Y§§§c.       \n"
+			printf         "     (§§§§§§.   )§§§§b,      \n"
+			printf         "     '(§§§§§§bxxI§§§§§§b     \033[0m $(uname -s -r)\n"
+			printf "\033[36m       \`\">§§§§§§§§§§§§§§)  \033[0m on $(uname -n)\n"
+			printf "\033[36m       .?§§§§§§§§§§§§§P\`    \n"
+			printf         "     .A§§§§§§§§§§§§§*'       \n"
+			printf         "     §§§§§§§§§§§\$*\`        \n"
+			printf         "     V§§§§§§§*'\`            \n"
+			printf         "       \`\"\`\`              \n"
+			printf  "\033[0m                             \n"
+			;;
+		ubuntu)
+			printf "\033[31m                              \n"
+			printf         "          .-x#XXX#:-.         \n"
+			printf         "       .dXXXXXXXXY*\"<Xb.     \n"
+			printf         "      dXXXXP(^\`\`\`'._.XXXb  \n"
+			printf         "     JXXXP' _\\\\a#a,. 'VXXXA \n"
+			printf         "    |XP\"*. .XXXXXXD. 'XXXX)  \033[0m $(uname -s -r)\n"
+			printf "\033[31m    (X.  ; (XXXXXXXT''XXXX)   \033[0m on $(uname -n)\n"
+			printf "\033[31m    'XXXX. \`\\XXXXXP  .XXXX' \n"
+			printf         "     *XXXXb./ \`\` ,·-dXXXX/  \n"
+			printf         "      'YXXXXX#a-a|  .XXY'     \n"
+			printf         "        '+XXXXXXXXX#XP'       \n"
+			printf         "           \`'\"***\"'\`      \n"
+			printf "\033[0m                               \n"
+			;;
+	esac
+}
+
+cmd_exists() {
+	for c in $@; do
+		which $c >/dev/null 2>&1 || return 1
+	done
+	return 0
+}
+
+# Aliases:
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias info='info --vi-keys'
@@ -42,37 +155,14 @@ alias sudo='sudo -p "[sudo]"\ password:\ '
 # BSD vs GNU:
 [ "$arch" = 'darwin' ] && alias ls='ls -G' || alias ls='ls --color=auto'
 
-# Coloured man pages:
-man() {
-	if [ "$TERM" = 'linux' ]; then
-		env \
-			LESS_TERMCAP_mb=$(printf "\e[34m") \
-			LESS_TERMCAP_md=$(printf "\e[1;31m") \
-			LESS_TERMCAP_me=$(printf "\e[0m") \
-			LESS_TERMCAP_se=$(printf "\e[0m") \
-			LESS_TERMCAP_so=$(printf "\e[30;43m") \
-			LESS_TERMCAP_ue=$(printf "\e[0m") \
-			LESS_TERMCAP_us=$(printf "\e[32m") \
-					/usr/bin/man "$@"
-	else
-		env \
-			LESS_TERMCAP_mb=$(printf "\e[1;34m") \
-			LESS_TERMCAP_md=$(printf "\e[38;5;9m") \
-			LESS_TERMCAP_me=$(printf "\e[0m") \
-			LESS_TERMCAP_se=$(printf "\e[0m") \
-			LESS_TERMCAP_so=$(printf "\e[30;43m") \
-			LESS_TERMCAP_ue=$(printf "\e[0m") \
-			LESS_TERMCAP_us=$(printf "\e[38;5;10m") \
-					/usr/bin/man "$@"
-	fi
-}
+# Application specific aliases:
+cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
+cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
+cmd_exists uim-fep mutt && alias mutt='uim-fep -e mutt'
+cmd_exists uim-fep irssi && alias irssi='uim-fep -e irssi'
 
 # Server only aliases (mostly additional security):
 [ ! $IS_DESKTOP ] && alias rm='rm -i'
-
-# Application specific aliases:
-which valgrind >/dev/null 2>&1 && alias valgrind='valgrind --log-file=valgrind.log'
-which ncmpcpp >/dev/null 2>&1 && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -85,72 +175,22 @@ which ncmpcpp >/dev/null 2>&1 && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/con
 #esac
 
 # }}}
+#-------------------------------------------------------------------------------
+# PKGFILE {{{
+
+# On Arch, if an unknown command is issued, pkgfile will answer where the
+# command might possibly be found:
+if [ "$arch" = 'arch' ]; then
+	pkgfilesrc="/usr/share/doc/pkgfile/command-not-found.$SHEL"
+	[ -e "$pkgfilesrc" ] && . "$pkgfilesrc"
+	unset pkgfilesrc
+fi
+
+# }}}
 # ------------------------------------------------------------------------------
 # START-UP ACTIONS {{{
 
-# Define logos:
-printlogo() {
-	case "$1" in
-		debian)
-			printf "\e[31m                             \n"
-			printf       "          .xd§PVkbxc.        \n"
-			printf       "         xP*'      'Vb.      \n"
-			printf       "       'd'     .,.   V.'     \n"
-			printf       "       (*    .'   .  ::      \e[0m `uname -s -r`\n"
-			printf "\e[31m       #     #      ,7       \e[0m on `uname -n`\n"
-			printf "\e[31m       V,     *-__ -'        \n"
-			printf       "       'qb                   \n"
-			printf       "         *:,                 \n"
-			printf       "           '-.               \n"
-			printf       "               '             \n"
-			printf  "\e[0m                             \n"
-			;;
-		arch)
-			printf "\e[34m                             \n"
-			printf       "              /\\             \n"
-			printf       "             /AA\\            \n"
-			printf       "            .'YAA\\           \n"
-			printf       "           /AAAAAA\\          \e[0m `uname -s -r`\n"
-			printf "\e[34m          /AAAAAAAA\\         \e[0m on `uname -n`\n"
-			printf "\e[34m         /AAA/  \\AAA\\        \n"
-			printf       "        /AAA|    |AAP\\       \n"
-			printf       "       /AAAY\\    /YAAa_      \n"
-			printf       "      />*'          '*<\\     \n"
-			printf       "     ^                  ^    \n"
-			printf  "\e[0m                             \n"
-			;;
-		darwin)
-			printf "\e[32m                  .          \n"
-			printf       "               .dA'          \n"
-			printf       "               AP'           \n"
-			printf       "        .dAAbx.,dAAAb.       \n"
-			printf "\e[33m       dAAAAAAAAAAAAP        \e[0m `uname -s -r`\n"
-			printf "\e[31m      :AAAAAAAAAAAAA         \e[0m on `uname -n`\n"
-			printf "\e[31m      'AAAAAAAAAAAAA.        \n"
-			printf "\e[35m       YAAAAAAAAAAAAAx.      \n"
-			printf "\e[34m        \\AAAAAAAAAAAAP       \n"
-			printf "\e[36m         '<AV*''*\\AP'        \n"
-			printf       "                             \n"
-			printf "\e[0m                              \n"
-			;;
-		gentoo)
-			printf "\e[36m           __                \n"
-			printf       "       .-d§§§§§bc,           \n"
-			printf       "      /§§§§§*\"*Y§§§c.       \n"
-			printf       "     (§§§§§§.   )§§§§b,      \n"
-			printf       "     '(§§§§§§bxxI§§§§§§b     \e[0m `uname -s -r`\n"
-			printf "\e[36m       \`\">§§§§§§§§§§§§§§)    \e[0m on `uname -n`\n"
-			printf "\e[36m       .?§§§§§§§§§§§§§P\`    \n"
-			printf       "     .A§§§§§§§§§§§§§*'       \n"
-			printf       "     §§§§§§§§§§§\$*\`        \n"
-			printf       "     V§§§§§§§*'\`            \n"
-			printf       "       \`\"\`\`              \n"
-			printf  "\e[0m                             \n"
-			;;
-	esac
-}
-
-# Print system logo:
+# Print distribution logo:
 printlogo "$arch"
 
 # Display the todo file in the home directory:
