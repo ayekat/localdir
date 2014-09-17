@@ -12,7 +12,7 @@ DESCRIPTION
 	Passing no argument is equal to 'open .'
 
 FILES
-	${XDG_CONFIG_HOME}/open/mapping holds the configuration and contains several
+	${XDG_CONFIG_HOME}/open/openrc holds the configuration and contains several
 	types of mappings. If the file does not exist upon invoking open, it shall
 	be created with an empty configuration.
 
@@ -54,8 +54,8 @@ FILES
 	used for a mapping.
 
 EXAMPLE
-	An example mapping file may be found here:
-		http://github.com/ayekat/dotfiles/tree/master/.config/open/mapping
+	An example openrc file may be found here:
+		http://github.com/ayekat/dotfiles/tree/master/.config/open/openrc
 
 NOTE
 	You may most likely be interested in using a file manager to do the

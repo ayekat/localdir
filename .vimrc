@@ -33,6 +33,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
+NeoBundle 'vim-scripts/scala.vim'
 NeoBundleCheck
 
 " Disable scala and java syntax checkers, as they are slow as hell:
@@ -53,8 +54,6 @@ let g:unite_force_overwrite_statusline = 0
 let g:dwm_map_keys = 0
 let g:dwm_auto_center = 0
 
-" Further settings are defined in the 'behaviour' part.
-
 " }}}
 " ------------------------------------------------------------------------------
 " LOOK {{{
@@ -69,187 +68,66 @@ set numberwidth=5
 " Enable UTF-8 (I wanna see Umlauts!):
 set encoding=utf8
 
-" SPLIT WINDOWS >
-	
-	if $TERM == 'linux'
-		set fillchars=vert:.
-	else
-		set fillchars=vert:│
-	endif
-	
+" Display a bar after a reasonable number of columns:
+if version >= 703
+	set colorcolumn=81
+	au FileType mail,gitcommit set colorcolumn=73
+	au FileType java,scala set colorcolumn=121
+	au FileType asm set colorcolumn=41,81
+endif
 
-" FOLDING >
+" I wanna see tabs and trailing whitespaces:
+set list
+set listchars=tab:→\ ,trail:·
 
-	" Fill characters (space=don't fill up):
-	set fillchars+=fold:\ 
+" Window separator:
+if $TERM == 'linux'
+	set fillchars=vert:.
+else
+	set fillchars=vert:│
+endif
+
+" Fold fill characters:
+set fillchars+=fold:\ 
 
 	" Autofold (except in git commit message):
 	set foldmethod=marker
 	au FileType gitcommit set foldmethod=manual
 
-
-" PROGRAMMING >
-
-	" Without any syntax highlighting, programming is a pain:
-	syntax on
-
-	" Fix unrecognised file types:
-	au BufRead,BufNewFile *.md set filetype=markdown
-	au BufRead,BufNewFile *.tex set filetype=tex
-	au BufRead,BufNewFile *.xbm set filetype=c
-	au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl set filetype=glsl
-	au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
-	au BufRead,BufNewFile *.target set filetype=systemd
-	au BufRead,BufNewFile */etc/iptables/*.rules set filetype=sh
-
-	" Assembly:
-	let asmsyntax='nasm'
-
-	" C:
-	let c_no_curly_error=1 " Allow {} inside [] and () (non-ANSI)
-	let c_space_errors=1   " Highlight trailing spaces and spaces before tabs
-	let c_syntax_for_h=1   " Treat .h as C header files (instead of C++)
-
-	" Make:
-	let make_no_commands=1 " Don't highlight commands
-
-	" PHP:
-	"let php_sql_query=1    " Highlight SQL syntax inside strings
-	"let php_htmlInStrings=1         " HTML syntax inside strings
-
-	" Shell:
-	let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
-
-	" Display a bar after a reasonable number of columns:
-	if version >= 703
-		set colorcolumn=81
-		au FileType mail,gitcommit set colorcolumn=73
-		au FileType java set colorcolumn=121
-		au FileType asm set colorcolumn=41,81
-	endif
-
-	" I wanna see tabs and trailing whitespaces:
-	set list
-	set listchars=tab:→\ ,trail:·
-
-	" Highlight matching parentheses:
-	set showmatch
-
 " }}}
 " ------------------------------------------------------------------------------
-" BEHAVIOUR {{{
+" SYNTAX {{{
 
-" Leader key:
-let mapleader='ö'
+" Without any syntax highlighting, programming is a pain:
+syntax on
 
-" Keep 3 lines 'padding' above/below the cursor:
-set scrolloff=3
+" Fix unrecognised file types:
+au BufRead,BufNewFile *.md set filetype=markdown
+au BufRead,BufNewFile *.tex set filetype=tex
+au BufRead,BufNewFile *.xbm set filetype=c
+au BufRead,BufNewFile *.scala set filetype=scala
+au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl set filetype=glsl
+au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
+au BufRead,BufNewFile *.target set filetype=systemd
+au BufRead,BufNewFile */etc/iptables/*.rules set filetype=sh " ugly
 
-" Simplify window scrolling:
-map K 3<C-y>
-map J 3<C-e>
+" Assembly:
+let asmsyntax='nasm'
 
-" Easier to access 'back to beginning of line':
-map ä 0
+" C:
+let c_no_curly_error=1 " Allow {} inside [] and () (non-ANSI)
+let c_space_errors=1   " Highlight trailing spaces and spaces before tabs
+let c_syntax_for_h=1   " Treat .h as C header files (instead of C++)
 
-" Modelines are evil!
-set nomodeline
+" Make:
+let make_no_commands=1 " Don't highlight commands
 
-" Fix trailing whitespaces:
-function! StripTrailingWhitespaces()
-	let _s=@/
-	let l=line('.')
-	let c=col('.')
-	%s/\s\+$//eg
-	call cursor(l,c)
-	let @/=_s
-endfunction
-au FileType c,java,php,sh,perl,sql,glsl,cpp au BufWritePre <buffer> :call StripTrailingWhitespaces()
+" PHP:
+"let php_sql_query=1    " Highlight SQL syntax inside strings
+"let php_htmlInStrings=1         " HTML syntax inside strings
 
-" Save the undo tree between edit:
-if v:version >= 703
-	if ! isdirectory($HOME . "/.vim/undo")
-		call mkdir($HOME . "/.vim/undo", "p")
-		!chmod 700 -R ~/.vim/undo
-	endif
-	set undofile
-	" Save it in ~/.vim/undo/ if possible, otherwise same dir as edited file
-	set undodir=$HOME/.vim/undo,.
-endif
-
-" Make sure we don't generate undofiles for certain files:
-if has("autocmd")
-	autocmd BufWritePre /tmp/* setlocal noundofile
-	autocmd BufWritePre /dev/shm/* setlocal noundofile
-	autocmd BufWritePre /run/shm/* setlocal noundofile
-endif
-
-
-" INSERT MODE >
-
-	" By default, use tabs instead of spaces, and 4 character wide tabs:
-	set noexpandtab shiftwidth=4 tabstop=4
-	au FileType c set tabstop=8 shiftwidth=8
-	au FileType tex,scala set expandtab tabstop=2 shiftwidth=2
-	au FileType java,ant,haskell,sql set expandtab
-
-	" Auto-indent, and reuse the same combination of spaces/tabs:
-	set autoindent
-	set copyindent
-	filetype plugin indent on
-
-	" Visually wrap lines (except in Java), and break words:
-	set wrap
-	au FileType java set nowrap
-	set linebreak      " wrap at words (does not work with list)
-
-	" Physically wrap lines for certain file types:
-	au FileType tex,html,php,markdown set textwidth=80
-	au FileType gitcommit set textwidth=72
-
-	" Remove delay for leaving insert mode:
-	set noesckeys
-
-" NORMAL MODE >
-
-	" Display commands when typing:
-	set showcmd
-
-	" Highlight search results and display them immediately as they are typed:
-	set hlsearch
-	set incsearch
-
-	" Ignore case when searching, except when explicitely using majuscules:
-	set ignorecase
-	set smartcase
-
-	" Moving the cursor on visual lines is much more intuitive with 'g':
-	map k gk
-	map j gj
-
-	" Word-breaking characters:
-	set iskeyword-=[.]
-
-" FANCY IDE-LIKE:
-
-	" Show command history:
-	nnoremap ; q:
-	vnoremap ; q:
-
-	" Show 10 last commands in the window
-	set cmdwinheight=10
-
-	" Unite window:
-	map <leader>n :Unite file<CR>
-
-	" Search for tags file recursively, up to root:
-	set tags=./tags;/
-
-" DWM:
-
-	map <leader>j <C-w>w
-	map <leader>k <C-w>W
-	map <leader><Space> :call DWM_Focus()<CR>
+" Shell:
+let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -363,6 +241,129 @@ else
 	" }}}
 endif
 
+
+" }}}
+" ------------------------------------------------------------------------------
+" WHITESPACE {{{
+
+" Fix trailing whitespaces upon saving:
+function! StripTrailingWhitespaces()
+	let _s=@/
+	let l=line('.')
+	let c=col('.')
+	%s/\s\+$//eg
+	call cursor(l,c)
+	let @/=_s
+endfunction
+au FileType c,java,php,sh,perl,sql,glsl,cpp au BufWritePre <buffer> :call StripTrailingWhitespaces()
+
+" Use 4-char-tabs... usually:
+set noexpandtab shiftwidth=4 tabstop=4
+au FileType c set tabstop=8 shiftwidth=8
+au FileType tex,scala set expandtab tabstop=2 shiftwidth=2
+au FileType java,ant,haskell,sql set expandtab
+
+" Auto-indent, and reuse the same combination of spaces/tabs:
+filetype plugin indent on
+set autoindent
+set copyindent
+
+" Visually wrap lines (except in Java), and break words:
+set wrap
+au FileType java,scala set nowrap
+set linebreak      " wrap at words (does not work with list)
+
+" Physically wrap lines for certain file types:
+au FileType tex,html,php,markdown set textwidth=80
+au FileType gitcommit set textwidth=72
+
+" }}}
+" ------------------------------------------------------------------------------
+" FEEL {{{
+
+" Leader key:
+let mapleader='ö'
+
+" Keep 3 lines 'padding' above/below the cursor:
+set scrolloff=3
+
+" Simple window scrolling:
+map K 3<C-y>
+map J 3<C-e>
+
+" Simple cursor moving on visual lines:
+map k gk
+map j gj
+
+" Easy 'back to beginning of line':
+map ä 0
+
+" Remove delay for leaving insert mode:
+set noesckeys
+
+" Split window handling:
+map <leader>j <C-w>w
+map <leader>k <C-w>W
+map <leader><Space> :call DWM_Focus()<CR>
+
+" Show command history:
+nnoremap ; q:
+vnoremap ; q:
+
+" Show 10 last commands in the window
+set cmdwinheight=10
+
+" Unite window:
+map <leader>n :Unite file<CR>
+
+" Search for tags file recursively, up to root:
+set tags=./tags;/
+
+" }}}
+" ------------------------------------------------------------------------------
+" AUTO-ACTIONS {{{
+
+" Modelines are evil!
+set nomodeline
+
+" Save the undo tree between edit:
+if v:version >= 703
+	if ! isdirectory($HOME . "/.vim/undo")
+		call mkdir($HOME . "/.vim/undo", "p")
+		!chmod 700 -R ~/.vim/undo
+	endif
+	set undofile
+	" Save it in ~/.vim/undo/ if possible, otherwise same dir as edited file
+	set undodir=$HOME/.vim/undo,.
+endif
+
+" Make sure we don't generate undofiles for certain files:
+if has("autocmd")
+	autocmd BufWritePre /tmp/* setlocal noundofile
+	autocmd BufWritePre /dev/shm/* setlocal noundofile
+	autocmd BufWritePre /run/shm/* setlocal noundofile
+endif
+
+" }}}
+" ------------------------------------------------------------------------------
+" FEEDBACK {{{
+
+" Display commands when typing:
+set showcmd
+
+" Highlight search results and display them immediately as they are typed:
+set hlsearch
+set incsearch
+
+" Ignore case when searching, except when explicitely using majuscules:
+set ignorecase
+set smartcase
+
+" Word-breaking characters:
+set iskeyword-=[.]
+
+" Highlight matching parentheses:
+set showmatch
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -638,4 +639,5 @@ endif
 
 au! BufEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
 au! BufEnter /home/ayekat/epfl/blitzview-report/*.tex set formatoptions+=l
+
 " }}}

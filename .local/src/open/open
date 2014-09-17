@@ -4,7 +4,7 @@
 
 [ -n "$XDG_CONFIG_HOME" ] || XDG_CONFIG_HOME=~/.config
 confdir="$XDG_CONFIG_HOME/open"
-conffile="$confdir/mapping"
+conffile="$confdir/openrc"
 
 #-------------------------------------------------------------------------------
 
