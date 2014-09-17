@@ -28,14 +28,9 @@ fi
 
 # INPUT (KEYBOARD) -------------------------------------------------------------
 
-# Load swiss keyboard layout and swap Escape and Caps Lock:
-setxkbmap -layout ch -option 'caps:swapescape'
-
-# Swap Alt and Windows key:
-xmodmap -e 'remove mod4 = Super_L'
-xmodmap -e 'remove mod1 = Alt_L'
-xmodmap -e 'add mod1 = Super_L'
-xmodmap -e 'add mod4 = Alt_L'
+# Load swiss keyboard layout; then apply a few modifications:
+setxkbmap -layout ch
+xmodmap ~/.config/xmodmap/xmodmaprc
 
 
 # INPUT (MOUSE) ----------------------------------------------------------------
