@@ -13,12 +13,12 @@ set nocompatible
 
 " Initialise and bootstrap NeoBundle (here goes my thanks to flor):
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle/
-	if !isdirectory(glob('~/.vim/bundle/neobundle'))
-		!mkdir -p ~/.vim/bundle/neobundle && git clone 'https://github.com/Shougo/neobundle.vim.git' ~/.vim/bundle/neobundle
+	set runtimepath+=~/.config/vim/neobundle/neobundle.vim/
+	if !isdirectory(glob('~/.config/vim/neobundle'))
+		!mkdir -p ~/.config/vim/neobundle && git clone 'https://github.com/Shougo/neobundle.vim' ~/.config/vim/neobundle/neobundle.vim
 	endif
 endif
-call neobundle#rc(expand('~/.vim/bundle/'))
+call neobundle#rc(expand('~/.config/vim/neobundle/'))
 
 " Let NeoBundle handle itself:
 NeoBundleFetch 'Shougo/neobundle.vim'
@@ -33,7 +33,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
-NeoBundle 'vim-scripts/scala.vim'
+NeoBundle 'rosstimson/scala-vim-support'
 NeoBundleCheck
 
 " Disable scala and java syntax checkers, as they are slow as hell:
@@ -287,13 +287,15 @@ let mapleader='ö'
 " Keep 3 lines 'padding' above/below the cursor:
 set scrolloff=3
 
-" Simple window scrolling:
-map K 3<C-y>
-map J 3<C-e>
-
 " Simple cursor moving on visual lines:
 map k gk
 map j gj
+
+" Simple window scrolling:
+map K 3<C-y>
+map J 3<C-e>
+map L 4zl
+map H 4zh
 
 " Easy 'back to beginning of line':
 map ä 0
@@ -328,13 +330,13 @@ set nomodeline
 
 " Save the undo tree between edit:
 if v:version >= 703
-	if ! isdirectory($HOME . "/.vim/undo")
-		call mkdir($HOME . "/.vim/undo", "p")
+	if ! isdirectory($HOME . "/.config/vim/undo")
+		call mkdir($HOME . "/.config/vim/undo", "p")
 		!chmod 700 -R ~/.vim/undo
 	endif
 	set undofile
-	" Save it in ~/.vim/undo/ if possible, otherwise same dir as edited file
-	set undodir=$HOME/.vim/undo,.
+	" Save them in ~/.config/vim/undo/ if possible, otherwise in current dir:
+	set undodir=$HOME/.config/vim/undo,.
 endif
 
 " Make sure we don't generate undofiles for certain files:

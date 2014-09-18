@@ -6,7 +6,7 @@
 	diff = auto
 	branch = auto
 [core]
-	editor = vim
+	editor = vim -i .cache/viminfo -u .config/vim/vimrc
 	excludesfile = .config/git/ignore
 [push]
 	default = simple
