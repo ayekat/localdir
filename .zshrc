@@ -16,34 +16,60 @@
 # Enable colours:
 autoload -U colors && colors
 
+# Define prompt colours:
+if [ "$TERM" != 'linux' ]; then
+	pc_vim_normal="$(tput setaf 22)$(tput setab 148)"
+	pc_vim_insert="$(tput setaf 45)$(tput setab  23)"
+else
+	pc_vim_normal="$fg[white]$bg[blue]"
+	pc_vim_insert="$fg[blue]$bg[yellow]"
+fi
+pc_git_clean="$fg[blue]"
+pc_git_ahead="$fg[cyan]"
+pc_git_ready="$fg[yellow]"
+pc_git_dirty="$fg[red]"
+pc_host="$fg[yellow]"
+pc_pwd="$fg[green]"
+
+# Define vim mode strings:
+vim_mode_normal='CMD'
+vim_mode_insert='INS'
+vim_mode=$vim_mode_insert
+
 # VCS settings:
 setopt prompt_subst
 zstyle ':vcs_info:*' enable git
 zstyle ':vcs_info:git*' check-for-changes true
-zstyle ':vcs_info:git*' formats "[%b]"
+zstyle ':vcs_info:git*' formats "%b"
 autoload -Uz vcs_info
+gstat() { git status --porcelain 2>/dev/null; }
+ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 
-# Run before the prompt is shown:
-precmd() {
-	# git info:
-	vcs_info
-	git_unstaged="$(
-	[ -n "$(git status --porcelain 2>/dev/null | grep '^.[M?D]')" ] \
-		&& printf "$fg[red]")"
-	git_staged="$(
-	[ -n "$(git status --porcelain 2>/dev/null | grep '^[MAD].')" ] \
-		&& printf "$fg[yellow]")"
-	git_ahead="$(
-	[ -n "$(git status --porcelain -b 2>/dev/null|head -n 1|grep -o ahead)" ] \
-		&& printf "$fg[cyan]")"
-	if [ -n "$vcs_info_msg_0_" ]; then
-		vcs_git="%{$fg[blue]$git_ahead$git_staged$git_unstaged$git_untracked%}"
-		vcs_git+="$vcs_info_msg_0_"
+build_prompt() {
+	# Set colours depending on mode:
+	if [ "$vim_mode" = "$vim_mode_normal" ]; then
+		pc_vim="$pc_vim_normal"
 	else
-		vcs_git=""
+		pc_vim="$pc_vim_insert"
 	fi
 
-	# measure execution time:
+	# Build prompt:
+	prompt="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
+	if [ -n "$git_branch" ]; then
+		case $git_state in
+			clean) prompt+="%{$pc_git_clean%}" ;;
+			ahead) prompt+="%{$pc_git_ahead%}" ;;
+			ready) prompt+="%{$pc_git_ready%}" ;;
+			dirty) prompt+="%{$pc_git_dirty%}" ;;
+		esac
+		prompt+="[$git_branch]%{$reset_color%} "
+	fi
+	[ -n "$SSH_TTY" ] && prompt+="%{$pc_host%}%m:%{$reset_color%}"
+	prompt+="%{$pc_pwd%}%~%{$reset_color%}"
+	export PROMPT="$prompt "
+}
+
+build_rprompt() {
 	rprompt="%(?.%{$fg[black]%},.%{$fg_bold[red]%}[%?])%{$reset_color%}"
 	if [ -n "$timer" ]; then
 		timer_show=$(($SECONDS - $timer))
@@ -56,39 +82,73 @@ precmd() {
 	export RPROMPT="$rprompt"
 }
 
-# Run before a command is executed:
 preexec() {
 	timer=${timer:-$SECONDS}
 }
 
-# Left prompt: pretty dots or hostname:
-vcs_empty=""
-if [ -n "$SSH_TTY" ]; then
-	vcs_empty+="%{$fg[magenta]%}%m"
-elif [ $TERM = 'linux' ]; then
-	for c in green yellow red magenta blue cyan; do
-		vcs_empty+="%{$fg_bold[$c]%}:"
-	done
-else
-	for c in 10 11 9 13 12 14; do
-		vcs_empty+="%{$(tput setaf $c)%}:"
-	done
-fi
-PROMPT='${vcs_git:-${vcs_empty}} %{$fg[green]%}%~%{$reset_color%} '
+precmd() {
+	# VCS: update information, reset state:
+	vcs_info
+	git_state=''
+	git_branch="$vcs_info_msg_0_"
+	if [ -n "$git_branch" ]; then
+		git_state='clean'
+		ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
+		gstat | grep  '^[MAD].' >/dev/null && git_state='ready'
+		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
+	fi
+
+	build_prompt  # TODO may cause problems (variable scope)
+	build_rprompt
+}
+
+precmd
 
 # }}}
 # ------------------------------------------------------------------------------
 # FEEL {{{
 
-# I use vim, but I'm used to emacs-keybinds in the terminal:
-bindkey -e
+# Use vim mode, but keep handy emacs keys in insert mode:
+bindkey -v
+bindkey -M viins ''    backward-delete-char
+bindkey -M viins '[3~' delete-char
+bindkey -M viins ''    beginning-of-line
+bindkey -M viins ''    end-of-line
+bindkey -M viins ''    backward-kill-line
+bindkey -M viins ''    up-line-or-history
+bindkey -M viins ''    down-line-or-history
 
-# However we don't need to exagerate, do we?
-# github: should look like "^[[3~"
-bindkey "[3~" delete-char
+# Handler for XXX
+function zle-keymap-select {
+	vim_mode="${${KEYMAP/vicmd/${vim_mode_normal}}/(main|viins)/${vim_mode_insert}}"
+	build_prompt
+	zle reset-prompt
+}
+zle -N zle-keymap-select
+
+# Handler for after entering a command (reset to insert mode):
+function zle-line-finish {
+	vim_mode=$vim_mode_insert
+	build_prompt
+}
+zle -N zle-line-finish
+
+# ^C puts us back in insert mode; repropagate to not interfere with dependants:
+function TRAPINT() {
+	vim_mode=$vim_mode_insert
+	build_prompt
+	return $((128 + $1))
+}
+
+# Initially we are in insert mode:
+vim_mode="$vim_ins_mode"
 
 # Disable zsh menu for autocompletion:
 #setopt no_auto_menu
+
+# }}}
+# ------------------------------------------------------------------------------
+# COMPINSTALL {{{
 
 # The following lines were added by compinstall
 zstyle ':completion:*' format "[%{$fg_bold[default]%}%d%{$reset_color%}]"

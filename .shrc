@@ -158,7 +158,7 @@ cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
 cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 cmd_exists uim-fep mutt && alias mutt='uim-fep -e mutt'
 cmd_exists uim-fep irssi && alias irssi='uim-fep -e irssi'
-cmd_exists sudo && alias sudo='sudo -p "[sudo]"\ password:\ '
+cmd_exists sudo && alias sudo="sudo -p '[sudo] password: '"
 cmd_exists vim && alias vim='vim -i ~/.cache/viminfo -u ~/.config/vim/vimrc'
 
 # Server only aliases (mostly additional security):

@@ -90,9 +90,9 @@ endif
 " Fold fill characters:
 set fillchars+=fold:\ 
 
-	" Autofold (except in git commit message):
-	set foldmethod=marker
-	au FileType gitcommit set foldmethod=manual
+" Autofold (except in git commit message):
+set foldmethod=marker
+au FileType gitcommit set foldmethod=manual
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -281,6 +281,9 @@ au FileType gitcommit set textwidth=72
 " ------------------------------------------------------------------------------
 " FEEL {{{
 
+" Fix Backspace key to work current edit:
+set backspace=indent,eol,start
+
 " Leader key:
 let mapleader='ö'
 
@@ -410,7 +413,7 @@ else
 	hi V_mode           ctermfg=52  ctermbg=208
 
 	hi I_mode           ctermfg=8   ctermbg=7
-	hi I_git_branch     ctermfg=148 ctermbg=31
+	hi I_git_branch     ctermfg=7   ctermbg=31
 	hi I_git_sep        ctermfg=23  ctermbg=31
 	hi I_file           ctermfg=249 ctermbg=31
 	hi I_file_emphasise ctermfg=7   ctermbg=31
@@ -599,7 +602,7 @@ function! StatuslineInactive()
 endfunction " }}}
 
 function! StatuslineCommand() " {{{
-	return '%#cmd_mode# COMMAND %#cmd_mode_end#%{rfsep}'
+	return '%#cmd_mode# COMMAND %#cmd_mode_end#%{sep}'
 endfunction " }}}
 
 " define when which statusline is displayed:
