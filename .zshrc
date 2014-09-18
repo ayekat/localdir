@@ -21,8 +21,8 @@ if [ "$TERM" != 'linux' ]; then
 	pc_vim_normal="$(tput setaf 22)$(tput setab 148)"
 	pc_vim_insert="$(tput setaf 45)$(tput setab  23)"
 else
-	pc_vim_normal="$fg[white]$bg[blue]"
-	pc_vim_insert="$fg[blue]$bg[yellow]"
+	pc_vim_normal="$fg[black]$bg[green]"
+	pc_vim_insert="$fg[cyan]$bg[blue]"
 fi
 pc_git_clean="$fg[blue]"
 pc_git_ahead="$fg[cyan]"
@@ -30,6 +30,9 @@ pc_git_ready="$fg[yellow]"
 pc_git_dirty="$fg[red]"
 pc_host="$fg[yellow]"
 pc_pwd="$fg[green]"
+pc_time="$fg[green]"
+pc_retval_bad="$fg_bold[red]"
+pc_retval_good="$fg[black]"
 
 # Define vim mode strings:
 vim_mode_normal='CMD'
@@ -45,7 +48,8 @@ autoload -Uz vcs_info
 gstat() { git status --porcelain 2>/dev/null; }
 ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 
-build_prompt() {
+build_prompt() #{{{
+{
 	# Set colours depending on mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
@@ -68,19 +72,24 @@ build_prompt() {
 	prompt+="%{$pc_pwd%}%~%{$reset_color%}"
 	export PROMPT="$prompt "
 }
+#}}}
 
-build_rprompt() {
-	rprompt="%(?.%{$fg[black]%},.%{$fg_bold[red]%}[%?])%{$reset_color%}"
+build_rprompt() #{{{
+{
+	# Build right prompt:
+	rprompt=''
 	if [ -n "$timer" ]; then
 		timer_show=$(($SECONDS - $timer))
 		if [ ${timer_show} -ne 0 ]; then
-			rprompt+=" %{$fg[blue]%}${timer_show} sec%{$reset_color%}"
+			rprompt+="%{$pc_time%}${timer_show} sec%{$reset_color%} "
 		fi
 		unset timer
 		unset timer_show
 	fi
+	rprompt+="%(?.%{$pc_retval_good%}.%{$pc_retval_bad%})[%?]%{$reset_color%}"
 	export RPROMPT="$rprompt"
 }
+#}}}
 
 preexec() {
 	timer=${timer:-$SECONDS}
@@ -98,7 +107,7 @@ precmd() {
 		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
 	fi
 
-	build_prompt  # TODO may cause problems (variable scope)
+	build_prompt
 	build_rprompt
 }
 
@@ -118,7 +127,7 @@ bindkey -M viins ''    backward-kill-line
 bindkey -M viins ''    up-line-or-history
 bindkey -M viins ''    down-line-or-history
 
-# Handler for XXX
+# Handler for mode change:
 function zle-keymap-select {
 	vim_mode="${${KEYMAP/vicmd/${vim_mode_normal}}/(main|viins)/${vim_mode_insert}}"
 	build_prompt
@@ -139,9 +148,6 @@ function TRAPINT() {
 	build_prompt
 	return $((128 + $1))
 }
-
-# Initially we are in insert mode:
-vim_mode="$vim_ins_mode"
 
 # Disable zsh menu for autocompletion:
 #setopt no_auto_menu
