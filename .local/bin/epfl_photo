@@ -1,0 +1,15 @@
+#!/bin/sh
+# Opens the photo of a person at the EPFL by their people.epfl.ch-name
+# You'll need to log in to the service.
+
+sciper=$(curl "http://people.epfl.ch/$1" 2>/dev/null | \
+	grep '<div class="button vcard">' -A 1 | \
+	grep -o 'id=[0-9]\{6\}' | \
+	cut -d '=' -f 2)
+
+if [ -z "$sciper" ]; then
+	echo "$1: could not find person" >&2
+	exit 1
+fi
+
+open "http://people.epfl.ch/cgi-bin/people/getPhoto?id=${sciper}\&show=1"
