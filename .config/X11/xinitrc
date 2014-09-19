@@ -65,7 +65,7 @@ lcdadjust &
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-xrdb ~/.Xresources
+xrdb ~/.config/X11/Xresources
 
 # Start the urxvt daemon:
 urxvtd -f -o

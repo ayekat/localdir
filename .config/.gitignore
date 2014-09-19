@@ -2,3 +2,5 @@ ncmpcpp/error.log
 git/gitk
 vim/neobundle
 vim/undo
+zsh/.zhistory
+zsh/.zcompdump

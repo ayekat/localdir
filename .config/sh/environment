@@ -1,0 +1,52 @@
+#!/bin/sh
+# Sets environment variables before logging into the shell.
+
+path=''
+
+# Binary search path: local bin, gems, cabal, colorgcc
+[ -d ~/.local/bin ]          && path="~/.local/bin:$path"
+[ -d ~/.cabal/bin ]          && path="~/.cabal/bin:$path"
+[ -d ~/.gem/ruby/2.1.0/bin ] && path="~/.gem/ruby/2.1.0/bin:$path"
+[ -d /usr/lib/colorgcc/bin ] && path="/usr/lib/colorgcc/bin:$path"
+
+# Altera (Quartus, ModelSim)
+dir_altera=~/.local/bin/altera
+if [ -d $dir_altera ]; then
+	path="$dir_altera/quartus/bin:$path"   # Quartus
+	path="$dir_altera/modelsim_ase:$path"  # ModelSim
+	path="$dir_altera/nios2eds/bin:$path"  # NIOS2
+	path="$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$path"
+	path="$dir_altera/nios2eds/sdk2/bin:$path"
+fi
+unset dir_altera
+
+# Set vim as default text editor:
+export EDITOR='/usr/bin/vim'
+
+# Set XDG variables:
+export XDG_CONFIG_HOME=~/.config
+export XDG_CACHE_HOME=~/.cache
+export XDG_DATA_HOME=~/.local/share
+
+# Fix various applications to respect XDG:
+export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
+export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
+
+# Set colours for less, man:
+if [ "$TERM" = 'linux' ]; then
+	export LESS_TERMCAP_mb=$(printf "\033[34m")
+	export LESS_TERMCAP_md=$(printf "\033[1;31m")
+	export LESS_TERMCAP_me=$(printf "\033[0m")
+	export LESS_TERMCAP_se=$(printf "\033[0m")
+	export LESS_TERMCAP_so=$(printf "\033[30;43m")
+	export LESS_TERMCAP_ue=$(printf "\033[0m")
+	export LESS_TERMCAP_us=$(printf "\033[32m")
+else
+	export LESS_TERMCAP_mb=$(printf "\033[1;34m")
+	export LESS_TERMCAP_md=$(printf "\033[38;5;9m")
+	export LESS_TERMCAP_me=$(printf "\033[0m")
+	export LESS_TERMCAP_se=$(printf "\033[0m")
+	export LESS_TERMCAP_so=$(printf "\033[30;43m")
+	export LESS_TERMCAP_ue=$(printf "\033[0m")
+	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
+fi
