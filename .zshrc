@@ -78,15 +78,15 @@ build_rprompt() #{{{
 {
 	# Build right prompt:
 	rprompt=''
+	rprompt+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?] )%{$reset_color%}"
 	if [ -n "$timer" ]; then
 		timer_show=$(($SECONDS - $timer))
 		if [ ${timer_show} -ne 0 ]; then
-			rprompt+="%{$pc_time%}${timer_show} sec%{$reset_color%} "
+			rprompt+="%{$pc_time%}${timer_show} sec%{$reset_color%}"
 		fi
 		unset timer
 		unset timer_show
 	fi
-	rprompt+="%(?.%{$pc_retval_good%}.%{$pc_retval_bad%})[%?]%{$reset_color%}"
 	export RPROMPT="$rprompt"
 }
 #}}}
@@ -103,7 +103,7 @@ precmd() {
 	if [ -n "$git_branch" ]; then
 		git_state='clean'
 		ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
-		gstat | grep  '^[MAD].' >/dev/null && git_state='ready'
+		gstat | grep  '^[MADR].' >/dev/null && git_state='ready'
 		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
 	fi
 
