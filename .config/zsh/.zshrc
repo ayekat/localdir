@@ -7,7 +7,7 @@
 # GENERAL (SHRC) {{{
 # Load general configuration (bash and zsh).
 
-. $XDG_CONFIG_HOME/.shrc
+. $XDG_CONFIG_HOME/sh/shrc
 
 # }}}
 # ------------------------------------------------------------------------------
