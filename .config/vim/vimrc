@@ -1,22 +1,50 @@
 " Vim configuration file
 " Initially written by ayekat in a snowy day in january 2010
 
-" ------------------------------------------------------------------------------
-" GENERAL {{{
-
-" No compatibility with vi for tasty features:
 set nocompatible
+
+" ------------------------------------------------------------------------------
+" PATHS {{{
+" We like to respect the XDG specifications
+
+" Where vim looks for scripts:
+set runtimepath+=$XDG_CONFIG_HOME/vim
+
+" Where vim stores backup files:
+set backupdir=$XDG_CACHE_HOME/vim,/tmp,~
+
+" Where vim stores swap files:
+set directory=$XDG_CACHE_HOME/vim,/tmp,~
+
+" Where vim stores the command history:
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+
+" Where vim stores the undo tree:
+set undodir=$XDG_CACHE_HOME/vim/undo
+
+" Make sure the damn paths exists:
+function! MakeSureTheDamnPathExists(path)
+	if !isdirectory(a:path)
+		call mkdir(a:path, 'p', 0700)
+	endif
+endfunction
+call MakeSureTheDamnPathExists($XDG_CONFIG_HOME.'/vim')
+call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim')
+call MakeSureTheDamnPathExists(&undodir)
+
 
 " }}}
 " ------------------------------------------------------------------------------
 " BUNDLES {{{
 
+let g:bundledir=$XDG_CONFIG_HOME.'/vim/neobundle'
 " Initialise and bootstrap NeoBundle (here goes my thanks to flor):
 if has('vim_starting')
-	set runtimepath+=~/.config/vim/neobundle/neobundle.vim/
-	if !isdirectory(glob('~/.config/vim/neobundle'))
-		!mkdir -p ~/.config/vim/neobundle && git clone 'https://github.com/Shougo/neobundle.vim' ~/.config/vim/neobundle/neobundle.vim
+	if !isdirectory(g:bundledir)
+		call mkdir(g:bundledir, 'p', 0700)
+		!git clone 'https://github.com/Shougo/neobundle.vim' $XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
 	endif
+	set runtimepath+=$XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
 endif
 call neobundle#rc(expand('~/.config/vim/neobundle/'))
 
@@ -331,23 +359,11 @@ set tags=./tags;/
 " Modelines are evil!
 set nomodeline
 
-" Save the undo tree between edit:
-if v:version >= 703
-	if ! isdirectory($HOME . "/.config/vim/undo")
-		call mkdir($HOME . "/.config/vim/undo", "p")
-		!chmod 700 -R ~/.vim/undo
-	endif
-	set undofile
-	" Save them in ~/.config/vim/undo/ if possible, otherwise in current dir:
-	set undodir=$HOME/.config/vim/undo,.
-endif
+" Save the undo tree before quitting vim:
+set undofile
 
 " Make sure we don't generate undofiles for certain files:
-if has("autocmd")
-	autocmd BufWritePre /tmp/* setlocal noundofile
-	autocmd BufWritePre /dev/shm/* setlocal noundofile
-	autocmd BufWritePre /run/shm/* setlocal noundofile
-endif
+au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
 
 " }}}
 " ------------------------------------------------------------------------------

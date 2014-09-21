@@ -132,7 +132,11 @@ cmd_exists uim-fep irssi && alias irssi='uim-fep -e irssi'
 cmd_exists sudo && alias sudo="sudo -p '[sudo] password: '"
 
 # Server only aliases (mostly additional security):
-[ ! $IS_DESKTOP ] && alias rm='rm -i'
+if [ -z "$IS_DESKTOP" ]; then
+	alias rm='rm -i'
+else
+	alias startx="$(which -a startx) $XINITRC"
+fi
 
 # }}}
 # ------------------------------------------------------------------------------
