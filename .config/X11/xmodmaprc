@@ -8,8 +8,8 @@ add mod1 = Super_L
 add mod4 = Alt_L
 
 ! Swap CapsLock and Escape:
-keycode  9 = Caps_Lock NoSymbol Caps_Lock
-keycode 66 = Escape NoSymbol Escape
+!keycode  9 = Caps_Lock NoSymbol Caps_Lock
+!keycode 66 = Escape NoSymbol Escape
 
 ! Map Backspace, Delete and Enter to a more ergonomic area:
 keycode 44 = j J j J BackSpace BackSpace BackSpace

@@ -14,9 +14,6 @@ dzenstat_draw() {
 }
 
 dzenstat_start() {
-	# check for changes in .Xresources (needed by dzen2):
-	xrdb ~/.Xresources
-
 	dzenstat_draw 1
 	[ $(dynenv NUM_SCREENS) -eq 2 ] && dzenstat_draw 2
 }

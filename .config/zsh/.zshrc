@@ -93,6 +93,12 @@ build_rprompt() #{{{
 
 preexec() {
 	timer=${timer:-$SECONDS}
+
+	# clean up some variables, so they don't linger:
+	unset vcs_info_msg_0_
+	unset vcs_info_msg_1_
+	unset PROMPT
+	unset RPROMPT
 }
 
 precmd() {
@@ -163,7 +169,7 @@ zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' squeeze-slashes true
-zstyle :compinstall filename '/home/ayekat/.zshrc'
+zstyle :compinstall filename "$XDG_CONFIG_HOME/zsh/.zshrc"
 autoload -Uz compinit && compinit
 # End of lines added by compinstall
 

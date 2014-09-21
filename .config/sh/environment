@@ -1,26 +1,26 @@
 #!/bin/sh
 # Sets environment variables before logging into the shell.
 
-path="$PATH"
-
 # Binary search path: local bin, gems, cabal, colorgcc
-[ -d ~/.local/bin ]          && path="~/.local/bin:$path"
-[ -d ~/.cabal/bin ]          && path="~/.cabal/bin:$path"
-[ -d ~/.gem/ruby/2.1.0/bin ] && path="~/.gem/ruby/2.1.0/bin:$path"
-[ -d /usr/lib/colorgcc/bin ] && path="/usr/lib/colorgcc/bin:$path"
+[ -d ~/.local/bin ]          && PATH="$HOME/.local/bin:$PATH"
+[ -d ~/.cabal/bin ]          && PATH="$HOME/.cabal/bin:$PATH"
+[ -d ~/.gem/ruby/2.1.0/bin ] && PATH="$HOME/.gem/ruby/2.1.0/bin:$PATH"
+[ -d /usr/lib/colorgcc/bin ] && PATH="/usr/lib/colorgcc/bin:$PATH"
 
 # Altera (Quartus, ModelSim)
-dir_altera=~/.local/bin/altera
-if [ -d $dir_altera ]; then
-	path="$dir_altera/quartus/bin:$path"   # Quartus
-	path="$dir_altera/modelsim_ase:$path"  # ModelSim
-	path="$dir_altera/nios2eds/bin:$path"  # NIOS2
-	path="$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$path"
-	path="$dir_altera/nios2eds/sdk2/bin:$path"
+# - user is recommended to be in 'plugdev' group, for USB devices
+# - quartus starts Quartus, vsim starts ModelSim
+dir_altera="$HOME/.local/bin/altera"
+if [ -d "$dir_altera" ]; then
+	PATH="$dir_altera/quartus/bin:$PATH"   # Quartus
+	PATH="$dir_altera/modelsim_ase:$PATH"  # ModelSim
+	PATH="$dir_altera/nios2eds/bin:$PATH"  # NIOS2
+	PATH="$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$PATH"
+	PATH="$dir_altera/nios2eds/sdk2/bin:$PATH"
 fi
 unset dir_altera
 
-export PATH="$path"
+export PATH
 
 # Set vim as default text editor:
 export EDITOR='/usr/bin/vim'
@@ -33,11 +33,12 @@ export XDG_DATA_HOME=~/.local/share
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
 export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
+export XAUTHORITY=$XDG_CONFIG_HOME/X11/Xauthority
 
 # Set colours for less, man:
 if [ "$TERM" = 'linux' ]; then
 	export LESS_TERMCAP_mb=$(printf "\033[34m")
-	export LESS_TERMCAP_md=$(printf "\033[1;31m")
+	export LESS_TERMCAP_md=$(printf "\033[31m")
 	export LESS_TERMCAP_me=$(printf "\033[0m")
 	export LESS_TERMCAP_se=$(printf "\033[0m")
 	export LESS_TERMCAP_so=$(printf "\033[30;43m")
