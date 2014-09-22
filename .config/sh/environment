@@ -12,9 +12,9 @@
 # - quartus starts Quartus, vsim starts ModelSim
 dir_altera="$HOME/.local/bin/altera"
 if [ -d "$dir_altera" ]; then
-	PATH="$dir_altera/quartus/bin:$PATH"   # Quartus
-	PATH="$dir_altera/modelsim_ase:$PATH"  # ModelSim
-	PATH="$dir_altera/nios2eds/bin:$PATH"  # NIOS2
+	PATH="$dir_altera/quartus/bin:$PATH"      # Quartus
+	PATH="$dir_altera/modelsim_ase/bin:$PATH" # ModelSim
+	PATH="$dir_altera/nios2eds/bin:$PATH"     # NIOS2
 	PATH="$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$PATH"
 	PATH="$dir_altera/nios2eds/sdk2/bin:$PATH"
 fi

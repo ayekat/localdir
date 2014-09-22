@@ -5,7 +5,7 @@ name='stylesheets'
 extension='disabled'
 
 if [ -e "$path/$name" ]; then
-	mv "$path/$name"{,".$extension"}
+	mv "$path/$name" "$path/$name.$extension"
 else
-	mv "$path/$name"{".$extension",}
+	mv "$path/$name.$extension" "$path/$name"
 fi

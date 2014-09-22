@@ -129,9 +129,11 @@ bindkey -M viins ''    backward-delete-char
 bindkey -M viins '[3~' delete-char
 bindkey -M viins ''    beginning-of-line
 bindkey -M viins ''    end-of-line
-bindkey -M viins ''    backward-kill-line
-bindkey -M viins ''    up-line-or-history
+bindkey -M viins ''    kill-line
 bindkey -M viins ''    down-line-or-history
+bindkey -M viins ''    up-line-or-history
+bindkey -M viins ''    history-incremental-search-backward
+bindkey -M viins ''    backward-kill-line
 
 # Handler for mode change:
 function zle-keymap-select {
