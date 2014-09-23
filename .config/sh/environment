@@ -53,3 +53,5 @@ else
 	export LESS_TERMCAP_ue=$(printf "\033[0m")
 	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
 fi
+
+export ENV_LOADED=1

@@ -7,7 +7,16 @@
 # GENERAL (SHRC) {{{
 # Load general configuration (bash and zsh).
 
-. $XDG_CONFIG_HOME/sh/shrc
+. ~/.config/sh/shrc
+
+# }}}
+# ------------------------------------------------------------------------------
+# LOOK {{{
+
+# Enable syntax highlighting:
+path_syntax=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[ -e "$path_syntax" ] && . "$path_syntax"
+unset path_syntax
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -24,12 +33,12 @@ else
 	pc_vim_normal="$fg[black]$bg[green]"
 	pc_vim_insert="$fg[cyan]$bg[blue]"
 fi
-pc_git_clean="$fg[blue]"
+pc_git_clean="$fg[green]"
 pc_git_ahead="$fg[cyan]"
 pc_git_ready="$fg[yellow]"
 pc_git_dirty="$fg[red]"
 pc_host="$fg[yellow]"
-pc_pwd="$fg[green]"
+pc_pwd="$fg[blue]"
 pc_time="$fg[green]"
 pc_retval_bad="$fg_bold[red]"
 pc_retval_good="$fg[black]"
@@ -78,11 +87,11 @@ build_rprompt() #{{{
 {
 	# Build right prompt:
 	rprompt=''
-	rprompt+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?] )%{$reset_color%}"
+	rprompt+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?])%{$reset_color%}"
 	if [ -n "$timer" ]; then
 		timer_show=$(($SECONDS - $timer))
 		if [ ${timer_show} -ne 0 ]; then
-			rprompt+="%{$pc_time%}${timer_show} sec%{$reset_color%}"
+			rprompt+=" %{$pc_time%}${timer_show} sec%{$reset_color%}"
 		fi
 		unset timer
 		unset timer_show
@@ -121,7 +130,7 @@ precmd
 
 # }}}
 # ------------------------------------------------------------------------------
-# FEEL {{{
+# VIM {{{
 
 # Use vim mode, but keep handy emacs keys in insert mode:
 bindkey -v
