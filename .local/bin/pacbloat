@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# List all Arch Linux packages currently installed on the system which are not
+# part of the 'base' or 'base-devel' group, and which have been explicitely
+# installed while not being required for any other package.
+
+diff <(pacman -Qqg base base-devel | sort -u) <(pacman -Qtqe) | \
+	grep '^>' | awk '{print $2}'

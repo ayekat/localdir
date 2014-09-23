@@ -1,6 +1,9 @@
 #!/bin/sh
 # Sets environment variables before logging into the shell.
 
+# Set default path (TODO, replace /etc/profile completely):
+PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
+
 # Binary search path: local bin, gems, cabal, colorgcc
 [ -d ~/.local/bin ]          && PATH="$HOME/.local/bin:$PATH"
 [ -d ~/.cabal/bin ]          && PATH="$HOME/.cabal/bin:$PATH"
@@ -53,5 +56,3 @@ else
 	export LESS_TERMCAP_ue=$(printf "\033[0m")
 	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
 fi
-
-export ENV_LOADED=1

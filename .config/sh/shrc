@@ -7,7 +7,7 @@
 # META {{{
 
 # Make sure the environment is loaded correctly:
-[ -z "$ENV_LOADED" ] && [ -e ~/.config/sh/environment ] && . ~/.config/sh/environment
+[ -e ~/.config/sh/environment ] && . ~/.config/sh/environment
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -130,12 +130,11 @@ cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 cmd_exists uim-fep mutt && alias mutt='uim-fep -e mutt'
 cmd_exists uim-fep irssi && alias irssi='uim-fep -e irssi'
 cmd_exists sudo && alias sudo="sudo -p '[sudo] password: '"
+cmd_exists startx && alias startx="$(which -a startx) $XINITRC"
 
 # Server only aliases (mostly additional security):
-if [ -z "$IS_DESKTOP" ]; then
+if [ -n "$SSH_TTY" ]; then
 	alias rm='rm -i'
-else
-	alias startx="$(which -a startx) $XINITRC"
 fi
 
 # }}}
@@ -167,6 +166,9 @@ esac
 # If logged in via SSH, start or reattach to tmux session:
 [ -n "$SSH_TTY" ] && [ -z "$TMUX" ] && cmd_exists tmux && cmd_exists tmx &&
 	tmx SSH && exit
+
+# If in tmux, the PATH variable is fucked up, so fix this here:
+[ -n "$TMUX" ] && . $XDG_CONFIG_HOME/sh/environment
 
 # Print distribution logo:
 printlogo "$DISTRIBUTION"
