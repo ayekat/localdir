@@ -1,16 +1,30 @@
 #!/bin/sh
 # Sets environment variables before logging into the shell.
 
-# Set default path (TODO, replace /etc/profile completely):
-PATH='/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/site_perl:/usr/bin/vendor_perl:/usr/bin/core_perl'
+# Basic paths:
+PATH=''
+for p in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin; do
+	if [ -d "$p" ]; then
+		[ -z "$PATH" ] && PATH="$p" || PATH="$p:$PATH"
+	fi
+done
 
-# Binary search path: local bin, gems, cabal, colorgcc
+# Paths as defined in the /etc/profile.d scripts:
+if [ -d /etc/profile.d ]; then
+	for s in /etc/profile.d/*.sh; do
+		[ -r "$s" ] && . "$s"
+	done
+fi
+
+# Colorgcc (dunno why they don't dump a script in /etc/profile.d):
+[ -d /usr/lib/colorgcc/bin ] && PATH="/usr/lib/colorgcc/bin:$PATH"
+
+# User specific paths: local bin, gems, cabal:
 [ -d ~/.local/bin ]          && PATH="$HOME/.local/bin:$PATH"
 [ -d ~/.cabal/bin ]          && PATH="$HOME/.cabal/bin:$PATH"
 [ -d ~/.gem/ruby/2.1.0/bin ] && PATH="$HOME/.gem/ruby/2.1.0/bin:$PATH"
-[ -d /usr/lib/colorgcc/bin ] && PATH="/usr/lib/colorgcc/bin:$PATH"
 
-# Altera (Quartus, ModelSim)
+# User specific paths: Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
 # - quartus starts Quartus, vsim starts ModelSim
 dir_altera="$HOME/.local/bin/altera"

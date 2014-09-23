@@ -174,14 +174,17 @@ function TRAPINT() {
 # COMPINSTALL {{{
 
 # The following lines were added by compinstall
+
 zstyle ':completion:*' format "[%{$fg_bold[default]%}%d%{$reset_color%}]"
 zstyle ':completion:*' group-name ''
-zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
+zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' squeeze-slashes true
-zstyle :compinstall filename "$XDG_CONFIG_HOME/zsh/.zshrc"
-autoload -Uz compinit && compinit
+zstyle :compinstall filename '/home/ayekat/.config/zsh/.zshrc'
+
+autoload -Uz compinit
+compinit
 # End of lines added by compinstall
 
 # }}}
