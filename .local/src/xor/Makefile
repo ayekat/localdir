@@ -15,7 +15,6 @@ CFLAGS += -Winit-self -Wuninitialized -Wmaybe-uninitialized
 CFLAGS += -Wstrict-prototypes -Wmissing-declarations -Wmissing-prototypes
 CFLAGS += -Wpadded -Wshadow
 CFLAGS += -std=c99
-CFLAGS += $(shell pkg-config --cflags ${third_libs})  # XXX
 
 # File names:
 SOURCE = xor.c
