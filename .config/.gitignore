@@ -4,5 +4,4 @@ vim/neobundle
 zsh/.zhistory
 zsh/.zcompdump*
 zsh/zshrc
-zsh/zprofile
 X11/Xauthority
