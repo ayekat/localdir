@@ -1,43 +1,56 @@
 #!/bin/sh
 # Sets environment variables before logging into the shell.
+# Written by ayekat on a frustrating evening in september 2014.
 
-# Basic paths:
-PATH=''
-for p in /bin /sbin /usr/bin /usr/sbin /usr/local/bin /usr/local/sbin; do
-	if [ -d "$p" ]; then
-		[ -z "$PATH" ] && PATH="$p" || PATH="$p:$PATH"
-	fi
+
+# ------------------------------------------------------------------------------
+# PATH {{{
+
+# Adds directory to the PATH variable, with (hopefully) all necessary checks:
+add_to_path() {
+	[ -d "$1" ] || return
+	[ -z "$PATH" ] && PATH="$1" && return
+	ifs_old="$IFS"
+	IFS=:
+	for i in $PATH; do
+		[ "$1" = "$i" ] && return
+		[ -h "$1" ] && [ "$(readlink -f "$1")" = "$i" ] && return
+	done
+	PATH="$1:$PATH"
+	IFS="$ifs_old"
+	unset ifs_old
+}
+
+# User specific paths:
+for p in "/usr/lib/colorgcc/bin" \
+         "$HOME/.local/bin" \
+         "$HOME/.cabal/bin" \
+         "$HOME/.gem/ruby/2.1.0/bin"
+do
+	add_to_path "$p"
 done
 
-# Paths as defined in the /etc/profile.d scripts:
-if [ -d /etc/profile.d ]; then
-	for s in /etc/profile.d/*.sh; do
-		[ -r "$s" ] && . "$s"
-	done
-fi
-
-# Colorgcc (dunno why they don't dump a script in /etc/profile.d):
-[ -d /usr/lib/colorgcc/bin ] && PATH="/usr/lib/colorgcc/bin:$PATH"
-
-# User specific paths: local bin, gems, cabal:
-[ -d ~/.local/bin ]          && PATH="$HOME/.local/bin:$PATH"
-[ -d ~/.cabal/bin ]          && PATH="$HOME/.cabal/bin:$PATH"
-[ -d ~/.gem/ruby/2.1.0/bin ] && PATH="$HOME/.gem/ruby/2.1.0/bin:$PATH"
-
-# User specific paths: Altera (Quartus, ModelSim):
+# Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
 # - quartus starts Quartus, vsim starts ModelSim
 dir_altera="$HOME/.local/bin/altera"
 if [ -d "$dir_altera" ]; then
-	PATH="$dir_altera/quartus/bin:$PATH"      # Quartus
-	PATH="$dir_altera/modelsim_ase/bin:$PATH" # ModelSim
-	PATH="$dir_altera/nios2eds/bin:$PATH"     # NIOS2
-	PATH="$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin:$PATH"
-	PATH="$dir_altera/nios2eds/sdk2/bin:$PATH"
+	for p in "$dir_altera/quartus/bin" \
+	         "$dir_altera/modelsim_ase/bin" \
+	         "$dir_altera/nios2eds/bin" \
+	         "$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin" \
+	         "$dir_altera/nios2eds/sdk2/bin"
+	do
+		add_to_path "$p"
+	done
 fi
 unset dir_altera
 
+unset -f add_to_path
 export PATH
+
+# }}}
+# ------------------------------------------------------------------------------
 
 # Set vim as default text editor:
 export EDITOR='/usr/bin/vim'

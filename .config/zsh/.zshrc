@@ -143,6 +143,7 @@ bindkey -M viins ''    down-line-or-history
 bindkey -M viins ''    up-line-or-history
 bindkey -M viins ''    history-incremental-search-backward
 bindkey -M viins ''    backward-kill-line
+bindkey -M viins ''    backward-kill-word
 
 # Handler for mode change:
 function zle-keymap-select {
@@ -171,7 +172,7 @@ function TRAPINT() {
 
 # }}}
 # ------------------------------------------------------------------------------
-# COMPINSTALL {{{
+# COMPLETION {{{
 
 # The following lines were added by compinstall
 
@@ -187,16 +188,19 @@ autoload -Uz compinit
 compinit
 # End of lines added by compinstall
 
+# Do not autocomplete when ambiguous (bash-like):
+setopt no_auto_menu
+
 # }}}
 # ------------------------------------------------------------------------------
 # HISTORY {{{
 
 setopt append_history       # append, instead of overwrite
 setopt hist_ignore_dups     # ignore duplicate commands
-setopt share_history        # allow to acces to history of previous shells
+#setopt share_history        # allow to acces to history of previous shells
 
 HISTFILE=$ZDOTDIR/.zhistory
-HISTSIZE=10000              # maximum history size in terminal's memory
-SAVEHIST=10000              # maximum size of history file
+HISTSIZE=100000             # maximum history size in terminal's memory
+SAVEHIST=100000             # maximum size of history file
 
 # }}}
