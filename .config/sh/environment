@@ -54,6 +54,8 @@ export PATH
 
 # Set vim as default text editor:
 export EDITOR='/usr/bin/vim'
+export VISUAL='/usr/bin/vim'
+export PAGER='/usr/bin/less'
 
 # Set XDG variables:
 export XDG_CONFIG_HOME=~/.config
@@ -61,9 +63,18 @@ export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
 
 # Fix various applications to respect XDG:
-export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"
-export XINITRC=$XDG_CONFIG_HOME/X11/xinitrc
-export XAUTHORITY=$XDG_CONFIG_HOME/X11/Xauthority
+export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"    # vim
+export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"         # xinit (startx ignores)
+export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"   # startx
+export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"             # gpg
+export PGPPATH="$XDG_CONFIG_HOME/gnupg"               # mutt (pgp)
+export TASKDATA="$XDG_CONFIG_HOME/task"               # task-warrior
+export TASKRC="$TASKDATA/taskrc"                      # task-warrior
+export RXVT_SOCKET="$HOME/.urxvtd.sock"               # urxvtd
+export LESSHISTFILE="$XDG_CACHE_HOME/less/hist"       # less
+export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"     # pass
+export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp"        # gimp
+export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"        # mplayer
 
 # Set colours for less, man:
 if [ "$TERM" = 'linux' ]; then

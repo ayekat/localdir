@@ -75,8 +75,10 @@ let g:syntastic_tex_chktex_args = '-m'
 let g:syntastic_warning_symbol = '!!'
 let g:syntastic_error_symbol = 'XX'
 
-" Don't make unite overwrite the statusline:
+" Don't make unite overwrite the statusline; fix cache location:
 let g:unite_force_overwrite_statusline = 0
+let g:unite_data_directory = $XDG_CACHE_DIR.'/vim/unite'
+call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim/unite')
 
 " Don't use default keybindings of DWM plugin; don't auto-arrange at :split:
 let g:dwm_map_keys = 0

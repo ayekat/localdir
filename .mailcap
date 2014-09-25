@@ -1,0 +1,7 @@
+application/pdf;    zathura '%s'
+image/jpeg;         eog '%s'
+image/png;          eog '%s'
+image/x-ms-bmp;     eog '%s'
+text/plain;         gedit '%s'
+text/x-shellscript; gedit '%s'
+text/html;          dwb '%s'

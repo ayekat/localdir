@@ -39,6 +39,7 @@ pc_git_ready="$fg[yellow]"
 pc_git_dirty="$fg[red]"
 pc_host="$fg[yellow]"
 pc_pwd="$fg[blue]"
+pc_prompt="$fg_bold[red]"
 pc_time="$fg[green]"
 pc_retval_bad="$fg_bold[red]"
 pc_retval_good="$fg[black]"
@@ -79,6 +80,9 @@ build_prompt() #{{{
 	fi
 	[ -n "$SSH_TTY" ] && prompt+="%{$pc_host%}%m:%{$reset_color%}"
 	prompt+="%{$pc_pwd%}%~%{$reset_color%}"
+	if [ $(id -u) = 0 ]; then
+		prompt+="%{$pc_prompt%} #%{$reset_color%}"
+	fi
 	export PROMPT="$prompt "
 }
 #}}}

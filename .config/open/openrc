@@ -2,9 +2,10 @@
 placeholder        : _FILE_
 
 # map MIME to applications:
-inode/directory    : thunar _FILE_ &
+inode/directory    : cd _FILE_ && ls
 image/png          : eog _FILE_ &
 image/jpeg         : eog _FILE_ &
+image/x-ms-bmp     : eog _FILE_ &
 text/plain         : gedit _FILE_ &
 text/x-shellscript : gedit _FILE_ &
 application/pdf    : zathura _FILE_ &
