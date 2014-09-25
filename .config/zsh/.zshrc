@@ -68,39 +68,53 @@ build_prompt() #{{{
 	fi
 
 	# Build prompt:
-	prompt="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
+	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 	if [ -n "$git_branch" ]; then
 		case $git_state in
-			clean) prompt+="%{$pc_git_clean%}" ;;
-			ahead) prompt+="%{$pc_git_ahead%}" ;;
-			ready) prompt+="%{$pc_git_ready%}" ;;
-			dirty) prompt+="%{$pc_git_dirty%}" ;;
+			clean) PROMPT+="%{$pc_git_clean%}" ;;
+			ahead) PROMPT+="%{$pc_git_ahead%}" ;;
+			ready) PROMPT+="%{$pc_git_ready%}" ;;
+			dirty) PROMPT+="%{$pc_git_dirty%}" ;;
 		esac
-		prompt+="[$git_branch]%{$reset_color%} "
+		PROMPT+="[$git_branch]%{$reset_color%} "
 	fi
-	[ -n "$SSH_TTY" ] && prompt+="%{$pc_host%}%m:%{$reset_color%}"
-	prompt+="%{$pc_pwd%}%~%{$reset_color%}"
+	[ -n "$SSH_TTY" ] && PROMPT+="%{$pc_host%}%m:%{$reset_color%}"
+	PROMPT+="%{$pc_pwd%}%~%{$reset_color%}"
 	if [ $(id -u) = 0 ]; then
-		prompt+="%{$pc_prompt%} #%{$reset_color%}"
+		PROMPT+="%{$pc_prompt%} #%{$reset_color%}"
 	fi
-	export PROMPT="$prompt "
+	PROMPT+=' '
 }
 #}}}
 
 build_rprompt() #{{{
 {
-	# Build right prompt:
-	rprompt=''
-	rprompt+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?])%{$reset_color%}"
+	# Last command's return value:
+	RPROMPT+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?])%{$reset_color%}"
+
+	# Last command's duration:
 	if [ -n "$timer" ]; then
-		timer_show=$(($SECONDS - $timer))
-		if [ ${timer_show} -ne 0 ]; then
-			rprompt+=" %{$pc_time%}${timer_show} sec%{$reset_color%}"
+		timer_total=$(($SECONDS - $timer))
+		timer_sec=$(($timer_total % 60))
+		timer_min=$(($timer_total / 60 % 60))
+		timer_hour=$(($timer_total / 3600 % 24))
+		timer_day=$(($timer_total / 86400))
+		if [ ${timer_total} -ne 0 ]; then
+			tp=''
+			[ -z "$tp" ] && [ $timer_day -eq 0 ]  || tp+="${timer_day}d "
+			[ -z "$tp" ] && [ $timer_hour -eq 0 ] || tp+="${timer_hour}h "
+			[ -z "$tp" ] && [ $timer_min -eq 0 ]  || tp+="${timer_min}m "
+			[ -z "$tp" ] && [ $timer_sec -eq 0 ]  || tp+="${timer_sec}s"
+			RPROMPT+=" %{$pc_time%}${tp}%{$reset_color%}"
+			unset tp
 		fi
+		unset timer_total
+		unset timer_sec
+		unset timer_min
+		unset timer_hour
+		unset timer_day
 		unset timer
-		unset timer_show
 	fi
-	export RPROMPT="$rprompt"
 }
 #}}}
 
@@ -126,8 +140,13 @@ precmd() {
 		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
 	fi
 
+	PROMPT=''
 	build_prompt
+	export PROMPT
+
+	RPROMPT=''
 	build_rprompt
+	export RPROMPT
 }
 
 precmd
