@@ -127,13 +127,13 @@ alias mv='mv -i'
 # Application specific aliases:
 cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
 cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
-cmd_exists uim-fep mutt && alias mutt='uim-fep -e mutt'
+cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
 cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
 cmd_exists sudo && alias sudo="sudo -E -p '[sudo] password: '"
-cmd_exists startx && alias startx="$(which -a startx) $XINITRC"
+cmd_exists startx && alias startx="startx $XINITRC"
 
 # Server only aliases (mostly additional security):
-if [ -n "$SSH_TTY" ]; then
+if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
 fi
 
@@ -164,7 +164,7 @@ esac
 # START-UP ACTIONS {{{
 
 # If logged in via SSH, start or reattach to tmux session:
-[ -n "$SSH_TTY" ] && [ -z "$TMUX" ] && cmd_exists tmux && cmd_exists tmx &&
+[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmd_exists tmux && cmd_exists tmx &&
 	tmx SSH && exit
 
 # If in tmux, the PATH variable is fucked up, so fix this here:

@@ -60,6 +60,8 @@ ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 
 build_prompt() #{{{
 {
+	PROMPT=''
+
 	# Set colours depending on mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
@@ -78,19 +80,23 @@ build_prompt() #{{{
 		esac
 		PROMPT+="[$git_branch]%{$reset_color%} "
 	fi
-	[ -n "$SSH_TTY" ] && PROMPT+="%{$pc_host%}%m:%{$reset_color%}"
+	[ -n "$SSH_CONNECTION" ] && PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
 	PROMPT+="%{$pc_pwd%}%~%{$reset_color%}"
 	if [ $(id -u) = 0 ]; then
 		PROMPT+="%{$pc_prompt%} #%{$reset_color%}"
 	fi
 	PROMPT+=' '
+
+	export PROMPT
 }
 #}}}
 
 build_rprompt() #{{{
 {
+	RPROMPT=''
+
 	# Last command's return value:
-	RPROMPT+="%(?.%{$pc_retval_good%}·.%{$pc_retval_bad%}[%?])%{$reset_color%}"
+	RPROMPT+="%(?..%{$pc_retval_bad%}[%?]%{$reset_color%})"
 
 	# Last command's duration:
 	if [ -n "$timer" ]; then
@@ -115,6 +121,8 @@ build_rprompt() #{{{
 		unset timer_day
 		unset timer
 	fi
+
+	export RPROMPT
 }
 #}}}
 
@@ -140,13 +148,9 @@ precmd() {
 		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
 	fi
 
-	PROMPT=''
 	build_prompt
-	export PROMPT
 
-	RPROMPT=''
 	build_rprompt
-	export RPROMPT
 }
 
 precmd
