@@ -164,8 +164,8 @@ esac
 # START-UP ACTIONS {{{
 
 # If logged in via SSH, start or reattach to tmux session:
-[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmd_exists tmux && cmd_exists tmx &&
-	tmx SSH && exit
+[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && \
+	cmd_exists tmux && cmd_exists tmx && tmx SSH && exit
 
 # If in tmux, the PATH variable is fucked up, so fix this here:
 [ -n "$TMUX" ] && . $XDG_CONFIG_HOME/sh/environment
