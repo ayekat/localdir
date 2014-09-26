@@ -49,8 +49,8 @@ lcdadjust &
 # Load X resources:
 xrdb ~/.config/X11/Xresources
 
-# Start the urxvt daemon:
-urxvtd -f -o
+# Start urxvt daemon:
+[ -z "$(pgrep urxvtd)" ] && urxvtd -f -o
 
 # Start a scratchpad:
 urxvtc -e tmx SCRATCHPAD
