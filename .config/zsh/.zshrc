@@ -33,6 +33,7 @@ else
 	pc_vim_normal="$fg[black]$bg[green]"
 	pc_vim_insert="$fg[cyan]$bg[blue]"
 fi
+pc_git_kernel="$fg_bold[black]"
 pc_git_clean="$fg[green]"
 pc_git_ahead="$fg[cyan]"
 pc_git_ready="$fg[yellow]"
@@ -73,6 +74,7 @@ build_prompt() #{{{
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 	if [ -n "$git_branch" ]; then
 		case $git_state in
+			kernel) PROMPT+="%{$pc_git_kernel%}" ;;
 			clean) PROMPT+="%{$pc_git_clean%}" ;;
 			ahead) PROMPT+="%{$pc_git_ahead%}" ;;
 			ready) PROMPT+="%{$pc_git_ready%}" ;;
@@ -137,19 +139,23 @@ preexec() {
 }
 
 precmd() {
-	# VCS: update information, reset state:
-	vcs_info
-	git_state=''
-	git_branch="$vcs_info_msg_0_"
-	if [ -n "$git_branch" ]; then
-		git_state='clean'
-		ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
-		gstat | grep  '^[MADR].' >/dev/null && git_state='ready'
-		gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
+	# VCS: update information if not in kernel repo:
+	if [ "$(pwd -P | cut -d '/' -f 1-5)" = "$HOME/dev/linux" ]; then
+		git_branch='linux'
+		git_state='kernel'
+	else
+		vcs_info
+		git_state=''
+		git_branch="$vcs_info_msg_0_"
+		if [ -n "$git_branch" ]; then
+			git_state='clean'
+			ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
+			gstat | grep  '^[MADR].' >/dev/null && git_state='ready'
+			gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
+		fi
 	fi
 
 	build_prompt
-
 	build_rprompt
 }
 
