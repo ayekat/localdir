@@ -141,6 +141,7 @@ au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
 au BufRead,BufNewFile *.target set filetype=systemd
 au BufRead,BufNewFile */etc/iptables/*.rules set filetype=sh " ugly
 au BufRead,BufNewFile *.muttrc set filetype=muttrc
+au BufRead,BufNewFile *.tool set filetype=scala
 
 " Assembly:
 let asmsyntax='nasm'
@@ -326,8 +327,8 @@ map k gk
 map j gj
 
 " Simple window scrolling:
-map K 3<C-y>
-map J 3<C-e>
+map K 2<C-y>
+map J 2<C-e>
 map L 4zl
 map H 4zh
 
@@ -530,9 +531,9 @@ function! StatuslineActive()
 	" Readonly {{{
 	if &readonly
 		if l:mode == 'i'
-			let l:statusline .= ' %#I_warning#X%#I_middle#'
+			let l:statusline .= '%#I_warning#X%#I_middle# '
 		else
-			let l:statusline .= ' %#N_warning#X%#N_middle#'
+			let l:statusline .= '%#N_warning#X%#N_middle# '
 		endif
 	endif
 	" }}}
