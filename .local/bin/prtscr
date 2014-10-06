@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Takes a screenshot, notifies the users, and stores it to a given directory.
 # Written by ayekat on a rainy friday afternoon in february 2014.
 

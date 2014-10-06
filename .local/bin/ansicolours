@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 # Prints a table demonstrating all ANSI colour sequences.
 # This is a more performant rewrite of a bash script that did the same thing.
 # Written by ayekat on a boring monday evening in february 2013.

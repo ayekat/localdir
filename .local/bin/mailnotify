@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 notify-send 'Claws Mail' "$(printf "%d new mail%s" \
                             $1 $([ $1 != '1' ] && printf "s" || printf ""))"

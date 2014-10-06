@@ -1,5 +1,5 @@
-#!/bin/sh
-# Gives a list of URLs to sound files contained in the HTML file of a bancamp
+#!/usr/bin/env sh
+# Gives a list of URLs to sound files contained in the HTML file of a bandcamp
 # page.
 # By d3lxa
 

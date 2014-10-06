@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Set and get custom environment variables dynamically. This means the variable
 # datas are not stored in traditional variables, but instead are written and
 # retrieved from files. This allows environment variable manipulation accross

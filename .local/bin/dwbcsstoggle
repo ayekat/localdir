@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 path="$XDG_CONFIG_HOME/dwb"
 name='stylesheets'

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # This file can be linked under a different name to launch corresponding Java
 # JAR files in the jarwrapper.d.
 # Written by ayekat on a stressed sunday afternoon in october 2013.

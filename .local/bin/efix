@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Search a directory for Java source files that might be formatted incorrectly.
 #

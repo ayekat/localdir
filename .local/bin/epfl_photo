@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Opens the photo of a person at the EPFL by their people.epfl.ch-name
 # You'll need to log in to the service.
 

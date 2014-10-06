@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 
 hostname="$(hostname)"
 [ -n "$XDG_CONFIG_HOME" ] && confdir="$XDG_CONFIG_HOME" || confdir=~/.config

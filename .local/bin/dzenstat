@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Start and position dzenstat/dzen2 to the right places.
 # Written by ayekat, improved in october 2013.
 

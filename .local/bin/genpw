@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Creates a random sequence of characters.
 # Taken from: http://www.cyberciti.biz/faq/linux-random-password-generator/
 

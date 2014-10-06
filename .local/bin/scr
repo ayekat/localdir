@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # Script for simplifying on-the-go addition of a VGA/HDMI-monitor to my laptop.
 # Written by ayekat on a boring january day; improved in october 2013; improved
 # again to support HDMI screens in april 2014.

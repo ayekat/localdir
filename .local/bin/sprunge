@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env sh
 # sprunge: command line pastebin.
 # Pipe the output of your programme into this script.
 

@@ -1,4 +1,4 @@
-#!/usr/bin/perl
+#!/usr/bin/env perl
 
 # Displays a bar with a user-defined number of columns in legth.
 # Default is 85 (since ayekat likes to have 85 columns in his terminals).
