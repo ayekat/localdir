@@ -307,7 +307,7 @@ set linebreak      " wrap at words (does not work with list)
 
 " Physically wrap lines for certain file types:
 au FileType tex,html,php,markdown set textwidth=80
-au FileType gitcommit set textwidth=72
+au FileType mail,gitcommit set textwidth=72
 
 " }}}
 " ------------------------------------------------------------------------------

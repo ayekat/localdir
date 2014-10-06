@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+notify-send 'Claws Mail' "$1 new mail$([ "$1" != '1' ] && echo 's')"
