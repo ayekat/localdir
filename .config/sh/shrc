@@ -139,13 +139,10 @@ fi
 
 # }}}
 # ------------------------------------------------------------------------------
-# SHORTCUTS {{{
+# CDPATH {{{
 
-# if the folder does not exist, cd will try in $CDPATH before failing:
-case "$(hostname)" in
-	ixh) CDPATH=".:$HOME/epfl" ;;
-#	penrose) CDPATH=".:~/db/project" ;;
-esac
+# example:
+#CDPATH=".:$HOME/epfl"
 
 # }}}
 #-------------------------------------------------------------------------------

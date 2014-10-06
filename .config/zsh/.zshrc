@@ -38,6 +38,7 @@ pc_git_clean="$fg[green]"
 pc_git_ahead="$fg[cyan]"
 pc_git_ready="$fg[yellow]"
 pc_git_dirty="$fg[red]"
+pc_git_merge="$fg_bold[red]"
 pc_host="$fg[magenta]"
 pc_pwd="$fg[blue]"
 pc_prompt="$fg_bold[red]"
@@ -79,6 +80,7 @@ build_prompt() #{{{
 			ahead) PROMPT+="%{$pc_git_ahead%}" ;;
 			ready) PROMPT+="%{$pc_git_ready%}" ;;
 			dirty) PROMPT+="%{$pc_git_dirty%}" ;;
+			merge) PROMPT+="%{$pc_git_merge%}" ;;
 		esac
 		PROMPT+="[$git_branch]%{$reset_color%} "
 	fi
@@ -152,6 +154,7 @@ precmd() {
 			ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
 			gstat | grep  '^[MADR].' >/dev/null && git_state='ready'
 			gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
+			gstat | grep  'UU' >/dev/null && git_state='merge'
 		fi
 	fi
 
@@ -174,9 +177,14 @@ bindkey -M viins ''    end-of-line
 bindkey -M viins ''    kill-line
 bindkey -M viins ''    down-line-or-history
 bindkey -M viins ''    up-line-or-history
-bindkey -M viins ''    history-incremental-search-backward
+#bindkey -M viins ''    history-incremental-search-backward
 bindkey -M viins ''    backward-kill-line
 bindkey -M viins ''    backward-kill-word
+
+# Use vim to edit command lines:
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey -M vicmd v edit-command-line
 
 # Handler for mode change:
 function zle-keymap-select {
