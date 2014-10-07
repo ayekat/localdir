@@ -33,13 +33,6 @@ and down with
 
 	vde stop
 
-In order to automate this process at boot, you may enable the according systemd
-service file:
-
-	systemctl enable vls.service
-
-The other systemctl commands (``start``, ``stop``) also work, of course.
-
 
 vls
 ---
@@ -58,9 +51,10 @@ and down with
 
 	vls stop
 
-In order to automate this process at boot, you may enable the according systemd
-service file:
 
-	systemctl enable vls.service
+systemd
+-------
 
-The other systemctl commands (``start``, ``stop``) also work, of course.
+For both ``vls`` and ``vde`` systemd service files are installed int
+``/etc/systemd/system`` and may be used to enable/disable/start/stop the scripts
+as usual.
