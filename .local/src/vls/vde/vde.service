@@ -1,0 +1,12 @@
+[Unit]
+Description=VDE switch
+Requires=dnsmasq.service
+
+[Service]
+Type=oneshot
+ExecStart=@INSTALLDIR@/bin/vde start
+ExecStop=@INSTALLDIR@/bin/vde stop
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

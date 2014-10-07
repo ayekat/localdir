@@ -1,0 +1,12 @@
+[Unit]
+Description=Virtual Local Server
+Requires=vde.service
+After=vde.service
+
+[Service]
+Type=oneshot
+ExecStart=@INSTALLDIR@/bin/vls start
+ExecStop=@INSTALLDIR@/bin/vls stop
+
+[Install]
+WantedBy=multi-user.target
