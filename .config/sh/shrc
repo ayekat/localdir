@@ -108,9 +108,16 @@ printlogo() {
 
 cmd_exists() {
 	for c in $@; do
-		which $c >/dev/null 2>&1 || return 1
+		which $c >/dev/null 2>&1 || return -1
 	done
-	return 0
+}
+
+sudo() {
+	if cmd_exists sudo && [ "$1" = 'vim' ]; then
+		/usr/bin/sudo -E "$@"
+	else
+		/usr/bin/sudo "$@"
+	fi
 }
 
 # Aliases:
@@ -129,7 +136,6 @@ cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
 cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
 cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
-cmd_exists sudo && alias sudo="sudo -E -p '[sudo] password: '"
 cmd_exists startx && alias startx="startx $XINITRC"
 
 # Server only aliases (mostly additional security):
