@@ -3,42 +3,79 @@
 # to a VDE switch.
 # It assumes that dnsmasq is already running (see vls.service).
 
-appname="$0"
-dnsmasq_conf='/etc/dnsmasq.conf'
-
-# Default configuration:
-VLS_MAC='52:54:00:12:34:56'
-
-vls_start() {
-	# Get dnsmasq configuration for static IPs:
-	if [ ! -e "$dnsmasq_conf" ]; then
-		echo "$dnsmasq_conf not found, using default MAC address" >&2
-	else
-		vls_mac_tmp="$(grep '^dhcp-host=' "$dnsmasq_conf" | head -n 1 | \
-		               sed -e 's/^dhcp-host=//g' | cut -d ',' -f 1)"
-		VLS_MAC="$vls_mac_tmp"
-	fi
-	qemu-system-x86_64 \
-		-enable-kvm -cpu host -smp 4 \
-		-m 4096 \
-		-drive file=/home/ayekat/.local/share/qemu/debian/debian.raw \
-		-net nic,model=virtio,macaddr=${VLS_MAC} -net vde \
-		-nographic -vnc :7 \
-		-monitor unix:/tmp/vls.sock,server,nowait &
-}
-
-vls_stop() {
-	echo "system_powerdown" | socat stdio /tmp/vls.sock
-	rm -f /tmp/vls.sock
-}
-
-vls_help() {
-	echo "Usage: $appname start|stop" >&2
+vls_die() {
+	echo "$@" >&2
 	exit 1
 }
 
-case "$1" in
-	start) vls_start ;;
-	stop) vls_stop ;;
-	*) vls_help ;;
-esac
+vls_term() {
+	echo 'Received SIGINT, shutting down VLS ...'
+	test -n "$(which -a socat)" || vls_die "socat: command not found"
+	echo 'system_powerdown' | socat stdio UNIX-CONNECT:$sockfile
+}
+
+# check permission:
+test $(id -u) -eq 0 || vls_die "$0 requires you to be root"
+
+# default VM MAC address:
+vls_mac='52:54:00:12:34:56'
+
+# dnsmasq config:
+echo "Getting dnsmasq configuration ..."
+dnsmasq_conf='/etc/dnsmasq.conf'
+if [ ! -e $dnsmasq_conf ]; then
+	echo "$dnsmasq_conf not found, using default MAC address" >&2
+else
+	vls_mac_tmp="$(grep '^dhcp-host=' "$dnsmasq_conf" | head -n 1 | \
+				   sed -e 's/^dhcp-host=//g' | cut -d ',' -f 1)"
+	vls_mac="$vls_mac_tmp"
+fi
+
+# RAID devices:
+echo "Checking devices for RAID setup ..."
+partdev=/dev/sda6                             # TODO config file or command line
+mbrfile=/var/lib/vls/mbr                      # TODO config file or command line
+raiddev=/dev/md0                              # TODO config file or command line
+test -e $partdev || vls_die "System partition $partdev not found"
+test -e $mbrfile || vls_die "MBR file $mbrfile not found"
+test -e $raiddev && vls_die "$raiddev already exists"
+
+# build RAID device:
+echo "Building RAID device ..."
+loopdev=$(losetup -f)
+test -n "$loopdev" || vls_die "No free loop device"
+losetup $loopdev $mbrfile || vls_die "losetup failed"
+mdadm --build --verbose $raiddev \
+	  --level=linear --raid-devices=2 $loopdev $partdev
+if [ $? -ne 0 ]; then
+	losetup -d $loopdev
+	vls_die "mdadm failed"
+fi
+
+# runtime folder:
+echo "Creating runtime directory ..."
+runpath=/run/vls
+sockfile=$runpath/vls.sock
+mkdir -p $runpath
+
+# trap INT signal (^C):
+trap vls_term SIGINT
+
+# launch VM:
+echo "Launching VLS ..."
+qemu-system-x86_64 -enable-kvm -cpu host -smp 4 \
+				   -m 4096 \
+				   -drive file=$raiddev \
+				   -net nic,model=virtio,macaddr=$vls_mac -net vde \
+				   -nographic -vnc :7 \
+				   -monitor unix:$sockfile,server,nowait      # TODO config file
+pid=$(pgrep qemu-system-x84_64 | grep ${raiddev} | head -n 1)
+
+# nuke socket:
+echo "Nuking runtime files ..."
+rm -rf $runpath
+
+# nuke RAID device:
+echo "Nuking RAID device ..."
+mdadm --stop $raiddev
+losetup -d $loopdev
