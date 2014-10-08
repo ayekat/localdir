@@ -10,8 +10,10 @@ vls_die() {
 
 vls_term() {
 	echo 'Received SIGINT, shutting down VLS ...'
-	test -n "$(which -a socat)" || vls_die "socat: command not found"
-	echo 'system_powerdown' | socat stdio UNIX-CONNECT:$sockfile
+	if [ -e $sockfile ]; then
+		test -n "$(which -a socat)" || vls_die "socat: command not found"
+		echo 'system_powerdown' | socat stdio UNIX-CONNECT:$sockfile
+	fi
 }
 
 # check permission:
@@ -79,3 +81,6 @@ rm -rf $runpath
 echo "Nuking RAID device ..."
 mdadm --stop $raiddev
 losetup -d $loopdev
+
+# Success!
+true

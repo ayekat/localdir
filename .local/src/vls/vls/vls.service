@@ -4,7 +4,7 @@ Requires=vde.service
 After=vde.service
 
 [Service]
-Type=oneshot
+Type=simple
 ExecStart=@INSTALLDIR@/bin/vls
 ExecStop=/bin/kill -INT $MAINPID
 
