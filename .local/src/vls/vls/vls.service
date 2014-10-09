@@ -5,8 +5,8 @@ After=vde.service
 
 [Service]
 Type=simple
-ExecStart=@INSTALLDIR@/bin/vls
-ExecStop=/bin/kill -INT $MAINPID
+ExecStart=@INSTALLDIR@/bin/vls start
+ExecStop=@INSTALLDIR@/bin/vls stop
 
 [Install]
 WantedBy=multi-user.target
