@@ -7,6 +7,10 @@
 # working directory paths when opening a shell under X:
 cd
 
+if [ -n "$REMOTE" ]; then
+	ssh -X "$REMOTE" .config/X11/xinitrc
+	exit
+fi
 
 # INPUT (KEYBOARD) -------------------------------------------------------------
 
