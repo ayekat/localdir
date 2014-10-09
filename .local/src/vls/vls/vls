@@ -4,7 +4,7 @@
 # It assumes that dnsmasq is already running (see vls.service).
 
 vls_die() {
-	echo "$@" >&2
+	echo "ERROR: $@" >&2
 	exit 1
 }
 
@@ -13,11 +13,12 @@ vls_check_root() {
 }
 
 vls_help() {
-	vls_die "Usage: $0 start|stop"
+	echo "Usage: $0 start|stop"
+	exit 1
 }
 
 vls_pre_stop() {
-	interrupted=1
+	vls_interrupted=1
 }
 
 vls_start() {
@@ -35,16 +36,21 @@ vls_start() {
 		vls_mac="$vls_mac_tmp"
 	fi
 
+	# VLS config:
+	echo "Getting VLS configuration ..."
+	test -e $vls_conffile || vls_die "$vls_conffile not found"
+	. $vls_conffile
+	test -n "$parttev" || vls_die 'Partition device [partdev] not specified'
+	test -n "$mbrfile" || vls_die 'Path to MBR file [mbrfile] not specified'
+	test -n "$raiddev" || vls_die 'RAID device [raiddev] not specified'
+
 	# RAID devices:
 	echo "Checking devices for RAID setup ..."
-	partdev=/dev/sda6                         # TODO config file or command line
-	mbrfile=/var/lib/vls/mbr                  # TODO config file or command line
-	raiddev=/dev/md0                          # TODO config file or command line
 	test -e $partdev || vls_die "System partition $partdev not found"
 	test -e $mbrfile || vls_die "MBR file $mbrfile not found"
 	test -e $raiddev && vls_die "$raiddev already exists"
 
-	# catch interrupts:
+	# catch interrupts, as from here on we will change the system state:
 	trap vls_pre_stop SIGINT
 	trap vls_pre_stop SIGTERM
 	trap vls_pre_stop SIGHUP
@@ -63,10 +69,10 @@ vls_start() {
 
 	# build runtime files:
 	echo "Creating runtime directory ..."
-	mkdir -p $runpath
+	mkdir -p $vls_runpath
 
 	# launch VM if not interrupted:
-	if [ $interrupted -eq 1 ]; then
+	if [ $vls_interrupted -eq 1 ]; then
 		echo 'Received shutdown signal, not starting VLS'
 	else
 		echo "Launching VLS ..."
@@ -75,9 +81,9 @@ vls_start() {
 		                   -drive file=$raiddev \
 		                   -net nic,model=virtio,macaddr=$vls_mac -net vde \
 		                   -nographic -vnc :7 \
-		                   -monitor unix:$sockfile,server,nowait &
+		                   -monitor unix:$vls_sockfile,server,nowait &
 		qemu_pid=$!
-		echo "qemu_pid=$qemu_pid" > $lockfile
+		echo "qemu_pid=$qemu_pid" > $vls_lockfile
 		trap vls_stop SIGINT
 		trap vls_stop SIGTERM
 		trap vls_stop SIGHUP
@@ -86,7 +92,7 @@ vls_start() {
 
 	# nuke socket:
 	echo "Nuking runtime files ..."
-	rm -rf $runpath
+	rm -rf $vls_runpath
 
 	# nuke RAID device:
 	echo "Nuking RAID device ..."
@@ -96,22 +102,21 @@ vls_start() {
 
 vls_stop() {
 	echo 'Stopping the VLS ...'
-	if [ -e $sockfile ] && [ -n "$(which -a socat)" ]; then
-		echo 'system_powerdown' | socat stdio UNIX-CONNECT:$sockfile
-	elif [ -e $lockfile ]; then
+	if [ -e $vls_sockfile ] && [ -n "$(which -a socat)" ]; then
+		echo 'system_powerdown' | socat stdio UNIX-CONNECT:$vls_sockfile
+	elif [ -e $vls_lockfile ]; then
 		echo 'socat: command not found, killing machine'
-		. $lockfile
+		. $vls_lockfile
 		kill $qemu_pid
-	else
-		echo 'VLS does not seem to be running, doing nothing'
 	fi
+	# else the VLS is not running and we don't do anything
 }
 
-# runtime:
-runpath=/run/vls
-lockfile=$runpath/vls.lock
-sockfile=$runpath/vls.sock
-interrupted=0
+vls_runpath=/run/vls
+vls_lockfile=$vls_runpath/vls.lock
+vls_sockfile=$vls_runpath/vls.sock
+vls_interrupted=0
+vls_conffile=/etc/vls.conf
 
 case "$1" in
 	start) vls_check_root && vls_start ;;

@@ -8,12 +8,14 @@ all:
 	sed -e "s/@INSTALLDIR@/$(shell echo "${INSTALLDIR}" | sed 's/\//\\\//g')/g"\
 		vls/vls.service > build/vls.service
 	cp vls/vls build/vls
+	cp vls/vls.conf build/vls.conf
 
 install:
 	install --mode=0644 build/vde.service /etc/systemd/system
 	install --mode=0644 build/vls.service /etc/systemd/system
 	install --mode=0755 build/vde ${INSTALLDIR}/bin
 	install --mode=0755 build/vls ${INSTALLDIR}/bin
+	test -e /etc/vls.conf || install --mode=644 build/vls.conf /etc/vls.conf
 	systemctl daemon-reload
 
 uninstall:
