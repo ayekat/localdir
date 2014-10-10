@@ -33,7 +33,7 @@ done
 # Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
 # - quartus starts Quartus, vsim starts ModelSim
-dir_altera="$HOME/.local/bin/altera"
+dir_altera="$HOME/.local/altera"
 if [ -d "$dir_altera" ]; then
 	for p in "$dir_altera/quartus/bin" \
 	         "$dir_altera/modelsim_ase/bin" \
