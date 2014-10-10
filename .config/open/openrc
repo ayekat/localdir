@@ -2,17 +2,18 @@
 placeholder        : _FILE_
 
 # map MIME to applications:
-inode/directory    : cd _FILE_ && ls
-image/png          : eog _FILE_ &
+application/pdf    : zathura _FILE_ &
 image/jpeg         : eog _FILE_ &
+image/png          : eog _FILE_ &
+image/tiff         : eog _FILE_ &
 image/x-ms-bmp     : eog _FILE_ &
+inode/directory    : cd _FILE_ && ls
+text/html          : dwb _FILE_ &
 text/plain         : gedit _FILE_ &
 text/x-shellscript : gedit _FILE_ &
-application/pdf    : zathura _FILE_ &
-video/x-matroska   : mplayer
 video/mp4          : mplayer
 video/webm         : mplayer
-text/html          : dwb _FILE_ &
+video/x-matroska   : mplayer
 
 # if application/octet-stream, map extensions to MIME:
 .html              : text/html
