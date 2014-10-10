@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+
+ext="$(file --brief --mime "$1" | cut -d ';' -f 1 | cut -d '/' -f 2)"
+test "$ext" = tiff && ext=NEF
+test "$ext" = jpeg && ext=jpg
+name=$(exiv2 "$1" | grep '^Image timestamp' | \
+       sed -e 's/^[^:]\+: //g;s/://g;s/ /_/g')
+test -n "$name" && mv -iv "$1" $name.$ext
