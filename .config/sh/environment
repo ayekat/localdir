@@ -65,7 +65,7 @@ export XDG_DATA_HOME=~/.local/share
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"    # vim
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"         # xinit (startx ignores)
-export XAUTHORITY="$XDG_CONFIG_HOME/X11/Xauthority"   # startx
+export XAUTHORITY="$XDG_CACHE_HOME/X11/Xauthority"    # startx
 export GNUPGHOME="$XDG_CONFIG_HOME/gnupg"             # gpg
 export PGPPATH="$XDG_CONFIG_HOME/gnupg"               # mutt (pgp)
 export TASKDATA="$XDG_DATA_HOME/task"                 # task-warrior
