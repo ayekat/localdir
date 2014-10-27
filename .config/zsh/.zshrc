@@ -240,7 +240,7 @@ setopt append_history       # append, instead of overwrite
 setopt hist_ignore_dups     # ignore duplicate commands
 #setopt share_history        # allow to acces to history of previous shells
 
-HISTFILE=$ZDOTDIR/.zhistory
+export HISTFILE=$XDG_CACHE_HOME/zsh/zhistory
 HISTSIZE=100000             # maximum history size in terminal's memory
 SAVEHIST=100000             # maximum size of history file
 

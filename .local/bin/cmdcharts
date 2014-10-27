@@ -2,15 +2,19 @@
 # Prints the [n] most used commands based on the shell's history file where [n]
 # is an optional argument (default: 10).
 
-case $SHELL in
-	/bin/bash) HISTFILE=/home/$USER/.bash_history ;;
-	/bin/zsh)  HISTFILE=/home/$USER/.zhistory ;;
-	*)         printf "unknown shell: %s\n" $SHELL >&2; exit 1 ;;
-esac
+if [ -z "$HISTFILE" ]; then
+	echo 'could not locate shell history file, $HISTFILE is undefined' >&2
+	exit 1
+fi
 
-[ $# -eq 0 ] && LINES=10 || LINES=$(($1))
+if [ $# -eq 0 ]; then
+	lines=10
+else
+	lines=$(($1))
+fi
+
 echo '$'
-awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $LINES | nl
-echo '#'
-grep '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $LINES | nl
+awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $lines | nl
+echo 'sudo:'
+grep '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $lines | nl
 
