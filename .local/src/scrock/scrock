@@ -18,10 +18,10 @@ scrock_help()
 	cut -c 2- >&2 <<EOF
 	Usage: $scrock_exe [option]
 	Options:
-		-h, --help                      Display this help
-		--create-config                 Create new sample configuration in $scrock_path(.new)
-		                                .new is added if the configuration exists already
-		-d, --daemon start|stop|status  Autolock after idle time (enable/disable)
+	    -h, --help                      Display this help
+	    --create-config                 Create new sample configuration in $scrock_path(.new)
+	                                    .new is added if the configuration exists already
+	    -d, --daemon start|stop|status  Autolock after idle time (enable/disable)
 
 	If no options are specified, scrock is run normally (see README).
 EOF
