@@ -7,8 +7,8 @@ all:
 	cp scrock build/scrock
 
 install:
-	install --mode=0755 scrock ${INSTALLDIR}/bin/scrock
-	install --mode=0644 scrock.service /usr/lib/systemd/system/scrock.service
+	install --mode=0755 build/scrock ${INSTALLDIR}/bin/scrock
+	install --mode=0644 build/scrock.service /usr/lib/systemd/system/scrock.service
 	systemctl daemon-reload
 
 uninstall:
