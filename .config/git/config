@@ -10,3 +10,5 @@
 	excludesfile = ~/.config/git/ignore
 [push]
 	default = simple
+[pull]
+	ff = only
