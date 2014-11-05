@@ -46,12 +46,10 @@ if has('vim_starting')
 	endif
 	set runtimepath+=$XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
 endif
-call neobundle#rc(expand('~/.config/vim/neobundle/'))
 
-" Let NeoBundle handle itself:
+" List of bundles I use (including NeoBundle itself): "
+call neobundle#begin(expand('~/.config/vim/neobundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-
-" Bundles I use:
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'ayekat/dwm.vim'
@@ -62,6 +60,8 @@ NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
 NeoBundle 'rosstimson/scala-vim-support'
+NeoBundle 'EdJoJob/llvmir-vim'
+call neobundle#end()
 NeoBundleCheck
 
 " Disable scala and java syntax checkers, as they are slow as hell:
@@ -118,7 +118,7 @@ else
 endif
 
 " Fold fill characters:
-set fillchars+=fold:\ 
+set fillchars+="fold: "
 
 " Autofold (except in git commit message):
 set foldmethod=marker
