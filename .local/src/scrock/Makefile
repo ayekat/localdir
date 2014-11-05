@@ -9,6 +9,8 @@ all:
 install:
 	install --mode=0755 build/scrock ${INSTALLDIR}/bin/scrock
 	install --mode=0644 build/scrock.service /usr/lib/systemd/system/scrock.service
+	mkdir -p /usr/lib/systemd/system/sleep.target.wants
+	{ cd /usr/lib/systemd/system/sleep.target.wants/; ln -s ../scrock.service; }
 	systemctl daemon-reload
 
 uninstall:
