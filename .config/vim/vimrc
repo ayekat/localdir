@@ -403,9 +403,11 @@ set noshowmode
 
 " Separators {{{
 if $TERM == "linux"
+	let gitsym=""
 	let sep="|"
 	let lnum="LN"
 else
+	let gitsym="⎇ "
 	let sep="│"
 	let lnum="␤"
 endif " }}}
@@ -484,9 +486,9 @@ function! StatuslineActive()
 	" Git {{{
 	if l:git_branch != ''
 		if l:mode == 'i'
-			let l:statusline .= '%#I_git_branch# '
+			let l:statusline .= '%#I_git_branch# %{gitsym}'
 		else
-			let l:statusline .= '%#N_git_branch# '
+			let l:statusline .= '%#N_git_branch# %{gitsym}'
 		endif
 		let l:statusline .= l:git_branch
 		if l:mode == 'i'
