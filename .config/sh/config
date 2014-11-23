@@ -13,8 +13,9 @@ cmd_exists() {
 # START {{{
 
 # If logged in via SSH, start or reattach to tmux session:
-[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && \
-	cmd_exists tmux && cmd_exists tmx && tmx SSH && exit
+if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmd_exists tmux tmx; then
+	tmx SSH && exit
+fi
 
 # }}}
 # ------------------------------------------------------------------------------

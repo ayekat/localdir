@@ -3,6 +3,15 @@
 # Written by ayekat on a cold sunday afternoon in November 2014.
 
 # ------------------------------------------------------------------------------
+# ENVIRONMENT {{{
+
+# tmux seems to overwrite the $PATH variable; regenerate environment:
+if [ -n "$TMUX" ]; then
+	. $XDG_CONFIG_HOME/sh/environment
+fi
+
+# }}}
+# ------------------------------------------------------------------------------
 # LOGO {{{
 
 printlogo() {
