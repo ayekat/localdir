@@ -5,10 +5,10 @@ set nocompatible
 
 " ------------------------------------------------------------------------------
 " PATHS {{{
-" We like to respect the XDG specifications
+" We like to respect the XDG base directory specifications
 
 " Where vim looks for scripts:
-set runtimepath+=$XDG_CONFIG_HOME/vim
+set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 
 " Where vim stores backup files:
 set backupdir=$XDG_CACHE_HOME/vim,/tmp,~
@@ -21,6 +21,9 @@ set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 
 " Where vim stores the undo tree:
 set undodir=$XDG_CACHE_HOME/vim/undo
+
+" Where netrw plugin stores the history:
+let g:netrw_home=$XDG_CACHE_HOME.'/vim'
 
 " Make sure the damn paths exists:
 function! MakeSureTheDamnPathExists(path)
@@ -52,6 +55,7 @@ call neobundle#begin(expand('~/.config/vim/neobundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vinarise.vim'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'ayekat/dwm.vim'
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
@@ -292,7 +296,7 @@ au FileType c,java,php,sh,perl,sql,glsl,cpp,scala,matlab au BufWritePre <buffer>
 " Use 4-char-tabs... usually:
 set noexpandtab shiftwidth=4 tabstop=4
 au FileType c set tabstop=8 shiftwidth=8
-au FileType tex,scala set expandtab tabstop=2 shiftwidth=2
+au FileType cpp,tex,scala set expandtab tabstop=2 shiftwidth=2
 au FileType java,ant,haskell,sql set expandtab
 
 " Auto-indent, and reuse the same combination of spaces/tabs:
@@ -342,6 +346,11 @@ set noesckeys
 map <leader>j <C-w>w
 map <leader>k <C-w>W
 map <leader><Space> :call DWM_Focus()<CR>
+
+" Tabbed window handling:
+map <leader>l :tabnext<CR>
+map <leader>h :tabprevious<CR>
+map <leader>t :tabnew 
 
 " Show command history:
 nnoremap ; q:
@@ -664,7 +673,5 @@ endif
 " Rather temporary settings, but they remain for like half a year (often for
 " EPFL courses).
 
-au! BufEnter /home/ayekat/epfl/cg/{*.c,*.h,*.vert,*.geom,*.frag} set expandtab
-au! BufEnter /home/ayekat/epfl/blitzview-report/*.tex set formatoptions+=l
-
 " }}}
+" ------------------------------------------------------------------------------
