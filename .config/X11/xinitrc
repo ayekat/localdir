@@ -75,6 +75,9 @@ fi
 # Enable automatic lock on timeout:
 scrock --daemon start
 
+# Launch status bar:
+karuibar &
+
 
 # WM ---------------------------------------------------------------------------
 

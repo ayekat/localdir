@@ -2,10 +2,10 @@
 ! Written by ayekat a long time ago, updated on a sunny wednesday afternoon in
 ! september 2014.
 
+! ------------------------------------------------------------------------------
+! COLOURS {{{
 
-! COLOURS ----------------------------------------------------------------------
-
-! colour definitions:
+! Colour palette:
 #define black        #222222
 #define red          #DD5544
 #define green        #00AA00
@@ -26,41 +26,43 @@
 #define termfg       #AAAAAA
 #define termbg       #111111
 
-! black:
+! Black:
 *color0              : black
 *color8              : lightblack
-! red:
+! Red:
 *color1              : red
 *color9              : lightred
-! green:
+! Green:
 *color2              : green
 *color10             : lightgreen
-! yellow:
+! Yellow:
 *color3              : yellow
 *color11             : lightyellow
-! blue:
+! Blue:
 *color4              : blue
 *color12             : lightblue
-! magenta:
+! Magenta:
 *color5              : magenta
 *color13             : lightmagenta
-! cyan:
+! Cyan:
 *color6              : cyan
 *color14             : lightcyan
-! white:
+! White:
 *color7              : white
 *color15             : lightwhite
 
-
-! XTERM ------------------------------------------------------------------------
+! }}}
+! ------------------------------------------------------------------------------
+! XTERM {{{
 
 xterm.*.foreground     : termfg
 xterm.*.background     : termbg
 
+! }}}
+! ------------------------------------------------------------------------------
+! URXVT {{{
 
-! URXVT ------------------------------------------------------------------------
-
-! look:
+! Look:
 URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
 URxvt.depth          : 24
 URxvt.foreground     : termfg
@@ -70,41 +72,60 @@ URxvt.scrollBar      : false
 URxvt.internalBorder : 1
 URxvt.colorBD        : lightwhite
 
-! scrollback buffer:
+! Scrollback buffer:
 URxvt.saveLines      : 10000
 
-! scroll behaviour:
+! Scroll behaviour:
 URxvt.scrollTtyOutput: false
 URxvt.scrollTtyKeypress: true
 URxvt.scrollWithBuffer: true
 URxvt.secondaryScroll: true
 
-! ignore ISO-14755 mode for Ctrl+Shift:
+! Disable ISO-14755 mode for Ctrl+Shift:
 URxvt.iso14755       : false
 URxvt.iso14755_52    : false
 
-! settings for perl extensions:
+! Settings for perl extensions:
 URxvt.perl-lib       : /home/ayekat/.config/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard
 URxvt.perl-ext-common: default,url-select,keyboard-select
 
-! open new window in same PWD:
+! Open new window in same PWD:
   URxvt.keysym.C-S-N : perl:insamedir:open
-! open URLs with keyboard (requires urxvt-perls package):
+! Open URLs with keyboard (requires urxvt-perls package):
   URxvt.url-select.launcher: /usr/bin/xdg-open
   URxvt.url-select.underline: true
   URxvt.keysym.C-S-K : perl:url-select:select_next
-! search buffer:
+! Search buffer:
   URxvt.keysym.C-S-F : perl:keyboard-select:search
-! copy+paste:
+! Copy+paste:
   URxvt.keysym.C-S-V : perl:clipboard:paste
   URxvt.keysym.Control-Shift-C : perl:clipboard:copy
 
-URxvt.keysym.Escape  : \033\007
+!URxvt.keysym.Escape  : \033\000
 
-! DZEN -------------------------------------------------------------------------
+! }}}
+! ------------------------------------------------------------------------------
+! DZEN {{{
 
 dzen2.font           : Fixed-10:Medium:SemiCondensed
 dzen2.background     : black
 dzen2.foreground     : #888888
 
+! }}}
+! ------------------------------------------------------------------------------
+! KARUIBAR {{{
+
+karuibar.modules     : memory, cpu, network, mpd, battery, alsa, time
+karuibar.foreground  : termfg
+karuibar.background  : black
+karuibar.separator   : 2
+karuibar.padding     : 9
+karuibar.bottom      : false
+karuibar.xgap        : 100
+karuibar.log_level   : 7
+
+karuibar.battery.acpi_use_real : true
+
+! }}}
+! ------------------------------------------------------------------------------

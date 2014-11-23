@@ -53,8 +53,6 @@ static char const *volupcmd[] = { "amixer", "set", "Master", "2+", "unmute", NUL
 static char const *voldowncmd[] = { "amixer", "set", "Master", "2-", "unmute", NULL };
 static char const *volmutecmd[] = { "amixer", "set", "Master", "toggle", NULL };
 static char const *micmutecmd[] = { "amixer", "set", "Capture", "toggle", NULL };
-static char const *dzenstatstartcmd[] = { "dzenstat", "start", NULL };
-static char const *dzenstatstopcmd[] = { "dzenstat", "stop", NULL };
 static char const *musicplaypausecmd[] = { "mpc", "toggle", NULL };
 static char const *musicnextcmd[] = { "mpc", "next", NULL };
 static char const *musicprevcmd[] = { "mpc", "prev", NULL };
@@ -63,15 +61,11 @@ static char const *musicprevcmd[] = { "mpc", "prev", NULL };
 static void
 custom_startup()
 {
-	Arg const arg = { .v=dzenstatstartcmd };
-	spawn(&arg);
 }
 
 static void
 custom_shutdown()
 {
-	Arg const arg = { .v=dzenstatstopcmd };
-	spawn(&arg);
 }
 
 #define MODKEY Mod4Mask

@@ -1,7 +1,8 @@
-altera
 *.d
-nios2sim
+altera
 checkstyle
+karuibar
+nios2sim
 open
-xor
 toolc-ref
+xor

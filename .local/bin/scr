@@ -33,22 +33,17 @@ scr_add() {
 	esac
 	xrandr --output "$lcdname" --auto || exit 1
 	xrandr --output "$scrname" --auto --${position} "$lcdname" || exit 1
-
-	# variables:
-	dynenv NUM_SCREENS=2
 	scr_setup
 }
 
 scr_remove() {
 	printf "[%s] %s: removing %s...\n" "$(date +%H:%M:%S)" "$appname" "$scrname"
 	xrandr --output "$scrname" --off || exit 1
-	dynenv NUM_SCREENS=1
 	scr_setup
 }
 
 scr_setup() {
 	xrandr --output "$lcdname" --dpi 96
-	dzenstat restart
 	nitrogen --restore
 }
 
