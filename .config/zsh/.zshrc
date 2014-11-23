@@ -24,6 +24,9 @@ unset path_syntax
 # Enable colours:
 autoload -U colors && colors
 
+# XXX:
+setopt prompt_subst
+
 # Define prompt colours:
 if [ "$TERM" != 'linux' ]; then
 	pc_vim_normal="$(tput setaf 22)$(tput setab 148)"
@@ -32,15 +35,6 @@ else
 	pc_vim_normal="$fg[black]$bg[green]"
 	pc_vim_insert="$fg[cyan]$bg[blue]"
 fi
-pc_git_kernel="$fg_bold[black]"
-pc_git_clean="$fg[green]"
-pc_git_ahead="$fg[cyan]"
-pc_git_ready="$fg[yellow]"
-pc_git_dirty="$fg[red]"
-pc_git_merge="$fg_bold[red]"
-pc_host="$fg[magenta]"
-pc_pwd="$fg[blue]"
-pc_prompt="$fg_bold[red]"
 pc_time="$fg[green]"
 pc_retval_bad="$fg_bold[red]"
 pc_retval_good="$fg[black]"
@@ -50,45 +44,41 @@ vim_mode_normal='CMD'
 vim_mode_insert='INS'
 vim_mode=$vim_mode_insert
 
-# VCS settings:
-setopt prompt_subst
-zstyle ':vcs_info:*' enable git
-zstyle ':vcs_info:git*' check-for-changes true
-zstyle ':vcs_info:git*' formats "%b"
-autoload -Uz vcs_info
-gstat() { git status --porcelain 2>/dev/null; }
-ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
-
 build_prompt() #{{{
 {
 	PROMPT=''
 
-	# Set colours depending on mode:
+	# Vim mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
 	else
 		pc_vim="$pc_vim_insert"
 	fi
-
-	# Build prompt:
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
-	if [ -n "$git_branch" ]; then
-		case $git_state in
-			kernel) PROMPT+="%{$pc_git_kernel%}" ;;
-			clean) PROMPT+="%{$pc_git_clean%}" ;;
-			ahead) PROMPT+="%{$pc_git_ahead%}" ;;
-			ready) PROMPT+="%{$pc_git_ready%}" ;;
-			dirty) PROMPT+="%{$pc_git_dirty%}" ;;
-			merge) PROMPT+="%{$pc_git_merge%}" ;;
+
+	# VCS:
+	if [ -n "$vcs_state" ]; then
+		case $vcs_state in
+			kernel) PROMPT+="%{$pc_vcs_kernel%}" ;;
+			clean) PROMPT+="%{$pc_vcs_clean%}" ;;
+			ahead) PROMPT+="%{$pc_vcs_ahead%}" ;;
+			ready) PROMPT+="%{$pc_vcs_ready%}" ;;
+			dirty) PROMPT+="%{$pc_vcs_dirty%}" ;;
+			merge) PROMPT+="%{$pc_vcs_merge%}" ;;
 		esac
-		PROMPT+="[$git_branch]%{$reset_color%} "
+		PROMPT+="[$vcs_branch]%{$reset_color%} "
 	fi
+
+	# Hostname (if SSH):
 	[ -n "$SSH_CONNECTION" ] && PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
-	PROMPT+="%{$pc_pwd%}%~%{$reset_color%}"
+
+	# PWD:
+	PROMPT+="%{$pc_pwd%}%~%{$reset_color%} "
+
+	# Root?
 	if [ $(id -u) = 0 ]; then
-		PROMPT+="%{$pc_prompt%} #%{$reset_color%}"
+		PROMPT+="%{$pc_prompt%}#%{$reset_color%} "
 	fi
-	PROMPT+=' '
 
 	export PROMPT
 }
@@ -131,37 +121,14 @@ build_rprompt() #{{{
 
 preexec() {
 	timer=${timer:-$SECONDS}
-
-	# clean up some variables, so they don't linger:
-	unset vcs_info_msg_0_
-	unset vcs_info_msg_1_
 	unset PROMPT
 	unset RPROMPT
 }
 
 precmd() {
-	# VCS: update information if not in kernel repo:
-	if [ "$(pwd -P | cut -d '/' -f 1-5)" = "$HOME/dev/linux" ]; then
-		git_branch='linux'
-		git_state='kernel'
-	else
-		vcs_info
-		git_state=''
-		git_branch="$vcs_info_msg_0_"
-		if [ -n "$git_branch" ]; then
-			git_state='clean'
-			ghead | grep -o 'ahead' >/dev/null && git_state='ahead'
-			gstat | grep  '^[MADR].' >/dev/null && git_state='ready'
-			gstat | grep  '^.[M?D]' >/dev/null && git_state='dirty'
-			gstat | grep  'UU' >/dev/null && git_state='merge'
-		fi
-	fi
+	vcs_update
 	build_prompt
 	build_rprompt
-
-	# Do not do this. In case of a prompt refresh, we will need them.
-	#unset git_branch
-	#unset git_state
 }
 
 precmd
