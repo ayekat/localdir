@@ -192,7 +192,7 @@ zstyle ':completion:*' squeeze-slashes true
 zstyle :compinstall filename '/home/ayekat/.config/zsh/.zshrc'
 
 autoload -Uz compinit
-compinit
+compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 # End of lines added by compinstall
 
 # Do not autocomplete when ambiguous (bash-like):
