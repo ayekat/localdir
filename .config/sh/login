@@ -1,35 +1,10 @@
-#!/bin/sh
-# Unified shell configuration file for bash and zsh.
-# Written by ayekat on a warm summer day in 2013.
-
+#!/usr/bin/env sh
+# Actions performed when logging into a shell.
+# Written by ayekat on a cold sunday afternoon in November 2014.
 
 # ------------------------------------------------------------------------------
-# META {{{
+# LOGO {{{
 
-# Make sure the environment is loaded correctly:
-[ -e ~/.config/sh/environment ] && . ~/.config/sh/environment
-
-# }}}
-# ------------------------------------------------------------------------------
-# SYSTEM {{{
-
-# Read operating system information (if available):
-if [ -e /etc/os-release ]; then
-	DISTRIBUTION="$(grep -e '^ID=' /etc/os-release | cut -c 4-)"
-elif [ "$(uname)" = 'Darwin' ]; then
-	DISTRIBUTION='darwin'
-elif [ -e /etc/gentoo-release ]; then
-	DISTRIBUTION='gentoo'
-else
-	DISTRIBUTION='unknown'
-fi
-export DISTRIBUTION
-
-# }}}
-# ------------------------------------------------------------------------------
-# FUNCTIONS/ALIASES {{{
-
-# Distribution logos:
 printlogo() {
 	case "$1" in
 		debian)
@@ -105,78 +80,14 @@ printlogo() {
 			;;
 	esac
 }
-
-cmd_exists() {
-	for c in $@; do
-		which $c >/dev/null 2>&1 || return -1
-	done
-}
-
-sudo() {
-	if cmd_exists sudo && [ "$1" = 'vim' ]; then
-		/usr/bin/sudo -E "$@"
-	else
-		/usr/bin/sudo "$@"
-	fi
-}
-
-# Aliases:
-alias cp='cp -i'
-alias grep='grep --color=auto'
-alias info='info --vi-keys'
-alias la='ls -A'
-alias lah='ls -lAh'
-alias laht='ls -lAht'
-alias ll='ls -lh'
-alias mv='mv -i'
-[ "$DISTRIBUTION" = 'darwin' ] && alias ls='ls -G' || alias ls='ls --color=auto'
-
-# Application specific aliases:
-cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
-cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
-cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
-cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
-cmd_exists startx && alias startx="startx $XINITRC"
-
-# Server only aliases (mostly additional security):
-if [ -n "$SSH_CONNECTION" ]; then
-	alias rm='rm -i'
-fi
+printlogo "$OS_RELEASE"
 
 # }}}
 # ------------------------------------------------------------------------------
-# CDPATH {{{
-
-# example:
-#CDPATH=".:$HOME/epfl"
-
-# }}}
-#-------------------------------------------------------------------------------
-# PKGFILE {{{
-
-# On Arch, if an unknown command is issued, pkgfile will answer where the
-# command might possibly be found:
-#if [ "$DISTRIBUTION" = 'arch' ]; then
-#	pkgfilesrc="/usr/share/doc/pkgfile/command-not-found.$(basename $SHELL)"
-#	[ -e "$pkgfilesrc" ] && . "$pkgfilesrc"
-#	unset pkgfilesrc
-#fi
-
-# }}}
-# ------------------------------------------------------------------------------
-# START-UP ACTIONS {{{
-
-# If logged in via SSH, start or reattach to tmux session:
-[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && \
-	cmd_exists tmux && cmd_exists tmx && tmx SSH && exit
-
-# If in tmux, the PATH variable is fucked up, so fix this here:
-[ -n "$TMUX" ] && . $XDG_CONFIG_HOME/sh/environment
-
-# Print distribution logo:
-printlogo "$DISTRIBUTION"
+# TODO {{{
 
 # Display the todo file in the home directory:
 [ -e "$HOME"/TODO ] && { echo; cat "$HOME"/TODO; echo; }
 
 # }}}
+# ------------------------------------------------------------------------------

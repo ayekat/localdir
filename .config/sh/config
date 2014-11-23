@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+# Configuration for interactive shells.
+# Written by ayekat on a warm summer day in 2013.
+
+# Helper:
+cmd_exists() {
+	for c in $@; do
+		which $c >/dev/null 2>&1 || return -1
+	done
+}
+
+# ------------------------------------------------------------------------------
+# START {{{
+
+# If logged in via SSH, start or reattach to tmux session:
+[ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && \
+	cmd_exists tmux && cmd_exists tmx && tmx SSH && exit
+
+# }}}
+# ------------------------------------------------------------------------------
+# FUNCTIONS/ALIASES {{{
+
+# Aliases:
+alias cp='cp -i'
+alias grep='grep --color=auto'
+alias info='info --vi-keys'
+alias la='ls -A'
+alias lah='ls -lAh'
+alias laht='ls -lAht'
+alias ll='ls -lh'
+alias mv='mv -i'
+if [ "$OS_RELEASE" = 'darwin' ]; then
+	alias ls='ls -G'
+else
+	alias ls='ls --color=auto'
+fi
+
+# Application specific aliases:
+cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
+cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
+cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
+cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
+cmd_exists startx && alias startx="startx $XINITRC"
+
+# Pass user environment when launching vim with sudo:
+sudo() {
+	if cmd_exists sudo vim && [ "$1" = 'vim' ]; then
+		/usr/bin/sudo -E "$@"
+	else
+		/usr/bin/sudo "$@"
+	fi
+}
+
+# Server only aliases (mostly additional security):
+if [ -n "$SSH_CONNECTION" ]; then
+	alias rm='rm -i'
+fi
+
+# }}}
+# ------------------------------------------------------------------------------
+
+unset -f cmd_exists

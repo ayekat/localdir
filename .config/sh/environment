@@ -1,7 +1,6 @@
-#!/bin/sh
-# Sets environment variables before logging into the shell.
+#!/usr/bin/env sh
+# Environment set when logging into a shell.
 # Written by ayekat on a frustrating evening in september 2014.
-
 
 # ------------------------------------------------------------------------------
 # PATH {{{
@@ -51,11 +50,7 @@ export PATH
 
 # }}}
 # ------------------------------------------------------------------------------
-
-# Set vim as default text editor:
-export EDITOR='/usr/bin/vim'
-export VISUAL='/usr/bin/vim'
-export PAGER='/usr/bin/less'
+# XDG {{{
 
 # Set XDG variables:
 export XDG_CONFIG_HOME=~/.config
@@ -76,6 +71,19 @@ export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"     # pass
 export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp"        # gimp
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"        # mplayer
 
+# }}}
+# ------------------------------------------------------------------------------
+# DEFAULT APPLICATIONS {{{
+
+# Editor and pager:
+export EDITOR='/usr/bin/vim'
+export VISUAL='/usr/bin/vim'
+export PAGER='/usr/bin/less'
+
+# }}}
+# ------------------------------------------------------------------------------
+# LOOK {{{
+
 # Set colours for less, man:
 if [ "$TERM" = 'linux' ]; then
 	export LESS_TERMCAP_mb=$(printf "\033[34m")
@@ -94,3 +102,20 @@ else
 	export LESS_TERMCAP_ue=$(printf "\033[0m")
 	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
 fi
+
+# }}}
+# ------------------------------------------------------------------------------
+# OPERATING SYSTEM {{{
+
+OS_RELEASE=''
+if [ -e /etc/os-release ]; then
+	OS_RELEASE="$(grep -e '^ID=' /etc/os-release | cut -c 4-)"
+elif [ "$(uname)" = 'Darwin' ]; then
+	OS_RELEASE='darwin'
+elif [ -e /etc/gentoo-release ]; then
+	OS_RELEASE='gentoo'
+fi
+export OS_RELEASE
+
+# }}}
+# ------------------------------------------------------------------------------

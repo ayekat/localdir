@@ -1,7 +1,4 @@
 ncmpcpp/error.log
 git/gitk
 vim/neobundle
-zsh/.zhistory
-zsh/.zcompdump*
 zsh/zshrc
-X11/Xauthority

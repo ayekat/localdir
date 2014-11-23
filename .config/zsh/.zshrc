@@ -1,13 +1,12 @@
-#!/bin/zsh
-# zsh configuration file
+#!/usr/bin/env zsh
+# Configuration for interactive zsh.
 # Written by ayekat on a cold night in march 2013.
 
-
 # ------------------------------------------------------------------------------
-# GENERAL (SHRC) {{{
-# Load general configuration (bash and zsh).
+# GENERAL {{{
 
-. ~/.config/sh/shrc
+# Load general shell configuration (bash and zsh):
+. $XDG_CONFIG_HOME/sh/config
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -157,9 +156,10 @@ precmd() {
 			gstat | grep  'UU' >/dev/null && git_state='merge'
 		fi
 	fi
-
 	build_prompt
 	build_rprompt
+	unset git_branch
+	unset git_state
 }
 
 precmd
@@ -208,9 +208,6 @@ function TRAPINT() {
 	return $((128 + $1))
 }
 
-# Disable zsh menu for autocompletion:
-#setopt no_auto_menu
-
 # }}}
 # ------------------------------------------------------------------------------
 # COMPLETION {{{
@@ -245,3 +242,4 @@ HISTSIZE=100000             # maximum history size in terminal's memory
 SAVEHIST=100000             # maximum size of history file
 
 # }}}
+# ------------------------------------------------------------------------------

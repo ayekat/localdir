@@ -1,20 +1,19 @@
-#!/bin/bash
-# bash configuration file
+#!/usr/bin/env bash
+# Configuration for interactive bash.
 # Written by ayekat on a rainy day in 2009.
-
 
 # ------------------------------------------------------------------------------
 # START {{{
 
-# Check if this is an interactive session:
+# bash does not check whether sourcing bashrc only on interactive shells:
 [ -z "$PS1" ] && return
 
 # }}}
 # ------------------------------------------------------------------------------
-# GENERAL (SHRC) {{{
-# Load general configuration (bash and zsh).
+# GENERAL {{{
 
-. ~/.config/sh/shrc
+# Load general configuration (bash and zsh):
+. $XDG_CONFIG_HOME/sh/config
 
 # }}}
 # ------------------------------------------------------------------------------
