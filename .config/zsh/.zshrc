@@ -158,8 +158,10 @@ precmd() {
 	fi
 	build_prompt
 	build_rprompt
-	unset git_branch
-	unset git_state
+
+	# Do not do this. In case of a prompt refresh, we will need them.
+	#unset git_branch
+	#unset git_state
 }
 
 precmd
