@@ -339,7 +339,7 @@ map H 4zh
 map ä 0
 
 " Remove delay for leaving insert mode:
-set noesckeys
+set timeoutlen=1000 ttimeoutlen=0
 
 " Split window handling:
 map <leader>j <C-w>w
