@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+# Environment set and actions performed when logging into zsh.
+# Written by ayekat a long time ago;
+#                             Fixed on a cold sunday afternoon in November 2014.
+
+# ------------------------------------------------------------------------------
+# GENERAL {{{
+
+# Load general shell environment (bash and zsh):
+. ~/.config/sh/environment
+
+# Load general shell login configuration (bash and zsh):
+. $XDG_CONFIG_HOME/sh/login
+
+# }}}
+# ------------------------------------------------------------------------------
