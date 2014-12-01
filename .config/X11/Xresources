@@ -116,16 +116,23 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar.modules     : memory, cpu, network, mpd, battery, alsa, time
+karuibar.modules     : mpd, network, memory, cpu, battery, alsa, time_date, time_time
 karuibar.foreground  : termfg
 karuibar.background  : black
-karuibar.separator   : 2
-karuibar.padding     : 9
+karuibar.wsep        : 1
+karuibar.wpad        : 8
 karuibar.bottom      : false
 karuibar.xgap        : 100
 karuibar.log_level   : 7
 
-karuibar.battery.acpi_use_real : true
+karuibar.battery.acpi_use_real: true
+
+karuibar.time_date.format     : %Y-%m-%d
+karuibar.time_date.foreground : #EEEEEE
+karuibar.time_date.background : #555555
+karuibar.time_time.format     : %H:%M
+karuibar.time_time.foreground : #555555
+karuibar.time_time.background : #EEEEEE
 
 ! }}}
 ! ------------------------------------------------------------------------------

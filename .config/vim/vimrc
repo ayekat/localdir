@@ -63,6 +63,7 @@ NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
+NeoBundle 'ap/vim-css-color'
 call neobundle#end()
 NeoBundleCheck
 
