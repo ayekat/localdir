@@ -119,3 +119,12 @@ export OS_RELEASE
 
 # }}}
 # ------------------------------------------------------------------------------
+# RAINBOWDASH FUCK-AROUND {{{
+# GNU Generation (http://gnugeneration.epfl.ch/) server
+
+if [ $(hostname) = 'rainbowdash' ] && locale -a | grep 'en_GB\.utf8' >/dev/null
+then
+	export LANG=en_GB.utf8
+fi
+
+# }}}

@@ -116,14 +116,16 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar.modules     : mpd, network, memory, cpu, battery, alsa, time_date, time_time
+karuibar.modules     : stdin; mpd, network, memory, cpu, battery, backlight, \
+                       alsa, time_date, time_time
 karuibar.foreground  : termfg
 karuibar.background  : black
 karuibar.wsep        : 1
-karuibar.wpad        : 8
+karuibar.wpad        : 7
 karuibar.bottom      : false
 karuibar.xgap        : 100
-karuibar.log_level   : 7
+
+karuibar.mpd_gnu.host: mpd.gnugen.ch
 
 karuibar.battery.acpi_use_real: true
 
