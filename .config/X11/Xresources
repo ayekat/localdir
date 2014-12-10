@@ -116,8 +116,8 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar.modules     : stdin; mpd, network, memory, cpu, battery, backlight, \
-                       alsa, time_date, time_time
+karuibar.modules     : stdin; mpd, network, memory, cpu, battery, \
+                       backlight, alsa, time_date, time_time, capslock
 karuibar.foreground  : termfg
 karuibar.background  : black
 karuibar.wsep        : 1

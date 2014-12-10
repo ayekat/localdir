@@ -12,6 +12,7 @@ inode/directory    : cd _FILE_ && ls
 text/html          : dwb _FILE_ &
 text/plain         : gedit _FILE_ &
 text/x-shellscript : gedit _FILE_ &
+text/x-tex         : gedit _FILE_ &
 video/mp4          : mplayer
 video/webm         : mplayer
 video/x-matroska   : mplayer
