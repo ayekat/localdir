@@ -42,6 +42,7 @@ cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
 cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/muttrc"
 cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
 cmd_exists startx && alias startx="startx $XINITRC"
+cmd_exists vim nvim && alias vim="nvim"
 
 # Pass user environment when launching vim with sudo:
 sudo() {
