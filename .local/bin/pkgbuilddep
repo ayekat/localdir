@@ -1,0 +1,97 @@
+#!/usr/bin/env bash
+
+# This script provides functionality to list and install build dependencies for
+# Arch Linux packages.
+# Written by ayekat on a bored saturday evening in January 2015.
+
+# Location of ABS config:
+ABSCONFIG=/etc/abs.conf
+
+# Print error message and exit:
+pbd_die() {
+	echo "$pbd: $@" >&2
+	exit 1
+}
+
+# Print help message and exit:
+pbd_usage() {
+	echo "$pbd: list and install build dependencies for Arch Linux packages" >&2
+	echo                                                                     >&2
+	echo "Usage: $pbd {install,list,listall} PACKAGE"                        >&2
+	exit 1
+}
+
+# Determine location of ABS root:
+pbd_sourceabs() {
+	if [ ! -e "$ABSCONFIG" ]; then
+		echo "warning: ABS configuration '$ABSCONFIG' does not exist" >&2
+		echo "         defaulting ABSROOT to $pbd_absroot"            >&2
+		return
+	fi
+	. "$ABSCONFIG"
+	if [ "$ABSROOT" = '' ]; then
+		echo "warning: ABSROOT not set"                    >&2
+		echo "         defaulting ABSROOT to $pbd_absroot" >&2
+		return
+	fi
+	pbd_absroot="$ABSROOT"
+}
+
+# Determine dependency list as defined in the PKGBUILD:
+pbd_sourcepkg() {
+	if [ ! -d "$pbd_absroot"/*/"$pbd_pkgname" ]; then
+		pbd_die "package '$pbd_pkgname' not found in the ABS"
+	fi
+
+	pbd_absdir="$(echo "$pbd_absroot"/*/"$pbd_pkgname")"
+	. "$pbd_absdir"/PKGBUILD
+	pbd_makedeps="${makedepends[*]}"
+}
+
+# Strip packages that are already installed from dependency list:
+pbd_strip() {
+	pbd_makedeps_stripped=''
+	for p in $pbd_makedeps; do
+		pbare=$(echo "$p" | cut -d '=' -f 1)
+		if pacman -Qq $pbare 1>/dev/null 2>/dev/null; then
+			continue
+		fi
+		pbd_makedeps_stripped="$pbd_makedeps_stripped $p"
+	done
+	pbd_makedeps="$pbd_makedeps_stripped"
+}
+
+# List dependencies, line by line:
+pbd_list() {
+	for p in $pbd_makedeps; do
+		echo $p
+	done
+}
+
+# Install dependencies:
+pbd_install() {
+	if [ -z "$pbd_makedeps" ]; then
+		pbd_die "no remaining build dependencies for $pbd_pkgname"
+	fi
+	pacman -S --asdeps $pbd_makedeps
+}
+
+# Variables:
+pbd="$(basename $0)"
+pbd_makedeps=''
+pbd_absroot=/var/abs
+pbd_command="$1"
+pbd_pkgname="$2"
+
+# Check correctness of command line:
+if [ -z "$pbd_command" ] || [ -z "$pbd_pkgname" ]; then
+	pbd_usage
+fi
+
+# Execute command:
+case "$pbd_command" in
+	install) pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_install ;;
+	list)    pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_list    ;;
+	listall) pbd_sourceabs; pbd_sourcepkg;            pbd_list    ;;
+	*) pbd_usage ;;
+esac
