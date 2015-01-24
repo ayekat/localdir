@@ -20,14 +20,8 @@ add_to_path() {
 	unset ifs_old
 }
 
-# User specific paths:
-for p in "/usr/lib/colorgcc/bin" \
-         "$HOME/.local/bin" \
-         "$HOME/.cabal/bin" \
-         "$HOME/.gem/ruby/2.1.0/bin"
-do
-	add_to_path "$p"
-done
+# User specific path:
+add_to_path "$HOME/.local/bin"
 
 # Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
@@ -103,6 +97,8 @@ else
 	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
 fi
 
+export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
+
 # }}}
 # ------------------------------------------------------------------------------
 # OPERATING SYSTEM {{{
@@ -120,7 +116,7 @@ export OS_RELEASE
 # }}}
 # ------------------------------------------------------------------------------
 # RAINBOWDASH FUCK-AROUND {{{
-# GNU Generation (http://gnugeneration.epfl.ch/) server
+# GNU Generation server admin thinks it's funny to have a french locale.
 
 if [ $(hostname) = 'rainbowdash' ] && locale -a | grep 'en_GB\.utf8' >/dev/null
 then

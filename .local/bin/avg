@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+summands=''
+
+for i in $@; do
+	summands="${summands}${i} + "
+done
+
+dc -e "10k 0 $summands $# / p"

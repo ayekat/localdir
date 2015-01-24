@@ -14,7 +14,8 @@ else
 fi
 
 echo '$'
-awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $lines | nl
+awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $lines
 echo 'sudo:'
-grep '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $lines | nl
+grep --text '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $lines
 
+# pipe into nl for line numbering

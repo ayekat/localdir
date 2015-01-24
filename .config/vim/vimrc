@@ -290,7 +290,7 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-au FileType c,java,php,sh,perl,sql,glsl,cpp,scala,matlab au BufWritePre <buffer> :call StripTrailingWhitespaces()
+au FileType c,java,php,sh,perl,sql,glsl,cpp,scala,matlab,tex au BufWritePre <buffer> :call StripTrailingWhitespaces()
 
 " Use 4-char-tabs... usually:
 set noexpandtab shiftwidth=4 tabstop=4
