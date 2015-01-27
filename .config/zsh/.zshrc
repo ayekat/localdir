@@ -8,6 +8,9 @@
 # Load general shell configuration (bash and zsh):
 . $XDG_CONFIG_HOME/sh/config
 
+# Make sure cache folder exists:
+[ -d "$XDG_CACHE_HOME/zsh" ] || mkdir "$XDG_CACHE_HOME/zsh"
+
 # }}}
 # ------------------------------------------------------------------------------
 # LOOK {{{
