@@ -56,11 +56,8 @@ lcdadjust &
 # Load X resources:
 xrdb ~/.config/X11/Xresources
 
-# Start urxvt daemon:
-[ -z "$(pgrep urxvtd)" ] && urxvtd -f -o
-
 # Start a scratchpad:
-urxvtc -e tmx SCRATCHPAD
+urxvt -e tmx SCRATCHPAD &
 
 # Set the wallpaper:
 nitrogen --restore

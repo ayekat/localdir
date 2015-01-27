@@ -118,6 +118,8 @@ dzen2.foreground     : #888888
 
 karuibar.modules     : stdin; mpd, network, memory, cpu, battery, \
                        backlight, alsa, time_date, time_time, capslock
+! gethostname (3)
+karuibar_phobia.modules: stdin; network, memory, cpu, alsa, time_date, time_time
 karuibar.foreground  : termfg
 karuibar.background  : black
 karuibar.wsep        : 1
