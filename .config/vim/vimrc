@@ -40,9 +40,12 @@ call MakeSureTheDamnPathExists(&undodir)
 " BUNDLES {{{
 
 let g:bundledir=$XDG_CONFIG_HOME.'/vim/neobundle'
+let g:bundleinit=0
+"
 " Initialise and bootstrap NeoBundle (here goes my thanks to flor):
 if has('vim_starting')
 	if !isdirectory(g:bundledir)
+		let g:bundleinit=1
 		call mkdir(g:bundledir, 'p', 0700)
 		!git clone 'https://github.com/Shougo/neobundle.vim' $XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
 	endif
@@ -64,8 +67,14 @@ NeoBundle 'vim-scripts/bbcode'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
+
+" Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 call neobundle#end()
-NeoBundleCheck
+if g:bundleinit
+	NeoBundleInstall
+else
+	NeoBundleCheck
+endif
 
 " Disable scala and java syntax checkers, as they are slow as hell:
 let g:syntastic_java_checkers = []
