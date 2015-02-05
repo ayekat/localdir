@@ -1,0 +1,27 @@
+#!/usr/bin/env sh
+# Converts a file's audio to the AAC encoding, preserving all tags.
+# It uses ffmpeg to decode and NeroAacEnc to encode the file.
+# Written by ayekat on an annoying afternoon with iTunes in February 2015.
+
+check_command() {
+	which "$1" 1>/dev/null 2>/dev/null
+	if [ $? -ne 0 ]; then
+		echo "$1 does not exist" >&2
+		exit 1
+	fi
+}
+
+check_command neroAacEnc
+check_command ffmpeg
+
+if [ ! -e "$1" ]; then
+	echo "$1: file not found" >&2
+	exit 1
+fi
+
+if [ -e "$1".m4a ]; then
+	echo "${1}.m4a: file already exists" >&2
+	exit 1
+fi
+
+ffmpeg -i "$1" -f wav - | neroAacEnc -if - -q 0.9 -ignorelength -of "$1".m4a
