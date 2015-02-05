@@ -3,6 +3,7 @@ placeholder        : _FILE_
 
 # map MIME to applications:
 application/pdf    : zathura _FILE_ &
+image/gif          : eog _FILE_ &
 image/jpeg         : eog _FILE_ &
 image/png          : eog _FILE_ &
 image/svg+xml      : inkview _FILE_ &

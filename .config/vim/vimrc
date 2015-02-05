@@ -386,6 +386,21 @@ set undofile
 " Make sure we don't generate undofiles for certain files:
 au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
 
+" Fold C function implemenations:
+function! CFold()
+	let prevline = getline(v:lnum-1)
+	let nextline = getline(v:lnum+1)
+	if match(nextline, '^{') >= 0
+		return 1
+	elseif match(prevline, '^}') >= 0
+		return 0
+	else
+		return "="
+	endif
+endfunction
+au FileType c set foldmethod=expr
+au FileType c set foldexpr=CFold()
+
 " }}}
 " ------------------------------------------------------------------------------
 " FEEDBACK {{{
