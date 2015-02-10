@@ -12,7 +12,7 @@ DESCRIPTION
 	(swap all the bits).
 
 EXAMPLE
-	xor keyfile < my_porn_collection.tgz > my_scrambled_porn_collection_muahaha
+	xor KEYFILE < my_porn_collection.tgz > my_scrambled_porn_collection_muahaha
 
 SECURITY
 	XOR is not a replacement for security/encryption systems like RSA. The

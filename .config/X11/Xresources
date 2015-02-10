@@ -85,6 +85,9 @@ URxvt.secondaryScroll: true
 URxvt.iso14755       : false
 URxvt.iso14755_52    : false
 
+! Set urgent hint whenever encountering the bell character:
+URxvt.urgentOnBell   : true
+
 ! Settings for perl extensions:
 URxvt.perl-lib       : /home/ayekat/.config/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard

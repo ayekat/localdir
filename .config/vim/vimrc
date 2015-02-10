@@ -67,6 +67,7 @@ NeoBundle 'vim-scripts/bbcode'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
+NeoBundle 'honza/dockerfile.vim'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 call neobundle#end()
@@ -398,8 +399,8 @@ function! CFold()
 		return "="
 	endif
 endfunction
-au FileType c set foldmethod=expr
-au FileType c set foldexpr=CFold()
+"au FileType c set foldmethod=expr
+"au FileType c set foldexpr=CFold()
 
 " }}}
 " ------------------------------------------------------------------------------
