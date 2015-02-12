@@ -247,6 +247,7 @@ if $TERM != "linux"
 		"hi Include
 		"hi Define
 		"hi Macro
+	au FileType sh hi PreProc ctermfg=38
 		"hi PreCondit
 	hi Type               ctermfg=38
 		" int long char | static register volatile | struct union enum | typedef
