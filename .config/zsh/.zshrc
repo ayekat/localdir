@@ -9,7 +9,7 @@
 . $XDG_CONFIG_HOME/sh/config
 
 # Make sure cache folder exists:
-[ -d "$XDG_CACHE_HOME/zsh" ] || mkdir "$XDG_CACHE_HOME/zsh"
+test -d "$XDG_CACHE_HOME/zsh" || mkdir "$XDG_CACHE_HOME/zsh"
 
 # }}}
 # ------------------------------------------------------------------------------

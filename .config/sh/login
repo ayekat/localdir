@@ -30,7 +30,7 @@ printlogo() {
 			printf         "               '             \n"
 			printf  "\033[0m                             \n"
 			;;
-		arch)
+		arch|archarm)
 			printf "\033[34m                             \n"
 			printf         "              /\\            \n"
 			printf         "             /AA\\           \n"
