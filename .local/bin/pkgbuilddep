@@ -4,8 +4,10 @@
 # Arch Linux packages.
 # Written by ayekat on a bored saturday evening in January 2015.
 
-# Location of ABS config:
-ABSCONFIG=/etc/abs.conf
+pbd="$(basename $0)"
+pbd_makedeps=''
+pbd_absroot=/var/abs
+pbd_absconfig=/etc/abs.conf
 
 # Print error message and exit:
 pbd_die() {
@@ -15,20 +17,29 @@ pbd_die() {
 
 # Print help message and exit:
 pbd_usage() {
-	echo "$pbd: list and install build dependencies for Arch Linux packages" >&2
-	echo                                                                     >&2
-	echo "Usage: $pbd {install,list,listall} PACKAGE"                        >&2
+	cat >&2 <<- EOF
+
+	$pbd: handle build dependencies for Arch Linux packages
+
+	Usage: $pbd COMMAND PACKAGE
+
+	Commands:
+	    install    Install build dependencies
+	    list       List missing build dependencies
+	    listall    List all build dependencies
+
+	EOF
 	exit 1
 }
 
 # Determine location of ABS root:
 pbd_sourceabs() {
-	if [ ! -e "$ABSCONFIG" ]; then
-		echo "warning: ABS configuration '$ABSCONFIG' does not exist" >&2
+	if [ ! -e "$pbd_absconfig" ]; then
+		echo "warning: ABS configuration '$pbd_absconfig' does not exist" >&2
 		echo "         defaulting ABSROOT to $pbd_absroot"            >&2
 		return
 	fi
-	. "$ABSCONFIG"
+	. "$pbd_absconfig"
 	if [ "$ABSROOT" = '' ]; then
 		echo "warning: ABSROOT not set"                    >&2
 		echo "         defaulting ABSROOT to $pbd_absroot" >&2
@@ -76,22 +87,23 @@ pbd_install() {
 	pacman -S --asdeps $pbd_makedeps
 }
 
-# Variables:
-pbd="$(basename $0)"
-pbd_makedeps=''
-pbd_absroot=/var/abs
-pbd_command="$1"
-pbd_pkgname="$2"
+main()
+{
+	cmd="$1"
+	pkg="$2"
 
-# Check correctness of command line:
-if [ -z "$pbd_command" ] || [ -z "$pbd_pkgname" ]; then
-	pbd_usage
-fi
+	# Check command line:
+	if [ -z "$cmd" ] || [ -z "$pkg" ]; then
+		pbd_usage
+	fi
 
-# Execute command:
-case "$pbd_command" in
-	install) pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_install ;;
-	list)    pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_list    ;;
-	listall) pbd_sourceabs; pbd_sourcepkg;            pbd_list    ;;
-	*) pbd_usage ;;
-esac
+	# Execute command:
+	case "$cmd" in
+		install) pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_install ;;
+		list)    pbd_sourceabs; pbd_sourcepkg; pbd_strip; pbd_list    ;;
+		listall) pbd_sourceabs; pbd_sourcepkg;            pbd_list    ;;
+		*) pbd_usage ;;
+	esac
+}
+
+main "$@"
