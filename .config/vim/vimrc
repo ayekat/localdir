@@ -314,13 +314,13 @@ filetype plugin indent on
 set autoindent
 set copyindent
 
-" Visually wrap lines (except in Java), and break words:
+" Visually wrap lines (except in Java, Scala, HTML), and break words:
 set wrap
-au FileType java,scala set nowrap
+au FileType html,java,scala set nowrap
 set linebreak      " wrap at words (does not work with list)
 
 " Physically wrap lines for certain file types:
-au FileType tex,html,php,markdown set textwidth=80
+au FileType tex,markdown set textwidth=80
 au FileType mail,gitcommit set textwidth=72
 
 " }}}
