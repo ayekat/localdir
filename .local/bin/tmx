@@ -12,8 +12,13 @@
 # https://mutelight.org/practical-tmux
 #
 # And finally copied and (slightly) modified by ayekat on a sick sunday morning
-# in march 2013.
+# in March 2013. Further adapted in February 2015 to respect the XDG base
+# directory specifications.
 
+# Configuration location: Check XDG first:
+test -n "$XDG_CONFIG_HOME" || XDG_CONFIG_HOME="$HOME/.config"
+tmux_config=$XDG_CONFIG_HOME/tmux/config
+test -e "$tmux_config" || tmux_config="$HOME/.tmux.conf"
 
 # Works because bash automatically trims by assigning to variables and by
 # passing arguments:
@@ -35,7 +40,7 @@ base_session="$1"
 tmux_nb=$(trim $(tmux ls | grep "^$base_session" | wc -l))
 if [ "$tmux_nb" = "0" ]; then
 	printf "Launching tmux base session %s ...\n" $base_session
-	tmux new-session -s $base_session
+	tmux -f "$tmux_config" new-session -s $base_session
 else
 	# Make sure we are not already in a tmux session:
 	if [ -z "$TMUX" ]; then
@@ -50,11 +55,11 @@ else
 		session_id=`date +%Y%m%d%H%M%S`
 		# Create a new session (without attaching it) and link to base session
 		# to share windows:
-		tmux new-session -d -t $base_session -s $session_id
+		tmux -f "$tmux_config" new-session -d -t $base_session -s $session_id
 		# Enable this line to create a new window in that session:
 		#tmux new-window
 		# Attach to the new session:
-		tmux attach-session -t $session_id
+		tmux -f "$tmux_config" attach-session -t $session_id
 		# After having detached from it, kill the session:
 		tmux kill-session -t $session_id
 	fi
