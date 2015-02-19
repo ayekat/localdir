@@ -2,6 +2,7 @@
 placeholder        : _FILE_
 
 # map MIME to applications:
+application/vnd.openxmlformats-officedocument.presentationml.presentation : libreoffice _FILE_ &
 application/pdf    : zathura _FILE_ &
 image/gif          : eog _FILE_ &
 image/jpeg         : eog _FILE_ &

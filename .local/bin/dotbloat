@@ -1,0 +1,14 @@
+#!/usr/bin/env sh
+# Lists some statistics about the number of files in $HOME
+
+nondots=$(ls -ld "$HOME"/* | wc -l)
+dots=$(ls -ld "$HOME"/.* | wc -l)
+all=$(($nondots + $dots))
+
+cat <<- EOF
+$HOME statistics:
+
+dotfiles:     $dots
+normal files: $nondots
+total:        $all
+EOF
