@@ -3,7 +3,8 @@
 # Written by ayekat on a warm summer day in 2013.
 
 # Helper:
-cmd_exists() {
+cmd_exists()
+{
 	for c in $@; do
 		which $c >/dev/null 2>&1 || return -1
 	done
@@ -44,11 +45,22 @@ cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOM
 cmd_exists startx && alias startx="startx $XINITRC"
 
 # Pass user environment when launching vim with sudo:
-sudo() {
+sudo()
+{
 	if cmd_exists sudo vim && [ "$1" = 'vim' ]; then
-		/usr/bin/sudo -E "$@"
+		command sudo -E "$@"
 	else
-		/usr/bin/sudo "$@"
+		command sudo "$@"
+	fi
+}
+
+# Use findmnt instead of mount to list mounted filesystems:
+mount()
+{
+	if [ $# -eq 0 ] && cmd_exists findmnt; then
+		findmnt
+	else
+		command mount "$@"
 	fi
 }
 

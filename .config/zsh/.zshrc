@@ -201,6 +201,15 @@ compinit -d $XDG_CACHE_HOME/zsh/zcompdump
 # Do not autocomplete when ambiguous (bash-like):
 setopt no_auto_menu
 
+# Print 'completing ...' when completing:
+expand-or-complete-with-dots () {
+	printf "$fg[blue] completing ...$reset_color\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+	zle expand-or-complete
+	zle redisplay
+}
+zle -N expand-or-complete-with-dots
+bindkey "^I" expand-or-complete-with-dots
+
 # }}}
 # ------------------------------------------------------------------------------
 # HISTORY {{{

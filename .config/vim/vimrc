@@ -301,13 +301,13 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-au FileType c,java,php,sh,perl,sql,glsl,cpp,scala,matlab,tex au BufWritePre <buffer> :call StripTrailingWhitespaces()
+au FileType c,cpp,glsl,java,matlab,perl,php,python,scala,sh,sql,tex au BufWritePre <buffer> :call StripTrailingWhitespaces()
 
 " Use 4-char-tabs... usually:
 set noexpandtab shiftwidth=4 tabstop=4
 au FileType c set tabstop=8 shiftwidth=8
-au FileType cpp,tex,scala set expandtab tabstop=2 shiftwidth=2
-au FileType java,ant,haskell,sql set expandtab
+au FileType cpp,scala,tex set expandtab tabstop=2 shiftwidth=2
+au FileType ant,haskell,java,python,sql set expandtab
 
 " Auto-indent, and reuse the same combination of spaces/tabs:
 filetype plugin indent on
@@ -320,8 +320,8 @@ au FileType html,java,scala set nowrap
 set linebreak      " wrap at words (does not work with list)
 
 " Physically wrap lines for certain file types:
-au FileType tex,markdown set textwidth=80
-au FileType mail,gitcommit set textwidth=72
+au FileType markdown,tex set textwidth=80
+au FileType gitcommit,mail set textwidth=72
 
 " }}}
 " ------------------------------------------------------------------------------
