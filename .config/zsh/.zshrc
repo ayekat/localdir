@@ -32,8 +32,8 @@ setopt prompt_subst
 
 # Define prompt colours:
 if [ "$TERM" != 'linux' ]; then
-	pc_vim_normal="$(tput setaf 22)$(tput setab 148)"
-	pc_vim_insert="$(tput setaf 45)$(tput setab  23)"
+	pc_vim_normal="$(printf "\033[38;5;22;48;5;148m")"
+	pc_vim_insert="$(printf "\033[38;5;45;48;5;23m")"
 else
 	pc_vim_normal="$fg[black]$bg[green]"
 	pc_vim_insert="$fg[cyan]$bg[blue]"
