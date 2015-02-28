@@ -16,6 +16,7 @@ install:
 uninstall:
 	rm -f ${INSTALLDIR}/bin/scrock
 	rm -f /usr/lib/systemd/system/scrock.service
+	rm -f /usr/lib/systemd/system/sleep.target.wants/scrock.service
 	systemctl daemon-reload
 
 clean:
