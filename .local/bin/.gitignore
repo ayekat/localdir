@@ -1,7 +1,6 @@
 *.d
-altera
 checkstyle
-karuibar
+karui*
 nios2sim
 open
 toolc-ref

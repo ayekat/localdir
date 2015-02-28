@@ -119,7 +119,7 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar.modules     : stdin; network, memory, cpu, battery, \
+karuibar.modules     : stdin; mpd, network, memory, cpu, battery, \
                        backlight, alsa, time_date, time_time, capslock
 ! gethostname (3)
 karuibar_phobia.modules: stdin; network, memory, cpu, alsa, time_date, time_time

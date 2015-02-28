@@ -47,7 +47,9 @@ cmd_exists startx && alias startx="startx $XINITRC"
 # Pass user environment when launching vim with sudo:
 sudo()
 {
-	if cmd_exists sudo vim && [ "$1" = 'vim' ]; then
+	if { cmd_exists sudo vim && [ "$1" = 'vim' ]; } || \
+	   { cmd_exists sudo vimdiff && [ "$1" = 'vimdiff' ]; }
+	then
 		command sudo -E "$@"
 	else
 		command sudo "$@"
