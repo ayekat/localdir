@@ -180,6 +180,9 @@ function TRAPINT() {
 	return $((128 + $1))
 }
 
+# Delay for key sequences:
+KEYTIMEOUT=1
+
 # }}}
 # ------------------------------------------------------------------------------
 # COMPLETION {{{
