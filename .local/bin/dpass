@@ -1,12 +1,12 @@
 #!/usr/bin/env sh
 
+# Default environment variables - see man pass (1):
+test -n "$PASSWORD_STORE_DIR" || export PASSWORD_STORE_DIR=~/.password-store
+test -n "$PASSWORD_STORE_CLIP_TIME" || export PASSWORD_STORE_CLIP_TIME=45
+
+cd "$PASSWORD_STORE_DIR"
 passname="$(find * -type f | sed 's/\.gpg$//g' | dmenu "$@")"
-if [ -z "$passname" ]; then
-	exit 1
-fi
-if [ -z "$PASSWORD_STORE_CLIP_TIME" ]; then
-	PASSWORD_STORE_CLIP_TIME=45  # see man pass (1)
-fi
+test -n "$passname" || exit 1
 pass show -c "$passname" >/dev/null
 notify-send \
 	'Unix pass' \
