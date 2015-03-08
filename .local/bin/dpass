@@ -1,0 +1,13 @@
+#!/usr/bin/env sh
+
+passname="$(find * -type f | sed 's/\.gpg$//g' | dmenu "$@")"
+if [ -z "$passname" ]; then
+	exit 1
+fi
+if [ -z "$PASSWORD_STORE_CLIP_TIME" ]; then
+	PASSWORD_STORE_CLIP_TIME=45  # see man pass (1)
+fi
+pass show -c "$passname" >/dev/null
+notify-send \
+	'Unix pass' \
+	"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
