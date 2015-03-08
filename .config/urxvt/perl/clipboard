@@ -1,27 +1,99 @@
-#! /usr/bin/env perl
+#!/usr/bin/env perl
 
-sub paste {
-    my ($self) = @_;
-    my $content = qx{/usr/bin/xclip -loops 1 -out -selection clipboard};
-    print "paste: {$content}\n";
-    $self->tt_write ($content);
+=head1 NAME
+
+extended-confirmed-paste - copy/paste (selection+primary) with popup for
+confirmation or merging of multi-lines paste
+
+=head1 DESCRIPTION
+
+- Displays a confirmation dialog when a paste containing at least a full
+line is detected. Extended dialog: yes/no/merge
+ - Add regular controlled copy/paste (primary) with customizable shortcuts:
+  URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+  URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+
+=cut
+
+sub msg {
+    my ($self, $msg) = @_;
+
+    $self->{overlay} = $self->overlay (0, -1, $self->ncol, 2, urxvt::OVERLAY_RSTYLE, 0);
+    $self->{overlay}->set (0, 0, $msg);
 }
 
-sub copy {
-    # TODO: doesn't work, why?
+sub on_tt_paste {
+    my ($self, $str) = @_;
+
+    my $count = ($str =~ tr/\012\015//);
+
+    return 0 unless $count;
+
+    $self->{paste} = \$str;
+    $self->msg ("Paste of $count lines, continue? (y/n/m/M)");
+    my $preview = substr $self->locale_decode ($str), 0, $self->ncol;
+    $preview =~ s/\n/\\n/g;
+    $self->{overlay}->set (0, 1, $self->special_encode ($preview));
+    $self->enable (key_press => \&key_press);
+
+    return 1;
+}
+
+sub leave {
     my ($self) = @_;
-    my $content = $self->selection;
-    print "copy: {$content}\n";
-    open(my $fh, '|-', qw{/usr/bin/xclip -loops 1 -in -selection clipboard});
-    write($fh, $content);
-    close($fh);
+
+    $self->{paste} = undef;
+    delete $self->{overlay};
+    $self->disable ("key_press");
+}
+
+sub key_press {
+    my ($self, $event, $keysym, $string) =  @_;
+    my $data = ${$self->{paste}};
+
+    if ($keysym == 121) { # y (paste multi-lined)
+        # verbatim paste
+    } elsif ($keysym == 109) { # m (all lines merged with spaces)
+        $data =~ s{(\n|\r)}{ }g;
+    } elsif ($keysym == 77) { # M (all lines merged without spaces)
+        $data =~ s{(\n|\r)+}{}g;
+    } elsif ($keysym == 110) { # n (abort)
+        $data = "";
+    }
+    else { # ignore other keys
+        return 1;
+    }
+    $self->tt_paste ($data);
+    $self->leave;
+
+    1;
+}
+
+sub cb_paste {
+    my ($self) = @_;
+    my $sel = qx{xclip -o -selection clipboard};
+    my $ret = $self->on_tt_paste($sel) unless $?;
+    $self->tt_paste($sel) unless $ret;
+}
+
+sub cb_copy {
+    my ($self) = @_;
+    if (open(my $clipboard, '|-', 'xclip -i -selection clipboard')) {
+        my $sel = $self->selection();
+        utf8::encode($sel);
+        print $clipboard $sel;
+        close($clipboard);
+    }
 }
 
 sub on_user_command {
     my ($self, $cmd) = @_;
     if ($cmd eq "clipboard:paste") {
-        $self->paste;
-    } elsif ($cmd eq "clipboard:copy") {
-        $self->copy;
+        $self->cb_paste;
     }
+    elsif ($cmd eq "clipboard:copy") {
+        $self->cb_copy;
+    }
+
+    1;
 }

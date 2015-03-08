@@ -102,8 +102,8 @@ URxvt.perl-ext-common: default,url-select,keyboard-select
 ! Search buffer:
   URxvt.keysym.C-S-F : perl:keyboard-select:search
 ! Copy+paste:
-  URxvt.keysym.C-S-V : perl:clipboard:paste
-  URxvt.keysym.Control-Shift-C : perl:clipboard:copy
+  URxvt.keysym.Shift-Control-V : perl:clipboard:paste
+  URxvt.keysym.Shift-Control-C : perl:clipboard:copy
 
 !URxvt.keysym.Escape  : \033\000
 
