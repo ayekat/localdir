@@ -217,13 +217,13 @@ bindkey "^I" expand-or-complete-with-dots
 # ------------------------------------------------------------------------------
 # HISTORY {{{
 
-setopt append_history       # append, instead of overwrite
+setopt inc_append_history   # append history immediately after sending command
 setopt hist_ignore_dups     # ignore duplicate commands
-#setopt share_history        # allow to acces to history of previous shells
+#setopt share_history       # allow to access to history of previous shells
 
 export HISTFILE=$XDG_CACHE_HOME/zsh/zhistory
-HISTSIZE=100000             # maximum history size in terminal's memory
-SAVEHIST=100000             # maximum size of history file
+export HISTSIZE=100000      # maximum history size in terminal's memory
+export SAVEHIST=100000      # maximum size of history file
 
 # }}}
 # ------------------------------------------------------------------------------
