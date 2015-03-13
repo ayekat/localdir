@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
-while read -n1 l;do echo "$l"|xxd -g1 -c1|awk '{print $2}'|tr '[a-z]' '[A-Z]'|\
-while read b; do test "$b" != '0A'||continue;f=$(dc -e"40 16i $b Ai*1999%200+p")
-printf "\t> \033[32m$f\033[0m\n";beep -f$f -l40;done;done
+# bash because of `read -n1`, otherwise POSIX compliant
+case "$1" in(--help|-h)echo "usage: bleep [-v]">&2;exit 1;;esac;while read -n1 l
+do echo "$l"|xxd -g1 -c1|awk '{print $2}'|tr '[a-z]' '[A-Z]'|while read b; do \
+test "$b" != '0A'||continue;test "$1" = '-v'&&printf "\t< \033[33m$b\033[0m\n"
+f=$(dc -e"40 16i $b Ai*1999%200+p");printf "\t> \033[32m$f\033[0m\n";beep -f$f \
+-l80;done;done
