@@ -56,6 +56,10 @@ static char const *micmutecmd[] = { "amixer", "set", "Capture", "toggle", NULL }
 static char const *musicplaypausecmd[] = { "mpc", "toggle", NULL };
 static char const *musicnextcmd[] = { "mpc", "next", NULL };
 static char const *musicprevcmd[] = { "mpc", "prev", NULL };
+static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
+                                           "-nf", "#888888", "-nb", "#282828",
+                                           "-sf", "#E0A0FF", "-sb", "#444444",
+                                           "-p", "pass", NULL };
 
 /* custom behaviour */
 static void
@@ -76,6 +80,7 @@ static Key const keys[] = {
 	{ MODKEY,                       XK_n,       spawn,            { .v=termcmd } },
 	{ MODKEY,                       XK_p,       dmenu,            { .i=DMenuSpawn } },
 	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd } },
+	{ MODKEY|ShiftMask,             XK_p,       spawn,            { .v=dpasscmd } },
 
 	/* hardware */
 	{ 0,                            0x1008FF11, spawn,            { .v=voldowncmd } },
