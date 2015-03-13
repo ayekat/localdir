@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+while read -n1 l;do echo "$l"|xxd -g1 -c1|awk '{print $2}'|tr '[a-z]' '[A-Z]'|\
+while read b; do test "$b" != '0A'||continue;f=$(dc -e"40 16i $b Ai*1999%200+p")
+printf "\t> \033[32m$f\033[0m\n";beep -f$f -l40;done;done

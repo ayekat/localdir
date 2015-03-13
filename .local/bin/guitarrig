@@ -1,0 +1,10 @@
+#!/usr/bin/env sh
+# Takes the input from the GuitarRig Mobile I/O sound card.
+# Output should be redirected either to a file or aplay
+
+if [ -t 1 ]; then
+	echo 'Please redirect output to a file or pipe into `aplay`.' >&2
+	exit 1
+fi
+
+arecord -f dat -D default:CARD=GuitarRigMobile
