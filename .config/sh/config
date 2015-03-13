@@ -46,16 +46,17 @@ cmd_exists startx && alias startx="startx $XINITRC"
 cmd_exists mpv && alias mplayer='mpv'
 
 # Pass user environment when launching vim with sudo:
-sudo()
-{
-	if { cmd_exists sudo vim && [ "$1" = 'vim' ]; } || \
-	   { cmd_exists sudo vimdiff && [ "$1" = 'vimdiff' ]; }
-	then
-		command sudo -E "$@"
-	else
-		command sudo "$@"
-	fi
-}
+if cmd_exists sudo; then
+	sudo()
+	{
+		if { [ "$1" = 'vim' ] || [ "$1" = 'vimdiff' ] || [ "$1" = 'visudo' ]; }\
+		&& cmd_exists "$1"; then
+			command sudo -E "$@"
+		else
+			command sudo "$@"
+		fi
+	}
+fi
 
 # Use findmnt instead of mount to list mounted filesystems:
 mount()
