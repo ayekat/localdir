@@ -78,7 +78,7 @@ fi
 # PROMPT {{{
 
 # Prompt colours:
-pc_vcs_kernel=$(printf "\033[30m")
+pc_vcs_kernel=$(printf "\033[1;30m")
 pc_vcs_clean=$(printf "\033[32m")
 pc_vcs_ahead=$(printf "\033[36m")
 pc_vcs_ready=$(printf "\033[33m")
@@ -96,8 +96,9 @@ ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 vcs_update()
 {
 	# Update information if not in kernel repo:
-	if [ "$(pwd -P | cut -d '/' -f 1-5)" = "$HOME/dev/linux" ]; then
-		vcs_branch='linux'
+	if [ "$(pwd -P | cut -d '/' -f 1-5)" = "$HOME/dev/linux" ] \
+	|| [ "$(pwd -P | cut -d '/' -f 1-6)" = "$HOME/epfl/dslab/webkit" ]; then
+		vcs_branch='git'
 		vcs_state='kernel'
 	else
 		vcs_state=''

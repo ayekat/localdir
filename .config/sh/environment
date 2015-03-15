@@ -61,7 +61,7 @@ export TASKDATA="$XDG_DATA_HOME/task"                 # task-warrior
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"          # task-warrior
 export RXVT_SOCKET="$HOME/.urxvtd.sock"               # urxvtd
 export LESSHISTFILE="$XDG_CACHE_HOME/lesshist"        # less
-export PASSWORD_STORE_DIR="$XDG_CONFIG_HOME/pass"     # pass
+export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"      # pass
 export GIMP2_DIRECTORY="$XDG_CONFIG_HOME/gimp"        # gimp
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"        # mplayer
 
