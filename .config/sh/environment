@@ -9,15 +9,15 @@
 add_to_path() {
 	[ -d "$1" ] || return
 	[ -z "$PATH" ] && PATH="$1" && return
-	ifs_old="$IFS"
+	IFS_OLD="$IFS"
 	IFS=:
 	for i in $PATH; do
 		[ "$1" = "$i" ] && return
 		[ -h "$1" ] && [ "$(readlink -f "$1")" = "$i" ] && return
 	done
 	PATH="$1:$PATH"
-	IFS="$ifs_old"
-	unset ifs_old
+	IFS="$IFS_OLD"
+	unset IFS_OLD
 }
 
 # User specific path:
@@ -125,7 +125,7 @@ export OS_RELEASE
 # RAINBOWDASH FUCK-AROUND {{{
 # GNU Generation server admin thinks it's funny to have a french locale.
 
-if [ $(hostname) = 'rainbowdash' ] && locale -a | grep 'en_GB\.utf8' >/dev/null
+if [ "$(hostname)" = 'rainbowdash' ] && locale -a |grep 'en_GB\.utf8' >/dev/null
 then
 	export LANG=en_GB.utf8
 fi

@@ -152,9 +152,10 @@ au BufRead,BufNewFile *.scala set filetype=scala
 au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl set filetype=glsl
 au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
 au BufRead,BufNewFile *.target set filetype=systemd
-au BufRead,BufNewFile */etc/iptables/*.rules set filetype=sh " ugly
+au BufRead,BufNewFile /etc/iptables/*.rules set filetype=sh " ugly
 au BufRead,BufNewFile *.muttrc set filetype=muttrc
 au BufRead,BufNewFile *.tool set filetype=scala
+au BufRead,BufNewFile /var/named/{slave,master}/* set filetype=dns
 
 " Assembly:
 let asmsyntax='nasm'
