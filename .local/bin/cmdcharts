@@ -1,21 +1,69 @@
 #!/usr/bin/env sh
-# Prints the [n] most used commands based on the shell's history file where [n]
-# is an optional argument (default: 10).
 
-if [ -z "$HISTFILE" ]; then
-	echo 'could not locate shell history file, $HISTFILE is undefined' >&2
+# Print most used commands.
+
+SCRIPTFILE="$(basename "$0")"
+
+die()
+{
+	die_retval=$1
+	die_format="$2"
+	shift 2
+	printf "$die_format" "$@" >&2
+	exit $retval
+}
+
+chart()
+{
+	[ -n "$HISTFILE" ] || die 2 "HISTFILE undefined: can't locate shell history"
+	[ -e "$HISTFILE" ] || die 2 '%s not found' "$HISTFILE"
+	if [ -z "$COMMAND" ]; then
+		awk '{print $1}' < "$HISTFILE"
+	else
+		grep --text "^$COMMAND" "$HISTFILE" | awk '{print $2}'
+	fi | sort | uniq -c | sort -rn | head -n "$NLINES"
+}
+
+usage()
+{
+	cat >&2 <<- EOF
+	$SCRIPTFILE: list most used commands
+
+	Usage: $SCRIPTFILE [OPTIONS] [COMMAND]
+
+	Options:
+	    -h            Display this help
+	    -n NLINES     List NLINES most used commands [default=$NLINES]
+
+	Command:
+	    If present, display commands with COMMAND as suffix (e.g. sudo, git, vim)
+	EOF
 	exit 1
-fi
+}
 
-if [ $# -eq 0 ]; then
-	lines=10
-else
-	lines=$(($1))
-fi
+main()
+{
+	NLINES=10
+	COMMAND=''
 
-echo '$'
-awk '{print $1}' < "$HISTFILE" | sort | uniq -c | sort -rn | head -n $lines
-echo 'sudo:'
-grep --text '^sudo' "$HISTFILE" | awk '{print $2}' | sort | uniq -c | sort -rn | head -n $lines
+	# Options
+	while getopts hn: opt; do
+		case "$opt" in
+			h) usage ;;
+			n) NLINES="$OPTARG" ;;
+			'?') usage ;;
+		esac
+	done
+	shift $(($OPTIND - 1))
 
-# pipe into nl for line numbering
+	# Command:
+	COMMAND="$1"
+	[ -n "$COMMAND" ] && shift
+
+	# Test validity:
+	test $# -eq 0 || die 1 'Trailing arguments: %s' "$@"
+
+	chart
+}
+
+main "$@"
