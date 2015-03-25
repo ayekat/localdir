@@ -14,7 +14,7 @@ set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 set backupdir=$XDG_CACHE_HOME/vim,/tmp,~
 
 " Where vim stores swap files:
-set directory=$XDG_CACHE_HOME/vim,/tmp,~
+set directory=$XDG_CACHE_HOME/vim/swap,/tmp,~
 
 " Where vim stores the command history:
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
@@ -33,6 +33,7 @@ function! MakeSureTheDamnPathExists(path)
 endfunction
 call MakeSureTheDamnPathExists($XDG_CONFIG_HOME.'/vim')
 call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim')
+call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim/swap')
 call MakeSureTheDamnPathExists(&undodir)
 
 " }}}
