@@ -95,22 +95,24 @@ gstat() { git status --porcelain 2>/dev/null; }
 ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 vcs_update()
 {
-	# Update information if not in kernel repo:
-	if [ "$(pwd -P | cut -d '/' -f 1-5)" = "$HOME/dev/linux" ] \
-	|| [ "$(pwd -P | cut -d '/' -f 1-6)" = "$HOME/epfl/dslab/webkit" ]; then
-		vcs_branch='git'
-		vcs_state='kernel'
-	else
-		vcs_state=''
-		vcs_branch="$(ghead | cut -d '.' -f 1 | cut -d ' ' -f 2)"
-		if [ -n "$vcs_branch" ]; then
-			vcs_state='clean'
-			ghead | grep -o 'ahead' >/dev/null && vcs_state='ahead'
-			gstat | grep  '^[MADR].' >/dev/null && vcs_state='ready'
-			gstat | grep  '^.[M?D]' >/dev/null && vcs_state='dirty'
-			gstat | grep  'UU' >/dev/null && vcs_state='merge'
-		fi
-	fi
+	# Update information if not in a blacklisted (read: huge) repo:
+	case "$(pwd)" in
+		$HOME/dev/linux*)
+			vcs_branch='git'
+			vcs_state='kernel'
+			;;
+		*)
+			vcs_state=''
+			vcs_branch="$(ghead | cut -d '.' -f 1 | cut -d ' ' -f 2)"
+			if [ -n "$vcs_branch" ]; then
+				vcs_state='clean'
+				ghead | grep -o 'ahead' >/dev/null && vcs_state='ahead'
+				gstat | grep  '^[MADR].' >/dev/null && vcs_state='ready'
+				gstat | grep  '^.[M?D]' >/dev/null && vcs_state='dirty'
+				gstat | grep  'UU' >/dev/null && vcs_state='merge'
+			fi
+			;;
+	esac
 }
 
 # }}}
