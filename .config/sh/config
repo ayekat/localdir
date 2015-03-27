@@ -31,6 +31,7 @@ alias lah='ls -lAh'
 alias laht='ls -lAht'
 alias ll='ls -lh'
 alias mv='mv -i'
+alias todo='grep -n -R "TODO\|FIXME" .'
 if [ "$OS_RELEASE" = 'darwin' ]; then
 	alias ls='ls -G'
 else

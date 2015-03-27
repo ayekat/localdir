@@ -52,4 +52,8 @@ set -sg escape-time 0
 
 # Listen for activity on all windows:
 set -g bell-action any
+
+# Increase scrollback buffer:
+set-option -g history-limit 10000
+
 # }}}
