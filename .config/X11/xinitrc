@@ -89,4 +89,8 @@ case "$WM" in
 esac
 
 # Launch WM and log all of its output:
-exec "$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
+while true; do
+	"$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
+	zenity --question --text="$WM has stopped. Do you want to start again?"
+	test $? -eq 0 || break
+done
