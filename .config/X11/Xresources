@@ -119,8 +119,9 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar.modules     : stdin; mpd, network, memory, cpu, battery, \
-                       backlight, alsa, time_date, time_time, capslock
+karuibar.modules     : stdin; mpd, network, memory, cpu, \
+                       battery, battery_slice, backlight, alsa_out, alsa_in, \
+                       time_date, time_time, capslock
 ! gethostname (3)
 karuibar_phobia.modules: stdin; network, memory, cpu, alsa, time_date, time_time
 karuibar.foreground  : termfg
@@ -130,9 +131,15 @@ karuibar.wpad        : 7
 karuibar.bottom      : false
 karuibar.xgap        : 100
 
-karuibar.mpd_gnu.host: mpd.gnugen.ch
+karuibar.mpd_gnu.host         : mpd.gnugen.ch
 
 karuibar.battery.acpi_use_real: true
+karuibar.battery_slice.id     : BAT1
+karuibar.battery_slice.acpi_use_real: true
+
+karuibar.alsa_in.channel      : Capture
+karuibar.alsa_in.persistent   : false
+karuibar.alsa_in.capture      : true
 
 karuibar.time_date.format     : %Y-%m-%d
 karuibar.time_date.foreground : #EEEEEE

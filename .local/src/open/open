@@ -10,10 +10,10 @@ conffile="$confdir/openrc"
 
 # Create empty configuration file.
 create_empty_config() {
-	cut -c 2- >"$conffile" <<EOF
+	cat >"$conffile" <<- EOF
 	# MIME mapping configuration file
 	placeholder : _FILE_
-EOF
+	EOF
 }
 
 file_not_found() {

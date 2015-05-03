@@ -24,7 +24,7 @@ xmodmap ~/.config/X11/xmodmaprc
 # Thinkpad mouse:
 if [ $(hostname) = 'ixh' ]; then
 	dev='TPPS/2 IBM TrackPoint'
-	ptr='3 2 1 4 5 6 7 8 9 10'
+	ptr='3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16'
 	tmo='200'
 else
 	dev='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
