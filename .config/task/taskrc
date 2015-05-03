@@ -28,7 +28,7 @@ include /usr/share/doc/task/rc/dark-yellow-green.theme
 default.command=list
 
 # Time format (input):
-dateformat=Y-M-D_H:N
+dateformat=Y-M-DTH:N
 
 # List format:
 report.list.columns = id,project,tags,priority,start.active,description,due,due.remaining

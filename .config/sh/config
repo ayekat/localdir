@@ -98,7 +98,7 @@ vcs_update()
 {
 	# Update information if not in a blacklisted (read: huge) repo:
 	case "$(pwd)" in
-		$HOME/dev/linux*)
+		$HOME/dev/linux*|$HOME/dev/gnu/projects/gnu-social*)
 			vcs_branch='git'
 			vcs_state='kernel'
 			;;
