@@ -2,27 +2,30 @@
 " Initially written by ayekat in a snowy day in january 2010
 
 set nocompatible
+set nomodeline
 
 " ------------------------------------------------------------------------------
 " PATHS {{{
 " We like to respect the XDG base directory specifications
 
-" Where vim looks for scripts:
+" Scripts' location:
 set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
 
-" Where vim stores backup files:
-set backupdir=$XDG_CACHE_HOME/vim,/tmp,~
+" Backup files:
+set backupdir=$XDG_CACHE_HOME/vim/backup
 
-" Where vim stores swap files:
-set directory=$XDG_CACHE_HOME/vim/swap,/tmp,~
+" Swap files:
+set directory=$XDG_CACHE_HOME/vim/swap
 
-" Where vim stores the command history:
+" Command history:
 set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
 
-" Where vim stores the undo tree:
+" Undo history:
+set undofile
+au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
 set undodir=$XDG_CACHE_HOME/vim/undo
 
-" Where netrw plugin stores the history:
+" netrw plugin history:
 let g:netrw_home=$XDG_CACHE_HOME.'/vim'
 
 " Make sure the damn paths exists:
@@ -33,8 +36,9 @@ function! MakeSureTheDamnPathExists(path)
 endfunction
 call MakeSureTheDamnPathExists($XDG_CONFIG_HOME.'/vim')
 call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim')
-call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim/swap')
+call MakeSureTheDamnPathExists(&directory)
 call MakeSureTheDamnPathExists(&undodir)
+call MakeSureTheDamnPathExists(&backupdir)
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -305,7 +309,22 @@ function! StripTrailingWhitespaces()
 endfunction
 au FileType c,cpp,glsl,java,matlab,perl,php,python,scala,sh,sql,tex au BufWritePre <buffer> :call StripTrailingWhitespaces()
 
-" Use 4-char-tabs... usually:
+" Fold C function implemenations:
+function! CFold()
+	let prevline = getline(v:lnum-1)
+	let nextline = getline(v:lnum+1)
+	if match(nextline, '^{') >= 0
+		return 1
+	elseif match(prevline, '^}') >= 0
+		return 0
+	else
+		return "="
+	endif
+endfunction
+"au FileType c set foldmethod=expr
+"au FileType c set foldexpr=CFold()
+
+" Indentation (tabs, spaces):
 set noexpandtab shiftwidth=4 tabstop=4
 au FileType c set tabstop=8 shiftwidth=8
 au FileType cpp,scala,tex set expandtab tabstop=2 shiftwidth=2
@@ -316,18 +335,19 @@ filetype plugin indent on
 set autoindent
 set copyindent
 
-" Visually wrap lines (except in Java, Scala, HTML), and break words:
+" Visually wrap lines and break words:
 set wrap
 au FileType html,java,scala set nowrap
+au BufRead,BufNewFile /etc/fstab set nowrap
 set linebreak      " wrap at words (does not work with list)
 
-" Physically wrap lines for certain file types:
+" Physically wrap lines:
 au FileType markdown,tex set textwidth=80
 au FileType gitcommit,mail set textwidth=72
 
 " }}}
 " ------------------------------------------------------------------------------
-" FEEL {{{
+" KEY BINDINGS, BEHAVIOUR {{{
 
 " Fix Backspace key to work current edit:
 set backspace=indent,eol,start
@@ -379,35 +399,7 @@ set tags=./tags;/
 
 " }}}
 " ------------------------------------------------------------------------------
-" AUTO-ACTIONS {{{
-
-" Modelines are evil!
-set nomodeline
-
-" Save the undo tree before quitting vim:
-set undofile
-
-" Make sure we don't generate undofiles for certain files:
-au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
-
-" Fold C function implemenations:
-function! CFold()
-	let prevline = getline(v:lnum-1)
-	let nextline = getline(v:lnum+1)
-	if match(nextline, '^{') >= 0
-		return 1
-	elseif match(prevline, '^}') >= 0
-		return 0
-	else
-		return "="
-	endif
-endfunction
-"au FileType c set foldmethod=expr
-"au FileType c set foldexpr=CFold()
-
-" }}}
-" ------------------------------------------------------------------------------
-" FEEDBACK {{{
+" COMMAND LINE FEEDBACK {{{
 
 " Display commands when typing:
 set showcmd
@@ -714,12 +706,6 @@ if $TERM != 'linux'
 	set updatetime=0
 	au! CursorHold * call SetLineNr('n')
 endif
-
-" }}}
-" ------------------------------------------------------------------------------
-" MISC {{{
-" Rather temporary settings, but they remain for like half a year (often for
-" EPFL courses).
 
 " }}}
 " ------------------------------------------------------------------------------
