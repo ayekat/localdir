@@ -13,6 +13,7 @@ scrname='unknown'
 lcdname='LVDS1'
 [ "$appname" = 'vga' ] && scrname='VGA1'
 [ "$appname" = 'hdmi' ] && scrname='HDMI1'
+[ "$appname" = 'dp' ] && scrname='DP1'
 if [ "$scrname" = 'unknown' ]; then
 	echo "Please invoke this script with 'vga' or 'hdmi'." >&2
 	exit 1
