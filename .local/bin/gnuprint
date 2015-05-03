@@ -2,4 +2,4 @@
 # Sends a file to the GNU Generation internal printer.
 # Don't forget to put CHF --.05 in the little box next to the printer.
 
-ssh rainbowdash lp < "$1"
+echo 'ssh rainbowdash lp < $file'

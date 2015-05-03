@@ -23,6 +23,9 @@ add_to_path() {
 # User specific path:
 add_to_path "$HOME/.local/bin"
 
+# EPFL scripts:
+add_to_path "$HOME/.local/epflscripts"
+
 # Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
 # - quartus starts Quartus, vsim starts ModelSim
