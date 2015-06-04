@@ -161,6 +161,7 @@ au BufRead,BufNewFile /etc/iptables/*.rules set filetype=sh " ugly
 au BufRead,BufNewFile *.muttrc set filetype=muttrc
 au BufRead,BufNewFile *.tool set filetype=scala
 au BufRead,BufNewFile /var/named/{slave,master}/* set filetype=dns
+au BufRead,BufNewFile *.smt set filetype=lisp " matches pretty well
 
 " Assembly:
 let asmsyntax='nasm'
@@ -327,8 +328,8 @@ endfunction
 " Indentation (tabs, spaces):
 set noexpandtab shiftwidth=4 tabstop=4
 au FileType c set tabstop=8 shiftwidth=8
-au FileType cpp,scala,tex set expandtab tabstop=2 shiftwidth=2
-au FileType ant,haskell,java,python,sql set expandtab
+au FileType scala,tex set expandtab tabstop=2 shiftwidth=2
+au FileType ant,cpp,haskell,java,python,sql set expandtab
 
 " Auto-indent, and reuse the same combination of spaces/tabs:
 filetype plugin indent on
