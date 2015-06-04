@@ -12,37 +12,9 @@ if [ -n "$REMOTE" ]; then
 	exit
 fi
 
-# INPUT (KEYBOARD) -------------------------------------------------------------
+# INPUT ------------------------------------------------------------------------
 
-# Load swiss keyboard layout; then apply a few modifications:
-setxkbmap -layout ch -option caps:swapescape
-xmodmap ~/.config/X11/xmodmaprc
-
-
-# INPUT (MOUSE) ----------------------------------------------------------------
-
-# Thinkpad mouse:
-if [ $(hostname) = 'ixh' ]; then
-	dev='TPPS/2 IBM TrackPoint'
-	ptr='3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16'
-	tmo='200'
-else
-	dev='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
-	ptr='3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22'
-	tmo='0'
-fi
-
-# Swap left and right button:
-xmodmap -e "pointer = $ptr"
-
-# Enable scrolling through middle click + trackpad:
-xinput set-prop "$dev" 'Evdev Wheel Emulation' 1
-xinput set-prop "$dev" 'Evdev Wheel Emulation Button' 2
-xinput set-prop "$dev" 'Evdev Wheel Emulation Axes' 6 7 4 5
-xinput set-prop "$dev" 'Evdev Wheel Emulation Timeout' $tmo
-
-# Enable middle click drag&drop (work-around for above option):
-xinput set-prop "$dev" 'Evdev Middle Button Emulation' 1
+ayeinput --mouse swap --scroll middle
 
 
 # OUTPUT -----------------------------------------------------------------------
@@ -64,7 +36,10 @@ nitrogen --restore
 
 # Activate Japanese input:
 if [ -e /usr/bin/uim-xim ]; then
-	export GTK_IM_MODULE='uim'
+	export GTK_IM_MODULE=uim
+	export QT_IM_MODULE=xim
+	export QT4_IM_MODULE=uim
+	export QT5_IM_MODULE=xim
 	export XMODIFIERS=@im='anthy'
 	uim-xim &
 fi
@@ -73,7 +48,7 @@ fi
 scrock --daemon start
 
 # Launch status bar:
-karuibar &
+#karuibar &
 
 
 # WM ---------------------------------------------------------------------------
