@@ -37,7 +37,7 @@ bind-key j select-pane -t :.+
 bind-key k select-pane -t :.-
 
 # dev: keybindings for reloading config:
-bind-key r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+bind-key r source-file ~/.config/tmux/config \; display-message "Config reloaded..."
 
 # Sane scrolling:
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'

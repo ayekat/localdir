@@ -1,28 +1,29 @@
 # MIME mapping configuration file
-placeholder        : _FILE_
+placeholder            : _FILE_
 
 # map MIME to applications:
+application/postscript : zathura _FILE_ &
+application/pdf        : zathura _FILE_ &
 application/vnd.openxmlformats-officedocument.presentationml.presentation : libreoffice _FILE_ &
 application/vnd.ms-powerpoint : libreoffice _FILE_ &
-application/pdf    : zathura _FILE_ &
-image/gif          : eog _FILE_ &
-image/jpeg         : eog _FILE_ &
-image/png          : eog _FILE_ &
-image/svg+xml      : inkview _FILE_ &
-image/tiff         : eog _FILE_ &
-image/x-ms-bmp     : eog _FILE_ &
-inode/directory    : cd _FILE_ && ls
-text/html          : dwb _FILE_ &
-text/plain         : gedit _FILE_ &
-text/x-shellscript : gedit _FILE_ &
-text/x-tex         : gedit _FILE_ &
-video/mp4          : mplayer
-video/quicktime    : mplayer
-video/webm         : mplayer
-video/x-matroska   : mplayer
+image/gif              : eom _FILE_ &
+image/jpeg             : eom _FILE_ &
+image/png              : eom _FILE_ &
+image/svg+xml          : inkview _FILE_ &
+image/tiff             : eom _FILE_ &
+image/x-ms-bmp         : eom _FILE_ &
+inode/directory        : cd _FILE_ && ls
+text/html              : dwb _FILE_ &
+text/plain             : pluma _FILE_ &
+text/x-shellscript     : pluma _FILE_ &
+text/x-tex             : pluma _FILE_ &
+video/mp4              : mplayer
+video/quicktime        : mplayer
+video/webm             : mplayer
+video/x-matroska       : mplayer
 
 # if application/octet-stream, map extensions to MIME:
-.html              : text/html
+.html                  : text/html
 
 # if URI, map protocol to MIME:
-http               : text/html
+http                   : text/html

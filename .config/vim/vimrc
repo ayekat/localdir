@@ -126,7 +126,7 @@ endif
 
 " I wanna see tabs and trailing whitespaces:
 set list
-set listchars=tab:→\ ,trail:·
+set listchars=tab:→\ ,eol:\ ,trail:·
 
 " Window separator:
 if $TERM == 'linux'
@@ -205,11 +205,11 @@ if $TERM != "linux"
 	hi Folded     ctermfg=248 ctermbg=236 cterm=none
 
 	" Separate normal text from non-file-text:
-	hi NonText    ctermfg=0   ctermbg=232 cterm=bold
-	"
+	"hi NonText    ctermfg=0   ctermbg=232 cterm=bold
+
 	" Window separator:
 	hi VertSplit  ctermfg=0   ctermbg=232
-	"
+
 	" Line numbers and syntastic column:
 	hi SignColumn             ctermbg=none
 	hi LineNr                 ctermbg=0
