@@ -85,6 +85,8 @@ endif
 " Disable scala and java syntax checkers, as they are slow as hell:
 let g:syntastic_java_checkers = []
 let g:syntastic_scala_checkers = []
+" C++ projects are usually monsters and require a proper path setup
+let g:syntastic_cpp_checkers = []
 
 " Disable LaTeX style warnings:
 "let g:syntastic_tex_chktex_args = '-m'
@@ -329,7 +331,7 @@ endfunction
 set noexpandtab shiftwidth=4 tabstop=4
 au FileType c set tabstop=8 shiftwidth=8
 au FileType scala,tex set expandtab tabstop=2 shiftwidth=2
-au FileType ant,cpp,haskell,java,python,sql set expandtab
+au FileType ant,cpp,haskell,java,lisp,python,sql set expandtab
 
 " Auto-indent, and reuse the same combination of spaces/tabs:
 filetype plugin indent on
