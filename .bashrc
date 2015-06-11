@@ -24,6 +24,12 @@ ayeprompt_assemble()
 {
 	PROMPT=''
 
+	# Background jobs:
+	jobs_update
+	if [ $jobs_count -ne 0 ]; then
+		PROMPT+="\[${pc_jobs}\] $jobs_count \[\033[0m\] "
+	fi
+
 	# VCS:
 	vcs_update
 	if [ -n "$vcs_state" ]; then

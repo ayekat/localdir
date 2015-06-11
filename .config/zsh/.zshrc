@@ -51,6 +51,9 @@ build_prompt() #{{{
 {
 	PROMPT=''
 
+	# Background jobs:
+	PROMPT+="%(1j.%{$pc_jobs%} %j %{$reset_color%}.)"
+
 	# Vim mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
@@ -122,18 +125,21 @@ build_rprompt() #{{{
 }
 #}}}
 
-preexec() {
+preexec()
+{
 	timer=${timer:-$SECONDS}
 	unset PROMPT
 	unset RPROMPT
 }
 
-precmd() {
+precmd()
+{
 	vcs_update
 	build_prompt
 	build_rprompt
 }
 
+setopt promptsubst  # allows shell substitutions as part of prompt format string
 precmd
 
 # }}}

@@ -45,6 +45,7 @@ cmd_exists uim-fep mutt && alias mutt="uim-fep -e mutt -F $XDG_CONFIG_HOME/mutt/
 cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
 cmd_exists startx && alias startx="startx $XINITRC"
 cmd_exists mpv && alias mplayer='mpv'
+cmd_exists view vim && alias view='vim -R'
 
 # Pass user environment when launching vim with sudo:
 if cmd_exists sudo; then
@@ -88,6 +89,7 @@ pc_vcs_merge=$(printf "\033[1;31m")
 pc_host=$(printf "\033[35m")
 pc_pwd=$(printf "\033[34m")
 pc_prompt=$(printf "\033[1;31m")
+pc_jobs=$(printf "\033[47;30m")
 
 # VCS:
 vcs_state=''
@@ -114,6 +116,12 @@ vcs_update()
 			fi
 			;;
 	esac
+}
+
+# Background Jobs:
+jobs_update()
+{
+	jobs_count="$(jobs | awk '{print $2}' | grep -v 'Done' | wc -l)"
 }
 
 # }}}
