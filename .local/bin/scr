@@ -33,7 +33,7 @@ scr_add() {
 		right|left) position="${position}-of";;
 	esac
 	xrandr --output "$lcdname" --auto || exit 1
-	xrandr --output "$scrname" --auto --${position} "$lcdname" || exit 1
+	xrandr --output "$scrname" --auto --${position} "$lcdname" --primary || exit 1
 	scr_setup
 }
 
