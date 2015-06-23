@@ -88,6 +88,10 @@ let g:syntastic_scala_checkers = []
 " C++ projects are usually monsters and require a proper path setup
 let g:syntastic_cpp_checkers = []
 
+" Fix include directories:
+let g:syntastic_c_include_dirs = [$HOME.'/.local/include']
+set path +=$HOME/.local/include
+
 " Disable LaTeX style warnings:
 "let g:syntastic_tex_chktex_args = '-m'
 
