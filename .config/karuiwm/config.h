@@ -56,6 +56,8 @@ static char const *micmutecmd[] = { "amixer", "set", "Capture", "toggle", NULL }
 static char const *musicplaypausecmd[] = { "mpc", "toggle", NULL };
 static char const *musicnextcmd[] = { "mpc", "next", NULL };
 static char const *musicprevcmd[] = { "mpc", "prev", NULL };
+static char const *karuibarrestartcmd[] = { "pkill", "-USR1", "karuibar", NULL };
+static char const *karuibartogglecmd[] = { "pkill", "-USR2", "karuibar", NULL };
 static char const *backlightupcmd[] = { "xbacklight", "+10", NULL };
 static char const *backlightdowncmd[] = { "xbacklight", "-10", NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
@@ -83,6 +85,8 @@ static Key const keys[] = {
 	{ MODKEY,                       XK_p,       dmenu,            { .i=DMenuSpawn } },
 	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,            { .v=dpasscmd } },
+	{ MODKEY,                       XK_b,       spawn,            { .v=karuibartogglecmd } },
+	{ MODKEY|ShiftMask,             XK_b,       spawn,            { .v=karuibarrestartcmd } },
 
 	/* hardware */
 	{ 0,                            0x1008FF11, spawn,            { .v=voldowncmd } },

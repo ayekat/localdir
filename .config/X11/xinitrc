@@ -65,7 +65,7 @@ esac
 
 # Launch WM and log all of its output:
 while true; do
-	"$WM" > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&1
+	"$WM"
 	zenity --question --text="$WM has stopped. Do you want to start again?"
 	test $? -eq 0 || break
-done
+done > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&2
