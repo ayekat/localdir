@@ -4,8 +4,9 @@ placeholder            : _FILE_
 # map MIME to applications:
 application/postscript : zathura _FILE_ &
 application/pdf        : zathura _FILE_ &
-application/vnd.openxmlformats-officedocument.presentationml.presentation : libreoffice _FILE_ &
 application/vnd.ms-powerpoint : libreoffice _FILE_ &
+application/vnd.oasis.opendocument.text : libreoffice _FILE_ &
+application/vnd.openxmlformats-officedocument.presentationml.presentation : libreoffice _FILE_ &
 image/gif              : eom _FILE_ &
 image/jpeg             : eom _FILE_ &
 image/png              : eom _FILE_ &
