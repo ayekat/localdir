@@ -56,6 +56,8 @@ static char const *micmutecmd[] = { "amixer", "set", "Capture", "toggle", NULL }
 static char const *musicplaypausecmd[] = { "mpc", "toggle", NULL };
 static char const *musicnextcmd[] = { "mpc", "next", NULL };
 static char const *musicprevcmd[] = { "mpc", "prev", NULL };
+static char const *backlightupcmd[] = { "xbacklight", "+10", NULL };
+static char const *backlightdowncmd[] = { "xbacklight", "-10", NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
@@ -90,6 +92,8 @@ static Key const keys[] = {
 	{ 0,                            0x1008FF16, spawn,            { .v=musicprevcmd } },
 	{ 0,                            0x1008FF17, spawn,            { .v=musicnextcmd } },
 	{ 0,                            0x1008FFB2, spawn,            { .v=micmutecmd } },
+	{ MODKEY,                       XK_F8,      spawn,            { .v=backlightdowncmd } },
+	{ MODKEY,                       XK_F9,      spawn,            { .v=backlightupcmd } },
 
 	/* windows */
 	{ MODKEY,                       XK_j,       stepfocus,        { .i=+1 } },
