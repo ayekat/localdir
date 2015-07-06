@@ -191,6 +191,9 @@ let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
 " ------------------------------------------------------------------------------
 " COLOUR SCHEME {{{
 
+" Prevent vim default colour scheme from overriding this (since 7.4.764):
+color default
+
 " Make visual less penetrant:
 hi Visual cterm=inverse ctermbg=0
 
@@ -243,39 +246,44 @@ if $TERM != "linux"
 		"hi Number         ctermfg=
 		"hi Boolean        ctermfg=
 		"hi Float          ctermfg=
+
 	hi Identifier         ctermfg=169
 		" any variable name | function name (also: methods for classes)
 		"hi Function       ctermfg=
+
 	hi Statement          ctermfg=172
 		" any statement | if then else endif switch | for do while |
 		" case default | sizeof + * | any other keyword | exception
-		"hi Conditional
-		"hi Repeat
-		"hi Label
-		"hi Operator
-		"hi Keyword
-		"hi Exception
+		"hi Conditional    ctermfg=
+		"hi Repeat         ctermfg=
+		"hi Label          ctermfg=
+		"hi Operator       ctermfg=
+		"hi Keyword        ctermfg=
+		"hi Exception      ctermfg=
+
 	hi PreProc            ctermfg=169
 		" any preprocessor | #include | #define | macro | #if #else #endif
-		"hi Include
-		"hi Define
-		"hi Macro
+		"hi Include        ctermfg=
+		"hi Define         ctermfg=
+		"hi Macro          ctermfg=
+		"hi PreCondit      ctermfg=
 	au FileType sh hi PreProc ctermfg=38
-		"hi PreCondit
+
 	hi Type               ctermfg=38
 		" int long char | static register volatile | struct union enum | typedef
-		"hi StorageClass
-		"hi Structure
-		"hi Typedef
+		"hi StorageClass   ctermfg=
+		"hi Structure      ctermfg=
+		"hi Typedef        ctermfg=
+
 	hi Special            ctermfg=136
-		"hi SpecialChar
-		"hi Tag
-		"hi Delimiter
-		"hi SpecialComment
-		"hi Debug
-	" TODO
+		"hi SpecialChar    ctermfg=
+		"hi Tag            ctermfg=
+		"hi Delimiter      ctermfg=
+		"hi SpecialComment ctermfg=
+		"hi Debug          ctermfg=
+
 	hi Todo               ctermfg=148 ctermbg=22
-	hi Error              ctermfg=88 ctermbg=9 cterm=bold
+	hi Error              ctermfg=88  ctermbg=9  cterm=bold
 		"hi SyntasticErrorSign
 	" }}}
 else
