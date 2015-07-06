@@ -1,9 +1,94 @@
 #!/usr/bin/env sh
 
-summands=''
+# UTILITIES ====================================================================
 
-for i in $@; do
-	summands="${summands}${i} + "
-done
+. $HOME/.local/include/utils.sh
 
-dc -e "10k 0 $summands p"
+# MAIN =========================================================================
+
+usage()
+{
+	cat <<- EOF
+	Usage: $INVOKENAME [OPTIONS ...] [SUMMANDS]
+	EOF
+}
+
+help()
+{
+	usage
+	cat <<- EOF
+
+	Options:
+	  -h            Display this help
+	  -p PRECISION  Use PRECISION digits after decimal point for calculations
+
+	If no summand is passed on the command line, the summands are read from stdin.
+	EOF
+}
+
+get_options()
+{
+	PRECISION=5
+
+	while getopts :hp: opt; do
+		case "$opt" in
+		h)
+			help
+			exit 1
+			;;
+		p)
+			PRECISION="$OPTARG"
+			is_integer "$PRECISION" || die_help 'Precision must be numeric'
+			;;
+		'?')
+			die_help 'Unknown option: -%s' "$OPTARG"
+			;;
+		esac
+	done
+
+	ARGSHIFT=$(($OPTIND - 1))
+}
+
+get_summands()
+{
+	SUMMANDS=''
+	if [ $# -eq 0 ]; then
+		while read l; do
+			SUMMANDS="$SUMMANDS $l"
+		done
+	else
+		SUMMANDS="$@"
+	fi
+
+	NSUMMANDS=0
+	for s in $SUMMANDS; do
+		if ! is_float "$s"; then
+			die_help "Summands must be numeric (invalid: '%s')" "$s"
+		fi
+		NSUMMANDS=$(($NSUMMANDS + 1))
+	done
+
+	if [ $# -ne 0 ]; then
+		ARGSHIFT=$NSUMMANDS
+	else
+		ARGSHIFT=0
+	fi
+}
+
+main()
+{
+	get_options "$@"
+	shift $ARGSHIFT
+	get_summands "$@"
+	shift $ARGSHIFT
+
+	dc_summands=''
+	for s in $SUMMANDS; do
+		dc_summands="${dc_summands}${s} + "
+	done
+	dc -e "$PRECISION k 0 $dc_summands p"
+}
+
+set -e
+main "$@"
+set +e
