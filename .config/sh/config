@@ -64,6 +64,7 @@ fi
 mount()
 {
 	if [ $# -eq 0 ] && cmd_exists findmnt; then
+		echo '>> findmnt'
 		findmnt
 	else
 		command mount "$@"
