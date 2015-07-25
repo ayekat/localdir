@@ -12,14 +12,9 @@ if [ -n "$REMOTE" ]; then
 	exit
 fi
 
-# INPUT ------------------------------------------------------------------------
+# INPUT/OUTPUT -----------------------------------------------------------------
 
-ayeinput --mouse swap --scroll middle
-
-
-# OUTPUT -----------------------------------------------------------------------
-
-# Enable colour profile:
+ayeinput -eml ch
 lcdadjust &
 
 
@@ -64,8 +59,10 @@ case "$WM" in
 esac
 
 # Launch WM and log all of its output:
+SESSION_LOGFILE=/tmp/xorg-"$USER"-"$DISPLAY"-"$(date +%s)".log
 while true; do
+	sleep 1 && printf ".\nhello \033F{123456}world\033r\n" | karuibar &
 	"$WM"
 	zenity --question --text="$WM has stopped. Do you want to start again?"
 	test $? -eq 0 || break
-done > /tmp/xorg-"$USER"-"$DISPLAY".log 2>&2
+done >>"$SESSION_LOGFILE" 2>>"$SESSION_LOGFILE"

@@ -3,37 +3,111 @@
 # Set the X input according to ayekat's preferences.
 # Written by ayekat on an annoying Monday afternoon in May 2015.
 
-# TODO accept options and make it more generic.
-# The goal is to have a generic wrapper for
-# * setxkbmap
-# * xmodmap
-# * mouse (with xinput and xmodmap)
+# VARIABLES, UTILITIES =========================================================
 
 [ -n "$XDG_CONFIG_HOME" ] || XDG_CONFIG_HOME="$HOME/.config"
 
-# Swiss keyboard layout:
-setxkbmap -layout ch -option caps:swapescape
+. "$HOME"/.local/include/utils.sh
 
-# ... with minor tweakings:
-xmodmap $XDG_CONFIG_HOME/X11/xmodmaprc
+# KEYBOARD =====================================================================
 
-# Keyboard/host-specific mouse button settings:
-if [ "$(hostname)" = 'ixh' ]; then
-	dev='TPPS/2 IBM TrackPoint'
-	ptr='3 2 1 4 5 6 7 8 9 10'
-	tmo='200'
-else
-	dev='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
-	ptr='3 2 1 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22'
-	tmo='0'
-fi
-xmodmap -e "pointer = $ptr"
+ayeinput_keyboard()
+{
+	setxkbmap \
+		-layout "$LAYOUT" \
+		$(if [ $SWAPESCAPE -eq $TRUE ]; then echo '-option caps:swapescape'; fi)
 
-# Enable scrolling through middle click + trackpad:
-xinput set-prop "$dev" 'Evdev Wheel Emulation' 1
-xinput set-prop "$dev" 'Evdev Wheel Emulation Button' 2
-xinput set-prop "$dev" 'Evdev Wheel Emulation Axes' 6 7 4 5
-xinput set-prop "$dev" 'Evdev Wheel Emulation Timeout' $tmo
+	if [ "$XMODMAPRC" != "$NULL" ]; then
+		xmodmap "$XMODMAPRC"
+	fi
+}
 
-# Enable middle click drag&drop (work-around for above option):
-xinput set-prop "$dev" 'Evdev Middle Button Emulation' 1
+# MOUSE ========================================================================
+
+ayeinput_mouse()
+{
+	# Layout of mouse buttons:
+	if [ $SWAPMOUSE -eq $TRUE ]; then
+		mouse_primary='3 2 1'
+	else
+		mouse_primary='1 2 3'
+	fi
+	if [ "$(hostname)" = 'ixh' ]; then
+		dev='TPPS/2 IBM TrackPoint'
+		ptr="$mouse_primary 4 5 6 7 8 9 10"
+		tmo='200'
+	else
+		dev='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
+		ptr="$mouse_primary 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22"
+		tmo='0'
+	fi
+	xmodmap -e "pointer = $ptr"
+
+	# Enable scrolling through middle click + trackpad:
+	xinput set-prop "$dev" 'Evdev Wheel Emulation' 1
+	xinput set-prop "$dev" 'Evdev Wheel Emulation Button' 2
+	xinput set-prop "$dev" 'Evdev Wheel Emulation Axes' 6 7 4 5
+	xinput set-prop "$dev" 'Evdev Wheel Emulation Timeout' $tmo
+
+	# Enable middle click drag&drop (work-around for above option):
+	xinput set-prop "$dev" 'Evdev Middle Button Emulation' 1
+}
+
+# MAIN =========================================================================
+
+usage()
+{
+	echo "Usage: $INVOKENAME [OPTIONS ...]"
+}
+
+help()
+{
+	usage
+	cat <<- EOF
+
+	Set keyboard/mouse layout the way ayekat likes it :-)
+
+	Options:
+	  -h            Display this help and exit
+	  -e            Swap Escape with Caps Lock
+	  -l LAYOUT     Set layout [default=$LAYOUT]
+	  -m            Swap left/right mouse button
+	  -x XMODMAPRC  Path to xmodmaprc [default=$XMODMAPRC]
+	EOF
+}
+
+get_options()
+{
+	SWAPESCAPE=$FALSE
+	LAYOUT='ch'
+	SWAPMOUSE=$FALSE
+	XMODMAPRC="$XDG_CONFIG_HOME/X11/xmodmaprc"
+
+	while getopts :e:hl:x: opt; do
+		case "$opt" in
+			e) SWAPESCAPE=$TRUE ;;
+			h) help; exit 1 ;;
+			l) LAYOUT="$OPTARG" ;;
+			m) SWAPMOUSE=$TRUE ;;
+			x) XMODMAPRC="$OPTARG" ;;
+			'?') die_help 'Unknown option: -%s' "$OPTARG" ;;
+		esac
+	done
+	ARGSHIFT=$(($OPTIND - 1))
+
+	test -f "$XMODMAPRC" || die 1 '%s: file not found' "$XMODMAPRC"
+	test -r "$XMODMAPRC" || die 1 '%s: permission denied' "$XMODMAPRC"
+}
+
+main()
+{
+	get_options "$@"
+	shift $ARGSHIFT
+
+	ayeinput_keyboard
+	ayeinput_mouse
+}
+
+set -e
+main "$@"
+set +e
