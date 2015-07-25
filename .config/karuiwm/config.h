@@ -58,8 +58,8 @@ static char const *musicnextcmd[] = { "mpc", "next", NULL };
 static char const *musicprevcmd[] = { "mpc", "prev", NULL };
 static char const *karuibarrestartcmd[] = { "pkill", "-USR1", "karuibar", NULL };
 static char const *karuibartogglecmd[] = { "pkill", "-USR2", "karuibar", NULL };
-static char const *backlightupcmd[] = { "xbacklight", "-steps", "1", "+10", NULL };
-static char const *backlightdowncmd[] = { "xbacklight", "-steps", "1", "-10", NULL };
+static char const *backlightupcmd[] = { "xbacklight", "-steps", "1", "+5", NULL };
+static char const *backlightdowncmd[] = { "xbacklight", "-steps", "1", "-5", NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
