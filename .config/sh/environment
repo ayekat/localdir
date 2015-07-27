@@ -82,7 +82,9 @@ export PAGER='/usr/bin/less'
 # ------------------------------------------------------------------------------
 # APPLICATION-SPECIFIC {{{
 
-export CCLI_VERBOSE=1
+# S²E-Chef
+export CHEF_VERBOSE=0
+export CHEF_DOCKERIZED=1
 
 # }}}
 # ------------------------------------------------------------------------------

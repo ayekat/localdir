@@ -83,7 +83,7 @@ get_options()
 	SWAPMOUSE=$FALSE
 	XMODMAPRC="$XDG_CONFIG_HOME/X11/xmodmaprc"
 
-	while getopts :e:hl:x: opt; do
+	while getopts :ehl:mx: opt; do
 		case "$opt" in
 			e) SWAPESCAPE=$TRUE ;;
 			h) help; exit 1 ;;
@@ -103,6 +103,7 @@ main()
 {
 	get_options "$@"
 	shift $ARGSHIFT
+	test $# -eq 0 || die_help "trailing arguments $@"
 
 	ayeinput_keyboard
 	ayeinput_mouse
