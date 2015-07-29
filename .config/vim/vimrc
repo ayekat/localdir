@@ -69,6 +69,7 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
+NeoBundle 'rust-lang/rust.vim'
 NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
@@ -235,6 +236,10 @@ if $TERM != "linux"
 	hi DiffChange         ctermfg=45  ctermbg=24
 	hi DiffDelete         ctermfg=52  ctermbg=232
 	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
+
+	" Gitdiffs:
+	hi diffAdded          ctermfg=2
+	hi diffRemoved        ctermfg=1
 
 	" Syntax:
 	hi Comment            ctermfg=243
