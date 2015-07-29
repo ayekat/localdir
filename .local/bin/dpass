@@ -7,7 +7,8 @@
 cd "$PASSWORD_STORE_DIR"
 passname="$(find * -type f | sed 's/\.gpg$//g' | dmenu "$@")"
 [ -n "$passname" ] || exit 1
-pass show -c "$passname" >/dev/null
-notify-send \
-	'Unix pass' \
-	"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
+if pass show -c "$passname" >/dev/null; then
+	notify-send \
+		'Unix pass' \
+		"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
+fi
