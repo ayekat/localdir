@@ -14,6 +14,7 @@ image/svg+xml          : inkview _FILE_ &
 image/tiff             : eom _FILE_ &
 image/x-ms-bmp         : eom _FILE_ &
 inode/directory        : cd _FILE_ && ls
+message/rfc822         : pluma _FILE_ &
 text/html              : dwb _FILE_ &
 text/plain             : pluma _FILE_ &
 text/x-shellscript     : pluma _FILE_ &

@@ -156,3 +156,8 @@ karuibar.time_time.background : #EEEEEE
 
 ! }}}
 ! ------------------------------------------------------------------------------
+! KARUIWM {{{
+
+karuiwm.modules:        core
+
+! }}}

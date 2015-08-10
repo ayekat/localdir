@@ -60,6 +60,7 @@ static char const *karuibarrestartcmd[] = { "pkill", "-USR1", "karuibar", NULL }
 static char const *karuibartogglecmd[] = { "pkill", "-USR2", "karuibar", NULL };
 static char const *backlightupcmd[] = { "xbacklight", "-steps", "1", "+5", NULL };
 static char const *backlightdowncmd[] = { "xbacklight", "-steps", "1", "-5", NULL };
+static char const *suspendcmd[] = { "systemctl", "suspend", NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
@@ -98,6 +99,7 @@ static Key const keys[] = {
 	{ 0,                            0x1008FFB2, spawn,            { .v=micmutecmd } },
 	{ MODKEY,                       XK_F8,      spawn,            { .v=backlightdowncmd } },
 	{ MODKEY,                       XK_F9,      spawn,            { .v=backlightupcmd } },
+	{ MODKEY,                       XK_F4,      spawn,            { .v=suspendcmd } },
 
 	/* windows */
 	{ MODKEY,                       XK_j,       stepfocus,        { .i=+1 } },

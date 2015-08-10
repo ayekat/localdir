@@ -104,7 +104,7 @@ build_rprompt() #{{{
 		timer_min=$(($timer_total / 60 % 60))
 		timer_hour=$(($timer_total / 3600 % 24))
 		timer_day=$(($timer_total / 86400))
-		if [ ${timer_total} -ne 0 ]; then
+		if [ ${timer_total} -gt 1 ]; then
 			tp=''
 			[ -z "$tp" ] && [ $timer_day -eq 0 ]  || tp+="${timer_day}d "
 			[ -z "$tp" ] && [ $timer_hour -eq 0 ] || tp+="${timer_hour}h "
