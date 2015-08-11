@@ -1,6 +1,6 @@
 *.d
 checkstyle
-ccli
+ctl
 karui*
 mtgpmk
 nios2sim
