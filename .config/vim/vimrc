@@ -220,8 +220,8 @@ if $TERM != "linux"
 	" Separate normal text from non-file-text:
 	"hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 
-	" Window separator:
-	hi VertSplit  ctermfg=0   ctermbg=232
+	" Window separator (XXX inverted for some reason):
+	hi VertSplit  ctermfg=232 ctermbg=236
 
 	" Line numbers and syntastic column:
 	hi SignColumn             ctermbg=none

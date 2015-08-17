@@ -76,6 +76,10 @@ if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
 fi
 
+# In zsh vim mode, I sometimes forget I'm not in vim:
+alias :e="$EDITOR"
+alias :q=exit
+
 # }}}
 # ------------------------------------------------------------------------------
 # PROMPT {{{
