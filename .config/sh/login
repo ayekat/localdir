@@ -78,7 +78,7 @@ printlogo() {
 			printf         "       .dXXXXXXXXY*\"<Xb.     \n"
 			printf         "      dXXXXP(^\`\`\`'._.XXXb  \n"
 			printf         "     JXXXP' _\\\\a#a,. 'VXXXA \n"
-			printf         "    |XP\"*. .XXXXXXD. 'XXXX)  \033[0m $(uname -s -r)\n"
+			printf         "    |XP\"*. .XXXXXXD. 'XXXX)   \033[0m $(uname -s -r)\n"
 			printf "\033[35m    (X.  ; (XXXXXXXT''XXXX)   \033[0m on $(uname -n)\n"
 			printf "\033[35m    'XXXX. \`\\XXXXXP  .XXXX' \n"
 			printf         "     *XXXXb./ \`\` ,·-dXXXX/  \n"

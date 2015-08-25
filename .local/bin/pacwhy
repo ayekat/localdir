@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 set -e
 
-# Uses expac to print the reason why given Arch Linux package was installed on
+# Uses expac to print the reason why a given Arch Linux package was installed on
 # the system (similar to `aptitude why`).
 # Written by ayekat on a cool monday morning in August 2015.
 
@@ -51,15 +51,20 @@ why()
 	printf "${esc_indent}${esc_colour}%s${esc_reset}\n" "$package"
 
 	# Recursively print reverse dependencies:
-	if [ "$reason" = 'explicit' ] && [ $VERBOSE = $TRUE ]; then
-		reason='dependency'
-	fi
-	if [ "$reason" = 'dependency' ]; then
+	if [ "$reason" = 'dependency' ] || [ $VERBOSE = $TRUE ]; then
 		revdeps="$(expac -Q '%N' "$package")"
 		if [ $maxdepth -gt 0 ]; then
-			for revdep in $revdeps; do
-				why "$revdep" $(($indent + $INDENT)) $(($maxdepth - 1))
-			done
+			if [ -z "$revdeps" ]; then
+				if [ "$reason" = 'dependency' ]; then
+					printf "${esc_indent}%*s$ESC_WARN<orphan>$ESC_RESET\n" $INDENT
+				fi
+			else
+				for revdep in $revdeps; do
+					why "$revdep" $(($indent + $INDENT)) $(($maxdepth - 1))
+				done
+			fi
+		else
+			printf "${esc_indent}%*s$ESC_WARN<maxdepth>$ESC_RESET\n" $INDENT ' '
 		fi
 	fi
 )
@@ -104,11 +109,13 @@ get_options()
 		ESC_GROUP="\033[${PACWHY_GROUP:-34}m"
 		ESC_DEPENDENCY="\033[${PACWHY_DEPENDENCY:-0}m"
 		ESC_EXPLICIT="\033[${PACWHY_EXPLICIT:-32}m"
+		ESC_WARN="\033[${PACWHY_WARN:-31}m"
 		ESC_RESET="\033[0m"
 	else
 		ESC_GROUP=''
 		ESC_DEPENDENCY=''
 		ESC_EXPLICIT=''
+		ESC_WARN=''
 		ESC_RESET=''
 	fi
 
