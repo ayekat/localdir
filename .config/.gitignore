@@ -1,4 +1,5 @@
-ncmpcpp/error.log
-git/gitk
-vim/neobundle
-zsh/zshrc
+/ncmpcpp/error.log
+/git/gitk
+/vim/neobundle
+/zsh/zshrc
+/systemd/user/*.wants
