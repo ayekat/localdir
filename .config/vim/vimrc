@@ -74,6 +74,7 @@ NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
 NeoBundle 'honza/dockerfile.vim'
+NeoBundle 'nfnty/vim-nftables'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 call neobundle#end()
@@ -128,9 +129,9 @@ set encoding=utf8
 " Display a bar after a reasonable number of columns:
 if version >= 703
 	set colorcolumn=81
-	au FileType mail,gitcommit set colorcolumn=73
-	au FileType java,scala set colorcolumn=121
-	au FileType asm set colorcolumn=41,81
+	au FileType mail,gitcommit setl colorcolumn=73
+	au FileType java,scala setl colorcolumn=121
+	au FileType asm setl colorcolumn=41,81
 endif
 
 " I wanna see tabs and trailing whitespaces:
@@ -149,7 +150,7 @@ set fillchars+="fold: "
 
 " Autofold (except in git commit message):
 set foldmethod=marker
-au FileType gitcommit set foldmethod=manual
+au FileType gitcommit setl foldmethod=manual
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -159,18 +160,16 @@ au FileType gitcommit set foldmethod=manual
 syntax on
 
 " Fix unrecognised file types:
-au BufRead,BufNewFile *.md set filetype=markdown
-au BufRead,BufNewFile *.tex set filetype=tex
-au BufRead,BufNewFile *.xbm set filetype=c
-au BufRead,BufNewFile *.scala set filetype=scala
-au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl set filetype=glsl
-au BufRead,BufNewFile dunstrc,redshift.conf set filetype=cfg
-au BufRead,BufNewFile *.target set filetype=systemd
-au BufRead,BufNewFile /etc/iptables/*.rules set filetype=sh " ugly
-au BufRead,BufNewFile *.muttrc set filetype=muttrc
-au BufRead,BufNewFile *.tool set filetype=scala
-au BufRead,BufNewFile /var/named/{slave,master}/* set filetype=dns
-au BufRead,BufNewFile *.smt set filetype=lisp " matches pretty well
+au BufRead,BufNewFile *.md setl filetype=markdown
+au BufRead,BufNewFile *.tex setl filetype=tex
+au BufRead,BufNewFile *.xbm setl filetype=c
+au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl setl filetype=glsl
+au BufRead,BufNewFile dunstrc,redshift.conf setl filetype=cfg
+au BufRead,BufNewFile *.target setl filetype=systemd
+au BufRead,BufNewFile *.muttrc setl filetype=muttrc
+au BufRead,BufNewFile *.tool setl filetype=scala
+au BufRead,BufNewFile *.zone setl filetype=dns
+au BufRead,BufNewFile *.smt setl filetype=lisp
 
 " Assembly:
 let asmsyntax='nasm'
@@ -343,29 +342,29 @@ function! CFold()
 		return "="
 	endif
 endfunction
-"au FileType c set foldmethod=expr
-"au FileType c set foldexpr=CFold()
-
-" Indentation (tabs, spaces):
-set noexpandtab shiftwidth=4 tabstop=4
-au FileType c set tabstop=8 shiftwidth=8
-au FileType scala,tex set expandtab tabstop=2 shiftwidth=2
-au FileType ant,cpp,haskell,java,lisp,python,sql set expandtab
+"au FileType c setl foldmethod=expr
+"au FileType c setl foldexpr=CFold()
 
 " Auto-indent, and reuse the same combination of spaces/tabs:
 filetype plugin indent on
 set autoindent
 set copyindent
 
+" Indentation (tabs, spaces):
+set noexpandtab shiftwidth=4 tabstop=4
+au FileType c setl tabstop=8 shiftwidth=8
+au FileType scala,tex,nftables setl expandtab tabstop=2 shiftwidth=2
+au FileType ant,cpp,haskell,java,lisp,python,sql setl expandtab
+
 " Visually wrap lines and break words:
 set wrap
-au FileType html,java,scala set nowrap
-au BufRead,BufNewFile /etc/fstab set nowrap
+au FileType html,java,scala setl nowrap
+au BufRead,BufNewFile /etc/fstab setl nowrap
 set linebreak      " wrap at words (does not work with list)
 
 " Physically wrap lines:
-au FileType markdown,tex,rst set textwidth=80
-au FileType gitcommit,mail set textwidth=72
+au FileType markdown,tex,rst setl textwidth=80
+au FileType gitcommit,mail setl textwidth=72
 
 " }}}
 " ------------------------------------------------------------------------------
