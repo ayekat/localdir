@@ -119,7 +119,7 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar_ixh.modules : network, memory, cpu, \
+karuibar_ixh.modules : mpd, network, memory, cpu, \
                        battery, battery_slice, backlight, alsa_out, alsa_in, \
                        time_date, time_time, capslock
 
