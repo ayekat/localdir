@@ -93,6 +93,7 @@ run(void)
 static void
 term(void)
 {
+	mpd_connection_free(con);
 }
 
 int
