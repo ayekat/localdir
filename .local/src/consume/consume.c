@@ -6,7 +6,7 @@
 #include <sys/select.h>
 
 #define REASON mpd_connection_get_error_message(con)
-#define FATAL(...) (void) fprintf(stderr, __VA_ARGS__); exit(2)
+#define FATAL(...) { (void) fprintf(stderr, __VA_ARGS__); exit(2); }
 
 static void handle(void);
 static void init(char const *host);
