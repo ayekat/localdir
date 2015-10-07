@@ -48,7 +48,7 @@ static char const *dmenuargs[] = { "-l", "10", "-i",
 /* commands */
 static char const *termcmd[] = { "urxvt", NULL };
 static char const *scrotcmd[] = { "prtscr", NULL };
-static char const *lockcmd[] = { "scrock", NULL };
+static char const *lockcmd[] = { "xtrlock", NULL };
 static char const *volupcmd[] = { "amixer", "set", "Master", "2+", "unmute", NULL };
 static char const *voldowncmd[] = { "amixer", "set", "Master", "2-", "unmute", NULL };
 static char const *volmutecmd[] = { "amixer", "set", "Master", "toggle", NULL };
