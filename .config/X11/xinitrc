@@ -7,10 +7,20 @@
 # working directory paths when opening a shell under X:
 cd
 
-if [ -n "$REMOTE" ]; then
-	ssh -X "$REMOTE" .config/X11/xinitrc
-	exit
+
+# SYSTEM-WIDE ------------------------------------------------------------------
+
+system_xinit=/etc/X11/xinit/xinitrc.d
+if [ -d "$system_xinit" ]; then
+	for f in "$system_xinit"/*; do
+		if [ -r "$f" ]; then
+			. "$f"
+		fi
+	done
+	unset f
 fi
+unset system_xinit
+
 
 # INPUT/OUTPUT -----------------------------------------------------------------
 

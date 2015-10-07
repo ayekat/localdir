@@ -8,4 +8,4 @@ ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

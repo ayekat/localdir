@@ -6,4 +6,4 @@ After=mpd.service
 ExecStart=/usr/bin/mpdscribble --conf /home/ayekat/.config/mpdscribble/mpdscribble.conf --no-daemon
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
