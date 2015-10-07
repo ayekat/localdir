@@ -1,6 +1,7 @@
 *.d
 checkstyle
 ctl
+eriya
 karui*
 mtgpmk
 nios2sim

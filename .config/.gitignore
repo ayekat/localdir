@@ -3,3 +3,4 @@
 /vim/neobundle
 /zsh/zshrc
 /systemd/user/*.wants
+/systemd/user/eriya@.service
