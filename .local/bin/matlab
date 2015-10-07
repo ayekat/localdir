@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 # Sanity wrapper around matlab.
 
-$HOME/.local/matlab/bin/matlab -nodesktop -nosplash $@
+$HOME/.local/opt/matlab/bin/matlab -nodesktop -nosplash $@

@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-# Gives a list of URLs to sound files contained in the HTML file of a bandcamp
-# page.
-# By d3lxa
-
-curl -L -sS "$1" | perl -ne 'print "$1\n" while (m{"mp3-128":"([^"]+)"}g); print "tag: $1\n" if m{<a class="tag" href="[^"]+/([^"]+)};'
-

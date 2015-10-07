@@ -1,15 +1,15 @@
 #!/usr/bin/env sh
 
-hostname="$(hostname)"
-[ -n "$XDG_CONFIG_HOME" ] && confdir="$XDG_CONFIG_HOME" || confdir=~/.config
+HOSTNAME="${HOSTNAME:-$(hostname)}"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 
-case "$hostname" in
+case "$HOSTNAME" in
 	ixh)    icc_profile='lenovo_thinkpad_x230' ;;
 	phobia) icc_profile='asus asus' ;;
 	*)      icc_profile='';;
 esac
 if [ -z "$icc_profile" ]; then
-	echo "no colour profile defined for $hostname" >&2
+	echo "no colour profile defined for $HOSTNAME" >&2
 	exit 1
 fi
 i=1

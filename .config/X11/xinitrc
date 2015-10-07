@@ -24,8 +24,8 @@ unset system_xinit
 
 # INPUT/OUTPUT -----------------------------------------------------------------
 
-ayeinput -eml ch
-lcdadjust &
+ayeinput -em
+lcdadjust
 
 
 # SERVICES ---------------------------------------------------------------------
@@ -39,7 +39,7 @@ urxvt -e tmx SCRATCHPAD &
 # Set the wallpaper:
 nitrogen --restore
 
-# Activate Japanese input:
+# Enable Japanese input:
 if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE=uim
 	export QT_IM_MODULE=xim
@@ -49,11 +49,9 @@ if [ -e /usr/bin/uim-xim ]; then
 	uim-xim &
 fi
 
-# Enable automatic lock on timeout:
-scrock --daemon start
-
-# Launch status bar:
-#karuibar &
+# Start screensaver damon (5 minutes):
+xset s 300
+xss-lock xtrlock &
 
 
 # WM ---------------------------------------------------------------------------

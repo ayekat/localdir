@@ -225,6 +225,7 @@ bindkey "^I" expand-or-complete-with-dots
 
 setopt inc_append_history   # append history immediately after sending command
 setopt hist_ignore_dups     # ignore duplicate commands
+setopt hist_ignore_space    # ignore commands with leading space
 #setopt share_history       # allow to access to history of previous shells
 
 export HISTFILE=$XDG_CACHE_HOME/zsh/zhistory

@@ -1,9 +1,0 @@
-#!/usr/bin/env sh
-
-for i in /usr/bin/*; do
-	if [ "$(file --mime --brief "$i" | cut -d ';' -f 1)" != 'text/x-python' ]; then
-		continue
-	fi
-	printf '%s: ' "$i"
-	head -n 1 "$i"
-done | grep --color=auto 'python\b' #2>/dev/null
