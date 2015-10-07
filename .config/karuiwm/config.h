@@ -97,9 +97,11 @@ static Key const keys[] = {
 	{ 0,                            0x1008FF16, spawn,            { .v=musicprevcmd } },
 	{ 0,                            0x1008FF17, spawn,            { .v=musicnextcmd } },
 	{ 0,                            0x1008FFB2, spawn,            { .v=micmutecmd } },
+#ifdef ACPI_IS_AN_ABSOLUTE_LOAD_OF_SHIT
 	{ MODKEY,                       XK_F8,      spawn,            { .v=backlightdowncmd } },
 	{ MODKEY,                       XK_F9,      spawn,            { .v=backlightupcmd } },
 	{ MODKEY,                       XK_F4,      spawn,            { .v=suspendcmd } },
+#endif
 
 	/* windows */
 	{ MODKEY,                       XK_j,       stepfocus,        { .i=+1 } },
