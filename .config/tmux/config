@@ -41,7 +41,9 @@ bind-key r source-file ~/.config/tmux/config \; display-message "Config reloaded
 
 # Sane scrolling:
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
-set -g mode-mouse on
+set -g mouse on
+bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
+bind -n WheelDownPane select-pane -t= \;                 send-keys -M
 
 # Remove Escape key delay:
 set -sg escape-time 0
