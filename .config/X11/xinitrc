@@ -51,7 +51,6 @@ fi
 
 # Start screensaver damon (5 minutes):
 xset s 300
-xss-lock xtrlock &
 
 
 # WM ---------------------------------------------------------------------------
@@ -69,8 +68,17 @@ esac
 # Launch WM and log all of its output:
 SESSION_LOGFILE=/tmp/xorg-"$USER"-"$DISPLAY"-"$(date +%s)".log
 while true; do
-	sleep 1 && printf ".\nhello \033F{123456}world\033r\n" | karuibar &
+	echo "starting karuibar ..."
+	karuibar &
+	KARUIBAR_PID=$!
+
+	echo "starting xtrlock ..."
+	xss-lock xtrlock &
+	XSS_LOCK_PID=$!
+
+	echo "starting window manager ..."
 	"$WM"
+	kill $XSS_LOCK_PID $KARUIBAR_PID
 	zenity --question --text="$WM has stopped. Do you want to start again?"
 	test $? -eq 0 || break
-done >>"$SESSION_LOGFILE" 2>>"$SESSION_LOGFILE"
+done >"$SESSION_LOGFILE" 2>"$SESSION_LOGFILE"
