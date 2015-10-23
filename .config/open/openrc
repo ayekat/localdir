@@ -2,8 +2,8 @@
 placeholder            : _FILE_
 
 # map MIME to applications:
-application/postscript : zathura _FILE_ &
-application/pdf        : zathura _FILE_ &
+application/postscript : zathura --fork
+application/pdf        : zathura --fork
 application/vnd.ms-powerpoint : libreoffice _FILE_ &
 application/vnd.oasis.opendocument.text : libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.presentationml.presentation : libreoffice _FILE_ &
@@ -14,16 +14,17 @@ image/png              : eom _FILE_ &
 image/svg+xml          : inkview _FILE_ &
 image/tiff             : eom _FILE_ &
 image/x-ms-bmp         : eom _FILE_ &
+image/x-portable-bitmap: eom _FILE_ &
 inode/directory        : cd _FILE_ && ls
 message/rfc822         : pluma _FILE_ &
 text/html              : dwb _FILE_ &
 text/plain             : pluma _FILE_ &
 text/x-shellscript     : pluma _FILE_ &
 text/x-tex             : pluma _FILE_ &
-video/mp4              : mplayer
-video/quicktime        : mplayer
-video/webm             : mplayer
-video/x-matroska       : mplayer
+video/mp4              : mpv
+video/quicktime        : mpv
+video/webm             : mpv
+video/x-matroska       : mpv
 
 # if application/octet-stream, map extensions to MIME:
 .html                  : text/html
