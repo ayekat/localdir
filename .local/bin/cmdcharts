@@ -20,7 +20,7 @@ chart()
 	if [ -z "$COMMAND" ]; then
 		awk '{print $1}' < "$HISTFILE"
 	else
-		grep --text "^$COMMAND" "$HISTFILE" | awk '{print $2}'
+		grep --text "^$COMMAND" "$HISTFILE" | awk "{print \$$(($COMMANDLEN+1))}"
 	fi | sort | uniq -c | sort -rn | head -n "$NLINES"
 }
 
@@ -51,17 +51,18 @@ main()
 		case "$opt" in
 			h) usage ;;
 			n) NLINES="$OPTARG" ;;
-			'?') usage ;;
+			*) usage ;;
 		esac
 	done
 	shift $(($OPTIND - 1))
 
 	# Command:
-	COMMAND="$1"
+	COMMAND="$@"
+	COMMANDLEN=$#
 	[ -n "$COMMAND" ] && shift
 
 	# Test validity:
-	test $# -eq 0 || die 1 'Trailing arguments: %s' "$@"
+	#test $# -eq 0 || die 1 'Trailing arguments: %s' "$@"
 
 	chart
 }
