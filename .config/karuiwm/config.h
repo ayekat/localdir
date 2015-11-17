@@ -1,6 +1,7 @@
 /* karuiwm configuration */
 
 #define FONTSTR "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1"
+#define FONTSTR_DMENU "Fixed-10:SemiCondensed:Medium"
 #define NMASTER 1        /* number of clients in master area */
 #define MFACT 0.5        /* size of master area */
 #define BORDERWIDTH 1    /* window border width */
@@ -41,7 +42,7 @@ static char const *dmenuprompt[DMenuLAST] = {
 	[DMenuView]       = "workspace",
 	[DMenuClients]    = "client",
 };
-static char const *dmenuargs[] = { "-l", "10", "-i",
+static char const *dmenuargs[] = { "-l", "10", "-i", "-fn", FONTSTR_DMENU,
                                    "-nf", "#888888", "-nb", "#282828",
                                    "-sf", "#AFD800", "-sb", "#444444", NULL };
 
@@ -64,7 +65,8 @@ static char const *suspendcmd[] = { "systemctl", "suspend", NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
-                                           "-p", "pass", NULL };
+                                           "-p", "pass", "-fn", FONTSTR_DMENU,
+                                           NULL };
 
 /* custom behaviour */
 static void
