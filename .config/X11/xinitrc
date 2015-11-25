@@ -43,10 +43,8 @@ nitrogen --restore
 if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE=uim
 	export QT_IM_MODULE=xim
-	export QT4_IM_MODULE=uim
-	export QT5_IM_MODULE=xim
-	export XMODIFIERS=@im='anthy'
 	uim-xim &
+	export XMODIFIERS='@im=anthy'
 fi
 
 # Start screensaver damon (5 minutes):

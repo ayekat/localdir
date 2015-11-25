@@ -119,9 +119,11 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-karuibar_ixh.modules : mpd, network, memory, cpu, \
-                       battery, battery_slice, backlight, alsa_out, alsa_in, \
-                       time_date, time_time, capslock
+#ifdef SRVR_ixh
+karuibar.modules : mpd, network, memory, cpu, \
+                   battery, battery_slice, backlight, alsa_out, alsa_in, \
+                   time_date, time_time, capslock
+#endif
 
 karuibar.foreground  : termfg
 karuibar.background  : black
@@ -158,6 +160,18 @@ karuibar.time_time.background : #EEEEEE
 ! ------------------------------------------------------------------------------
 ! KARUIWM {{{
 
-karuiwm.modules:        core
+karuiwm.keysym.M-k      : stepclient:-1
+karuiwm.keysym.M-j      : stepclient:+1
+karuiwm.keysym.M-S-k    : shiftclient:-1
+karuiwm.keysym.M-S-j    : shiftclient:+1
+karuiwm.keysym.M-Return : zoom
+
+karuiwm.keysym.M-q      : restart
+karuiwm.keysym.M-S-q    : quit
+
+karuiwm.keysym.M-n      : spawn:urxvt
+
+karuiwm.button.M-1      : mousemove
+karuiwm.button.M-3      : mouseresize
 
 ! }}}
