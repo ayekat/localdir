@@ -64,7 +64,7 @@ why()
 				done
 			fi
 		else
-			printf "${esc_indent}%*s$ESC_WARN<maxdepth>$ESC_RESET\n" $INDENT ' '
+			printf "${esc_indent}%*s$ESC_MAXDEPTH<maxdepth>$ESC_RESET\n" $INDENT ' '
 		fi
 	fi
 )
@@ -110,12 +110,14 @@ get_options()
 		ESC_DEPENDENCY="\033[${PACWHY_DEPENDENCY:-0}m"
 		ESC_EXPLICIT="\033[${PACWHY_EXPLICIT:-32}m"
 		ESC_WARN="\033[${PACWHY_WARN:-31}m"
+		ESC_MAXDEPTH="\033[${PACWHY_MAXDEPTH:-33}m"
 		ESC_RESET="\033[0m"
 	else
 		ESC_GROUP=''
 		ESC_DEPENDENCY=''
 		ESC_EXPLICIT=''
 		ESC_WARN=''
+		ESC_MAXDEPTH=''
 		ESC_RESET=''
 	fi
 
