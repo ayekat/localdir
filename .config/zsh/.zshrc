@@ -9,7 +9,7 @@
 . $XDG_CONFIG_HOME/sh/config
 
 # Make sure cache folder exists:
-test -d "$XDG_CACHE_HOME/zsh" || mkdir "$XDG_CACHE_HOME/zsh"
+test -d "$XDG_CACHE_HOME/zsh" || mkdir -p "$XDG_CACHE_HOME/zsh"
 
 # }}}
 # ------------------------------------------------------------------------------
@@ -165,7 +165,7 @@ zle -N edit-command-line
 bindkey -M vicmd v edit-command-line
 
 # Handler for mode change:
-function zle-keymap-select {
+zle-keymap-select() {
 	vim_mode="${${KEYMAP/vicmd/${vim_mode_normal}}/(main|viins)/${vim_mode_insert}}"
 	build_prompt
 	zle reset-prompt
@@ -173,14 +173,14 @@ function zle-keymap-select {
 zle -N zle-keymap-select
 
 # Handler for after entering a command (reset to insert mode):
-function zle-line-finish {
+zle-line-finish() {
 	vim_mode=$vim_mode_insert
 	build_prompt
 }
 zle -N zle-line-finish
 
 # ^C puts us back in insert mode; repropagate to not interfere with dependants:
-function TRAPINT() {
+TRAPINT() {
 	vim_mode=$vim_mode_insert
 	build_prompt
 	return $((128 + $1))
