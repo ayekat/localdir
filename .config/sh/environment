@@ -3,6 +3,23 @@
 # Written by ayekat on a frustrating evening in september 2014.
 
 # ------------------------------------------------------------------------------
+# OPERATING SYSTEM {{{
+
+OS_RELEASE=''
+if [ -e /etc/lsb-release ]; then
+	OS_RELEASE="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
+	              tr 'A-Z' 'a-z')"
+elif [ -e /etc/os-release ]; then
+	OS_RELEASE="$(grep -e '^ID=' /etc/os-release | cut -d '=' -f 2)"
+elif [ "$(uname)" = 'Darwin' ]; then
+	OS_RELEASE='darwin'
+elif [ -e /etc/gentoo-release ]; then
+	OS_RELEASE='gentoo'
+fi
+export OS_RELEASE
+
+# }}}
+# ------------------------------------------------------------------------------
 # PATH {{{
 
 # Adds directory to the PATH variable, with (hopefully) all necessary checks:
@@ -13,7 +30,11 @@ add_to_path() {
 	IFS=:
 	for i in $PATH; do
 		[ "$1" = "$i" ] && return
-		[ -h "$1" ] && [ "$(readlink -f "$1")" = "$i" ] && return
+		case "$OS_RELEASE" in
+			darwin) READLINK=greadlink ;;
+			*) READLINK=readlink ;;
+		esac
+		[ -h "$1" ] && [ "$($READLINK -f "$1")" = "$i" ] && return
 	done
 	PATH="$1:$PATH"
 	IFS="$IFS_OLD"
@@ -109,23 +130,6 @@ fi
 
 # Set colours for gcc:
 export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
-
-# }}}
-# ------------------------------------------------------------------------------
-# OPERATING SYSTEM {{{
-
-OS_RELEASE=''
-if [ -e /etc/lsb-release ]; then
-	OS_RELEASE="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
-	              tr 'A-Z' 'a-z')"
-elif [ -e /etc/os-release ]; then
-	OS_RELEASE="$(grep -e '^ID=' /etc/os-release | cut -d '=' -f 2)"
-elif [ "$(uname)" = 'Darwin' ]; then
-	OS_RELEASE='darwin'
-elif [ -e /etc/gentoo-release ]; then
-	OS_RELEASE='gentoo'
-fi
-export OS_RELEASE
 
 # }}}
 # ------------------------------------------------------------------------------
