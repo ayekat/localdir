@@ -418,6 +418,9 @@ map <leader>n :Unite file<CR>
 " Search for tags file recursively, up to root:
 set tags=./tags;/
 
+" Save a file as root:
+command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
 " }}}
 " ------------------------------------------------------------------------------
 " COMMAND LINE FEEDBACK {{{
