@@ -47,8 +47,14 @@ static char const *dmenuargs[] = { "-l", "10", "-i", "-fn", FONTSTR_DMENU,
                                    "-sf", "#AFD800", "-sb", "#444444", NULL };
 
 /* commands */
+#define XRANDRCMD(D) { "xrandr", "--output", "LVDS1", "--rotate", D, NULL }
+static char const *xrandrup[] = XRANDRCMD("normal");
+static char const *xrandrleft[] = XRANDRCMD("left");
+static char const *xrandrright[] = XRANDRCMD("right");
+static char const *xrandrdown[] = XRANDRCMD("inverted");
 static char const *termcmd[] = { "urxvt", NULL };
 static char const *scrotcmd[] = { "prtscr", NULL };
+static char const *scrotcmd_sel[] = { "prtscr", "-s", NULL };
 static char const *lockcmd[] = { "xtrlock", NULL };
 static char const *volupcmd[] = { "amixer", "set", "Master", "2+", "unmute", NULL };
 static char const *voldowncmd[] = { "amixer", "set", "Master", "2-", "unmute", NULL };
@@ -86,7 +92,8 @@ static Key const keys[] = {
 	/* applications */
 	{ MODKEY,                       XK_n,       spawn,            { .v=termcmd } },
 	{ MODKEY,                       XK_p,       dmenu,            { .i=DMenuSpawn } },
-	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd } },
+	{ MODKEY|ShiftMask,             XK_Print,   spawn,            { .v=scrotcmd } },
+	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd_sel } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,            { .v=dpasscmd } },
 	{ MODKEY,                       XK_b,       spawn,            { .v=karuibartogglecmd } },
 	{ MODKEY|ShiftMask,             XK_b,       spawn,            { .v=karuibarrestartcmd } },
@@ -144,6 +151,10 @@ static Key const keys[] = {
 
 	/* monitors */
 	{ MODKEY,                       XK_m,       stepmon,          { 0 } },
+	{ MODKEY|ShiftMask,             XK_Up,      spawn,            { .v=xrandrup } },
+	{ MODKEY|ShiftMask,             XK_Down,    spawn,            { .v=xrandrdown } },
+	{ MODKEY|ShiftMask,             XK_Left,    spawn,            { .v=xrandrleft } },
+	{ MODKEY|ShiftMask,             XK_Right,   spawn,            { .v=xrandrright } },
 
 	/* session */
 	{ MODKEY,                       XK_z,       spawn,            { .v=lockcmd } },
@@ -154,7 +165,8 @@ static Key const keys[] = {
 /* WSM keys */
 static Key const wsmkeys[] = {
 	/* applications */
-	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd } },
+	{ MODKEY|ShiftMask,             XK_Print,   spawn,            { .v=scrotcmd } },
+	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd_sel } },
 
 	/* hardware */
 	{ 0,                            0x1008FF11, spawn,            { .v=voldowncmd } },

@@ -3,21 +3,17 @@
 # Written by ayekat on a rainy friday afternoon in february 2014.
 
 # place where the screenshot shall be stored to:
-DIR=~/img/scrot
+SCROT_DIR=~/img/scrot
 
-# tag to be added to the file's name:
-TAG="$@"
+file='%Y-%m-%d_%H%M%S.png'
 
-# build format string:
-FORMAT='%Y-%m-%d_%H%M%S'
-if [ -n "$TAG" ]; then
-	FORMAT="${FORMAT}_${TAG}"
+if [ "$1" = '-s' ]; then
+	# screen selection to $HOME:
+	scrot -s "$file"
+else
+	# regular screen shot to $SCROT_DIR:
+	scrot -e "mv \$f '$SCROT_DIR'" "$file"
 fi
-FORMAT="${FORMAT}.png"
-
-# take screenshot:
-scrot "$FORMAT" -e "mv \$f '$DIR'"
 
 # notify user:
-notify-send 'PrtScr' "Screenshot taken."
-
+notify-send 'PrtScr' "Screenshot taken"
