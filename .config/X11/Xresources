@@ -63,7 +63,7 @@ xterm.*.background     : termbg
 ! URXVT {{{
 
 ! Look:
-URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1
+URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,xft:Unifont
 URxvt.depth          : 24
 URxvt.foreground     : termfg
 URxvt.background     : termbg
@@ -119,10 +119,15 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-#ifdef SRVR_ixh
+#if SERVERHOST == ixh
+# if DISPLAY_NUM == 0
+karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
                    battery, battery_slice, backlight, alsa_out, alsa_in, \
                    time_date, time_time, capslock
+# else
+karuibar.modules : stdin; cpu, time_date, time_time, capslock
+# endif
 #endif
 
 karuibar.foreground  : termfg
@@ -130,7 +135,6 @@ karuibar.background  : black
 karuibar.wsep        : 1
 karuibar.wpad        : 7
 karuibar.bottom      : false
-karuibar.xgap        : 100
 
 karuibar.stdin.foreground     : #00D7FF
 karuibar.stdin.background     : #005F5F
@@ -160,18 +164,47 @@ karuibar.time_time.background : #EEEEEE
 ! ------------------------------------------------------------------------------
 ! KARUIWM {{{
 
-karuiwm.keysym.M-k      : stepclient:-1
-karuiwm.keysym.M-j      : stepclient:+1
-karuiwm.keysym.M-S-k    : shiftclient:-1
-karuiwm.keysym.M-S-j    : shiftclient:+1
-karuiwm.keysym.M-Return : zoom
+!karuiwm.client.border.width       : 2
+!karuiwm.client.border.colour      : #FF0000
+!karuiwm.client.focus.border.colour: #00FF00
+karuiwm.monitor.gap.top    : 15
 
-karuiwm.keysym.M-q      : restart
-karuiwm.keysym.M-S-q    : quit
+karuiwm.modules            : base, karuibar
 
-karuiwm.keysym.M-n      : spawn:urxvt
+karuiwm.layouts            : rstack, monocle
 
-karuiwm.button.M-1      : mousemove
-karuiwm.button.M-3      : mouseresize
+karuiwm.modifier           : A
+
+karuiwm.keysym.M-k         : stepclient:prev
+karuiwm.keysym.M-j         : stepclient:next
+karuiwm.keysym.M-S-k       : shiftclient:prev
+karuiwm.keysym.M-S-j       : shiftclient:next
+karuiwm.keysym.M-Return    : zoom
+karuiwm.keysym.M-S-c       : killclient
+karuiwm.keysym.M-t         : togglefloat
+
+karuiwm.keysym.M-C-h       : stepdesktop:left
+karuiwm.keysym.M-C-j       : stepdesktop:down
+karuiwm.keysym.M-C-k       : stepdesktop:up
+karuiwm.keysym.M-C-l       : stepdesktop:right
+karuiwm.keysym.M-l         : setmfact:+0.05
+karuiwm.keysym.M-h         : setmfact:-0.05
+karuiwm.keysym.M-comma     : setnmaster:+1
+karuiwm.keysym.M-period    : setnmaster:-1
+karuiwm.keysym.M-space     : steplayout:next
+karuiwm.keysym.M-S-space   : steplayout:prev
+karuiwm.keysym.M-r         : setlayout:rstack
+karuiwm.keysym.M-m         : setlayout:monocle
+
+karuiwm.keysym.M-S-b       : karuibar.restart
+
+karuiwm.keysym.M-q         : restart
+karuiwm.keysym.M-S-q       : stop
+
+karuiwm.keysym.M-n         : exec:urxvt
+karuiwm.keysym.M-p         : exec:dmenu_run
+
+karuiwm.button.M-1         : mousemove
+karuiwm.button.M-3         : mouseresize
 
 ! }}}
