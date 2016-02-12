@@ -35,3 +35,6 @@ set zoom-center true
 
 # Begin with first page on the right in dual view:
 set first-page-column 2
+
+# Make ^n open a new document (like atril/evince):
+map <C-n> feedkeys ":exec zathura $FILE<Return>"

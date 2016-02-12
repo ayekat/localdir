@@ -351,7 +351,7 @@ set autoindent
 set copyindent
 
 " Indentation (tabs, spaces):
-set noexpandtab shiftwidth=4 tabstop=4
+set noexpandtab tabstop=4 shiftwidth=4
 au FileType c setl tabstop=8 shiftwidth=8
 au FileType scala,tex,nftables setl expandtab tabstop=2 shiftwidth=2
 au FileType ant,cpp,haskell,java,lisp,python,sql setl expandtab

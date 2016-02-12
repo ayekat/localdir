@@ -42,7 +42,7 @@ nitrogen --restore
 # Enable Japanese input:
 if [ -e /usr/bin/uim-xim ]; then
 	export GTK_IM_MODULE=uim
-	export QT_IM_MODULE=xim
+	export QT_IM_MODULE=uim
 	uim-xim &
 	export XMODIFIERS='@im=anthy'
 fi
