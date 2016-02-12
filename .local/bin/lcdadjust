@@ -14,7 +14,7 @@ if [ -z "$icc_profile" ]; then
 fi
 i=1
 for p in $icc_profile; do
-	icc_path="$confdir"/argyll/"$p".icc
+	icc_path="$XDG_CONFIG_HOME"/argyll/"$p".icc
 	if [ ! -f "$icc_path" ]; then
 		echo "file not found: $icc_path" >&2
 		continue

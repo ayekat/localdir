@@ -56,7 +56,7 @@ why()
 		if [ $maxdepth -gt 0 ]; then
 			if [ -z "$revdeps" ]; then
 				if [ "$reason" = 'dependency' ]; then
-					printf "${esc_indent}%*s$ESC_WARN<orphan>$ESC_RESET\n" $INDENT
+					printf "${esc_indent}%*s$ESC_WARN<none>$ESC_RESET\n" $INDENT
 				fi
 			else
 				for revdep in $revdeps; do
@@ -64,7 +64,7 @@ why()
 				done
 			fi
 		else
-			printf "${esc_indent}%*s$ESC_MAXDEPTH<maxdepth>$ESC_RESET\n" $INDENT ' '
+			printf "${esc_indent}%*s$ESC_MAXDEPTH...$ESC_RESET\n" $INDENT ' '
 		fi
 	fi
 )
@@ -77,13 +77,13 @@ get_options()
 	MAXDEPTH=5
 	VERBOSE=$FALSE
 
-	while getopts :bc:hi:m:v opt; do
+	while getopts :bc:d:hi:v opt; do
 		case "$opt" in
 			b) BRIEF=$TRUE ;;
 			c) COLOUR="$OPTARG" ;;
+			d) MAXDEPTH=$OPTARG ;;
 			h) help; exit 1 ;;
 			i) INDENT="$OPTARG" ;;
-			m) MAXDEPTH=$OPTARG ;;
 			v) VERBOSE=$TRUE ;;
 			'?') die_usage 'Unknown option: -%s' "$OPTARG"
 		esac
@@ -150,11 +150,11 @@ help()
 	Display graphically why a package was installed by pacman.
 
 	Options:
-	  -c WHEN    When to show colours {auto,always,never} [default=$COLOUR]
 	  -b         Brief (don't show group names)
+	  -c ...     When to show colours {auto,always,never} [default=$COLOUR]
+	  -d DEPTH   Maximum depth for recursion [default=$MAXDEPTH]
 	  -h         Display this help and exit
 	  -i INDENT  Number of spaces used for indentation [default=$INDENT]
-	  -m DEPTH   Maximum depth for recursion [default=$MAXDEPTH]
 	  -v         Verbose (show revdeps also for explicitely installed packages)
 	EOF
 }
