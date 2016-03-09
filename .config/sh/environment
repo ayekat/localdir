@@ -50,12 +50,13 @@ add_to_path "$HOME/.local/epflscripts"
 # Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
 # - quartus starts Quartus, vsim starts ModelSim
-dir_altera="$HOME/.local/altera"
+dir_altera="$HOME/.local/opt/altera"
 if [ -d "$dir_altera" ]; then
 	for p in "$dir_altera/quartus/bin" \
 	         "$dir_altera/modelsim_ase/bin" \
 	         "$dir_altera/nios2eds/bin" \
 	         "$dir_altera/nios2eds/bin/gnu/H-i686-pc-linux-gnu/bin" \
+	         "$dir_altera/nios2eds/bin/gnu/H-x86_64-pc-linux-gnu/bin" \
 	         "$dir_altera/nios2eds/sdk2/bin"
 	do
 		add_to_path "$p"
