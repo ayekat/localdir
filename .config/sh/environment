@@ -15,6 +15,8 @@ elif [ "$(uname)" = 'Darwin' ]; then
 	OS_RELEASE='darwin'
 elif [ -e /etc/gentoo-release ]; then
 	OS_RELEASE='gentoo'
+else
+	OS_RELEASE="$(uname)"
 fi
 export OS_RELEASE
 
