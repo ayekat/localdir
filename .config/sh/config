@@ -124,6 +124,9 @@ gstat() { git status --porcelain 2>/dev/null; }
 ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
 vcs_update()
 {
+	# This machine is slow, so don't print git repository information in prompt:
+	[ "$(hostname)" != 'ds-wrk3' ] || return
+
 	# Update information if not in a blacklisted (read: huge) repo:
 	case "$(pwd)" in
 		$HOME/dev/linux*|$HOME/dev/gnu/projects/gnu-social*)
