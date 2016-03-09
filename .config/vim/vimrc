@@ -60,7 +60,6 @@ endif
 " List of bundles I use (including NeoBundle itself): "
 call neobundle#begin(expand('~/.config/vim/neobundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'ayekat/dwm.vim'
 NeoBundle 'tpope/vim-fugitive'
@@ -102,11 +101,6 @@ set path +=$HOME/.local/include
 " Change Sytastic symbols:
 let g:syntastic_warning_symbol = '!!'
 let g:syntastic_error_symbol = 'XX'
-
-" Don't make unite overwrite the statusline; fix cache location:
-let g:unite_force_overwrite_statusline = 0
-let g:unite_data_directory = $XDG_CACHE_DIR.'/vim/unite'
-call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim/unite')
 
 " Don't use default keybindings of DWM plugin; don't auto-arrange at :split:
 let g:dwm_map_keys = 0
@@ -412,14 +406,11 @@ vnoremap ; q:
 " Show 10 last commands in the window
 set cmdwinheight=10
 
-" Unite window:
-map <leader>n :Unite file<CR>
-
 " Search for tags file recursively, up to root:
 set tags=./tags;/
 
 " Save a file as root:
-command W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -511,7 +502,6 @@ endif
 function! StatuslineActive()
 	let l:statusline = ''
 	let l:mode = mode()
-	let l:unite = unite#get_status_string()
 	let l:git_branch = fugitive#head()
 
 	" Mode {{{
@@ -588,42 +578,37 @@ function! StatuslineActive()
 	endif
 	" }}}
 
-	" Unite.vim {{{
-	if l:unite != ''
-		let l:statusline .= ' '.l:unite
-	endif
-	" }}}
-
 	let l:statusline .= '%='
 
 	" File format, encoding, type, line count {{{
-	if l:unite == ''
-		let l:ff = &fileformat
-		let l:fe = &fileencoding
-		let l:ft = &filetype
-		if l:ff != 'unix' && l:ff != ''
-			if l:mode == 'i'
-				let l:statusline .= l:ff.' %#I_middle_sep#%{sep}%#I_middle#'
-			else
-				let l:statusline .= l:ff.' %#N_middle_sep#%{sep}%#N_middle#'
-			endif
+	let l:ff = &fileformat
+	let l:fe = &fileencoding
+	let l:ft = &filetype
+	if l:ff != 'unix' && l:ff != ''
+		let l:statusline .= ' '.l:ff.' '
+		if l:mode == 'i'
+			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
+		else
+			let l:statusline .= '%#N_middle_sep#%{sep}%#N_middle#'
 		endif
-		if l:fe != 'utf-8' && l:fe != 'ascii' && l:fe != ''
-			if l:mode == 'i'
-				let l:statusline .= l:fe.' %#I_middle_sep#%{sep}%#I_middle#'
-			else
-				let l:statusline .= l:fe.' %#N_middle_sep#%{sep}%#N_middle#'
-			endif
-		endif
-		if l:ft != ''
-			if l:mode == 'i'
-				let l:statusline .= l:ft.' %#I_middle_sep#%{sep}%#I_middle#'
-			else
-				let l:statusline .= l:ft.' %#N_middle_sep#%{sep}%#N_middle#'
-			endif
-		endif
-		let l:statusline .= ' %{lnum} %L '
 	endif
+	if l:fe != 'utf-8' && l:fe != 'ascii' && l:fe != ''
+		let l:statusline .= ' '.l:fe.' '
+		if l:mode == 'i'
+			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
+		else
+			let l:statusline .= '%#N_middle_sep#%{sep}%#N_middle#'
+		endif
+	endif
+	if l:ft != ''
+		let l:statusline .= ' '.l:ft.' '
+		if l:mode == 'i'
+			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
+		else
+			let l:statusline .= '%#N_middle_sep#%{sep}%#N_middle#'
+		endif
+	endif
+	let l:statusline .= ' %{lnum} %L '
 	" }}}
 
 	" Buffer position {{{
@@ -648,7 +633,6 @@ endfunction
 function! StatuslineInactive()
 	let l:statusline = ''
 	let l:branch = fugitive#head()
-	let l:unite = unite#get_status_string()
 
 	" mode:
 	let l:statusline .= '        %{sep}'
