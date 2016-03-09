@@ -1,172 +1,174 @@
 #!/usr/bin/env sh
-set -e
 
-# Uses expac to print the reason why a given Arch Linux package was installed on
-# the system (similar to `aptitude why`).
+# Recursively print the reverse dependency tree for packages (similar to
+# `aptitude why`).
 # Written by ayekat on a cool monday morning in August 2015.
 
-# ==============================================================================
+set -e
 
-main()
-{
-	get_options "$@"
-	shift $ARGSHIFT
-	get_packages "$@"
-	shift $ARGSHIFT
+FALSE=0
+TRUE=1
+E_SUCCESS=0
+E_USER=1
+E_GENERAL=2
+E_INTERRUPT=127
+E_INTERNAL=255
+ANSI_BLACK="\033[30m"
+ANSI_RED="\033[31m"
+ANSI_GREEN="\033[32m"
+ANSI_YELLOW="\033[33m"
+ANSI_BLUE="\033[34m"
+ANSI_RESET="\033[0m"
 
-	for p in $PACKAGES; do
-		why "$p" 0 $MAXDEPTH
-	done
-}
+evilwhy()
+(
+	text="$1"
+	esc_text="$2"
+	depth=$3
+
+	# Padding:
+	padding="$(printf '%*s' $(($depth * $indent)) ' ')"
+
+	# Text:
+	printf "$padding${esc_text}%s${esc_reset}\n" "$text"
+)
 
 why()
 (
 	package="$1"
-	indent=$2
-	maxdepth=$3
+
+	# Padding:
+	depth=$2
+	if [ $depth -eq 0 ]; then
+		padding=''
+	else
+		padding="$(printf '%*s' $(($depth * $indent)) ' ')"
+	fi
+
+	# Colour:
 	reason="$(expac -Q '%w' "$package")"
-
-	# Escape sequences for printing package name:
-	esc_reset="$ESC_RESET"
 	if [ "$reason" = 'explicit' ]; then
-		esc_colour="$ESC_EXPLICIT"
-		if [ $BRIEF = $FALSE ]; then
-			groups="$(expac -Q '%G' "$package")"
-			if [ -n "$groups" ]; then
-				for group in $groups; do
-					esc_reset="$esc_reset:${ESC_GROUP}${group}${ESC_RESET}"
-				done
-			fi
-		fi
+		esc_package="$esc_explicit"
 	else
-		esc_colour="$ESC_DEPENDENCY"
-	fi
-	if [ $indent -eq 0 ]; then
-		esc_indent=''
-	else
-		esc_indent="$(printf '%*s' $indent ' ')"
+		esc_package="$esc_dependency"
 	fi
 
-	# Print package name:
-	printf "${esc_indent}${esc_colour}%s${esc_reset}\n" "$package"
+	# Groups:
+	if [ $brief -ne $TRUE ]; then
+		groups="$(expac -Q '%G' "$package")"
+	fi
+
+	# Print:
+	printf "$padding${esc_package}%s${esc_reset}" "$package"
+	if [ $brief -ne $TRUE ]; then
+		for g in $groups; do
+			printf ":$esc_group$g$esc_reset"
+		done
+	fi
+	printf "\n"
 
 	# Recursively print reverse dependencies:
-	if [ "$reason" = 'dependency' ] || [ $VERBOSE = $TRUE ]; then
+	if [ "$reason" = 'dependency' ] || [ $verbose = $TRUE ]; then
 		revdeps="$(expac -Q '%N' "$package")"
-		if [ $maxdepth -gt 0 ]; then
+		if [ $depth -lt $maxdepth ]; then
 			if [ -z "$revdeps" ]; then
 				if [ "$reason" = 'dependency' ]; then
-					printf "${esc_indent}%*s$ESC_WARN<none>$ESC_RESET\n" $INDENT
+					evilwhy '<none>' "$esc_warn" $(($depth + 1))
 				fi
 			else
 				for revdep in $revdeps; do
-					why "$revdep" $(($indent + $INDENT)) $(($maxdepth - 1))
+					why "$revdep" $(($depth + 1))
 				done
 			fi
 		else
-			printf "${esc_indent}%*s$ESC_MAXDEPTH...$ESC_RESET\n" $INDENT ' '
+			evilwhy '...' "$esc_maxdepth" $(($depth + 1))
 		fi
 	fi
 )
 
-get_options()
+die()
 {
-	BRIEF=$FALSE
-	COLOUR=auto
-	INDENT=4
-	MAXDEPTH=5
-	VERBOSE=$FALSE
-
-	while getopts :bc:d:hi:v opt; do
-		case "$opt" in
-			b) BRIEF=$TRUE ;;
-			c) COLOUR="$OPTARG" ;;
-			d) MAXDEPTH=$OPTARG ;;
-			h) help; exit 1 ;;
-			i) INDENT="$OPTARG" ;;
-			v) VERBOSE=$TRUE ;;
-			'?') die_usage 'Unknown option: -%s' "$OPTARG"
-		esac
-	done
-
-	case "$MAXDEPTH" in (''|*[!0-9]*) false ;; esac \
-	|| die_usage 'Non-decimal, non-numeric depth value: %s' "$MAXDEPTH"
-
-	case "$INDENT" in (''|*[!0-9]*) false ;; esac \
-	|| die_usage 'Non-decimal, non-numeric indent value: %s' "$MAXDEPTH"
-
-	! case "$COLOUR" in (always|never|auto) false ;; esac \
-	|| die_usage 'Invalid colour argument: %s' "$COLOUR"
-
-	if [ "$COLOUR" = 'auto' ]; then
-		if [ -t 1 ] && [ -t 2 ]; then
-			COLOUR='always'
-		else
-			COLOUR='never'
-		fi
-	fi
-	if [ "$COLOUR" = 'always' ]; then
-		ESC_GROUP="\033[${PACWHY_GROUP:-34}m"
-		ESC_DEPENDENCY="\033[${PACWHY_DEPENDENCY:-0}m"
-		ESC_EXPLICIT="\033[${PACWHY_EXPLICIT:-32}m"
-		ESC_WARN="\033[${PACWHY_WARN:-31}m"
-		ESC_MAXDEPTH="\033[${PACWHY_MAXDEPTH:-33}m"
-		ESC_RESET="\033[0m"
-	else
-		ESC_GROUP=''
-		ESC_DEPENDENCY=''
-		ESC_EXPLICIT=''
-		ESC_WARN=''
-		ESC_MAXDEPTH=''
-		ESC_RESET=''
-	fi
-
-	ARGSHIFT=$(($OPTIND - 1))
+	retval=$1; shift
+	printf "$@" >&2
+	echo >&2
+	exit $retval
 }
 
-get_packages()
-{
-	test $# -gt 0 || die_usage 'Missing package'
-	PACKAGES="$@"
-	ARGSHIFT=$#
-}
-
-# HELPERS ======================================================================
-
-# Don't mix these up!
-TRUE=1
-FALSE=0
-FAILURE=1
-SUCCESS=0
-
-INVOKENAME="$(basename "$0")"
-
-usage() { echo "Usage: $INVOKENAME [OPTIONS ...] PACKAGE [PACKAGES ...]"; }
 help()
 {
-	usage
 	cat <<- EOF
+	$(basename $0): Show reverse dependency tree for a package
 
-	Display graphically why a package was installed by pacman.
+	Usage: $(basename $0) [OPTIONS] PACKAGE [..]
 
 	Options:
-	  -b         Brief (don't show group names)
-	  -c ...     When to show colours {auto,always,never} [default=$COLOUR]
-	  -d DEPTH   Maximum depth for recursion [default=$MAXDEPTH]
-	  -h         Display this help and exit
-	  -i INDENT  Number of spaces used for indentation [default=$INDENT]
-	  -v         Verbose (show revdeps also for explicitely installed packages)
+	  -b, --brief         Don't show group next to package names
+	  -c, --colour WHEN   When to show colours {always,never,auto} [default=$colour]
+	  -d, --depth DEPTH   Maximum depth for recursion [default=$maxdepth]
+	  -h, --help          Display this help and exit
+	  -i, --indent INDENT Number of spaces used for indentation [default=$indent]
+	  -v, --verbose       Show revdeps also for explicitely installed packages
+
+	Mandatory arguments for long options are mandatory for short options, too.
 	EOF
 }
 
-die_usage()
-{
-	die_usage_format="$1"
-	shift
-	printf "$die_usage_format\n" "$@" >&2
-	usage >&2
-	echo 'Run with `-h` for more information'
-	exit 2
-}
+# PROGRAM START
 
-main "$@"
+# Argument reading:
+brief=$FALSE
+colour=auto
+maxdepth=5
+indent=4
+packages=''
+verbose=$FALSE
+while [ $# -gt 0 ]; do
+	case "$1" in
+		-b|--brief) brief=$TRUE ;;
+		-c|--colour) shift; colour="$1" ;;
+		-d|--depth) shift; maxdepth="$1" ;;
+		-h|--help) help; exit $E_SUCCESS ;;
+		-i|--indent) shift; indent="$1" ;;
+		-v|--verbose) verbose=$TRUE ;;
+		-*) die $E_USER 'Unknown option: %s' "$1" ;;
+		*) packages="$packages $1" ;;
+	esac
+	shift
+done
+
+# Argument checking:
+if case "$colour" in (always|never|auto) false ;; esac; then
+	die $E_USER 'Invalid colour argument: %s' "$colour"
+fi
+if ! case "$maxdepth" in (''|*[!0-9]*) false ;; esac; then
+	die $E_USER 'Non-integer value for maximum recursion depth: %s' "$maxdepth"
+fi
+if ! case "$indent" in (''|*[!0-9]*) false ;; esac; then
+	die $E_USER 'Non-integer value for indentation: %s' "$indent"
+fi
+
+# Colour:
+if [ "$colour" = 'auto' ]; then
+	if [ -t 1 ] && [ -t 2 ]; then
+		colour='always'
+	else
+		colour='never'
+	fi
+fi
+if [ "$colour" = 'always' ]; then
+	esc_group="$ANSI_BLUE"
+	esc_explicit="$ANSI_GREEN"
+	esc_warn="$ANSI_RED"
+	esc_maxdepth="$ANSI_YELLOW"
+	esc_reset="$ANSI_RESET"
+else
+	esc_group=''
+	esc_explicit=''
+	esc_warn=''
+	esc_maxdepth=''
+	esc_reset=''
+fi
+
+for p in $packages; do
+	why "$p" 0
+done
