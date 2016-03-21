@@ -5,7 +5,7 @@
 # LOOK {{{
 
 # Enable 256 colours:
-set -g default-terminal "screen-256color"
+#set -g default-terminal "screen-256color"
 
 # Statusline options:
 set-option -g status-left-length 60
