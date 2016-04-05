@@ -38,7 +38,11 @@ add_to_path() {
 		esac
 		[ -h "$1" ] && [ "$($READLINK -f "$1")" = "$i" ] && return
 	done
-	PATH="$1:$PATH"
+	if [ "$2" = '--append' ]; then
+		PATH="$PATH:$1"
+	else
+		PATH="$1:$PATH"
+	fi
 	IFS="$IFS_OLD"
 	unset IFS_OLD
 }
@@ -61,7 +65,7 @@ if [ -d "$dir_altera" ]; then
 	         "$dir_altera/quartus/sopc_builder/bin" \
 	         "$dir_altera/modelsim_ase/bin"
 	do
-		add_to_path "$p"
+		add_to_path "$p" --append
 	done
 	export QUARTUS_ROOTDIR="$dir_altera/quartus"
 	export SOPC_KIT_NIOS2=/home/ayekat/.local/opt/altera/nios2eds
