@@ -322,7 +322,8 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-au FileType c,cpp,glsl,java,markdown,matlab,perl,php,python,rst,scala,sh,sql,tex au BufWritePre <buffer> :call StripTrailingWhitespaces()
+"au FileType c,cpp,glsl,java,markdown,matlab,perl,php,python,rst,scala,sh,sql,tex,vhdl,zsh
+au BufWritePre <buffer> :call StripTrailingWhitespaces()
 
 " Fold C function implemenations:
 function! CFold()
@@ -347,6 +348,7 @@ set copyindent
 " Indentation (tabs, spaces):
 set noexpandtab tabstop=4 shiftwidth=4
 au FileType c setl tabstop=8 shiftwidth=8
+au BufRead $HOME/epfl/courses/prog/* setl tabstop=4 shiftwidth=4
 au FileType scala,tex,nftables setl expandtab tabstop=2 shiftwidth=2
 au FileType ant,cpp,haskell,java,lisp,python,sql setl expandtab
 
@@ -396,8 +398,11 @@ map <leader><Space> :call DWM_Focus()<CR>
 
 " Tabbed window handling:
 map <leader>l :tabnext<CR>
+map <C-l>     :tabnext<CR>
 map <leader>h :tabprevious<CR>
+map <C-h>     :tabprevious<CR>
 map <leader>t :tabnew 
+set tabpagemax=20
 
 " Show command history:
 nnoremap ; q:
