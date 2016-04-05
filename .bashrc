@@ -25,16 +25,28 @@ ayeprompt_assemble()
 	PROMPT=''
 
 	# Background jobs:
-	jobs_update
+	jobs_count="$(jobs | awk '{print $2}' | grep -v 'Done' | wc -l)"
 	if [ $jobs_count -ne 0 ]; then
 		PROMPT+="\[${pc_jobs}\] $jobs_count \[\033[0m\] "
 	fi
 
+	# VCS (dotfiles):
+	vcs_update "$XDG_CONFIG_HOME/dotfiles"
+	case "$vcs_state" in (ahead|ready|dirty|merge)
+		case "$vcs_state" in
+			ahead) PROMPT+="\[$pc_dot_ahead\]" ;;
+			ready) PROMPT+="\[$pc_dot_ready\]" ;;
+			dirty) PROMPT+="\[$pc_dot_dirty\]" ;;
+			merge) PROMPT+="\[$pc_dot_merge\]" ;;
+		esac
+		PROMPT+=" . \[\033[0m\] "
+	esac
+
 	# VCS:
-	vcs_update
+	vcs_update "$(pwd)"
 	if [ -n "$vcs_state" ]; then
 		case $vcs_state in
-			kernel) PROMPT+="\[$pc_vcs_kernel\]" ;;
+			huge)  PROMPT+="\[$pc_vcs_huge\]"  ;;
 			clean) PROMPT+="\[$pc_vcs_clean\]" ;;
 			ahead) PROMPT+="\[$pc_vcs_ahead\]" ;;
 			ready) PROMPT+="\[$pc_vcs_ready\]" ;;

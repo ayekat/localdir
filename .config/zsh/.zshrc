@@ -54,6 +54,18 @@ build_prompt() #{{{
 	# Background jobs:
 	PROMPT+="%(1j.%{$pc_jobs%} %j %{$reset_color%}.)"
 
+	# VCS (dotfiles):
+	vcs_update "$XDG_CONFIG_HOME/dotfiles"
+	case "$vcs_state" in (ahead|ready|dirty|merge)
+		case "$vcs_state" in
+			ahead) PROMPT+="%{$pc_dot_ahead%}" ;;
+			ready) PROMPT+="%{$pc_dot_ready%}" ;;
+			dirty) PROMPT+="%{$pc_dot_dirty%}" ;;
+			merge) PROMPT+="%{$pc_dot_merge%}" ;;
+		esac
+		PROMPT+=" . %{$reset_color%}"
+	esac
+
 	# Vim mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
@@ -62,10 +74,11 @@ build_prompt() #{{{
 	fi
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 
-	# VCS:
+	# VCS (PWD):
+	vcs_update "$(pwd)"
 	if [ -n "$vcs_state" ]; then
-		case $vcs_state in
-			kernel) PROMPT+="%{$pc_vcs_kernel%}" ;;
+		case "$vcs_state" in
+			huge)  PROMPT+="%{$pc_vcs_huge%}"  ;;
 			clean) PROMPT+="%{$pc_vcs_clean%}" ;;
 			ahead) PROMPT+="%{$pc_vcs_ahead%}" ;;
 			ready) PROMPT+="%{$pc_vcs_ready%}" ;;
@@ -134,7 +147,6 @@ preexec()
 
 precmd()
 {
-	vcs_update
 	build_prompt
 	build_rprompt
 }

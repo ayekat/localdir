@@ -25,6 +25,7 @@ fi
 # Aliases:
 alias cp='cp -i'
 alias grep='grep --color=auto'
+alias cgrep='grep --exclude-dir build --exclude tags'
 alias info='info --vi-keys'
 alias la='ls -A'
 alias lah='ls -lAh'
@@ -106,51 +107,53 @@ alias :q=exit
 # PROMPT {{{
 
 # Prompt colours:
-pc_vcs_kernel=$(printf "\033[1;30m")
-pc_vcs_clean=$(printf "\033[32m")
-pc_vcs_ahead=$(printf "\033[36m")
-pc_vcs_ready=$(printf "\033[33m")
-pc_vcs_dirty=$(printf "\033[31m")
-pc_vcs_merge=$(printf "\033[1;31m")
+pc_vcs_huge="$(printf "\033[1;30m")"
+pc_vcs_clean="$(printf "\033[32m")"
+pc_vcs_ahead="$(printf "\033[36m")"
+pc_vcs_ready="$(printf "\033[33m")"
+pc_vcs_dirty="$(printf "\033[31m")"
+pc_vcs_merge="$(printf "\033[1;31m")"
+pc_dot_ahead="$(printf "\033[30;46m")"
+pc_dot_ready="$(printf "\033[30;43m")"
+pc_dot_dirty="$(printf "\033[30;41m")"
+pc_dot_merge="$(printf "\033[30;41m")"
 pc_host=$(printf "\033[35m")
 pc_pwd=$(printf "\033[34m")
 pc_prompt=$(printf "\033[1;31m")
-pc_jobs=$(printf "\033[47;30m")
+pc_jobs=$(printf "\033[30;47m")
 
 # VCS:
 vcs_state=''
 vcs_branch=''
-gstat() { git status --porcelain 2>/dev/null; }
-ghead() { git status --porcelain -b 2>/dev/null | head -n 1; }
+gstat() { git -C "$1" status --porcelain 2>/dev/null; }
+ghead() { git -C "$1" status --porcelain -b 2>/dev/null | head -n 1; }
 vcs_update()
 {
 	# This machine is slow, so don't print git repository information in prompt:
 	[ "$(hostname)" != 'ds-wrk3' ] || return
 
 	# Update information if not in a blacklisted (read: huge) repo:
-	case "$(pwd)" in
-		$HOME/dev/linux*|$HOME/dev/gnu/projects/gnu-social*)
-			vcs_branch='git'
-			vcs_state='kernel'
+	case "$1" in
+		$HOME/dev/linux*)
+			vcs_branch='kernel'
+			vcs_state='huge'
+			;;
+		$HOME/dev/gnu/projects/gnu-social*)
+			vcs_branch='kernel'
+			vcs_state='huge'
 			;;
 		*)
 			vcs_state=''
-			vcs_branch="$(ghead | cut -d '.' -f 1 | cut -d ' ' -f 2)"
+			vcs_branch="$(ghead "$1" | cut -d '.' -f 1 | cut -d ' ' -f 2)"
 			if [ -n "$vcs_branch" ]; then
 				vcs_state='clean'
-				ghead | grep -o 'ahead' >/dev/null && vcs_state='ahead'
-				gstat | grep  '^[MADR].' >/dev/null && vcs_state='ready'
-				gstat | grep  '^.[M?D]' >/dev/null && vcs_state='dirty'
-				gstat | grep  'UU' >/dev/null && vcs_state='merge'
+				ghead "$1" | grep -o 'ahead' >/dev/null && vcs_state='ahead'
+				gstat "$1" | grep  '^[MADR].' >/dev/null && vcs_state='ready'
+				gstat "$1" | grep  '^.[M?D]' >/dev/null && vcs_state='dirty'
+				gstat "$1" | grep  'UU' >/dev/null && vcs_state='merge'
 			fi
 			;;
 	esac
-}
-
-# Background Jobs:
-jobs_update()
-{
-	jobs_count="$(jobs | awk '{print $2}' | grep -v 'Done' | wc -l)"
 }
 
 # }}}
