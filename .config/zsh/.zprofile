@@ -6,6 +6,9 @@
 # ------------------------------------------------------------------------------
 # GENERAL {{{
 
+# Make zsh handle IFS correctly:
+setopt SH_WORD_SPLIT
+
 # Load general shell environment (bash and zsh):
 . ~/.config/sh/environment
 
