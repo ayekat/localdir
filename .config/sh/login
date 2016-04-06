@@ -16,7 +16,7 @@ fi
 
 printlogo() {
 	case "$1" in
-		debian)
+		debian|raspbian)
 			printf "\033[31m                             \n"
 			printf         "          .xd§PVkbxc.        \n"
 			printf         "         xP*'      'Vb.      \n"
