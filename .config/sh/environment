@@ -24,24 +24,30 @@ export OS_RELEASE
 # ------------------------------------------------------------------------------
 # PATH {{{
 
-# Adds directory to the PATH variable, with (hopefully) all necessary checks:
+# Check if directory is already in PATH:
+path_lacks() {
+	case "$OS_RELEASE" in
+		darwin) READLINK=greadlink ;;
+		*) READLINK=readlink ;;
+	esac
+	for i in $PATH; do
+		[ "$1" != "$i" ] || return 1
+		[ ! -h "$1" ] || [ "$($READLINK -f "$1")" != "$i" ] || return 1
+	done
+}
+
+# Add directory to PATH (if existing and not duplicate):
 add_to_path() {
 	[ -d "$1" ] || return
 	[ -z "$PATH" ] && PATH="$1" && return
 	IFS_OLD="$IFS"
 	IFS=:
-	for i in $PATH; do
-		[ "$1" = "$i" ] && return
-		case "$OS_RELEASE" in
-			darwin) READLINK=greadlink ;;
-			*) READLINK=readlink ;;
-		esac
-		[ -h "$1" ] && [ "$($READLINK -f "$1")" = "$i" ] && return
-	done
-	if [ "$2" = '--append' ]; then
-		PATH="$PATH:$1"
-	else
-		PATH="$1:$PATH"
+	if path_lacks "$1"; then
+		if [ "$2" = '--append' ]; then
+			PATH="$PATH:$1"
+		else
+			PATH="$1:$PATH"
+		fi
 	fi
 	IFS="$IFS_OLD"
 	unset IFS_OLD
@@ -77,6 +83,7 @@ if [ -d "$dir_altera" ]; then
 fi
 unset dir_altera
 
+unset -f path_lacks
 unset -f add_to_path
 export PATH
 
