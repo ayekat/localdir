@@ -53,6 +53,12 @@ add_to_path() {
 	unset IFS_OLD
 }
 
+# Basic paths (no /usr merge because of Debian; this diverges from the
+# "traditional" order):
+add_to_path '/sbin'
+add_to_path '/usr/sbin'
+add_to_path '/usr/local/sbin'
+
 # User specific path:
 add_to_path "$HOME/.local/bin"
 
