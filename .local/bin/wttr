@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+#width=$(stty size | awk '{print $2}')
+#if [ $width -lt 125 ]; then
+#	echo "Need at least 125 columns to display weather (have $width)." >&2
+##	exit 1
+#fi
+
+curl "http://wttr.in/$1"

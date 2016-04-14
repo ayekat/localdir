@@ -122,7 +122,7 @@ dzen2.foreground     : #888888
 #if SERVERHOST == ixh
 # if DISPLAY_NUM == 0
 karuibar.xgap    : 100
-karuibar.modules : network, memory, cpu, \
+karuibar.modules : mpd, network, memory, cpu, \
                    battery, battery_slice, backlight, alsa_out, alsa_in, \
                    time_date, time_time, capslock
 # else
