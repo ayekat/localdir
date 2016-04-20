@@ -76,12 +76,12 @@ NeoBundle 'honza/dockerfile.vim'
 NeoBundle 'nfnty/vim-nftables'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
-call neobundle#end()
 if g:bundleinit
 	NeoBundleInstall
 else
 	NeoBundleCheck
 endif
+call neobundle#end()
 
 " Disable scala and java syntax checkers, as they are slow as hell:
 let g:syntastic_java_checkers = []
