@@ -74,6 +74,7 @@ NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
 NeoBundle 'honza/dockerfile.vim'
 NeoBundle 'nfnty/vim-nftables'
+NeoBundle 'sjl/gundo.vim'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 if g:bundleinit
@@ -398,9 +399,7 @@ map <leader><Space> :call DWM_Focus()<CR>
 
 " Tabbed window handling:
 map <leader>l :tabnext<CR>
-map <C-l>     :tabnext<CR>
 map <leader>h :tabprevious<CR>
-map <C-h>     :tabprevious<CR>
 map <leader>t :tabnew
 set tabpagemax=20
 
@@ -416,6 +415,9 @@ set tags=./tags;/
 
 " Save a file as root:
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+
+" Undo-tree:
+map <leader>u :GundoToggle<CR>
 
 " }}}
 " ------------------------------------------------------------------------------
