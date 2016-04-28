@@ -5,24 +5,25 @@
 # https://bbs.archlinux.org/viewtopic.php?pid=1425075#p1425075
 
 __pids="$(sudo lsof -F pfn |
-    awk '
-        /^n/{
-            # if this file is a deleted library or binary, show it
-            if (del == 1 && match($0, "bin|lib")) {
-                print pid;
-                del=0;
-            }
-            del = 0;
-        }
-        /^fDEL$/{
-            # the next file is deleted
-            del = 1;
-        }
-        /^p/{
-            # we check a new process
-            del = 0
-            pid = substr($0, 2)
-        }' |
-    sort -un |
-    paste -sd ' '
+	awk '
+		/^p/{
+			# we check a new process
+			del = 0
+			pid = substr($0, 2)
+		}
+		/^fDEL$/{
+			# the next file is deleted
+			del = 1;
+		}
+		/^n/{
+			# if this file is a deleted library or binary, show it
+			if (del == 1 && match($0, "bin|lib")) {
+				print pid;
+				del=0;
+			}
+			del = 0;
+		}
+		' |
+	sort -un |
+	paste -sd ' '
 )"  && [ -n "$__pids" ] && ps -p "$__pids" && unset __pids || unset __pids
