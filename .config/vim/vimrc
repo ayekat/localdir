@@ -122,12 +122,11 @@ set numberwidth=5
 set encoding=utf8
 
 " Display a bar after a reasonable number of columns:
-if version >= 703
-	set colorcolumn=81
-	au FileType mail,gitcommit setl colorcolumn=73
-	au FileType java,scala setl colorcolumn=121
-	au FileType asm setl colorcolumn=41,81
-endif
+set colorcolumn=81
+au FileType mail,gitcommit setl colorcolumn=73
+au FileType java,scala setl colorcolumn=121
+au FileType asm setl colorcolumn=41,81
+au BufRead $HOME/epfl/courses/prog/* setl colorcolumn=86
 
 " I wanna see tabs and trailing whitespaces:
 set list
