@@ -16,9 +16,12 @@ test -d "$XDG_CACHE_HOME/zsh" || mkdir -p "$XDG_CACHE_HOME/zsh"
 # LOOK {{{
 
 # Enable syntax highlighting:
-path_syntax=/usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-[ -e "$path_syntax" ] && . "$path_syntax"
-unset path_syntax
+for hlpath in zsh/plugins/zsh-syntax-highlighting zsh-syntax-highlighting; do
+	if [ -e "/usr/share/$hlpath/zsh-syntax-highlighting.zsh" ]; then
+		. "/usr/share/$hlpath/zsh-syntax-highlighting.zsh" ]
+		break
+	fi
+done
 
 # }}}
 # ------------------------------------------------------------------------------
