@@ -102,6 +102,16 @@ fi
 alias :e="$EDITOR"
 alias :q=exit
 
+if [ "$OS_RELEASE" = arch ]; then
+	abs()
+	{
+		git clone git://projects.archlinux.org/svntogit/packages.git \
+			--single-branch \
+			-b packages/"$1" \
+			"$1"
+	}
+fi
+
 # }}}
 # ------------------------------------------------------------------------------
 # PROMPT {{{
