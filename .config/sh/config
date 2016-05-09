@@ -105,10 +105,15 @@ alias :q=exit
 if [ "$OS_RELEASE" = arch ]; then
 	abs()
 	{
-		git clone git://projects.archlinux.org/svntogit/packages.git \
-			--single-branch \
-			-b packages/"$1" \
-			"$1"
+		if [ -n "$1" ]; then
+			git clone git://projects.archlinux.org/svntogit/packages.git \
+				--single-branch \
+				-b packages/"$1" \
+				"$1"
+		else
+			echo "Please specify a package name" >&2
+			false
+		fi
 	}
 fi
 
