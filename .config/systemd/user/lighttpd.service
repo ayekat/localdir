@@ -3,7 +3,7 @@ Description=Lighttpd Web Server
 After=syslog.target network.target
 
 [Service]
-ExecStart=/usr/bin/lighttpd-angel -D -f /home/ayekat/.config/lighttpd/lighttpd.conf
+ExecStart=/usr/bin/lighttpd-angel -D -f %h/.config/lighttpd/lighttpd.conf
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 

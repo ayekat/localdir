@@ -3,7 +3,7 @@ Description={Libre,Last}.fm updater for MPD
 After=mpd.service
 
 [Service]
-ExecStart=/usr/bin/mpdscribble --conf /home/ayekat/.config/mpdscribble/mpdscribble.conf --no-daemon
+ExecStart=/usr/bin/mpdscribble --conf %h/.config/mpdscribble/mpdscribble.conf --no-daemon
 
 [Install]
 WantedBy=default.target
