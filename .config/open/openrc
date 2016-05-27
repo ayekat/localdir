@@ -32,6 +32,9 @@ video/x-matroska       : mpv
 
 # if application/octet-stream, map extensions to MIME:
 .html                  : text/html
+.pptx                  : application/vnd.openxmlformats-officedocument.presentationml.presentation
+.xlsx                  : application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+.docx                  : application/vnd.openxmlformats-officedocument.wordprocessingml.document
 
 # if URI, map protocol to MIME:
 http                   : text/html
