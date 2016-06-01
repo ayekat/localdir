@@ -24,7 +24,8 @@ help()
 	echo
 	cat <<- EOF
 	Options:
-	  -h, --help      Display this message and exit
+	  -h, --help        Display this message and exit
+	  -o, --option OPT  Pass option OPT to xfreerdp (can be used multiple times)
 
 	The host configuration is an xfreerdp configuration file located in $CONFDIR
 	See xfreerdp(1) for more information.
@@ -48,9 +49,11 @@ die()
 }
 
 # Read arguments:
+options=''
 while [ $# -gt 0 ]; do
 	case "$1" in
 		-h|--help) help; exit 0 ;;
+		-o|--option) shift; options="$options $1" ;;
 		-*) die E_USER "Unknown option: -$1" ;;
 		*) break ;;
 	esac
@@ -66,4 +69,4 @@ hostfile="$CONFDIR/${host}.rdp"
 test -e "$hostfile" || die E_FAIL "$hostfile: No such file"
 
 # Open RDP connection:
-xfreerdp "$hostfile"
+xfreerdp "$hostfile" $options
