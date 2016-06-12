@@ -115,6 +115,15 @@ if [ "$OS_RELEASE" = arch ]; then
 			false
 		fi
 	}
+
+	aur()
+	{
+		if [ -n "$1" ]; then
+			git clone "https://aur.archlinux.org/$1" "$1"
+		else
+			echo "Please specify a package name" >&2
+		fi
+	}
 fi
 
 # }}}

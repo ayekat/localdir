@@ -69,4 +69,4 @@ hostfile="$CONFDIR/${host}.rdp"
 test -e "$hostfile" || die E_FAIL "$hostfile: No such file"
 
 # Open RDP connection:
-xfreerdp "$hostfile" $options
+xfreerdp $(cat "$hostfile") $options
