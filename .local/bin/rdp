@@ -8,11 +8,14 @@
 ETCDIR="${ETCDIR:-"$HOME/.local/etc"}"
 CONFDIR="$ETCDIR/rdp"
 APPNAME="$(basename "$0")"
+EDITOR="${EDITOR:-/usr/bin/nano}"
 
 E_SUCCESS=0
 E_FAIL=1
 E_USER=2
 E_PERM=3
+TRUE=1
+FALSE=0
 
 usage() { echo "Usage: $APPNAME [OPTIONS] HOST"; }
 
@@ -24,6 +27,7 @@ help()
 	echo
 	cat <<- EOF
 	Options:
+	  -e, --edit        Launch editor for the host config file, then exit
 	  -h, --help        Display this message and exit
 	  -l, --list        List available remote hosts and exit
 	  -o, --option OPT  Pass option OPT to xfreerdp (can be used multiple times)
@@ -59,8 +63,10 @@ list()
 
 # Read arguments:
 options=''
+edit=$FALSE
 while [ $# -gt 0 ]; do
 	case "$1" in
+		-e|--edit) edit=$TRUE ;;
 		-h|--help) help; exit 0 ;;
 		-l|--list) list; exit 0 ;;
 		-o|--option) shift; options="$options $1" ;;
@@ -78,5 +84,10 @@ test -r "$CONFDIR" || die E_PERM "$CONFDIR: Permission denied"
 hostfile="$CONFDIR/${host}.rdp"
 test -e "$hostfile" || die E_FAIL "$hostfile: No such file"
 
-# Open RDP connection:
-xfreerdp $(cat "$hostfile") $options
+if [ $edit -eq $TRUE ]; then
+	# Edit RDP connection:
+	$EDITOR "$hostfile"
+else
+	# Open RDP connection:
+	xfreerdp $(cat "$hostfile") $options
+fi
