@@ -101,6 +101,7 @@ export PATH
 export XDG_CONFIG_HOME=~/.config
 export XDG_CACHE_HOME=~/.cache
 export XDG_DATA_HOME=~/.local/share
+export XDG_RUNTIME_DIR=~/.local/run
 
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"        # vim

@@ -106,7 +106,13 @@ if [ "$OS_RELEASE" = arch ]; then
 	abs()
 	{
 		if [ -n "$1" ]; then
-			git clone git://projects.archlinux.org/svntogit/packages.git \
+			repo="$(expac -S '%r' "$1")"
+			case "$repo" in
+				community) ;;
+				core|extra) repo=packages ;;
+				*) echo "unknown repository for $1" >&2; return 1 ;;
+			esac
+			git clone git://projects.archlinux.org/svntogit/"$repo".git \
 				--single-branch \
 				-b packages/"$1" \
 				"$1"
