@@ -5,7 +5,7 @@
 [ -n "$PASSWORD_STORE_CLIP_TIME" ] || export PASSWORD_STORE_CLIP_TIME=45
 
 cd "$PASSWORD_STORE_DIR"
-passname="$(find * -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
+passname="$(find -L * -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
 [ -n "$passname" ] || exit 1
 if pass show -c "$passname" >/dev/null; then
 	notify-send \
