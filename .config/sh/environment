@@ -63,7 +63,7 @@ add_to_path '/usr/local/sbin'
 add_to_path "$HOME/.local/bin"
 
 # EPFL scripts:
-add_to_path "$HOME/.local/epflscripts"
+add_to_path "$HOME/.local/opt/epflscripts/bin"
 
 # Altera (Quartus, ModelSim):
 # - user is recommended to be in 'plugdev' group, for USB devices
