@@ -7,7 +7,7 @@
 # GENERAL {{{
 
 # Load general shell environment (bash and zsh):
-. ~/.config/sh/environment
+. ~/.local/etc/sh/environment
 
 # Load general shell login configuration (bash and zsh):
 . $XDG_CONFIG_HOME/sh/login

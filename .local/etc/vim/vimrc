@@ -9,7 +9,7 @@ set nomodeline
 " We like to respect the XDG base directory specifications
 
 " Scripts' location:
-set runtimepath=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+set runtimepath=$XDG_DATA_HOME/vim,$XDG_DATA_HOME/vim/after,$VIM,$VIMRUNTIME
 
 " Backup files:
 set backupdir=$XDG_CACHE_HOME/vim/backup
@@ -18,7 +18,7 @@ set backupdir=$XDG_CACHE_HOME/vim/backup
 set directory=$XDG_CACHE_HOME/vim/swap
 
 " Command history:
-set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set viminfo+=n$XDG_LOG_HOME/vim/viminfo
 
 " Undo history:
 set undofile
@@ -34,8 +34,9 @@ function! MakeSureTheDamnPathExists(path)
 		call mkdir(a:path, 'p', 0700)
 	endif
 endfunction
-call MakeSureTheDamnPathExists($XDG_CONFIG_HOME.'/vim')
 call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim')
+call MakeSureTheDamnPathExists($XDG_DATA_HOME.'/vim')
+call MakeSureTheDamnPathExists($XDG_LOG_HOME.'/vim')
 call MakeSureTheDamnPathExists(&directory)
 call MakeSureTheDamnPathExists(&undodir)
 call MakeSureTheDamnPathExists(&backupdir)
@@ -44,7 +45,7 @@ call MakeSureTheDamnPathExists(&backupdir)
 " ------------------------------------------------------------------------------
 " BUNDLES {{{
 
-let g:bundledir=$XDG_CONFIG_HOME.'/vim/neobundle'
+let g:bundledir=$XDG_DATA_HOME.'/vim/neobundle'
 let g:bundleinit=0
 "
 " Initialise and bootstrap NeoBundle (here goes my thanks to flor):
@@ -52,13 +53,13 @@ if has('vim_starting')
 	if !isdirectory(g:bundledir)
 		let g:bundleinit=1
 		call mkdir(g:bundledir, 'p', 0700)
-		!git clone 'https://github.com/Shougo/neobundle.vim' $XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
+		!git clone 'https://github.com/Shougo/neobundle.vim' $XDG_DATA_HOME/vim/neobundle/neobundle.vim
 	endif
-	set runtimepath+=$XDG_CONFIG_HOME/vim/neobundle/neobundle.vim
+	set runtimepath+=$XDG_DATA_HOME/vim/neobundle/neobundle.vim
 endif
 
 " List of bundles I use (including NeoBundle itself): "
-call neobundle#begin(expand('~/.config/vim/neobundle/'))
+call neobundle#begin(expand('$XDG_DATA_HOME/vim/neobundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'ayekat/dwm.vim'

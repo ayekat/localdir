@@ -89,7 +89,7 @@ URxvt.iso14755_52    : false
 URxvt.urgentOnBell   : true
 
 ! Settings for perl extensions:
-URxvt.perl-lib       : /home/ayekat/.config/urxvt/perl/
+URxvt.perl-lib       : /home/ayekat/.local/lib/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard
 URxvt.perl-ext-common: default,url-select,keyboard-select
 

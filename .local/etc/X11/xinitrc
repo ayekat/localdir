@@ -31,7 +31,7 @@ lcdadjust
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-xrdb ~/.config/X11/Xresources
+xrdb "$XDG_CONFIG_HOME/X11/Xresources"
 
 # Start a scratchpad:
 urxvt -e tmx SCRATCHPAD &
@@ -64,7 +64,9 @@ case "$WM" in
 esac
 
 # Launch WM and log all of its output:
-SESSION_LOGFILE=/tmp/xorg-"$USER"-"$DISPLAY"-"$(date +%s)".log
+SESSION_LOGDIR="$XDG_LOG_HOME/X11"
+SESSION_LOGFILE="${SESSION_LOGDIR}/${USER}-${DISPLAY}-$(date +%s).log"
+mkdir -p "$SESSION_LOGDIR"
 while true; do
 	echo "starting karuibar ..."
 	karuibar &
