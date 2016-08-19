@@ -98,24 +98,25 @@ export PATH
 # XDG {{{
 
 # Set XDG base directory specification variables:
-export XDG_CONFIG_HOME=~/.local/etc
 export XDG_CACHE_HOME=~/.local/var/cache
+export XDG_CONFIG_HOME=~/.local/etc
 export XDG_DATA_HOME=~/.local/var/lib
 export XDG_RUNTIME_DIR=~/.local/run
 export XDG_LOG_HOME=~/.local/var/log  # not XDG basedir standard!
+export XDG_LIB_HOME=~/.local/lib      # not XDG basedir standard!
 
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"        # vim
 export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"             # xinit (!startx)
 export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"           # startx
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"                 # gpg
-export PGPPATH="$XDG_DATA_HOME/gnupg"                   # mutt (pgp)
+export GNUPGHOME="$XDG_DATA_HOME/gnupg"                   # gpg
+export PGPPATH="$XDG_DATA_HOME/gnupg"                     # mutt (pgp)
 export TASKDATA="$XDG_DATA_HOME/task"                     # task-warrior
 export TASKRC="$XDG_CONFIG_HOME/task/taskrc"              # task-warrior
 export RXVT_SOCKET="$HOME/.urxvtd.sock"                   # urxvtd
 export LESSHISTFILE="$XDG_LOG_HOME/lesshist"              # less
 export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"           # pass
-export GIMP2_DIRECTORY="$XDG_DATA_HOME/gimp"            # gimp
+export GIMP2_DIRECTORY="$XDG_DATA_HOME/gimp"              # gimp
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"            # mplayer
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # GTK+
 

@@ -58,7 +58,7 @@ build_prompt() #{{{
 	PROMPT+="%(1j.%{$pc_jobs%} %j %{$reset_color%}.)"
 
 	# VCS (dotfiles):
-	vcs_update "$XDG_CONFIG_HOME/dotfiles"
+	vcs_update "$XDG_LIB_HOME/dotfiles"
 	case "$vcs_state" in (ahead|ready|dirty|merge)
 		case "$vcs_state" in
 			ahead) PROMPT+="%{$pc_dot_ahead%}" ;;
