@@ -64,9 +64,10 @@ case "$WM" in
 esac
 
 # Launch WM and log all of its output:
-SESSION_LOGDIR="$XDG_LOG_HOME/X11"
-SESSION_LOGFILE="${SESSION_LOGDIR}/${USER}-${DISPLAY}-$(date +%s).log"
+SESSION_LOGDIR="$XDG_LOG_HOME/X11/$DISPLAY"
+SESSION_LOGFILE="${SESSION_LOGDIR}/$(date +%s).log"
 mkdir -p "$SESSION_LOGDIR"
+ln -sf "$SESSION_LOGFILE" "$SESSION_LOGDIR/latest"
 while true; do
 	echo "starting karuibar ..."
 	karuibar &
