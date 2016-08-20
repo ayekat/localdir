@@ -3,7 +3,7 @@
 # Written by ayekat on a rainy friday afternoon in february 2014.
 
 # place where the screenshot shall be stored to:
-SCROT_DIR=~/img/scrot
+SCROT_DIR="$HOME/img/scrot"
 
 file='%Y-%m-%d_%H%M%S.png'
 
