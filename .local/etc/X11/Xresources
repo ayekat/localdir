@@ -128,8 +128,7 @@ karuibar.modules : mpd, network, memory, cpu, \
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
-#endif
-#ifdef SRVR_phobia
+#elif SERVERHOST == phobia
 karuibar.modules : network, memory, cpu, alsa_out, time_date, time_time, capslock
 #endif
 

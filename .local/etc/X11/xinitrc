@@ -48,7 +48,7 @@ cmd_exists xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
 cmds_exist urxvt && urxvt -e tmx SCRATCHPAD &
 
 # Set the wallpaper:
-cmds_exist dispwin && nitrogen --restore
+cmds_exist nitrogen && nitrogen --restore
 
 # Enable Japanese input:
 if cmds_exist uim-xim; then
