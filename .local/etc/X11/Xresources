@@ -129,6 +129,9 @@ karuibar.modules : mpd, network, memory, cpu, \
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
 #endif
+#ifdef SRVR_phobia
+karuibar.modules : network, memory, cpu, alsa_out, time_date, time_time, capslock
+#endif
 
 karuibar.foreground  : termfg
 karuibar.background  : black

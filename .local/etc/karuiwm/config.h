@@ -194,5 +194,7 @@ static Key const wsmkeys[] = {
 static Button const buttons[] = {
 	{ MODKEY,                       Button1,    movemouse,        { 0 } },
 	{ MODKEY,                       Button3,    resizemouse,      { 0 } },
+	{ MODKEY,                       Button4,    spawn,            { .v=volupcmd } },
+	{ MODKEY,                       Button5,    spawn,            { .v=voldowncmd } },
 };
 
