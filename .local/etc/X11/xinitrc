@@ -2,6 +2,12 @@
 # Xinit ressource file for starting dwm
 # Written by ayekat on a rainy day in october 2012
 
+cmds_exist() {
+	for c in "$@"; do
+		which "$c" >/dev/null 2>&1 || return 1
+	done
+}
+
 
 # First of all, make sure we are in the home directory, to avoid weird default
 # working directory paths when opening a shell under X:
@@ -24,31 +30,33 @@ unset system_xinit
 
 # INPUT/OUTPUT -----------------------------------------------------------------
 
-ayeinput -em
-lcdadjust
+if cmds_exist xinput xmodmap; then
+	case "$(hostname)" in
+		ixh) ayeinput -em ;;
+		*) ayeinput -e ;;
+	esac
+fi
+cmds_exist dispwin && lcdadjust
 
 
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-xrdb "$XDG_CONFIG_HOME/X11/Xresources"
+cmd_exists xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
 
 # Start a scratchpad:
-urxvt -e tmx SCRATCHPAD &
+cmds_exist urxvt && urxvt -e tmx SCRATCHPAD &
 
 # Set the wallpaper:
-nitrogen --restore
+cmds_exist dispwin && nitrogen --restore
 
 # Enable Japanese input:
-if [ -e /usr/bin/uim-xim ]; then
+if cmds_exist uim-xim; then
 	export GTK_IM_MODULE=uim
 	export QT_IM_MODULE=uim
 	uim-xim &
 	export XMODIFIERS='@im=anthy'
 fi
-
-# Start screensaver damon (5 minutes):
-xset s 300
 
 
 # WM ---------------------------------------------------------------------------
@@ -69,17 +77,26 @@ SESSION_LOGFILE="${SESSION_LOGDIR}/$(date +%s).log"
 mkdir -p "$SESSION_LOGDIR"
 ln -sf "$SESSION_LOGFILE" "$SESSION_LOGDIR/latest"
 while true; do
-	echo "starting karuibar ..."
-	karuibar &
-	KARUIBAR_PID=$!
+	if cmds_exist karuibar; then
+		karuibar &
+		KARUIBAR_PID=$!
+	fi
 
-	echo "starting xtrlock ..."
-	xss-lock xtrlock &
-	XSS_LOCK_PID=$!
+	if cmds_exist xss-lock; then
+		xset s 300
+		xss-lock xtrlock &
+		XSS_LOCK_PID=$!
+	fi
 
-	echo "starting window manager ..."
 	"$WM"
-	kill $XSS_LOCK_PID $KARUIBAR_PID
-	zenity --question --text="$WM has stopped. Do you want to start again?"
-	test $? -eq 0 || break
+
+	cmds_exist xss-lock && kill $XSS_LOCK_PID
+	cmds_exist karuibar && kill $KARUIBAR_PID
+
+	if cmds_exist zenity; then
+		zenity --question --text="$WM has stopped. Do you want to start again?"
+		test $? -eq 0 || break
+	else
+		break
+	fi
 done >"$SESSION_LOGFILE" 2>"$SESSION_LOGFILE"
