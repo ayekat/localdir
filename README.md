@@ -32,9 +32,10 @@ this means that the following environment variables are set:
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 
-> ### Note
-> `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are nevertheless
-> necessary for representing the FHS locally.
+> ### Notes
+> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
+>   nevertheless necessary for representing the FHS locally.
+> * `~/.local/run` should be a symbolic link to `/run/user/<uid>`.
 
 Unfortunately, some application do not honour the XDG basedir specification, and
 setting above variables is often not enough. Various approaches are taken to
@@ -66,10 +67,10 @@ To reduce the amount of "noise" in `~`, we let the shell read its user
 environment file, in which we define all the necessary variables, and the rest
 should work as described above.
 
-Concretely, this means that for zsh `.zshenv` is at the top-level. For bash,
-it's a little less clean, since it does not have any mechanisms for changing the
-location of its configuration files, so both `.bash_profile` and `.bashrc` are
-at the top-level.
+Concretely, this means that for **zsh** `.zshenv` is at the top-level. For
+**bash**, it's a little less clean, since it does not have any mechanisms for
+changing the location of its configuration files, so both `.bash_profile` and
+`.bashrc` are at the top-level.
 
 To reduce redundancy, most shell configuration happens in a shell-agnostic
 environment, namely `~/.local/etc/sh`; the shell-specific configuration files
@@ -95,3 +96,19 @@ user-configured environment variables are not even a thing there.
 >
 > Also, even if it *was* possible, the solution would still require
 > admin-rights.
+
+Fortunately, systemd honours `~/.local/share/systemd`, so in a way we can still
+have it inside `~/.local`.
+
+
+arbitrary?
+----------
+
+Sometimes it is not obvious whether e.g. something needs to go into
+`XDG_CACHE_HOME` or `XDG_LOG_HOME` (e.g. shell history - technically a cache,
+but practically treated like a history/log). The same applies to the separation
+of `XDG_CONFIG_HOME` and `XDG_DATA_HOME` for applications that change their
+configuration (files) at runtime (e.g. gimp).
+
+For all those cases, the chosen destination is rather arbitrarily chosen. If you
+feel like something should go somewhere else, feel free to leave a comment.
