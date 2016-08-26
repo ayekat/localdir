@@ -47,7 +47,7 @@ die()
 		shift
 		printf "\033[31m$retval_str\033[0m $format\n" "$@" >&2
 	fi
-	if [ $retval = E_USER ]; then
+	if [ $retval -eq $E_USER ]; then
 		usage >&2
 	fi
 	exit $retval
