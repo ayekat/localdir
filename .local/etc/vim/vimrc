@@ -23,7 +23,7 @@ set viminfo+=n$XDG_LOG_HOME/vim/viminfo
 " Undo history:
 set undofile
 au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
-set undodir=$XDG_CACHE_HOME/vim/undo
+set undodir=$XDG_LOG_HOME/vim/undo
 
 " netrw plugin history:
 let g:netrw_home=$XDG_CACHE_HOME.'/vim'
