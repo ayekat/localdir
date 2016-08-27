@@ -106,7 +106,7 @@ shopt -s checkwinsize
 # ------------------------------------------------------------------------------
 # HISTORY {{{
 
-export HISTFILE=$XDG_CACHE_HOME/bash_history
+export HISTFILE=$XDG_LOG_HOME/bash_history
 export HISTIGNORE='&:[bf]g:exit'
 export HISTSIZE=100000
 export HISTFILESIZE=100000
