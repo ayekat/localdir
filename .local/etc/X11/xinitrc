@@ -42,7 +42,7 @@ cmds_exist dispwin && lcdadjust
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-cmd_exists xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
+cmds_exist xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
 
 # Start a scratchpad:
 cmds_exist urxvt && urxvt -e tmx SCRATCHPAD &
