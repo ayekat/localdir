@@ -161,6 +161,9 @@ fi
 # Set colours for gcc:
 export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
 
+# Set hinting property for freetype (see /etc/profile.d/freetype2.sh):
+export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
+
 # }}}
 # ------------------------------------------------------------------------------
 # RAINBOWDASH FUCK-AROUND {{{
