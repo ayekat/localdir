@@ -1,7 +1,0 @@
-#!/usr/bin/env sh
-
-case "$1" in
-	start) sudo wlan stop && sudo eth start && lynx;;
-	stop) sudo eth stop && sudo wlan start;;
-esac
-

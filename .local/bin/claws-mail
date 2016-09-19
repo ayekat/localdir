@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+exec /usr/bin/claws-mail --alternate-config-dir $XDG_DATA_HOME/claws-mail
