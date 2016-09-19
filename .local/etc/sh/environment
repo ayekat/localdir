@@ -119,6 +119,7 @@ export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"           # pass
 export GIMP2_DIRECTORY="$XDG_DATA_HOME/gimp"              # gimp
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"            # mplayer
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # GTK+
+export WINEPREFIX="$XDG_DATA_HOME/wine/default"           # Wine
 
 # }}}
 # ------------------------------------------------------------------------------
