@@ -46,29 +46,6 @@ cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOM
 cmd_exists startx && alias startx="startx $XINITRC"
 cmd_exists view vim && alias view='vim -R'
 
-# Have a mutt command per mailbox:
-if cmd_exists mutt; then
-	mutt() {
-		mutt_config="$XDG_CONFIG_HOME/mutt/${1}.muttrc"
-		if [ -z "$@" ]; then
-			echo "Please specify a mail account"
-			return 1
-		fi
-		if [ ! -e "$mutt_config" ]; then
-			echo "$mutt_config: file not found"
-			return 1
-		fi
-		mutt_cmd="mutt -F $mutt_config"
-		if cmd_exists uim-fep; then
-			uim-fep -e mutt -F "$mutt_config"
-		else
-			command $mutt_cmd
-		fi
-		unset mutt_cmd
-		unset mutt_config
-	}
-fi
-
 # Pass user environment when launching vim with sudo:
 if cmd_exists sudo; then
 	sudo()

@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+MUTT_PATH=/usr/bin/mutt
+
+mutt_account="${1:-ayekat}"
+mutt_config="$XDG_CONFIG_HOME/mutt/${mutt_account}.muttrc"
+
+if [ ! -e "$mutt_config" ]; then
+	echo "$mutt_config: file not found" >&2
+	exit 1
+fi
+
+if which uim-fep >/dev/null 2>&1; then
+	exec uim-fep -e "$MUTT_PATH" -F "$mutt_config"
+else
+	exec "$MUTT_PATH" -F "$mutt_config"
+fi
