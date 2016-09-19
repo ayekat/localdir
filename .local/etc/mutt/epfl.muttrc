@@ -1,0 +1,26 @@
+# password:
+source "$XDG_CONFIG_HOME/mutt/password.sh epfl |"
+
+# connection:
+set realname  = 'Tinu Weber'
+set from      = "$my_address"
+set folder    = 'imaps://ewa.epfl.ch:993/'
+set imap_user = "$my_user"
+set imap_pass = "$my_password"
+set smtp_pass = "$my_password"
+set smtp_url  = "smtps://$my_user@mail.epfl.ch:465/"
+
+# mailbox:
+mailboxes     = +INBOX
+set spoolfile = +INBOX
+set record    = +Sent
+set postponed = +Drafts
+
+# mailing lists:
+subscribe bbq@lists.gnugen.ch
+subscribe cm0415@lists.gnugen.ch
+subscribe membres@lists.gnugen.ch
+subscribe membres.gnugeneration@epfl.ch
+
+# main configuration:
+source "$XDG_CONFIG_HOME/mutt/muttrc"

@@ -1,0 +1,16 @@
+source "$XDG_CONFIG_HOME/mutt/password.sh bluewin |"
+
+set realname  = 'Tinu Weber'
+set from      = "$my_address"
+set folder    = 'imaps://imaps.bluewin.ch:993/'
+set imap_user = "$my_user"
+set imap_pass = "$my_password"
+set smtp_pass = "$my_password"
+set smtp_url  = "smtps://$my_user@smtpauths.bluewin.ch:465/"
+
+mailboxes     = +INBOX
+set spoolfile = +INBOX
+set record    = +Sent
+set postponed = +Drafts
+
+source "$XDG_CONFIG_HOME/mutt/muttrc"

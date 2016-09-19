@@ -1,0 +1,77 @@
+set mbox_type = Maildir
+
+set imap_check_subscribed = yes
+set ssl_force_tls = yes
+
+set use_from = yes
+my_hdr X-Operating-System: `uname -a`
+
+macro index 'c' "<change-folder>?<toggle-mailboxes>" "open a different folder"
+macro pager 'c' "<change-folder>?<toggle-mailboxes>" "open a different folder"
+
+# use trash:
+#set my_move_trash = '<save-message>+Trash<enter>'
+#folder-hook .* 'macro index,pager d $my_move_trash "Move to Trash"'
+#folder-hook .* 'macro index,pager D delete-message'
+
+# GPG:
+source /etc/Muttrc.gpg.dist
+set pgp_autosign = yes
+set pgp_use_gpg_agent = yes
+
+# cache messages and headers:
+set header_cache = "$XDG_CACHE_HOME/mutt/headers"
+set message_cachedir = "$XDG_CACHE_HOME/mutt"
+
+set imap_keepalive = 60
+set mail_check = 60
+set imap_passive = yes
+
+# use vim:
+set editor = /usr/bin/vim
+
+# notify:
+set beep = no
+set beep_new = yes
+
+# encoding:
+set send_charset = 'utf-8'
+
+# use thread view:
+set sort = threads
+set sort_aux = last-date-received
+
+# scroll line-by-line instead of page-by-page:
+set menu_scroll=yes
+
+# date format (like default, but using 24-hour format):
+set date_format = "!%a, %b %d, %Y at %H:%M:%S %Z"
+
+# use system-wide SSL certificates:
+#set ssl_ca_certificates_file = '/etc/ssl/certs/ca-certificates.crt'
+
+# ==============================================================================
+# COLOUR SCHEME (see http://aperiodic.net/phil/configs/mutt/colors for examples)
+
+# default colours:
+color normal      default        default
+color hdrdefault  green          default
+color quoted      green          default
+color quoted1     magenta        default
+color quoted2     blue           default
+color signature   cyan           default
+color indicator   color252       color238
+color error       brightred      default
+color status      white          blue
+color tree        brightmagenta  black
+color tilde       blue           default
+color attachment  brightyellow   default
+color markers     brightred      default
+color message     white          black
+color search      brightwhite    magenta
+color bold        brightyellow   default
+
+# custom highlighting:
+color index green    default '~N !~T'  # new
+color index cyan     black       '~T'  # tagged
+color index color240 default     '~D'  # deleted
