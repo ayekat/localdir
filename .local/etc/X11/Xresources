@@ -119,7 +119,10 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-#if SERVERHOST == ixh
+#if SERVERHOST == phobia
+karuibar.xgap    : 100
+karuibar.modules : network, memory, cpu, alsa_out, time_date, time_time, capslock
+#elif SERVERHOST == ixh
 # if DISPLAY_NUM == 0
 karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
@@ -128,8 +131,6 @@ karuibar.modules : mpd, network, memory, cpu, \
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
-#elif SERVERHOST == phobia
-karuibar.modules : network, memory, cpu, alsa_out, time_date, time_time, capslock
 #endif
 
 karuibar.foreground  : termfg

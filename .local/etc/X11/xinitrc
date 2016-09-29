@@ -67,9 +67,11 @@ fi
 # Some Java applications refuse to work correctly when they don't know the WM
 # (happens often with tiling WMs); set the WM name to a value known to Java to
 # fix that:
-case "$WM" in
-	xmonad|dwm|karuiwm) wmname LG3D ;;
-esac
+if cmds_exist wmname; then
+	case "$WM" in
+		xmonad|dwm|karuiwm) wmname LG3D ;;
+	esac
+fi
 
 # Launch WM and log all of its output:
 SESSION_LOGDIR="$XDG_LOG_HOME/X11/$DISPLAY"

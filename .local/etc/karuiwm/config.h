@@ -99,6 +99,10 @@ static Key const keys[] = {
 	{ MODKEY|ShiftMask,             XK_b,       spawn,            { .v=karuibarrestartcmd } },
 
 	/* hardware */
+#ifdef _phobia
+	{ MODKEY|ControlMask,           XK_Up,      spawn,            { .v=volupcmd } },
+	{ MODKEY|ControlMask,           XK_Down,    spawn,            { .v=voldowncmd } },
+#endif
 	{ 0,                            0x1008FF11, spawn,            { .v=voldowncmd } },
 	{ 0,                            0x1008FF12, spawn,            { .v=volmutecmd } },
 	{ 0,                            0x1008FF13, spawn,            { .v=volupcmd } },
