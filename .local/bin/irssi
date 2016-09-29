@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+
+IRSSI_PATH=/usr/bin/irssi
+
+irssi_configdir="$XDG_CONFIG_HOME/irssi"
+
+if which uim-fep >/dev/null 2>&1; then
+	exec uim-fep -e "$IRSSI_PATH" --home="$irssi_configdir"
+else
+	exec "$IRSSI_PATH" --home="$irssi_configdir"
+fi

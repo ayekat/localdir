@@ -102,8 +102,8 @@ export XDG_CACHE_HOME=~/.local/var/cache
 export XDG_CONFIG_HOME=~/.local/etc
 export XDG_DATA_HOME=~/.local/var/lib
 export XDG_RUNTIME_DIR=~/.local/run
-export XDG_LOG_HOME=~/.local/var/log  # not XDG basedir standard!
-export XDG_LIB_HOME=~/.local/lib      # not XDG basedir standard!
+export XDG_LOG_HOME=~/.local/var/log  # XXX not XDG basedir standard!
+export XDG_LIB_HOME=~/.local/lib      # XXX not XDG basedir standard!
 
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"        # vim

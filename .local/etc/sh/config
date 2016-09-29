@@ -25,7 +25,6 @@ fi
 # Aliases:
 alias cp='cp -i'
 alias grep='grep --color=auto'
-alias cgrep='grep --exclude-dir build --exclude tags'
 alias info='info --vi-keys'
 alias la='ls -A'
 alias lah='ls -lAh'
@@ -42,7 +41,6 @@ fi
 # Application specific aliases:
 cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
 cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
-cmd_exists uim-fep irssi && alias irssi="uim-fep -e irssi --home=$XDG_CONFIG_HOME/irssi"
 cmd_exists startx && alias startx="startx $XINITRC"
 cmd_exists view vim && alias view='vim -R'
 
