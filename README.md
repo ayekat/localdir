@@ -35,7 +35,7 @@ this means that the following environment variables are set:
 > ### Notes
 > * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
 >   nevertheless necessary for representing the FHS locally.
-> * `~/.local/run` should be a symbolic link to `/run/user/<uid>`.
+> * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 
 Unfortunately, some application do not honour the XDG basedir specification, and
 setting above variables is often not enough. Various approaches are taken to
@@ -43,9 +43,11 @@ achieve the goal:
 
 * For applications using their own environment variables, a simple entry in
   `~/.local/etc/sh/environment` is usually enough.
-* For applications accepting command line arguments, we set alias/function
-  definitions in `~/.local/etc/sh/config`.
-* For applications where neither of these apply, we weep.
+* For applications accepting command line arguments, we create local "fake"
+  (wrapper) scripts in `~/.local/bin` that call the real application with the
+  right arguments.
+* For applications where neither of these apply, we weep (or set `$HOME`
+  read-only).
 
 Some applications cannot honour the XDG basedir spec by design:
 
@@ -100,15 +102,30 @@ user-configured environment variables are not even a thing there.
 Fortunately, systemd honours `~/.local/share/systemd`, so in a way we can still
 have it inside `~/.local`.
 
+*Un*fortunately, `systemctl --user enable <unit>` will create and use the
+hardcoded `~/.config/systemd/user/<target>.wants` &mdash; it is recommended to
+symlink `~/.local/share/systemd` to `~/.config/systemd`, to keep everything at
+one place.
+
+
+dunst
+-----
+
+Dunst is launched by dbus, which runs as part of setting up the user session. As
+such, we have no control over where it searches its files. It turns out
+it runs it hardcoded from within `~/.config/dunst` &mdash; it is recommended to
+symlink `~/.local/etc/dunst` to `~/.config/dunst`.
+
 
 arbitrary?
 ----------
 
-Sometimes it is not obvious whether e.g. something needs to go into
-`XDG_CACHE_HOME` or `XDG_LOG_HOME` (e.g. shell history - technically a cache,
-but practically treated like a history/log). The same applies to the separation
-of `XDG_CONFIG_HOME` and `XDG_DATA_HOME` for applications that change their
-configuration (files) at runtime (e.g. gimp).
+Sometimes it is not obvious whether something needs to go into `XDG_CACHE_HOME`
+or `XDG_LOG_HOME` (e.g. shell (and generally CLI application commands) history
+&mdash; technically a cache, but practically treated like a history/log). The
+same applies to the separation of `XDG_CONFIG_HOME` and `XDG_DATA_HOME` for
+applications that change their configuration (files) at runtime (e.g. gimp).
 
-For all those cases, the chosen destination is rather arbitrarily chosen. If you
-feel like something should go somewhere else, feel free to leave a comment.
+Most decisions are made arbitrarily in those cases. If you have an argument for
+or against a decision, feel free to leave a comment. I'm open for all kinds of
+ideas, may they be profoundly researched or crazy.

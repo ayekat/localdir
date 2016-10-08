@@ -120,6 +120,7 @@ export GIMP2_DIRECTORY="$XDG_DATA_HOME/gimp"              # gimp
 export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"            # mplayer
 export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # GTK+
 export WINEPREFIX="$XDG_DATA_HOME/wine/default"           # Wine
+export MYSQL_HISTFILE="$XDG_LOG_HOME/mysql_history"       # MySQL/MariaDB client
 
 # }}}
 # ------------------------------------------------------------------------------

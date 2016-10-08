@@ -1,14 +1,14 @@
 mutt
 ====
 
-My mutt mail configuration is a little unusual; it is due to me being unable to
-configure mutt's account/folder hooks correctly (i.e. in a way that switching
+My mutt mail configuration is a little unusual; it is due to me being too dumb
+to configure mutt's account/folder hooks correctly (i.e. in a way that switching
 accounts/directory isn't a major PITA).
 
 As such, `mutt` must be launched with `-F /path/to/config.muttrc` (you probably
 want to script that or write an alias). The disadvantage is that you cannot
 reply to mails in one mailbox from another account. I get occasionally annoyed
-by that setup and will like change this soon.
+by that setup and will likely change this soon.
 
 
 Passwords
