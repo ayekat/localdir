@@ -1,13 +1,26 @@
 #!/usr/bin/env sh
 
+APPNAME="$(basename "$(readlink -f "$0")")"
+
 # Default environment variables - see man pass (1):
-[ -n "$PASSWORD_STORE_DIR" ] || export PASSWORD_STORE_DIR="$HOME/.password-store"
-[ -n "$PASSWORD_STORE_CLIP_TIME" ] || export PASSWORD_STORE_CLIP_TIME=45
+export PASSWORD_STORE_DIR="${PASSWORD_STORE_DIR:-$HOME/.password-store}"
+export PASSWORD_STORE_CLIP_TIME="${PASSWORD_STORE_CLIP_TIME:-45}"
+
+die()
+{
+	printf "[%s] %s: %s\n" "$(date '+%Y-%m-%d,%H:%M:%S')" "$APPNAME" "$1" >&2
+	exit 1
+}
+
+# Check environment:
+[ -d "$PASSWORD_STORE_DIR" ] || die "No such directory: $PASSWORD_STORE_DIR"
+[ -r "$PASSWORD_STORE_DIR" ] || die "Read permission denied: $PASSWORD_STORE_DIR"
+[ -x "$PASSWORD_STORE_DIR" ] || die "Browser permission denied: $PASSWORD_STORE_DIR"
 
 cd "$PASSWORD_STORE_DIR"
 passname="$(find -L * -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
 [ -n "$passname" ] || exit 1
-if pass show -c "$passname" >/dev/null; then
+if pass show -c "$passname"; then
 	notify-send \
 		'Unix pass' \
 		"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
