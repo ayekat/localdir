@@ -14,5 +14,6 @@ dotfiles:     $n_dots
 normal files: $n_nondots
 total:        $n_all
 
-$dots
 EOF
+cd "$HOME"
+ls -1d --color=auto .[!.]*

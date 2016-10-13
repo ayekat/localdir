@@ -13,7 +13,6 @@ if python_history:
 else:
     python_history = '%s/.python_history' % os.environ['HOME']
 
-print('Using history file %s' % python_history)
 if os.path.exists(python_history):
     readline.read_history_file(python_history)
 atexit.unregister(readline.write_history_file)
