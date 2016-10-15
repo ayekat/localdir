@@ -2,8 +2,10 @@
 
 # Modules:
 include "conf.d/mimetype.conf"
-include "conf.d/cgi.conf"         # .cgi => python3
-include "conf.d/rewrite.conf"     # *.* => /cgi/main.cgi
+$HTTP["host"] !~ "^wiki(\..*)$" {
+	include "conf.d/cgi.conf"         # .cgi => python3
+	include "conf.d/rewrite.conf"     # *.* => /cgi/main.cgi
+}
 
 # Basic server configuration:
 server.port = 8080
@@ -17,18 +19,22 @@ dir-listing.activate = "disable"
 #$HTTP["host"] = "ayekat.ch" {
 	server.document-root = "/home/ayekat/.local/srv/http/ayekat.ch"   # default
 #}
-$HTTP["host"] =~ "^karui\." {
+$HTTP["host"] =~ "^karui(\..*)$" {
 	server.document-root = "/home/ayekat/.local/srv/http/karui.org"
 }
-$HTTP["host"] =~ "^flora\." {
+$HTTP["host"] =~ "^flora(\..*)$" {
 	server.document-root = "/home/ayekat/.local/srv/http/flora.papiliorama.local"
 }
-$HTTP["host"] =~ "^temperature\." {
+$HTTP["host"] =~ "^temperature(\..*)$" {
 	server.document-root = "/home/ayekat/.local/srv/http/temperature.papiliorama.local"
 }
-$HTTP["host"] =~ "^it\." {
+$HTTP["host"] =~ "^it(\..*)$" {
 	server.document-root = "/home/ayekat/.local/srv/http/it.papiliorama.local"
 }
-$HTTP["host"] =~ "^lists\." {
+$HTTP["host"] =~ "^lists(\..*)$" {
 	server.document-root = "/home/ayekat/.local/srv/http/lists.papiliorama.ch"
+}
+$HTTP["host"] =~ "^wiki(\..*)$" {
+	server.document-root = "/home/ayekat/.local/srv/wiki/dst"
+	cgi.assign = ()
 }
