@@ -68,6 +68,11 @@ static char const *karuibartogglecmd[] = { "pkill", "-USR2", "karuibar", NULL };
 static char const *backlightupcmd[] = { "xbacklight", "-steps", "1", "+5", NULL };
 static char const *backlightdowncmd[] = { "xbacklight", "-steps", "1", "-5", NULL };
 static char const *suspendcmd[] = { "systemctl", "suspend", NULL };
+static char const *demotecmd[] = { "demote", "-l", "10", "-i",
+                                             "-nf", "#888888", "-nb", "#282828",
+                                             "-sf", "#FFE0A0", "-sb", "#444444",
+                                             "-p", "emote", "-fn", FONTSTR_DMENU,
+                                             NULL };
 static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
@@ -95,6 +100,7 @@ static Key const keys[] = {
 	{ MODKEY|ShiftMask,             XK_Print,   spawn,            { .v=scrotcmd } },
 	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd_sel } },
 	{ MODKEY|ShiftMask,             XK_p,       spawn,            { .v=dpasscmd } },
+	{ MODKEY,                       XK_e,       spawn,            { .v=demotecmd } },
 	{ MODKEY,                       XK_b,       spawn,            { .v=karuibartogglecmd } },
 	{ MODKEY|ShiftMask,             XK_b,       spawn,            { .v=karuibarrestartcmd } },
 

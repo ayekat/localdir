@@ -1,0 +1,12 @@
+#!/usr/bin/env sh
+
+emote="$(dmenu "$@" <<- EOF | awk '{print $2}'
+shrug     ¯\\_(ツ)_/¯
+shrug     ¯\\(°_o)/¯
+snowman   ☃
+EOF
+)"
+printf "%s" "$emote" | xclip -i -selection clipboard
+if [ -n "$emote" ]; then
+	notify-send "emote" "$emote"
+fi
