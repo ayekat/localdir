@@ -12,6 +12,6 @@ index-file.names = ( "index.html" )
 dir-listing.activate = "disable"
 
 # Virtual Hosts:
-#$HTTP["host"] = "^wiki(\..*)?" {
+#$HTTP["host"] = "^wiki(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/wiki/dst"   # default
 #}

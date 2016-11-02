@@ -16,25 +16,25 @@ index-file.names = ( "index.html" )
 dir-listing.activate = "disable"
 
 # Virtual Hosts:
-#$HTTP["host"] = "ayekat.ch" {
+#$HTTP["host"] = "^ayekat.ch$" {
 	server.document-root = "/home/ayekat/.local/srv/http/ayekat.ch"   # default
 #}
-$HTTP["host"] =~ "^karui(\..*)$" {
+$HTTP["host"] =~ "^karui(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/karui.org"
 }
-$HTTP["host"] =~ "^flora(\..*)$" {
+$HTTP["host"] =~ "^flora(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/flora.papiliorama.local"
 }
-$HTTP["host"] =~ "^temperature(\..*)$" {
+$HTTP["host"] =~ "^temperature(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/temperature.papiliorama.local"
 }
-$HTTP["host"] =~ "^it(\..*)$" {
+$HTTP["host"] =~ "^it(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/it.papiliorama.local"
 }
-$HTTP["host"] =~ "^lists(\..*)$" {
+$HTTP["host"] =~ "^lists(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/lists.papiliorama.ch"
 }
-$HTTP["host"] =~ "^wiki(\..*)$" {
+$HTTP["host"] =~ "^wiki(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/wiki/dst"
 	cgi.assign = ()
 }
