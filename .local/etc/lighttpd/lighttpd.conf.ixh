@@ -29,7 +29,7 @@ $HTTP["host"] =~ "^temperature(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/temperature.papiliorama.local"
 }
 $HTTP["host"] =~ "^it(\..+)?$" {
-	server.document-root = "/home/ayekat/.local/srv/http/it.papiliorama.local"
+	server.document-root = "/home/ayekat/.local/srv/http/it.papiliorama.local/www"
 }
 $HTTP["host"] =~ "^lists(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/lists.papiliorama.ch"
