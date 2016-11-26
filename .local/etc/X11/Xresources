@@ -10,7 +10,7 @@
 #define red          #DD5544
 #define green        #00AA00
 #define yellow       #BDBD00
-#define blue         #2277BB
+#define blue         #2288CC
 #define magenta      #CC00CC
 #define cyan         #00C0C0
 #define white        #EEEEEE
