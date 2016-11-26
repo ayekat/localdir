@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
-emote="$(dmenu "$@" <<- EOF | awk '{print $2}'
+emote="$(dmenu "$@" <<- EOF | cut -c 11-
+fliptable (╯°□°）╯︵ ┻━┻
 shrug     ¯\\_(ツ)_/¯
 shrug     ¯\\(°_o)/¯
 snowman   ☃
