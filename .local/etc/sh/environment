@@ -161,8 +161,8 @@ else
 fi
 
 # Set colours for ls (TODO):
-export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:so=35'
-#                 file dir   exec  link  orphan          block   char  socket
+export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
+#                 file dir   exec  link  orphan          block   char  fifo  socket
 
 # Set colours for gcc:
 export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
