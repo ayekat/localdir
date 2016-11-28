@@ -1,0 +1,9 @@
+[Unit]
+Description=Watchdog for notifying about file system events
+
+[Service]
+Type=simple
+ExecStart=/bin/sh %h/.local/bin/inotifywatchdog
+
+[Install]
+WantedBy=default.target

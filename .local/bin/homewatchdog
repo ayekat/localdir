@@ -1,6 +1,0 @@
-#!/usr/bin/env sh
-
-while true; do
-	msg="$(inotifywait -e create -e delete -e modify -e move --format '%e %f' "$HOME")"
-	notify-send "\$HOME Watchdog" "$msg"
-done

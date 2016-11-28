@@ -1,0 +1,8 @@
+# XDG base directory specification (XDG_{LIB,LOG}_HOME are non-standard!)
+XDG_CACHE_HOME  DEFAULT=@{HOME}/.local/var/cache
+XDG_CONFIG_HOME DEFAULT=@{HOME}/.local/etc
+XDG_DATA_HOME   DEFAULT=@{HOME}/.local/var/lib
+XDG_RUNTIME_DIR DEFAULT=@{HOME}/.local/run
+XDG_LOG_HOME    DEFAULT=@{HOME}/.local/var/log
+XDG_LIB_HOME    DEFAULT=@{HOME}/.local/lib
+LD_LIBRARY_PATH DEFAULT=${XDG_LIB_HOME}

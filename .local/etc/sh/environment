@@ -8,7 +8,7 @@
 OS_RELEASE=''
 if [ -e /etc/lsb-release ]; then
 	OS_RELEASE="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
-	              tr 'A-Z' 'a-z')"
+	              tr '[:upper:]' '[:lower:]')"
 elif [ -e /etc/os-release ]; then
 	OS_RELEASE="$(grep -e '^ID=' /etc/os-release | cut -d '=' -f 2)"
 elif [ "$(uname)" = 'Darwin' ]; then
@@ -81,7 +81,7 @@ if [ -d "$dir_altera" ]; then
 	done
 	export QUARTUS_ROOTDIR="$dir_altera/quartus"
 	export SOPC_KIT_NIOS2=/home/ayekat/.local/opt/altera/nios2eds
-	if [ `uname -m` = 'x86_64' ]; then
+	if [ "$(uname -m)" = 'x86_64' ]; then
 		export QUARTUS_64BIT=1
 	else
 		export QUARTUS_64Bit=0
@@ -96,15 +96,6 @@ export PATH
 # }}}
 # ------------------------------------------------------------------------------
 # XDG {{{
-
-# Set XDG base directory specification variables:
-export XDG_CACHE_HOME=~/.local/var/cache
-export XDG_CONFIG_HOME=~/.local/etc
-export XDG_DATA_HOME=~/.local/var/lib
-export XDG_RUNTIME_DIR=~/.local/run
-export XDG_LOG_HOME=~/.local/var/log  # XXX not XDG basedir standard!
-export XDG_LIB_HOME=~/.local/lib      # XXX not XDG basedir standard!
-export LD_LIBRARY_PATH="$XDG_LIB_HOME"
 
 # Fix various applications to respect XDG:
 export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"        # vim
@@ -142,23 +133,20 @@ export PAGER='/usr/bin/less'
 export QUOTING_STYLE=literal
 
 # Set colours for less, man:
-if [ "$TERM" = 'linux' ]; then
-	export LESS_TERMCAP_mb=$(printf "\033[34m")
-	export LESS_TERMCAP_md=$(printf "\033[31m")
-	export LESS_TERMCAP_me=$(printf "\033[0m")
-	export LESS_TERMCAP_se=$(printf "\033[0m")
-	export LESS_TERMCAP_so=$(printf "\033[30;43m")
-	export LESS_TERMCAP_ue=$(printf "\033[0m")
-	export LESS_TERMCAP_us=$(printf "\033[32m")
-else
-	export LESS_TERMCAP_mb=$(printf "\033[1;34m")
-	export LESS_TERMCAP_md=$(printf "\033[38;5;9m")
-	export LESS_TERMCAP_me=$(printf "\033[0m")
-	export LESS_TERMCAP_se=$(printf "\033[0m")
-	export LESS_TERMCAP_so=$(printf "\033[30;43m")
-	export LESS_TERMCAP_ue=$(printf "\033[0m")
-	export LESS_TERMCAP_us=$(printf "\033[38;5;10m")
-fi
+LESS_TERMCAP_me=$(printf "\033[0m")
+LESS_TERMCAP_se=$(printf "\033[0m")
+LESS_TERMCAP_so=$(printf "\033[30;43m")
+LESS_TERMCAP_ue=$(printf "\033[0m")
+LESS_TERMCAP_us=$(printf "\033[32m")
+LESS_TERMCAP_mb=$(printf "\033[34m")
+LESS_TERMCAP_md=$(printf "\033[31m")
+export LESS_TERMCAP_mb
+export LESS_TERMCAP_md
+export LESS_TERMCAP_me
+export LESS_TERMCAP_se
+export LESS_TERMCAP_so
+export LESS_TERMCAP_ue
+export LESS_TERMCAP_us
 
 # Set colours for ls (TODO):
 export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'

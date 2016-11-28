@@ -1,9 +1,0 @@
-[Unit]
-Description=Watchdog for notifying about events in $HOME
-
-[Service]
-Type=simple
-ExecStart=/bin/sh %h/.local/bin/homewatchdog
-
-[Install]
-WantedBy=default.target
