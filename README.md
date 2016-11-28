@@ -81,42 +81,6 @@ configure the shell-specific behaviour (e.g. prompts, input, history) on their
 own.
 
 
-systemd
--------
-
-For the same reason as shells, systemd cannot honour the XDG basedir spec
-either. As it launches the user session, it even comes *before* the shell, so
-user-configured environment variables are not even a thing there.
-
-> ### Note
->
-> Again, by design it should be possible to set environment variables in an
-> elevated environment (`/etc`), but unfortunately, systemd currently [reads and
-> interprets `user@.service` files as
-> root](https://github.com/systemd/systemd/issues/1476), so without a hacky
-> workaround, there is no way to make systemd honour anything custom.
->
-> Also, even if it *was* possible, the solution would still require
-> admin-rights.
-
-Fortunately, systemd honours `~/.local/share/systemd`, so in a way we can still
-have it inside `~/.local`.
-
-*Un*fortunately, `systemctl --user enable <unit>` will create and use the
-hardcoded `~/.config/systemd/user/<target>.wants` &mdash; it is recommended to
-symlink `~/.local/share/systemd` to `~/.config/systemd`, to keep everything at
-one place.
-
-
-dunst
------
-
-Dunst is launched by dbus, which runs as part of setting up the user session. As
-such, we have no control over where it searches its files. It turns out
-it runs it hardcoded from within `~/.config/dunst` &mdash; it is recommended to
-symlink `~/.local/etc/dunst` to `~/.config/dunst`.
-
-
 arbitrary?
 ----------
 
