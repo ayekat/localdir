@@ -99,29 +99,6 @@ export PATH
 
 # }}}
 # ------------------------------------------------------------------------------
-# XDG {{{
-
-# Fix various applications to respect XDG:
-export VIMINIT="source $XDG_CONFIG_HOME/vim/vimrc"        # vim
-export XINITRC="$XDG_CONFIG_HOME/X11/xinitrc"             # xinit (!startx)
-export XAUTHORITY="$XDG_RUNTIME_DIR/Xauthority"           # startx
-export GNUPGHOME="$XDG_DATA_HOME/gnupg"                   # gpg
-export PGPPATH="$XDG_DATA_HOME/gnupg"                     # mutt (pgp)
-export TASKDATA="$XDG_DATA_HOME/task"                     # task-warrior
-export TASKRC="$XDG_CONFIG_HOME/task/taskrc"              # task-warrior
-export RXVT_SOCKET="$HOME/.urxvtd.sock"                   # urxvtd
-export LESSHISTFILE="$XDG_LOG_HOME/lesshist"              # less
-export PASSWORD_STORE_DIR="$XDG_DATA_HOME/pass"           # pass
-export GIMP2_DIRECTORY="$XDG_DATA_HOME/gimp"              # gimp
-export MPLAYER_HOME="$XDG_CONFIG_HOME/mplayer"            # mplayer
-export GTK2_RC_FILES="$XDG_CONFIG_HOME/gtk-2.0/gtkrc-2.0" # GTK+
-export WINEPREFIX="$XDG_DATA_HOME/wine/default"           # Wine
-export MYSQL_HISTFILE="$XDG_LOG_HOME/mysql_history"       # MySQL/MariaDB client
-export PYTHONSTARTUP="$XDG_LIB_HOME/python/startup.py"    # python
-export CARGO_HOME="$XDG_DATA_HOME/cargo"                  # cargo
-
-# }}}
-# ------------------------------------------------------------------------------
 # DEFAULT APPLICATIONS {{{
 
 # Editor and pager:
@@ -133,17 +110,27 @@ export PAGER='/usr/bin/less'
 # ------------------------------------------------------------------------------
 # LOOK {{{
 
+# Set hinting property for freetype (see /etc/profile.d/freetype2.sh):
+export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
+
 # Set output style for `ls` in coreutils>=8.25:
 export QUOTING_STYLE=literal
 
+# Set colours for ls:
+export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
+#                 file dir   exec  link  orphan          block   char  fifo  socket
+
+# Set colours for gcc:
+export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
+
 # Set colours for less, man:
-LESS_TERMCAP_me=$(printf "\033[0m")
-LESS_TERMCAP_se=$(printf "\033[0m")
-LESS_TERMCAP_so=$(printf "\033[30;43m")
-LESS_TERMCAP_ue=$(printf "\033[0m")
-LESS_TERMCAP_us=$(printf "\033[32m")
-LESS_TERMCAP_mb=$(printf "\033[34m")
-LESS_TERMCAP_md=$(printf "\033[31m")
+LESS_TERMCAP_me="$(printf "\033[0m")"
+LESS_TERMCAP_se="$(printf "\033[0m")"
+LESS_TERMCAP_so="$(printf "\033[30;43m")"
+LESS_TERMCAP_ue="$(printf "\033[0m")"
+LESS_TERMCAP_us="$(printf "\033[32m")"
+LESS_TERMCAP_mb="$(printf "\033[34m")"
+LESS_TERMCAP_md="$(printf "\033[31m")"
 export LESS_TERMCAP_mb
 export LESS_TERMCAP_md
 export LESS_TERMCAP_me
@@ -151,16 +138,6 @@ export LESS_TERMCAP_se
 export LESS_TERMCAP_so
 export LESS_TERMCAP_ue
 export LESS_TERMCAP_us
-
-# Set colours for ls (TODO):
-export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
-#                 file dir   exec  link  orphan          block   char  fifo  socket
-
-# Set colours for gcc:
-export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
-
-# Set hinting property for freetype (see /etc/profile.d/freetype2.sh):
-export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
 
 # }}}
 # ------------------------------------------------------------------------------
