@@ -15,6 +15,10 @@ elif [ "$(uname)" = 'Darwin' ]; then
 	OS_RELEASE='darwin'
 elif [ -e /etc/gentoo-release ]; then
 	OS_RELEASE='gentoo'
+elif [ -e /etc/arch-release ]; then
+	OS_RELEASE='arch'
+elif [ -e /etc/debian_version ]; then
+	OS_RELEASE='debian'
 else
 	OS_RELEASE="$(uname)"
 fi
