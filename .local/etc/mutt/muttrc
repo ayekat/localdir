@@ -22,6 +22,7 @@ set pgp_use_gpg_agent = yes
 # cache messages and headers:
 set header_cache = "$XDG_CACHE_HOME/mutt/headers"
 set message_cachedir = "$XDG_CACHE_HOME/mutt"
+set mailcap_path = "$XDG_CONFIG_HOME/mailcap"
 
 set imap_keepalive = 60
 set mail_check = 60
