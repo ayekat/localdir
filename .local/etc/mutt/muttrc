@@ -19,6 +19,9 @@ source /etc/Muttrc.gpg.dist
 set pgp_autosign = yes
 set pgp_use_gpg_agent = yes
 
+# certificates:
+set certificate_file = "$XDG_CACHE_HOME/mutt/certificates"
+
 # cache messages and headers:
 set header_cache = "$XDG_CACHE_HOME/mutt/headers"
 set message_cachedir = "$XDG_CACHE_HOME/mutt"
