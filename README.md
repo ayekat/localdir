@@ -2,11 +2,11 @@ dotfiles
 ========
 
 This is my collection of user/application settings ("dotfiles") and personal
-scripts. They are mostly adapted to my personal needs, and some scripts make
-assumptions about the environment that are not necessarily considered
-"standard". Nevertheless, I try to keep them as clean and non-WTF as possible,
-and people are invited to take a look at them, get ideas for their own dotfiles,
-and drop comments if something seems odd.
+scripts. They are mostly adapted to my personal needs, and some scripts may make
+[unfortunate assumptions about the environment](#assumptions) (most likely not
+considered "standard"). Nevertheless, I try to keep them as clean and non-WTF as
+possible, and people are invited to take a look at them, get ideas for their own
+dotfiles, and drop comments if something seems odd.
 
 For using the dotfiles, I place them in some location (e.g.
 `~/.local/lib/dotfiles`), then symlink each file/directory to their respective
@@ -42,46 +42,38 @@ setting above variables is often not enough. Various approaches are taken to
 achieve the goal:
 
 * For applications using their own environment variables, a simple entry in
-  `~/.local/etc/sh/environment` is usually enough.
+  `~/.pam_environment` is usually enough.
 * For applications accepting command line arguments, we create local "fake"
   (wrapper) scripts in `~/.local/bin` that call the real application with the
   right arguments.
-* For applications where neither of these apply, we weep (or set `$HOME`
-  read-only).
-
-Some applications cannot honour the XDG basedir spec by design:
+* For applications where neither of these apply, we weep (or maybe set `$HOME`
+  read-only?)
 
 
-shells
+Assumptions
+-----------
+
+This dotfiles repository assumes the following:
+
+* For setting the [XDG basedir variables](#xdgfhs)), I use `~/.pam_environment`,
+  which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
+  authentication frameworks are used, this repository will not work as-is.
+  Earlier versions used to set those variables in `~/.local/etc/sh/environment`,
+  but this did not work for systemd user services.
+
+
+Shells
 ------
 
-Shells pose a bit of a hen-and-egg problem, given that they cannot respect the
-XDG basedir specification in any sensible way (environment variables are defined
-by the shell *itself*); in that case, we cannot prevent the creation/usage of
-dotfiles directly in the top-level home directory.
-
-> ### Note
-> Of course, one could modify the configuration files under `/etc`, but the goal
-> is to keep this repository user-only; both for simplicity, and to allow their
-> usage in an environment where admin-rights are not available.
-
-To reduce the amount of "noise" in `~`, we let the shell read its user
-environment file, in which we define all the necessary variables, and the rest
-should work as described above.
-
-Concretely, this means that for **zsh** `.zshenv` is at the top-level. For
-**bash**, it's a little less clean, since it does not have any mechanisms for
-changing the location of its configuration files, so both `.bash_profile` and
-`.bashrc` are at the top-level.
-
-To reduce redundancy, most shell configuration happens in a shell-agnostic
+Currently this repository contains configuration files for both bash and zsh. To
+reduce redundancy, most shell configuration happens in a shell-agnostic
 environment, namely `~/.local/etc/sh`; the shell-specific configuration files
 then source the generic `environment`, `login` and `config` files, and only
 configure the shell-specific behaviour (e.g. prompts, input, history) on their
 own.
 
 
-arbitrary?
+Arbitrary?
 ----------
 
 Sometimes it is not obvious whether something needs to go into `XDG_CACHE_HOME`

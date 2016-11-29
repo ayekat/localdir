@@ -1,5 +1,14 @@
-# XDG base directory specification
-# Note: XDG_{LIB,LOG}_HOME are not standard
+# Environment variables set by pam(8) for a user session.
+#
+# This file fixes the variables responsible for making the XDG basedir spec work
+# (https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
+# and does not set any other environment variables, as it is rather cumbersome
+# to adopt changes herein. Other environment variables are set in the shell
+# scripts' respective startup files (.zprofile, .bash_profile, ...).
+#
+# Written by ayekat on a cold afternoon in november 2016.
+
+# XDG base directory specification (XDG_{LIB,LOG}_HOME are not standard!)
 XDG_CACHE_HOME     DEFAULT="@{HOME}/.local/var/cache"
 XDG_CONFIG_HOME    DEFAULT="@{HOME}/.local/etc"
 XDG_DATA_HOME      DEFAULT="@{HOME}/.local/var/lib"

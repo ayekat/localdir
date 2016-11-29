@@ -10,10 +10,10 @@
 setopt SH_WORD_SPLIT
 
 # Load general shell environment (bash and zsh):
-. ~/.local/etc/sh/environment
+. "$XDG_CONFIG_HOME/sh/environment"
 
 # Load general shell login configuration (bash and zsh):
-. $XDG_CONFIG_HOME/sh/login
+. "$XDG_CONFIG_HOME/sh/login"
 
 # }}}
 # ------------------------------------------------------------------------------
