@@ -19,13 +19,15 @@ cd "$PASSWORD_STORE_DIR" || die "Cannot not browse $PASSWORD_STORE_DIR"
 
 # Get password name:
 passname="$(find -L ./* -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
-[ -n "$passname" ] || exit 1
+[ -n "$passname" ] || die 'No password selected; exiting.'
 
 # Copy to clipboard and notify user:
 if pass show -c "$passname"; then
 	notify-send \
 		'Unix pass' \
 		"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
+else
+	die 'Pass failed for unknown reasons.'
 fi
 
 # Type:
