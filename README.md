@@ -60,7 +60,7 @@ Assumptions
 
 This dotfiles repository assumes the following:
 
-* For setting the [XDG basedir variables](#xdgfhs)), I use `~/.pam_environment`,
+* For setting the [XDG basedir variables](#xdgfhs) I use `~/.pam_environment`,
   which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
   authentication frameworks are used, this repository will not work as-is.
   Earlier versions used to set those variables in `~/.local/etc/sh/environment`,
