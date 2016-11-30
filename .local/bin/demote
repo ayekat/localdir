@@ -1,15 +1,16 @@
 #!/usr/bin/env sh
 
 emote="$(dmenu "$@" <<- EOF | cut -c 12-
-fliptable  (╯°□°）╯︵ ┻━┻
+fliptable  (╯°□°)╯︵ ┻━┻
 heart      ♥
 love       ♥
 shrug      ¯\\_(ツ)_/¯
 shrug      ¯\\(°_o)/¯
 snowman    ☃
+watching   (-(-(-(-.-)-)-)-)
 EOF
 )"
 printf "%s" "$emote" | xclip -i -selection clipboard
 if [ -n "$emote" ]; then
-	notify-send "emote" "$emote"
+	notify-send "emote" "$(printf "%s" "$emote" | sed 's/\\/\\\\/g')"
 fi
