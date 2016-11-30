@@ -3,16 +3,17 @@
 # Written by ayekat on a rainy friday afternoon in february 2014.
 
 # place where the screenshot shall be stored to:
-SCROT_DIR="$HOME/media/img/scrot"
+SCROT_FULL_DIR="$HOME/media/img/scrot"
+SCROT_SEL_DIR="${XDG_TMP_HOME:-$HOME/tmp}"
 
 file='%Y-%m-%d_%H%M%S.png'
 
 if [ "$1" = '-s' ]; then
-	# screen selection to $HOME:
-	scrot -s "$file"
+	# screen selections to $SCROT_SEL_DIR:
+	scrot -s -e "mv \$f '$SCROT_SEL_DIR'" "$file"
 else
-	# regular screen shot to $SCROT_DIR:
-	scrot -e "mv \$f '$SCROT_DIR'" "$file"
+	# full screens to $SCROT_FULL_DIR:
+	scrot -e "mv \$f '$SCROT_FULL_DIR'" "$file"
 fi
 
 # notify user:
