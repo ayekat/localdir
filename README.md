@@ -31,10 +31,11 @@ this means that the following environment variables are set:
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
+| `XDG_TMP_HOME`    | `~/.local/tmp`       |
 
 > ### Notes
-> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
->   nevertheless necessary for representing the FHS locally.
+> * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_TMP_HOME` are non-standard, but they
+>   are nevertheless necessary for representing the FHS locally.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 
 Unfortunately, some application do not honour the XDG basedir specification, and
@@ -48,6 +49,10 @@ achieve the goal:
   right arguments.
 * For applications where neither of these apply, we weep (or maybe set `$HOME`
   read-only?)
+
+There is [`inotifywatchdog`](.local/bin/inotifywatchdog), a script that notifies
+you of any changes in a watched directory (ideally you might want to [watch
+`$HOME`](.local/etc/inotifywatchdog/config)).
 
 
 Assumptions
