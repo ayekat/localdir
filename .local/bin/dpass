@@ -12,16 +12,21 @@ die()
 	exit 1
 }
 
-# Check environment:
+# Environment:
 [ -d "$PASSWORD_STORE_DIR" ] || die "No such directory: $PASSWORD_STORE_DIR"
 [ -r "$PASSWORD_STORE_DIR" ] || die "Read permission denied: $PASSWORD_STORE_DIR"
-[ -x "$PASSWORD_STORE_DIR" ] || die "Browser permission denied: $PASSWORD_STORE_DIR"
+cd "$PASSWORD_STORE_DIR" || die "Cannot not browse $PASSWORD_STORE_DIR"
 
-cd "$PASSWORD_STORE_DIR"
-passname="$(find -L * -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
+# Get password name:
+passname="$(find -L ./* -type f | sed 's/\.gpg$//g' | sort | dmenu "$@")"
 [ -n "$passname" ] || exit 1
+
+# Copy to clipboard and notify user:
 if pass show -c "$passname"; then
 	notify-send \
 		'Unix pass' \
 		"$passname\n(will clear in $PASSWORD_STORE_CLIP_TIME seconds)"
 fi
+
+# Type:
+sleep 0.1 && xclip -o -selection clipboard | xdotool type --file -
