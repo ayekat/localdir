@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 
-emote="$(dmenu "$@" <<- EOF | cut -c 11-
-fliptable (╯°□°）╯︵ ┻━┻
-shrug     ¯\\_(ツ)_/¯
-shrug     ¯\\(°_o)/¯
-snowman   ☃
+emote="$(dmenu "$@" <<- EOF | cut -c 12-
+fliptable  (╯°□°）╯︵ ┻━┻
+heart      ♥
+love       ♥
+shrug      ¯\\_(ツ)_/¯
+shrug      ¯\\(°_o)/¯
+snowman    ☃
 EOF
 )"
 printf "%s" "$emote" | xclip -i -selection clipboard
