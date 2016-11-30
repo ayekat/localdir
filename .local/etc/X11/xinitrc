@@ -84,9 +84,9 @@ while true; do
 		KARUIBAR_PID=$!
 	fi
 
-	if cmds_exist xss-lock; then
+	if cmds_exist xss-lock scrlock; then
 		xset s 300
-		xss-lock xtrlock &
+		xss-lock scrlock &
 		XSS_LOCK_PID=$!
 	fi
 

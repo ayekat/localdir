@@ -1,0 +1,6 @@
+#!/usr/bin/env sh
+# Wrapper around slock, for disabling dunst (to prevent flickering).
+
+pkill -SIGUSR1 dunst
+slock
+pkill -SIGUSR2 dunst
