@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
-# Wrapper around slock, for disabling dunst (to prevent flickering).
+# Wrapper around screen locker applications (e.g. for disabling dunst before
+# fullscreen screen locks start).
 
-pkill -SIGUSR1 dunst
-slock
-pkill -SIGUSR2 dunst
+#pkill -SIGUSR1 dunst
+xtrlock
+#pkill -SIGUSR2 dunst
