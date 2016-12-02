@@ -5,8 +5,8 @@
 # Helper:
 cmd_exists()
 {
-	for c in $@; do
-		which $c >/dev/null 2>&1 || return -1
+	for c in "$@"; do
+		which "$c" >/dev/null 2>&1 || return 1
 	done
 }
 
@@ -40,8 +40,8 @@ fi
 
 # Application specific aliases:
 cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
-cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c ~/.config/ncmpcpp/config'
-cmd_exists startx && alias startx="startx $XINITRC"
+cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c $XDG_CONFIG_HOME/ncmpcpp/config'
+cmd_exists startx && alias startx='startx $XINITRC'
 cmd_exists view vim && alias view='vim -R'
 
 # Pass user environment when launching vim with sudo:
@@ -71,40 +71,6 @@ mount()
 # Server only aliases (mostly additional security):
 if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
-fi
-
-# In zsh vim mode, I sometimes forget I'm not in vim:
-alias :e="$EDITOR"
-alias :q=exit
-
-if [ "$OS_RELEASE" = arch ]; then
-	abs()
-	{
-		if [ -n "$1" ]; then
-			repo="$(expac -S '%r' "$1")"
-			case "$repo" in
-				community) ;;
-				core|extra) repo=packages ;;
-				*) echo "unknown repository for $1" >&2; return 1 ;;
-			esac
-			git clone git://projects.archlinux.org/svntogit/"$repo".git \
-				--single-branch \
-				-b packages/"$1" \
-				"$1"
-		else
-			echo "Please specify a package name" >&2
-			false
-		fi
-	}
-
-	aur()
-	{
-		if [ -n "$1" ]; then
-			git clone "https://aur.archlinux.org/$1" "$1"
-		else
-			echo "Please specify a package name" >&2
-		fi
-	}
 fi
 
 # }}}
