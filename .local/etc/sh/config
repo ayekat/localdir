@@ -40,8 +40,6 @@ fi
 
 # Application specific aliases:
 cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
-cmd_exists ncmpcpp && alias ncmpcpp='ncmpcpp -c $XDG_CONFIG_HOME/ncmpcpp/config'
-cmd_exists startx && alias startx='startx $XINITRC'
 cmd_exists view vim && alias view='vim -R'
 
 # Pass user environment when launching vim with sudo:
@@ -56,17 +54,6 @@ if cmd_exists sudo; then
 		fi
 	}
 fi
-
-# Use findmnt instead of mount to list mounted filesystems:
-mount()
-{
-	if [ $# -eq 0 ] && cmd_exists findmnt; then
-		echo '>> findmnt'
-		findmnt
-	else
-		command mount "$@"
-	fi
-}
 
 # Server only aliases (mostly additional security):
 if [ -n "$SSH_CONNECTION" ]; then
