@@ -12,7 +12,14 @@
 ## file which defines that while launching ncmpcpp.
 ##
 #
-ncmpcpp_directory = ~/.local/var/log/ncmpcpp
+ncmpcpp_directory = ~/.local/etc/ncmpcpp
+#
+##
+## Directory for storing log files (like error.log).
+## It defaults to $XDG_CACHE_HOME/ncmpcpp.
+##
+#
+logs_directory = ~/.local/var/log/ncmpcpp
 #
 ##
 ## Directory for storing downloaded lyrics. It
