@@ -12,7 +12,7 @@
 ## file which defines that while launching ncmpcpp.
 ##
 #
-ncmpcpp_directory = ~/.config/ncmpcpp
+ncmpcpp_directory = ~/.local/var/log/ncmpcpp
 #
 ##
 ## Directory for storing downloaded lyrics. It
@@ -32,7 +32,7 @@ lyrics_directory = ~/.local/share/lyrics
 #
 ## Needed for tag editor and file operations to work.
 ##
-mpd_music_dir = ~/music
+mpd_music_dir = ~/media/music
 #
 #mpd_crossfade_time = 5
 #
