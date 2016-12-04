@@ -4,9 +4,9 @@ After=network.target remote-fs.target nss-lookup.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/httpd -d %h/.local/etc/httpd -k start -DFOREGROUND
-ExecStop=/usr/bin/httpd -d %h/.local/etc/httpd -k graceful-stop
-ExecReload=/usr/bin/httpd -d %h/.local/etc/httpd -k graceful
+ExecStart=/usr/bin/httpd -d ${XDG_CONFIG_HOME}/httpd -k start -DFOREGROUND
+ExecStop=/usr/bin/httpd -d ${XDG_CONFIG_HOME}/httpd -k graceful-stop
+ExecReload=/usr/bin/httpd -d ${XDG_CONFIG_HOME}/httpd -k graceful
 PrivateTmp=true
 LimitNOFILE=infinity
 KillMode=mixed
