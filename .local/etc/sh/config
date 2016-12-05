@@ -92,11 +92,7 @@ vcs_update()
 
 	# Update information if not in a blacklisted (read: huge) repo:
 	case "$1" in
-		$HOME/dev/linux*)
-			vcs_branch='kernel'
-			vcs_state='huge'
-			;;
-		$HOME/dev/gnu/projects/gnu-social*)
+		"$HOME"/dev/linux*|"$HOME"/dev/mono*|"$HOME"/dev/gnu/projects/gnu-social*)
 			vcs_branch='kernel'
 			vcs_state='huge'
 			;;
