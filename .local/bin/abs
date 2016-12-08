@@ -8,7 +8,7 @@ if [ -n "$1" ]; then
 		core|extra) repo=packages ;;
 		*) echo "unknown repository for $1" >&2; exit 1 ;;
 	esac
-	git clone "https://projects.archlinux.org/svntogit/${repo}.git" \
+	git clone "https://git.archlinux.org/svntogit/${repo}.git" \
 		--single-branch -b packages/"$1" "$1"
 else
 	echo "Please specify a package name" >&2
