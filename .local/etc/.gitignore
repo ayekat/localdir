@@ -1,5 +1,18 @@
+# Papiliorama
+/httpd/
+/KeePass/
+
+# Others
+/asciinema/
+/dconf/
 /dwb/
+/freerdp/
+/gconf/
 /htop/
 /irssi/
+/klavaro/
+/libreoffice/
 /nitrogen/
 /openvpn/
+/qutebrowser/
+/sakura/
