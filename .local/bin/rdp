@@ -5,8 +5,8 @@
 
 # Written by ayekat on a cool monday morning in may 2016
 
-ETCDIR="${ETCDIR:-"$HOME/.local/etc"}"
-CONFDIR="$ETCDIR/rdp"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+CONFDIR="$XDG_CONFIG_HOME/freerdp/hosts"
 APPNAME="$(basename "$0")"
 EDITOR="${EDITOR:-/usr/bin/nano}"
 
