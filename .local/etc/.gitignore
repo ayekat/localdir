@@ -1,6 +1,7 @@
 # Papiliorama
 /httpd/
 /KeePass/
+/.mono/
 
 # Others
 /asciinema/
