@@ -112,9 +112,6 @@ let g:dwm_auto_center = 0
 " ------------------------------------------------------------------------------
 " LOOK {{{
 
-" Enable 256 colours mode (we handle the TTY case further below):
-set t_Co=256
-
 " Display and format line numbers:
 set number
 set numberwidth=5
