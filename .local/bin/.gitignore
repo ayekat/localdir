@@ -1,12 +1,8 @@
-/*.d/
-/checkstyle
 /diskctl
 /eriya
 /karui*
 /mtgpmk
-/nios2sim
 /open
-/toolc-ref
 /vmctl
 /xor
 /xtract_*
