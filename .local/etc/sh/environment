@@ -57,12 +57,6 @@ add_to_path() {
 	unset IFS_OLD
 }
 
-# Basic paths (no /usr merge because of Debian; this diverges from the
-# "traditional" order):
-add_to_path '/sbin'
-add_to_path '/usr/sbin'
-add_to_path '/usr/local/sbin'
-
 # User specific path:
 add_to_path "$HOME/.local/bin"
 
@@ -84,7 +78,7 @@ if [ -d "$dir_altera" ]; then
 		add_to_path "$p" --append
 	done
 	export QUARTUS_ROOTDIR="$dir_altera/quartus"
-	export SOPC_KIT_NIOS2=/home/ayekat/.local/opt/altera/nios2eds
+	export SOPC_KIT_NIOS2="$dir_altera/nios2eds"
 	if [ "$(uname -m)" = 'x86_64' ]; then
 		export QUARTUS_64BIT=1
 	else
@@ -105,39 +99,6 @@ export PATH
 export EDITOR='/usr/bin/vim'
 export VISUAL='/usr/bin/vim'
 export PAGER='/usr/bin/less'
-
-# }}}
-# ------------------------------------------------------------------------------
-# LOOK {{{
-
-# Set hinting property for freetype (see /etc/profile.d/freetype2.sh):
-export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
-
-# Set output style for `ls` in coreutils>=8.25:
-export QUOTING_STYLE=literal
-
-# Set colours for ls:
-export LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
-#                 file dir   exec  link  orphan          block   char  fifo  socket
-
-# Set colours for gcc:
-export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
-
-# Set colours for less, man:
-LESS_TERMCAP_me="$(printf "\033[0m")"
-LESS_TERMCAP_se="$(printf "\033[0m")"
-LESS_TERMCAP_so="$(printf "\033[30;43m")"
-LESS_TERMCAP_ue="$(printf "\033[0m")"
-LESS_TERMCAP_us="$(printf "\033[32m")"
-LESS_TERMCAP_mb="$(printf "\033[34m")"
-LESS_TERMCAP_md="$(printf "\033[31m")"
-export LESS_TERMCAP_mb
-export LESS_TERMCAP_md
-export LESS_TERMCAP_me
-export LESS_TERMCAP_se
-export LESS_TERMCAP_so
-export LESS_TERMCAP_ue
-export LESS_TERMCAP_us
 
 # }}}
 # ------------------------------------------------------------------------------

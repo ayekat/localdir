@@ -58,47 +58,50 @@ if cmds_exist uim-xim; then
 	export XMODIFIERS='@im=anthy'
 fi
 
+# Set the hinting property for freetype (see /etc/profile.d/freetype2.sh):
+export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
+
 
 # WM ---------------------------------------------------------------------------
 
 # If no WM is specified, default to karuiwm:
-[ -z "$WM" ] && WM=karuiwm
+[ -z "$wm" ] && wm=karuiwm
 
 # Some Java applications refuse to work correctly when they don't know the WM
 # (happens often with tiling WMs); set the WM name to a value known to Java to
 # fix that:
 if cmds_exist wmname; then
-	case "$WM" in
+	case "$wm" in
 		xmonad|dwm|karuiwm) wmname LG3D ;;
 	esac
 fi
 
 # Launch WM and log all of its output:
-SESSION_LOGDIR="$XDG_LOG_HOME/X11/$DISPLAY"
-SESSION_LOGFILE="${SESSION_LOGDIR}/$(date +%s).log"
-mkdir -p "$SESSION_LOGDIR"
-ln -sf "$SESSION_LOGFILE" "$SESSION_LOGDIR/latest"
+session_logdir="$XDG_LOG_HOME/X11/$DISPLAY"
+session_logfile="${session_logdir}/$(date +%s).log"
+mkdir -p "$session_logdir"
+ln -sf "$session_logfile" "$session_logdir/latest"
 while true; do
 	if cmds_exist karuibar; then
 		karuibar &
-		KARUIBAR_PID=$!
+		karuibar_pid=$!
 	fi
 
 	if cmds_exist xss-lock scrlock; then
 		xset s 300
 		xss-lock scrlock &
-		XSS_LOCK_PID=$!
+		xss_lock_pid=$!
 	fi
 
-	"$WM"
+	"$wm"
 
-	cmds_exist xss-lock && kill $XSS_LOCK_PID
-	cmds_exist karuibar && kill $KARUIBAR_PID
+	cmds_exist xss-lock && kill $xss_lock_pid
+	cmds_exist karuibar && kill $karuibar_pid
 
 	if cmds_exist zenity; then
-		zenity --question --text="$WM has stopped. Do you want to start again?"
+		zenity --question --text="$wm has stopped. Do you want to start again?"
 		test $? -eq 0 || break
 	else
 		break
 	fi
-done >"$SESSION_LOGFILE" 2>"$SESSION_LOGFILE"
+done >"$session_logfile" 2>"$session_logfile"
