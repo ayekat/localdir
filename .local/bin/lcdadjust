@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 HOSTNAME="${HOSTNAME:-$(hostname)}"
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+XDG_LIB_HOME="${XDG_LIB_HOME:-$HOME/.local/lib}"
 
 case "$HOSTNAME" in
 	ixh)    icc_profile='lenovo_thinkpad_x230' ;;
@@ -14,7 +14,7 @@ if [ -z "$icc_profile" ]; then
 fi
 i=1
 for p in $icc_profile; do
-	icc_path="$XDG_CONFIG_HOME"/argyll/"$p".icc
+	icc_path="$XDG_LIB_HOME"/argyll/"$p".icc
 	if [ ! -f "$icc_path" ]; then
 		echo "file not found: $icc_path" >&2
 		continue
