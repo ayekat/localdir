@@ -1,94 +1,66 @@
 #!/usr/bin/env sh
 
-# UTILITIES ====================================================================
+# Constants:
+APPNAME="$(basename "$0")"
+E_USER=1
+E_INTERN=255
+if case "$APPNAME" in (sum|avg) false ;; esac; then
+	die $E_INTERN 'Unknown command: %s' "$APPNAME"
+fi
 
-. $HOME/.local/include/utils.sh
+# Default values:
+precision=0
+summands=''
 
-# MAIN =========================================================================
+die()
+{
+	retval=$1; shift
+	format="$1"; shift
+	printf "$format\n" "$@" >&2
+	printf "Run with --help for usage.\n" >&2
+	exit $retval
+}
 
 usage()
 {
+	case "$APPNAME" in
+		sum) echo "$APPNAME: sum up numeric values" ;;
+		avg) echo "$APPNAME: calculate average value of numeric values" ;;
+	esac
 	cat <<- EOF
-	Usage: $INVOKENAME [OPTIONS ...] [SUMMANDS]
-	EOF
-}
 
-help()
-{
-	usage
-	cat <<- EOF
+	Usage: $APPNAME [OPTIONS] VALUES ...
 
 	Options:
-	  -h            Display this help
-	  -p PRECISION  Use PRECISION digits after decimal point for calculations
-
-	If no summand is passed on the command line, the summands are read from stdin.
+	  -h, --help           Display this help and exit
+	  -p, --precision NUM  Display NUM digits after the decimal point [default=$precision]
 	EOF
 }
 
-get_options()
-{
-	PRECISION=5
+# Read arguments:
+while [ $# -gt 0 ]; do
+	case "$1" in
+		-h|--help) usage; exit 0 ;;
+		-p|--precision) shift; precision="$1" ;;
+		-*) die $E_USER 'Unknown option: %s' "$1" ;;
+		*) break ;;
+	esac
+	shift
+done
+case "$precision" in
+	*[!0-9]*) die $E_USER 'Non-numeric value for precision: %s' "$precision"
+esac
+if [ $# -eq 0 ]; then
+	die $E_USER 'Empty list of arguments'
+fi
 
-	while getopts :hp: opt; do
-		case "$opt" in
-		h)
-			help
-			exit 1
-			;;
-		p)
-			PRECISION="$OPTARG"
-			is_integer "$PRECISION" || die_help 'Precision must be numeric'
-			;;
-		'?')
-			die_help 'Unknown option: -%s' "$OPTARG"
-			;;
-		esac
-	done
+# Sum up:
+for i in "$@"; do
+	summands="${summands}${i} + "
+done
 
-	ARGSHIFT=$(($OPTIND - 1))
-}
-
-get_summands()
-{
-	SUMMANDS=''
-	if [ $# -eq 0 ]; then
-		while read l; do
-			SUMMANDS="$SUMMANDS $l"
-		done
-	else
-		SUMMANDS="$@"
-	fi
-
-	NSUMMANDS=0
-	for s in $SUMMANDS; do
-		if ! is_float "$s"; then
-			die_help "Summands must be numeric (invalid: '%s')" "$s"
-		fi
-		NSUMMANDS=$(($NSUMMANDS + 1))
-	done
-
-	if [ $# -ne 0 ]; then
-		ARGSHIFT=$NSUMMANDS
-	else
-		ARGSHIFT=0
-	fi
-}
-
-main()
-{
-	get_options "$@"
-	shift $ARGSHIFT
-	get_summands "$@"
-	shift $ARGSHIFT
-
-	dc_summands=''
-	for s in $SUMMANDS; do
-		dc_summands="${dc_summands}${s} + "
-	done
-	dc -e "$PRECISION k 0 $dc_summands p"
-}
-
-set -e
-main "$@"
-set +e
+# Calculate:
+case "$APPNAME" in
+	sum) dc -e "$precision k 0 $summands p" ;;
+	avg) dc -e "$precision k 0 $summands $# / p" ;;
+esac
