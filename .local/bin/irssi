@@ -7,6 +7,7 @@
 # Written by ayekat on a cold wednesday afternoon in january 2017.
 
 set -e
+set -u
 
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
