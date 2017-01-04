@@ -1,11 +1,34 @@
 #!/usr/bin/env sh
 
-IRSSI_PATH=/usr/bin/irssi
+# Wrapper script around irssi that
+# * Makes irssi (halfway) respect the XDG basedir spec;
+# * Allows storing the password encrypted and in a different location;
+# * Auto-wraps irssi inside uim-fep if available.
+# Written by ayekat on a cold wednesday afternoon in january 2017.
 
-irssi_configdir="$XDG_CONFIG_HOME/irssi"
+set -e
 
-if which uim-fep >/dev/null 2>&1; then
-	exec uim-fep -e "$IRSSI_PATH" --home="$irssi_configdir"
-else
-	exec "$IRSSI_PATH" --home="$irssi_configdir"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+IRSSI_HOME="$XDG_CONFIG_HOME/irssi"
+IRSSI_CONFIG="$XDG_CONFIG_HOME/irssi/config"
+IRSSI_CONFIG_REAL="$XDG_RUNTIME_DIR/irssi/irssi_config"
+
+# Get password:
+irssi_password=$(pass show 'nodes/rowland/chat/ayekat@znc.ayekat.ch')
+if [ $? -ne 0 ]; then
+	echo 'Pass failed for unknown reasons.' >&2
+	exit 1
 fi
+
+# Generate config with password:
+mkdir -p "$(dirname "$IRSSI_CONFIG_REAL")"
+sed -e "s/ZNC_PASSWORD/$irssi_password/g" "$IRSSI_CONFIG" > "$IRSSI_CONFIG_REAL"
+
+# Run irssi (optionally with uim-fep):
+if which uim-fep >/dev/null 2>&1; then
+	uim_fep='uim-fep -e'
+else
+	uim_fep=''
+fi
+exec $uim_fep /usr/bin/irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL"
