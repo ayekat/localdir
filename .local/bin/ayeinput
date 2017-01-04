@@ -3,31 +3,37 @@
 # Set the X input according to ayekat's preferences.
 # Written by ayekat on an annoying Monday afternoon in May 2015.
 
-# VARIABLES, UTILITIES =========================================================
+set -e
 
-[ -n "$XDG_CONFIG_HOME" ] || XDG_CONFIG_HOME="$HOME/.config"
+# Constants:
+APPNAME="$(basename "$0")"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+E_USER=1
+TRUE=1
+FALSE=0
 
-. "$HOME"/.local/include/utils.sh
-
-# KEYBOARD =====================================================================
+# Default values:
+swapmouse=$FALSE
+swapescape=$FALSE
+layout='ch'
+xmodmaprc="$XDG_CONFIG_HOME/X11/xmodmaprc"
 
 ayeinput_keyboard()
 {
-	setxkbmap \
-		-layout "$LAYOUT" \
-		$(if [ $SWAPESCAPE -eq $TRUE ]; then echo '-option caps:swapescape'; fi)
+	case $swapescape in
+		$TRUE)  setxkbmap -layout "$layout" -option caps:swapescape ;;
+		$FALSE) setxkbmap -layout "$layout" ;;
+	esac
 
-	if [ "$XMODMAPRC" != "$NULL" ]; then
-		xmodmap "$XMODMAPRC"
+	if [ "$xmodmaprc" != "$NULL" ]; then
+		xmodmap "$xmodmaprc"
 	fi
 }
-
-# MOUSE ========================================================================
 
 ayeinput_mouse()
 {
 	# Layout of mouse buttons:
-	if [ $SWAPMOUSE -eq $TRUE ]; then
+	if [ $swapmouse -eq $TRUE ]; then
 		mouse_primary='3 2 1'
 	else
 		mouse_primary='1 2 3'
@@ -55,14 +61,18 @@ ayeinput_mouse()
 
 # MAIN =========================================================================
 
-usage()
+die()
 {
-	echo "Usage: $INVOKENAME [OPTIONS ...]"
+	retval=$1; shift
+	format="$1"; shift
+	printf "$format\n" "$@" >&2
+	printf "Run with -h for usage.\n" >&2
+	exit $retval
 }
 
-help()
+usage()
 {
-	usage
+	echo "Usage: $APPNAME [OPTIONS ...]"
 	cat <<- EOF
 
 	Set keyboard/mouse layout the way ayekat likes it :-)
@@ -70,45 +80,31 @@ help()
 	Options:
 	  -h            Display this help and exit
 	  -e            Swap Escape with Caps Lock
-	  -l LAYOUT     Set layout [default=$LAYOUT]
+	  -l LAYOUT     Set layout [default=$layout]
 	  -m            Swap left/right mouse button
-	  -x XMODMAPRC  Path to xmodmaprc [default=$XMODMAPRC]
+	  -x XMODMAPRC  Path to xmodmaprc [default=$xmodmaprc]
 	EOF
 }
 
-get_options()
-{
-	SWAPESCAPE=$FALSE
-	LAYOUT='ch'
-	SWAPMOUSE=$FALSE
-	XMODMAPRC="$XDG_CONFIG_HOME/X11/xmodmaprc"
+# Read arguments:
+while getopts :ehl:mx: opt; do
+	case "$opt" in
+		e) swapescape=$TRUE ;;
+		h) usage; exit 0 ;;
+		l) layout="$OPTARG" ;;
+		m) swapmouse=$TRUE ;;
+		x) xmodmaprc="$OPTARG" ;;
+		'?') die $E_USER 'Unknown option: -%s' "$OPTARG" ;;
+	esac
+done
+ARGSHIFT=$((OPTIND - 1))
 
-	while getopts :ehl:mx: opt; do
-		case "$opt" in
-			e) SWAPESCAPE=$TRUE ;;
-			h) help; exit 1 ;;
-			l) LAYOUT="$OPTARG" ;;
-			m) SWAPMOUSE=$TRUE ;;
-			x) XMODMAPRC="$OPTARG" ;;
-			'?') die_help 'Unknown option: -%s' "$OPTARG" ;;
-		esac
-	done
-	ARGSHIFT=$(($OPTIND - 1))
+# Check arguments:
+test -f "$xmodmaprc" || die 1 '%s: file not found' "$xmodmaprc"
+test -r "$xmodmaprc" || die 1 '%s: permission denied' "$xmodmaprc"
+shift $ARGSHIFT
+test $# -eq 0 || die $E_USER "trailing arguments: $@"
 
-	test -f "$XMODMAPRC" || die 1 '%s: file not found' "$XMODMAPRC"
-	test -r "$XMODMAPRC" || die 1 '%s: permission denied' "$XMODMAPRC"
-}
-
-main()
-{
-	get_options "$@"
-	shift $ARGSHIFT
-	test $# -eq 0 || die_help "trailing arguments $@"
-
-	ayeinput_keyboard
-	ayeinput_mouse
-}
-
-set -e
-main "$@"
-set +e
+# Set keyboard/mouse options:
+ayeinput_keyboard
+ayeinput_mouse
