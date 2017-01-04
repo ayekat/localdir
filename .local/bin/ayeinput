@@ -11,6 +11,7 @@ XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 E_USER=1
 TRUE=1
 FALSE=0
+NULL=/dev/null
 
 # Default values:
 swapmouse=$FALSE
@@ -66,7 +67,9 @@ die()
 	retval=$1; shift
 	format="$1"; shift
 	printf "$format\n" "$@" >&2
-	printf "Run with -h for usage.\n" >&2
+	if [ $retval -eq $E_USER ]; then
+		printf "Run with -h for usage.\n" >&2
+	fi
 	exit $retval
 }
 
@@ -97,12 +100,12 @@ while getopts :ehl:mx: opt; do
 		'?') die $E_USER 'Unknown option: -%s' "$OPTARG" ;;
 	esac
 done
-ARGSHIFT=$((OPTIND - 1))
+argshift=$((OPTIND - 1))
 
 # Check arguments:
 test -f "$xmodmaprc" || die 1 '%s: file not found' "$xmodmaprc"
 test -r "$xmodmaprc" || die 1 '%s: permission denied' "$xmodmaprc"
-shift $ARGSHIFT
+shift $argshift
 test $# -eq 0 || die $E_USER "trailing arguments: $@"
 
 # Set keyboard/mouse options:
