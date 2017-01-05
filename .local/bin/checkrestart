@@ -18,7 +18,7 @@ sudo lsof -F pfn | awk '
 	}
 	/^n/{
 		# if the file is a deleted library or binary, show it
-		if (del == 1 && match($0, "bin|lib")) {
+		if (del == 1 && match($0, "^n/usr")) {
 			print pid " " $0;
 			del = 0;
 		}
