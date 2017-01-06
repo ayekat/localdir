@@ -1,6 +1,0 @@
-#!/usr/bin/env bash
-# bash because of `read -n1`, otherwise POSIX compliant
-while IFS='' read -d'' -r -s -n1 l;do printf -- "%s" "$l"|xxd -g1 -c1|awk \
-'{print $2}'|tr '[a-z]' '[A-Z]'|while read b; do printf -- "%1s" "$l"
-[ "$1" = '-v' ]&&echo " $b";f=$(dc -e "40 16i $b Ai*1999%100+p");beep -f $f -l60
-done;done

@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-# List all Arch Linux packages currently installed on the system which are not
-# part of the 'base' or 'base-devel' group, and which have been explicitely
-# installed while not being required for any other package.
-
-[ "$1" = '-a' ] || t=t
-diff <(pacman -Qqg base base-devel | sort -u) <(pacman -Q${t}qe | sort -u) | \
-	grep '^>' | awk '{print $2}'

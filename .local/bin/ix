@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-curl -F 'f:1=<-' http://ix.io/

@@ -1,4 +1,0 @@
-#!/usr/bin/env sh
-# Opens vim in an URxvt window.
-
-exec urxvt -e vim "$@"

@@ -59,6 +59,8 @@ add_to_path() {
 
 # User specific path:
 add_to_path "$HOME/.local/bin"
+add_to_path "$HOME/.local/bin/utils"
+add_to_path "$HOME/.local/bin/dotfiles"
 
 # EPFL scripts:
 add_to_path "$HOME/.local/opt/epflscripts/bin"
