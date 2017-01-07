@@ -38,17 +38,26 @@ this means that the following environment variables are set:
 >   are nevertheless necessary for representing the FHS locally.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 
+Furthermore, user-specific applications and scripts are expected to be placed in
+`~/.local/bin`.
+
+> ### Note
+> The configuration is set up in a way that scripts provided by this repository
+> self they can be symlinked to `~/.local/bin/dotfiles` and scripts and programs
+> provided by the [utils](https://github.com/ayekat/utils) repository can be
+> symlinked to `~/.local/bin/utils`. This simplifies tracking changes to the
+> scripts.
+
 Unfortunately, some application do not honour the XDG basedir specification, and
 setting above variables is often not enough. Various approaches are taken to
 achieve the goal:
 
 * For applications using their own environment variables, a simple entry in
   `~/.pam_environment` is usually enough.
-* For applications accepting command line arguments, I create local "fake"
-  (wrapper) scripts in `~/.local/bin` that call the real application with the
+* For applications accepting command line arguments, there are local "fake"
+  (wrapper) scripts in `.local/bin` that call the real application with the
   right arguments.
-* For applications where neither of these apply, I weep (or maybe set `$HOME`
-  read-only?)
+* For applications where neither of these apply, I weep.
 
 See [XDG Base Directory
 support](https://wiki.archlinux.org/index.php/XDG_Base_Directory_support) in the
@@ -74,12 +83,11 @@ This dotfiles repository assumes the following:
   incompatibility with the antique version of tmux shipped with Debian), so a
   few Arch Linux specific quirks apply (which is not a lot, since most software
   there is shipped vanilla):
-
-* `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
-  [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
-  into `/usr/bin`, so all absolute paths to system-widely available software
-  point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
-  merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
+  * `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
+    [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
+    into `/usr/bin`, so all absolute paths to system-widely available software
+    point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
+    merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
 
 
 Policies

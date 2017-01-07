@@ -9,7 +9,7 @@ confirmation or merging of multi-lines paste
 
 - Displays a confirmation dialog when a paste containing at least a full
 line is detected. Extended dialog: yes/no/merge
- - Add regular controlled copy/paste (primary) with customizable shortcuts:
+- Add regular controlled copy/paste (primary) with customizable shortcuts:
   URxvt.keysym.Shift-Control-V: perl:clipboard:paste
   URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 
