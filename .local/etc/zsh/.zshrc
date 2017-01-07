@@ -57,18 +57,6 @@ build_prompt() #{{{
 	# Background jobs:
 	PROMPT+="%(1j.%{$pc_jobs%} %j %{$reset_color%}.)"
 
-	# VCS (dotfiles):
-	vcs_update "$XDG_LIB_HOME/dotfiles"
-	case "$vcs_state" in (ahead|ready|dirty|merge)
-		case "$vcs_state" in
-			ahead) PROMPT+="%{$pc_dot_ahead%}" ;;
-			ready) PROMPT+="%{$pc_dot_ready%}" ;;
-			dirty) PROMPT+="%{$pc_dot_dirty%}" ;;
-			merge) PROMPT+="%{$pc_dot_merge%}" ;;
-		esac
-		PROMPT+=" . %{$reset_color%}"
-	esac
-
 	# Vim mode:
 	if [ "$vim_mode" = "$vim_mode_normal" ]; then
 		pc_vim="$pc_vim_normal"
@@ -76,6 +64,32 @@ build_prompt() #{{{
 		pc_vim="$pc_vim_insert"
 	fi
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
+
+	# VCS (watched):
+	_vcs_clean=1
+	_build_vcs_prompt() {
+		vcs_update "$1"
+		case "$vcs_state" in (ahead|ready|dirty|merge)
+			if [ $_vcs_clean -eq 1 ]; then
+				PROMPT+="%{$pc_dot_bracket%}["
+				_vcs_clean=0
+			fi
+			case "$vcs_state" in
+				ahead) PROMPT+="%{$pc_dot_ahead%}" ;;
+				ready) PROMPT+="%{$pc_dot_ready%}" ;;
+				dirty) PROMPT+="%{$pc_dot_dirty%}" ;;
+				merge) PROMPT+="%{$pc_dot_merge%}" ;;
+			esac
+			PROMPT+="$2"
+		esac
+	}
+	_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
+	_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
+	if [ $_vcs_clean -eq 0 ]; then
+		PROMPT+="%{$pc_dot_bracket%}]%{$reset_color%} "
+	fi
+	unset -f _build_vcs_prompt
+	unset _vcs_clean
 
 	# VCS (PWD):
 	vcs_update "$(pwd)"
@@ -242,7 +256,7 @@ setopt inc_append_history       # immediately append history to history file
 setopt hist_ignore_dups         # ignore duplicate commands
 setopt hist_ignore_space        # ignore commands with leading space
 
-export HISTFILE=$XDG_LOG_HOME/zsh/zhistory
+export HISTFILE="$XDG_LOG_HOME/zsh/zhistory"
 export HISTSIZE=100000          # maximum history size in terminal's memory
 export SAVEHIST=100000          # maximum size of history file
 
