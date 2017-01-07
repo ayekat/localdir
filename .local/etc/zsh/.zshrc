@@ -85,6 +85,7 @@ build_prompt() #{{{
 	}
 	_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
 	_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
+	_build_vcs_prompt "$HOME/pap/wiki" 'p'
 	if [ $_vcs_clean -eq 0 ]; then
 		PROMPT+="%{$pc_dot_bracket%}]%{$reset_color%} "
 	fi
