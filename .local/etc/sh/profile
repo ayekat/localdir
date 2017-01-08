@@ -1,0 +1,15 @@
+# Profile loaded when logging into a shell.
+# Written by ayekat on a cold morning in january 2017.
+
+# Set user-path:
+export PATH="$HOME/.local/bin:$PATH"
+
+# Load profiles in profile.d:
+if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
+	for profile in "$XDG_CONFIG_HOME/sh/profile.d/"*.sh; do
+		if [ -r "$profile" ]; then
+			. "$profile"
+		fi
+	done
+	unset profile
+fi

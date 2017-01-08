@@ -1,4 +1,3 @@
-#!/usr/bin/env sh
 # Actions performed when logging into a shell.
 # Written by ayekat on a cold sunday afternoon in November 2014.
 
@@ -89,7 +88,7 @@ printlogo() {
 			;;
 	esac
 }
-printlogo "$OS_RELEASE"
+printlogo "$OS_NAME"
 
 # }}}
 # ------------------------------------------------------------------------------

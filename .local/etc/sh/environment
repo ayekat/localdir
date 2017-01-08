@@ -1,106 +1,28 @@
-#!/usr/bin/env sh
 # Environment set when logging into a shell.
+# PATH is set in profile.
 # Written by ayekat on a frustrating evening in september 2014.
 
-# ------------------------------------------------------------------------------
-# OPERATING SYSTEM {{{
-
-OS_RELEASE=''
-if [ -e /etc/lsb-release ]; then
-	OS_RELEASE="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
-	              tr '[:upper:]' '[:lower:]')"
-elif [ -e /etc/os-release ]; then
-	OS_RELEASE="$(grep -e '^ID=' /etc/os-release | cut -d '=' -f 2)"
-elif [ "$(uname)" = 'Darwin' ]; then
-	OS_RELEASE='darwin'
-elif [ -e /etc/gentoo-release ]; then
-	OS_RELEASE='gentoo'
-elif [ -e /etc/arch-release ]; then
-	OS_RELEASE='arch'
+# Set OS name, for OS-specific configuration:
+OS_NAME=''
+if [ -e /etc/arch-release ]; then
+	OS_NAME='arch'
 elif [ -e /etc/debian_version ]; then
-	OS_RELEASE='debian'
+	OS_NAME='debian'
+elif [ -e /etc/gentoo-release ]; then
+	OS_NAME='gentoo'
+elif [ "$(uname)" = 'Darwin' ]; then
+	OS_NAME='darwin'
+elif [ -e /etc/lsb-release ]; then
+	OS_NAME="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
+	           tr '[:upper:]' '[:lower:]')"
+elif [ -e /etc/os-release ]; then
+	OS_NAME="$(grep -e '^ID=' /etc/os-release | cut -d '=' -f 2)"
 else
-	OS_RELEASE="$(uname)"
+	OS_NAME="$(uname)"
 fi
-export OS_RELEASE
-
-# }}}
-# ------------------------------------------------------------------------------
-# PATH {{{
-
-# Check if directory is already in PATH:
-path_lacks() {
-	case "$OS_RELEASE" in
-		darwin) READLINK=greadlink ;;
-		*) READLINK=readlink ;;
-	esac
-	for i in $PATH; do
-		[ "$1" != "$i" ] || return 1
-		[ ! -h "$1" ] || [ "$($READLINK -f "$1")" != "$i" ] || return 1
-	done
-}
-
-# Add directory to PATH (if existing and not duplicate):
-add_to_path() {
-	[ -d "$1" ] || return
-	[ -z "$PATH" ] && PATH="$1" && return
-	IFS_OLD="$IFS"
-	IFS=:
-	if path_lacks "$1"; then
-		if [ "$2" = '--append' ]; then
-			PATH="$PATH:$1"
-		else
-			PATH="$1:$PATH"
-		fi
-	fi
-	IFS="$IFS_OLD"
-	unset IFS_OLD
-}
-
-# User specific path:
-add_to_path "$HOME/.local/bin"
-add_to_path "$HOME/.local/bin/utils"
-add_to_path "$HOME/.local/bin/dotfiles"
-
-# EPFL scripts:
-add_to_path "$HOME/.local/opt/epflscripts/bin"
-
-# Altera (Quartus, ModelSim):
-# - user is recommended to be in 'plugdev' group, for USB devices
-# - quartus starts Quartus, vsim starts ModelSim
-dir_altera="$HOME/.local/opt/altera"
-if [ -d "$dir_altera" ]; then
-	for p in "$dir_altera/nios2eds/bin/gnu/H-$(uname -m)-pc-linux-gnu/bin" \
-	         "$dir_altera/nios2eds/sdk2/bin" \
-	         "$dir_altera/nios2eds/bin" \
-	         "$dir_altera/quartus/bin" \
-	         "$dir_altera/quartus/sopc_builder/bin" \
-	         "$dir_altera/modelsim_ase/bin"
-	do
-		add_to_path "$p" --append
-	done
-	export QUARTUS_ROOTDIR="$dir_altera/quartus"
-	export SOPC_KIT_NIOS2="$dir_altera/nios2eds"
-	if [ "$(uname -m)" = 'x86_64' ]; then
-		export QUARTUS_64BIT=1
-	else
-		export QUARTUS_64Bit=0
-	fi
-fi
-unset dir_altera
-
-unset -f path_lacks
-unset -f add_to_path
-export PATH
-
-# }}}
-# ------------------------------------------------------------------------------
-# DEFAULT APPLICATIONS {{{
+export OS_NAME
 
 # Editor and pager:
 export EDITOR='/usr/bin/vim'
 export VISUAL='/usr/bin/vim'
 export PAGER='/usr/bin/less'
-
-# }}}
-# ------------------------------------------------------------------------------

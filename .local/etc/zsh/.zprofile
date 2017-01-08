@@ -1,10 +1,4 @@
-#!/usr/bin/env zsh
-# Environment set when logging into zsh.
-# Written by ayekat a long time ago;
-#                             Fixed on a cold sunday afternoon in November 2014.
+# Profile loaded when logging into zsh.
 
-# Make zsh handle IFS correctly:
-setopt SH_WORD_SPLIT
-
-# Shell-agnostic environment:
-. "$XDG_CONFIG_HOME/sh/environment"
+# Shell-agnostic profile:
+. "$XDG_CONFIG_HOME/sh/profile"

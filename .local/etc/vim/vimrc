@@ -163,6 +163,7 @@ au BufRead,BufNewFile *.tool setl filetype=scala
 au BufRead,BufNewFile *.zone setl filetype=dns
 au BufRead,BufNewFile *.smt setl filetype=lisp
 au BufRead,BufNewFile *.install setl filetype=sh
+au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/sh/* setl filetype=sh
 
 " Assembly:
 let asmsyntax='nasm'

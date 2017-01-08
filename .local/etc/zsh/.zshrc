@@ -1,16 +1,11 @@
-#!/usr/bin/env zsh
 # Configuration for interactive zsh.
 # Written by ayekat on a cold night in march 2013.
 
-# ------------------------------------------------------------------------------
-# GENERAL {{{
-
-# Load general shell configuration (bash and zsh):
+# Shell-agnostic configuration:
 . $XDG_CONFIG_HOME/sh/config
 
-# }}}
 # ------------------------------------------------------------------------------
-# LOOK {{{
+# LOOK & FEEL {{{
 
 # Enable syntax highlighting:
 for hlpath in zsh/plugins/zsh-syntax-highlighting zsh-syntax-highlighting; do
@@ -19,6 +14,9 @@ for hlpath in zsh/plugins/zsh-syntax-highlighting zsh-syntax-highlighting; do
 		break
 	fi
 done
+
+# Handle IFS correctly:
+setopt SH_WORD_SPLIT
 
 # }}}
 # ------------------------------------------------------------------------------
