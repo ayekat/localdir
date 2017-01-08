@@ -83,11 +83,17 @@ This dotfiles repository assumes the following:
   incompatibility with the antique version of tmux shipped with Debian), so a
   few Arch Linux specific quirks apply (which is not a lot, since most software
   there is shipped vanilla):
+
   * `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
     [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
     into `/usr/bin`, so all absolute paths to system-widely available software
     point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
     merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
+
+  * On Arch Linux, `/etc/zprofile` sources `/etc/profile`, which resets the
+    `$PATH` environment variable. Therefore, we cannot customise `$PATH` in
+    `.zshenv`, as it is sourced *before* `/etc/profile`. Instead, we define
+    environment variables in `.zprofile`. It is unclear whether this is a bug.
 
 
 Policies
@@ -105,9 +111,8 @@ Policies
   course only works for applications that allow configuring the location of
   "config" files.
 
-* Most shell configuration happens in `XDG_CONFIG_HOME/sh`, reason being that
-  there is currently configuration for both bash and zsh, so to reduce
-  redundancy, shell-agnostic configuration is stored in `environment`, `login`
-  and `config`, and sourced from the respective shells' configuration files,
-  which should only configure shell-specific aspects (prompts, input, history,
-  etc.)
+* Shell-agnostic configuration should happen in `XDG_CONFIG_HOME/sh`. This
+  allows other, non-zsh shells to work correctly, too, without having to
+  duplicate all the shell configuration. The shell-agnostic configuration is
+  stored in `environment`, `login` and `config`, while only shell-specific
+  configuration (prompts, input, history, etc.) should happen in zsh's config.
