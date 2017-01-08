@@ -104,12 +104,3 @@ export PAGER='/usr/bin/less'
 
 # }}}
 # ------------------------------------------------------------------------------
-# RAINBOWDASH FUCK-AROUND {{{
-# GNU Generation server admin thinks it's funny to have a french locale.
-
-if [ "$(hostname)" = 'rainbowdash' ] && locale -a |grep 'en_GB\.utf8' >/dev/null
-then
-	export LANG=en_GB.utf8
-fi
-
-# }}}

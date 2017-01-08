@@ -3,11 +3,11 @@
 # Written by ayekat on a cold sunday afternoon in November 2014.
 
 # ------------------------------------------------------------------------------
-# ENVIRONMENT {{{
+# SSH/TMUX {{{
 
-# tmux seems to overwrite the $PATH variable; regenerate environment:
-if [ -n "$TMUX" ]; then
-	. $XDG_CONFIG_HOME/sh/environment
+# If logged in via SSH, start or reattach to tmux session:
+if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmd_exists tmux tmx; then
+	tmx SSH && exit
 fi
 
 # }}}
@@ -21,8 +21,8 @@ printlogo() {
 			printf         "          .xd§PVkbxc.        \n"
 			printf         "         xP*'      'Vb.      \n"
 			printf         "       'd'     .,.   V.\`     \n"
-			printf         "       (*    .'   .  ::      \033[0m `uname -s -r`\n"
-			printf "\033[31m       #     #      ,7       \033[0m on `uname -n`\n"
+			printf         "       (*    .'   .  ::      \033[0m %s\n" "$(uname -s -r)"
+			printf "\033[31m       #     #      ,7       \033[0m on %s\n" "$(uname -n)"
 			printf "\033[31m       V,     *-__ -'        \n"
 			printf         "       'qb                   \n"
 			printf         "         *:,                 \n"
@@ -35,8 +35,8 @@ printlogo() {
 			printf         "              /\\            \n"
 			printf         "             /AA\\           \n"
 			printf         "            .'YAA\\          \n"
-			printf         "           /AAAAAA\\         \033[0m `uname -s -r`\n"
-			printf "\033[34m          /AAAAAAAA\\        \033[0m on `uname -n`\n"
+			printf         "           /AAAAAA\\         \033[0m %s\n" "$(uname -s -r)"
+			printf "\033[34m          /AAAAAAAA\\        \033[0m on %s\n" "$(uname -n)"
 			printf "\033[34m         /AAA/  \\AAA\\      \n"
 			printf         "        /AAA|    |AAP\\      \n"
 			printf         "       /AAAY\\    /YAAa_     \n"
@@ -49,8 +49,8 @@ printlogo() {
 			printf         "               .dA'          \n"
 			printf         "               AP'           \n"
 			printf         "        .dAAbx.,dAAAb.       \n"
-			printf "\033[33m       dAAAAAAAAAAAAP        \033[0m `uname -s -r`\n"
-			printf "\033[31m      :AAAAAAAAAAAAA         \033[0m on `uname -n`\n"
+			printf "\033[33m       dAAAAAAAAAAAAP        \033[0m %s\n" "$(uname -s -r)"
+			printf "\033[31m      :AAAAAAAAAAAAA         \033[0m on %s\n" "$(uname -n)"
 			printf "\033[31m      'AAAAAAAAAAAAA.        \n"
 			printf "\033[35m       YAAAAAAAAAAAAAx.      \n"
 			printf "\033[34m        \\AAAAAAAAAAAAP      \n"
@@ -63,8 +63,8 @@ printlogo() {
 			printf         "       .-d§§§§§bc,           \n"
 			printf         "      /§§§§§*\"*Y§§§c.       \n"
 			printf         "     (§§§§§§.   )§§§§b,      \n"
-			printf         "     '(§§§§§§bxxI§§§§§§b     \033[0m $(uname -s -r)\n"
-			printf "\033[36m       \`\">§§§§§§§§§§§§§§)  \033[0m on $(uname -n)\n"
+			printf         "     '(§§§§§§bxxI§§§§§§b     \033[0m %s\n" "$(uname -s -r)"
+			printf "\033[36m       \`\">§§§§§§§§§§§§§§)  \033[0m on %s\n" "$(uname -n)"
 			printf "\033[36m       .?§§§§§§§§§§§§§P\`    \n"
 			printf         "     .A§§§§§§§§§§§§§*'       \n"
 			printf         "     §§§§§§§§§§§\$*\`        \n"
@@ -78,8 +78,8 @@ printlogo() {
 			printf         "       .dXXXXXXXXY*\"<Xb.     \n"
 			printf         "      dXXXXP(^\`\`\`'._.XXXb  \n"
 			printf         "     JXXXP' _\\\\a#a,. 'VXXXA \n"
-			printf         "    |XP\"*. .XXXXXXD. 'XXXX)   \033[0m $(uname -s -r)\n"
-			printf "\033[35m    (X.  ; (XXXXXXXT''XXXX)   \033[0m on $(uname -n)\n"
+			printf         "    |XP\"*. .XXXXXXD. 'XXXX)   \033[0m %s\n" "$(uname -s -r)"
+			printf "\033[35m    (X.  ; (XXXXXXXT''XXXX)   \033[0m on %s\n" "$(uname -n)"
 			printf "\033[35m    'XXXX. \`\\XXXXXP  .XXXX' \n"
 			printf         "     *XXXXb./ \`\` ,·-dXXXX/  \n"
 			printf         "      'YXXXXX#a-a|  .XXY'     \n"
@@ -96,7 +96,9 @@ printlogo "$OS_RELEASE"
 # TODO {{{
 
 # Display the todo file in the home directory:
-[ -e "$HOME"/TODO ] && { echo; cat "$HOME"/TODO; echo; }
+if [ -e "$HOME"/TODO ]; then
+	echo; cat "$HOME"/TODO; echo
+fi
 
 # }}}
 # ------------------------------------------------------------------------------

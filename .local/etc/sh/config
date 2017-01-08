@@ -10,14 +10,6 @@ cmd_exists()
 	done
 }
 
-# ------------------------------------------------------------------------------
-# START {{{
-
-# If logged in via SSH, start or reattach to tmux session:
-if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmd_exists tmux tmx; then
-	tmx SSH && exit
-fi
-
 # }}}
 # ------------------------------------------------------------------------------
 # LOOK & FEEL {{{
@@ -41,13 +33,8 @@ LESS_TERMCAP_ue="$(printf "\033[0m")"
 LESS_TERMCAP_us="$(printf "\033[32m")"
 LESS_TERMCAP_mb="$(printf "\033[34m")"
 LESS_TERMCAP_md="$(printf "\033[31m")"
-export LESS_TERMCAP_mb
-export LESS_TERMCAP_md
-export LESS_TERMCAP_me
-export LESS_TERMCAP_se
-export LESS_TERMCAP_so
-export LESS_TERMCAP_ue
-export LESS_TERMCAP_us
+export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
+       LESS_TERMCAP_so LESS_TERMCAP_ue LESS_TERMCAP_us
 
 # Aliases:
 alias cp='cp -i'
@@ -65,9 +52,6 @@ if [ "$OS_RELEASE" = 'darwin' ]; then
 else
 	alias ls='ls --color=auto'
 fi
-
-# Application specific aliases:
-cmd_exists valgrind && alias valgrind='valgrind --log-file=valgrind.log'
 
 # Server only aliases (mostly additional security):
 if [ -n "$SSH_CONNECTION" ]; then
