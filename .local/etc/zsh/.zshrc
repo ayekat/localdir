@@ -8,9 +8,6 @@
 # Load general shell configuration (bash and zsh):
 . $XDG_CONFIG_HOME/sh/config
 
-# Make sure cache folder exists:
-test -d "$XDG_CACHE_HOME/zsh" || mkdir -p "$XDG_CACHE_HOME/zsh"
-
 # }}}
 # ------------------------------------------------------------------------------
 # LOOK {{{
@@ -30,7 +27,7 @@ done
 # Enable colours:
 autoload -U colors && colors
 
-# XXX:
+# Allow shell substitutions as part of prompt format string:
 setopt prompt_subst
 
 # Define prompt colours:
@@ -169,7 +166,6 @@ precmd()
 	build_rprompt
 }
 
-setopt promptsubst  # allows shell substitutions as part of prompt format string
 precmd
 
 # }}}
@@ -223,6 +219,9 @@ KEYTIMEOUT=1
 # ------------------------------------------------------------------------------
 # COMPLETION {{{
 
+# Make sure the zsh cache directory exists:
+test -d "$XDG_CACHE_HOME/zsh" || mkdir -p "$XDG_CACHE_HOME/zsh"
+
 # The following lines were added by compinstall
 
 zstyle ':completion:*' format "[%{$fg_bold[default]%}%d%{$reset_color%}]"
@@ -257,6 +256,8 @@ setopt inc_append_history       # immediately append history to history file
 setopt hist_ignore_dups         # ignore duplicate commands
 setopt hist_ignore_space        # ignore commands with leading space
 
+# Make sure the zsh log directory exists:
+test -d "$XDG_LOG_HOME/zsh" || mkdir -p "$XDG_LOG_HOME/zsh"
 export HISTFILE="$XDG_LOG_HOME/zsh/zhistory"
 export HISTSIZE=100000          # maximum history size in terminal's memory
 export SAVEHIST=100000          # maximum size of history file
