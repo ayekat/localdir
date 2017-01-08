@@ -41,13 +41,6 @@ this means that the following environment variables are set:
 Furthermore, user-specific applications and scripts are expected to be placed in
 `~/.local/bin`.
 
-> ### Note
-> The configuration is set up in a way that scripts provided by this repository
-> self they can be symlinked to `~/.local/bin/dotfiles` and scripts and programs
-> provided by the [utils](https://github.com/ayekat/utils) repository can be
-> symlinked to `~/.local/bin/utils`. This simplifies tracking changes to the
-> scripts.
-
 Unfortunately, some application do not honour the XDG basedir specification, and
 setting above variables is often not enough. Various approaches are taken to
 achieve the goal:
@@ -90,11 +83,6 @@ This dotfiles repository assumes the following:
     point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
     merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
 
-  * On Arch Linux, `/etc/zprofile` sources `/etc/profile`, which resets the
-    `$PATH` environment variable. Therefore, we cannot customise `$PATH` in
-    `.zshenv`, as it is sourced *before* `/etc/profile`. Instead, we define
-    environment variables in `.zprofile`. It is unclear whether this is a bug.
-
 
 Policies
 --------
@@ -114,5 +102,7 @@ Policies
 * Shell-agnostic configuration should happen in `XDG_CONFIG_HOME/sh`. This
   allows other, non-zsh shells to work correctly, too, without having to
   duplicate all the shell configuration. The shell-agnostic configuration is
-  stored in `environment`, `login` and `config`, while only shell-specific
-  configuration (prompts, input, history, etc.) should happen in zsh's config.
+  stored in `environment`, `login` and `config` as well as `profile` and the
+  `profile.d` directory for application-specific profile snippets, while only
+  shell-specific configuration (prompts, input, history, etc.) should happen in
+  zsh's config.
