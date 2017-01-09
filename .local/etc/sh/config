@@ -68,11 +68,6 @@ pc_vcs_ahead="$(printf "\033[36m")"
 pc_vcs_ready="$(printf "\033[33m")"
 pc_vcs_dirty="$(printf "\033[31m")"
 pc_vcs_merge="$(printf "\033[1;31m")"
-pc_dot_bracket="$(printf "\033[34m")"
-pc_dot_ahead="$(printf "\033[36m")"
-pc_dot_ready="$(printf "\033[33m")"
-pc_dot_dirty="$(printf "\033[31m")"
-pc_dot_merge="$(printf "\033[31m")"
 pc_host=$(printf "\033[35m")
 pc_pwd=$(printf "\033[34m")
 pc_prompt=$(printf "\033[1;31m")
@@ -95,8 +90,8 @@ vcs_update()
 
 	# Update information if not in a blacklisted (read: huge) repo:
 	case "$1" in
-		"$HOME"/dev/linux*|"$HOME"/dev/mono*|"$HOME"/dev/gnu/projects/gnu-social*)
-			vcs_branch='kernel'
+		"$HOME"/dev/linux)
+			vcs_branch='git'
 			vcs_state='huge'
 			;;
 		*)

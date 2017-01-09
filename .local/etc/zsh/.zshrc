@@ -61,31 +61,36 @@ build_prompt() #{{{
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 
 	# VCS (watched):
-	_vcs_clean=1
-	_build_vcs_prompt() {
-		vcs_update "$1"
-		case "$vcs_state" in (ahead|ready|dirty|merge)
-			if [ $_vcs_clean -eq 1 ]; then
-				PROMPT+="%{$pc_dot_bracket%}["
-				_vcs_clean=0
-			fi
-			case "$vcs_state" in
-				ahead) PROMPT+="%{$pc_dot_ahead%}" ;;
-				ready) PROMPT+="%{$pc_dot_ready%}" ;;
-				dirty) PROMPT+="%{$pc_dot_dirty%}" ;;
-				merge) PROMPT+="%{$pc_dot_merge%}" ;;
+	if [ -z "$1" ]; then
+		VCS_PROMPT=''
+		_vcs_clean=1
+		_build_vcs_prompt() {
+			vcs_update "$1"
+			case "$vcs_state" in (ahead|ready|dirty|merge)
+				if [ $_vcs_clean -eq 1 ]; then
+					VCS_PROMPT+="%{$(printf "\033[34m")%}["
+					_vcs_clean=0
+				fi
+				case "$vcs_state" in
+					ahead) VCS_PROMPT+="%{$pc_vcs_ahead%}" ;;
+					ready) VCS_PROMPT+="%{$pc_vcs_ready%}" ;;
+					dirty) VCS_PROMPT+="%{$pc_vcs_dirty%}" ;;
+					merge) VCS_PROMPT+="%{$pc_vcs_merge%}" ;;
+				esac
+				VCS_PROMPT+="$2"
 			esac
-			PROMPT+="$2"
-		esac
-	}
-	_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
-	_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
-	_build_vcs_prompt "$HOME/pap/wiki" 'p'
-	if [ $_vcs_clean -eq 0 ]; then
-		PROMPT+="%{$pc_dot_bracket%}]%{$reset_color%} "
+		}
+		_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
+		_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
+		_build_vcs_prompt "$XDG_DATA_HOME/pass" 'p'
+		_build_vcs_prompt "$HOME/pap/wiki" 'P'
+		if [ $_vcs_clean -eq 0 ]; then
+			VCS_PROMPT+="%{$(printf "\033[34m")%}]%{$reset_color%} "
+		fi
+		unset -f _build_vcs_prompt
+		unset _vcs_clean
 	fi
-	unset -f _build_vcs_prompt
-	unset _vcs_clean
+	PROMPT+="$VCS_PROMPT"
 
 	# VCS (PWD):
 	vcs_update "$(pwd)"
@@ -191,7 +196,7 @@ bindkey -M vicmd v edit-command-line
 # Handler for mode change:
 zle-keymap-select() {
 	vim_mode="${${KEYMAP/vicmd/${vim_mode_normal}}/(main|viins)/${vim_mode_insert}}"
-	build_prompt
+	build_prompt mode
 	zle reset-prompt
 }
 zle -N zle-keymap-select
@@ -199,7 +204,7 @@ zle -N zle-keymap-select
 # Handler for after entering a command (reset to insert mode):
 zle-line-finish() {
 	vim_mode=$vim_mode_insert
-	build_prompt
+	build_prompt mode
 }
 zle -N zle-line-finish
 
