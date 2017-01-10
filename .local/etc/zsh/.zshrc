@@ -83,6 +83,7 @@ build_prompt() #{{{
 		_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
 		_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
 		_build_vcs_prompt "$XDG_DATA_HOME/pass" 'p'
+		_build_vcs_prompt "$HOME/.local/srv/wiki/src" 'w'
 		_build_vcs_prompt "$HOME/pap/wiki" 'P'
 		if [ $_vcs_clean -eq 0 ]; then
 			VCS_PROMPT+="%{$(printf "\033[34m")%}]%{$reset_color%} "
