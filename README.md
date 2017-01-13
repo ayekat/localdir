@@ -31,11 +31,10 @@ this means that the following environment variables are set:
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
-| `XDG_TMP_HOME`    | `~/.local/tmp`       |
 
 > ### Notes
-> * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_TMP_HOME` are non-standard, but they
->   are nevertheless necessary for representing the FHS locally.
+> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
+>   nevertheless necessary for representing the FHS locally.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 
 Furthermore, user-specific applications and scripts are expected to be placed in
