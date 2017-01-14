@@ -1,7 +1,7 @@
 /* karuiwm configuration */
 
 #define FONTSTR "-misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso8859-1"
-#define FONTSTR_DMENU "Fixed-10:SemiCondensed:Medium"
+#define FONTSTR_DMENU "Misc Fixed-10:SemiCondensed:Medium"
 #define NMASTER 1        /* number of clients in master area */
 #define MFACT 0.5        /* size of master area */
 #define BORDERWIDTH 1    /* window border width */
