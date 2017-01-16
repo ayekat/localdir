@@ -64,23 +64,25 @@ corresponding systemd user service file.
 Assumptions
 -----------
 
-This dotfiles repository assumes the following:
+The dotfiles have primarily been used on Arch Linux (and for limited use-cases
+on Debian, too, although there are minor issues with tmux and [major issues with
+PAM](https://github.com/ayekat/dotfiles/issues/8), both related to Debian
+shipping antique versions of software).
 
 * For setting the [XDG basedir variables](#xdgfhs) I use `~/.pam_environment`,
   which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
-  authentication frameworks are used, this repository will not work as-is.
+  authentication frameworks are used, these dotfiles will not work as-is.
 
-* The dotfiles have primarily been used on Arch Linux (and for limited use-cases
-  on Debian, too, although the tmux config has a slight, non-fatal
-  incompatibility with the antique version of tmux shipped with Debian), so a
-  few Arch Linux specific quirks apply (which is not a lot, since most software
-  there is shipped vanilla):
+* `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
+  [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
+  into `/usr/bin`, so all absolute paths to system-widely available software
+  point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
+  merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
 
-  * `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
-    [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
-    into `/usr/bin`, so all absolute paths to system-widely available software
-    point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
-    merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
+* Lots of configuration files will attempt to run scripts and binaries in
+  `~/.local/bin/utils`, provided by the [utils
+  repository](https://github.com/ayekat/utils). The missing of latter should be
+  non-fatal, though.
 
 
 Policies
