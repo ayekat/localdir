@@ -21,7 +21,7 @@ image/x-portable-bitmap: eom _FILE_ &
 image/x-portable-greymap: eom _FILE_ &
 inode/directory        : thunar _FILE_ &
 message/rfc822         : pluma _FILE_ &
-text/html              : dwb _FILE_ &
+text/html              : qutebrowser _FILE_ &
 text/plain             : pluma _FILE_ &
 text/x-shellscript     : pluma _FILE_ &
 text/x-tex             : pluma _FILE_ &

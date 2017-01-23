@@ -22,6 +22,7 @@ ignores = (
       "#gnugeneration",
       "#netfilter",
       "#python",
+      "#qutebrowser",
       "#systemd",
       "#ubuntu",
       "##windows",
