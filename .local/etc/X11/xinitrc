@@ -37,12 +37,8 @@ fi
 
 # INPUT/OUTPUT -----------------------------------------------------------------
 
-if cmds_exist xinput xmodmap; then
-	case "$(hostname)" in
-		ixh) ayeinput -em ;;
-		*) ayeinput -e ;;
-	esac
-fi
+setxkbmap ayekat
+ayemouse
 cmds_exist dispwin && lcdadjust
 
 
