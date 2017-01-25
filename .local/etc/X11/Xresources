@@ -159,11 +159,11 @@ karuibar.alsa_in.persistent   : false
 karuibar.alsa_in.capture      : true
 
 karuibar.time_date.format     : %Y-%m-%d
-karuibar.time_date.foreground : #EEEEEE
-karuibar.time_date.background : #555555
+karuibar.time_date.foreground : white
+karuibar.time_date.background : lightblack
 karuibar.time_time.format     : %H:%M
-karuibar.time_time.foreground : #555555
-karuibar.time_time.background : #EEEEEE
+karuibar.time_time.foreground : lightblack
+karuibar.time_time.background : white
 
 ! }}}
 ! ------------------------------------------------------------------------------
