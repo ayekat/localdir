@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+mkdir -p "$XDG_CACHE_HOME/sloccount"
+exec /usr/bin/sloccount --datadir "$XDG_CACHE_HOME/sloccount" "$@"
