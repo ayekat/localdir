@@ -1,5 +1,5 @@
 [Added Associations]
-image/jpeg=gimp.desktop;eom.desktop;
+image/jpeg=eom.desktop;gimp.desktop;
 
 [Default Applications]
 image/jpeg=eom.desktop
