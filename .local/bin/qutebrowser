@@ -1,0 +1,73 @@
+#!/usr/bin/env sh
+
+# Wrapper around qutebrowser that makes sessions (-r, --restore SESSION) behave
+# like they used to in dwb.
+#
+# We do so by filtering out the -r/--restore option passed to qutebrowser and
+# using the argument to set up the following directory structure and symbolic
+# links:
+#
+# $XDG_RUNTIME_DIR/qutebrowser/$session/cache → $XDG_CACHE_HOME/qutebrowser/$session
+# $XDG_RUNTIME_DIR/qutebrowser/$session/data → $XDG_DATA_HOME/qutebrowser/$session
+# $XDG_RUNTIME_DIR/qutebrowser/$session/config → $XDG_CONFIG_HOME/qutebrowser
+# $XDG_RUNTIME_DIR/qutebrowser/$session/runtime (no symlink, regular directory)
+#
+# We then specify $XDG_RUNTIME_DIR/qutebrowser/$session as a --basedir, and the
+# files will end up in their intended locations (notice how the config directory
+# is the same for all sessions, as there is no point in keeping it separate).
+#
+# Written by ayekat in an burst of nostalgy, on a mildly cold wednesday night in
+# February 2017.
+
+set -e
+
+# Set default values for the variables as defined in the XDG base directory spec
+# (https://specifications.freedesktop.org/basedir-spec/latest/):
+XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+
+# Dry run: set to 'y' to only print the command that would be executed:
+DRYRUN=n
+
+# Translate options: remove occurrences of -r/--restore from the list of options
+# while saving its argument for later:
+session=default
+basedir_specified=n
+opts_read=0
+while [ $opts_read -lt $# ]; do
+	opt="$1"
+	shift
+	case "$opt" in
+		--basedir) basedir_specified=y ;;
+		-r|-[!-]*r|--restore) session="$1"; shift; continue ;;
+	esac
+	set -- "$@" "$opt"
+	opts_read=$((opts_read + 1))
+done
+basedir="$XDG_RUNTIME_DIR/qutebrowser/$session"
+
+# Dry-run?
+MODE=''
+if [ "$DRYRUN" = 'y' ]; then
+	MODE='echo'
+fi
+
+# Set up session base directory (but only if --basedir has not been specified by
+# the user):
+if [ "$basedir_specified" = 'n' ]; then
+	set -- '--basedir' "$basedir" "$@"
+	$MODE mkdir -p \
+		"$basedir" \
+		"$XDG_CONFIG_HOME/qutebrowser" \
+		"$XDG_CACHE_HOME/qutebrowser/$session" \
+		"$XDG_DATA_HOME/qutebrowser/$session" \
+		"$basedir/runtime"
+	$MODE ln -fsT "$XDG_CONFIG_HOME/qutebrowser" "$basedir/config"
+	$MODE ln -fsT "$XDG_CACHE_HOME/qutebrowser/$session" "$basedir/cache"
+	$MODE ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
+fi
+
+# Run qutebrowser with the "fixed" options:
+$MODE exec /usr/bin/qutebrowser "$@"
