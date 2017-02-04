@@ -75,40 +75,40 @@ pc_jobs=$(printf "\033[30;47m")
 
 # VCS
 # vcs_state and vcs_branch are set by calling vcs_update() with the path to the
-# git repository. If no path is specified, it takes the current working
-# directory.
+# git repository.
 vcs_state=''
 vcs_branch=''
 vcs_update()
 {
-	_dir="${1:-$(pwd)}"
-	_ghead() { git -C "$_dir" status --porcelain -b 2>/dev/null | head -n 1; }
-	_gstat() { git -C "$_dir" status --porcelain 2>/dev/null; }
-
-	# This machine is slow, so don't print git repository information in prompt:
-	[ "$(hostname)" != 'ds-wrk3' ] || return
-
-	# Update information if not in a blacklisted (read: huge) repo:
+	# Don't calculate git repo infos on slow machines or huge repositories:
+	case "$(hostname)" in
+		ds-wrk3)
+			vcs_branch='git'
+			vcs_state='slow'
+			return ;;
+	esac
 	case "$1" in
 		"$HOME"/dev/linux)
 			vcs_branch='git'
 			vcs_state='huge'
-			;;
-		*)
-			vcs_state=''
-			vcs_branch="$(_ghead "$_dir" | cut -d '.' -f 1 | cut -d ' ' -f 2)"
-			if [ -n "$vcs_branch" ]; then
-				vcs_state='clean'
-				_ghead "$1" | grep -o 'ahead' >/dev/null && vcs_state='ahead'
-				_gstat "$1" | grep  '^[MADR].' >/dev/null && vcs_state='ready'
-				_gstat "$1" | grep  '^.[M?D]' >/dev/null && vcs_state='dirty'
-				_gstat "$1" | grep  'UU' >/dev/null && vcs_state='merge'
-			fi
-			;;
+			return ;;
 	esac
 
-	unset -f _ghead
-	unset -f _gstat
+	git_head="$(git -C "$1" status --porcelain -b 2>/dev/null | head -n 1)"
+	vcs_state=''
+	vcs_branch="$(echo "$git_head" | sed -e 's/^## \([^.]\+\).*/\1/g')"
+	if [ -n "$vcs_branch" ]; then
+		vcs_state='clean'
+		if echo "$git_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null; then
+			vcs_state='ahead'
+		fi
+		case "$(git -C "$1" status --porcelain 2>/dev/null)" in
+			UU*)     vcs_state='merge' ;;
+			?[M?D]*) vcs_state='dirty' ;;
+			[MADR]*) vcs_state='ready' ;;
+		esac
+	fi
+	unset git_head
 }
 
 # }}}

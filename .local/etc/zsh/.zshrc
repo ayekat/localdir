@@ -10,7 +10,7 @@
 # Enable syntax highlighting:
 for hlpath in zsh/plugins/zsh-syntax-highlighting zsh-syntax-highlighting; do
 	if [ -e "/usr/share/$hlpath/zsh-syntax-highlighting.zsh" ]; then
-		. "/usr/share/$hlpath/zsh-syntax-highlighting.zsh" ]
+		. "/usr/share/$hlpath/zsh-syntax-highlighting.zsh"
 		break
 	fi
 done
