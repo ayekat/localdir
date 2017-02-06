@@ -13,6 +13,7 @@ http://guillaume.martres.me/ smarter
 
 http://gnugen.ch/ gnugen
 https://twitter.com/ twitter
+https://github.com/ayekat/ github
 http://stackoverflow.com/users/3673974/ayekat stack overflow
 http://unix.stackexchange.com/users/92369/ayekat unix & linux
 https://aur.archlinux.org/ aur
@@ -20,24 +21,26 @@ https://bbs.archlinux.org/ bbs
 https://bbs.archlinux.de/ bbs german
 https://bugs.archlinux.org/ bugs
 https://bugs.archlinux.org/index.php?do=index&project=1&only_watched=1 bugs ayekat
-https://wiki.archlinux.org/index.php/Forum_Etiquette forum etiquette
 https://lists.archlinux.org/pipermail/ pipermail
-https://wiki.archlinux.org/index.php/XDG_Base_Directory_support xdg basedir support
 
+https://wiki.archlinux.org/index.php/Forum_Etiquette forum etiquette
 http://www.catb.org/~esr/faqs/smart-questions.html smart questions
 http://linux.oneandoneis2.org/LNW.htm linux not windows
 http://liteweb.neocities.org/ liteweb
 http://xyproblem.info/ xyproblem
 http://slash7.com/2006/12/22/vampires/ help vampires
-https://www.passwordstore.org/ unix pass
 http://coding2learn.org/blog/2013/07/29/kids-cant-use-computers/ kids computers
 http://motherfuckingwebsite.com/ motherfucking website
 https://lists.linuxfoundation.org/pipermail/ksummit-discuss/2016-August/003580.html gpl defense issues
 http://www.orwell.ru/library/essays/politics/english/e_polit/ orwell politics english
 https://edwardtufte.github.io/tufte-css/ tufte css
 
-https://github.com/ayekat/ github
 http://standards.freedesktop.org/wm-spec/wm-spec-latest.html ewmh
+https://github.com/The-Compiler/qutebrowser qutebrowser github
+https://wiki.archlinux.org/index.php/Qutebrowser qutebrowser arch wiki
+https://github.com/systemd/systemd systemd
+https://wiki.archlinux.org/index.php/XDG_Base_Directory_support xdg basedir support
+https://www.passwordstore.org/ unix pass
 
 https://dns.ch-inter.net/index.php dns sui
 http://galileo.dmi.unict.it/utenti/emanuele-f/?post=Fan_speed_with_IT87_driver fan amd
@@ -80,7 +83,6 @@ http://0hh1.com/ 0hh1 (binoxxo)
 https://www.humblebundle.com/ humble bundle
 http://minecraft.vessaz.net/nohttps.html minecraft vessaz
 http://lichess.org/ lichess
-http://en.lichess.org/forum/lichess-feedback/change-email lichess change mail
 
 https://en.wikibooks.org/wiki/Cookbook:Cha_Shao cha shao
 http://meteo.search.ch/prognosis meteo search
@@ -98,4 +100,3 @@ https://git.papiliorama.local/ papiliorama git
 https://portal.office365.com/ papiliorama webmail
 http://benno-shop.ch/ papiliorama benno shop
 https://digitec.ch/ digitec
-https://github.com/The-Compiler/qutebrowser The-Compiler/qutebrowser: A keyboard-driven, vim-like browser based on PyQt5.
