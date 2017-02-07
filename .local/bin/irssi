@@ -16,20 +16,15 @@ IRSSI_CONFIG="$XDG_CONFIG_HOME/irssi/config"
 IRSSI_CONFIG_REAL="$XDG_RUNTIME_DIR/irssi/irssi_config"
 
 # Get password:
-irssi_password=$(pass show 'nodes/rowland/chat/ayekat@znc.ayekat.ch')
-if [ $? -ne 0 ]; then
-	echo 'Pass failed for unknown reasons.' >&2
-	exit 1
+if ! irssi_password=$(pass show 'nodes/rowland/chat/ayekat@znc.ayekat.ch'); then
+	retval=$?
+	echo 'Pass failed.' >&2
+	exit $retval
 fi
 
 # Generate config with password:
 mkdir -p "$(dirname "$IRSSI_CONFIG_REAL")"
 sed -e "s/ZNC_PASSWORD/$irssi_password/g" "$IRSSI_CONFIG" > "$IRSSI_CONFIG_REAL"
 
-# Run irssi (optionally with uim-fep):
-if which uim-fep >/dev/null 2>&1; then
-	uim_fep='uim-fep -e'
-else
-	uim_fep=''
-fi
-exec $uim_fep /usr/bin/irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL"
+# Run irssi with the generated config:
+exec /usr/bin/irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL"
