@@ -98,15 +98,12 @@ vcs_update()
 	vcs_state=''
 	vcs_branch="$(echo "$git_head" | sed -e 's/^## \([^.]\+\).*/\1/g')"
 	if [ -n "$vcs_branch" ]; then
-		vcs_state='clean'
-		if echo "$git_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null; then
-			vcs_state='ahead'
-		fi
-		case "$(git -C "$1" status --porcelain 2>/dev/null)" in
-			UU*)     vcs_state='merge' ;;
-			?[M?D]*) vcs_state='dirty' ;;
-			[MADR]*) vcs_state='ready' ;;
-		esac
+		git_status="$(git -C "$1" status --porcelain 2>/dev/null | cut -c 1-2)"
+		vcs_state=clean
+		echo "$git_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null && vcs_state=ahead
+		echo "$git_status" | grep '^[MADR]' >/dev/null && vcs_state=ready
+		echo "$git_status" | grep '^.[M?R]' >/dev/null && vcs_state=dirty
+		echo "$git_status" | grep '^UU' >/dev/null && vcs_state=merge
 	fi
 	unset git_head
 }
