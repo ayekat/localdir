@@ -54,11 +54,11 @@ cmds_exist urxvt && urxvt -e tmx SCRATCHPAD &
 cmds_exist nitrogen && nitrogen --restore
 
 # Enable Japanese input:
-if cmds_exist uim-xim; then
-	export GTK_IM_MODULE=uim
-	export QT_IM_MODULE=uim
-	uim-xim &
-	export XMODIFIERS='@im=anthy'
+if cmds_exist ibus-daemon; then
+	export GTK_IM_MODULE=ibus
+	export QT_IM_MODULE=ibus
+	export XMODIFIERS='@im=ibus'
+	ibus-daemon --xim &
 fi
 
 # Set the hinting property for freetype (see /etc/profile.d/freetype2.sh):
