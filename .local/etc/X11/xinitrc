@@ -58,7 +58,7 @@ if cmds_exist ibus-daemon; then
 	export GTK_IM_MODULE=ibus
 	export QT_IM_MODULE=ibus
 	export XMODIFIERS='@im=ibus'
-	ibus-daemon --xim &
+	ibus-daemon -drx
 fi
 
 # Set the hinting property for freetype (see /etc/profile.d/freetype2.sh):
