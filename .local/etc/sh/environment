@@ -10,8 +10,6 @@ elif [ -e /etc/debian_version ]; then
 	OS_NAME='debian'
 elif [ -e /etc/gentoo-release ]; then
 	OS_NAME='gentoo'
-elif [ "$(uname)" = 'Darwin' ]; then
-	OS_NAME='darwin'
 elif [ -e /etc/lsb-release ]; then
 	OS_NAME="$(grep -e '^DISTRIB_ID=' /etc/lsb-release | cut -d '=' -f 2 | \
 	           tr '[:upper:]' '[:lower:]')"

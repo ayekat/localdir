@@ -43,20 +43,6 @@ printlogo() {
 			printf         "     ^                  ^    \n"
 			printf  "\033[0m                             \n"
 			;;
-		darwin)
-			printf "\033[32m                  .          \n"
-			printf         "               .dA'          \n"
-			printf         "               AP'           \n"
-			printf         "        .dAAbx.,dAAAb.       \n"
-			printf "\033[33m       dAAAAAAAAAAAAP        \033[0m %s\n" "$(uname -s -r)"
-			printf "\033[31m      :AAAAAAAAAAAAA         \033[0m on %s\n" "$(uname -n)"
-			printf "\033[31m      'AAAAAAAAAAAAA.        \n"
-			printf "\033[35m       YAAAAAAAAAAAAAx.      \n"
-			printf "\033[34m        \\AAAAAAAAAAAAP      \n"
-			printf "\033[36m         '<AV*''*\\AP'       \n"
-			printf         "                             \n"
-			printf  "\033[0m                             \n"
-			;;
 		gentoo)
 			printf "\033[36m           __                \n"
 			printf         "       .-d§§§§§bc,           \n"
