@@ -49,16 +49,12 @@ achieve the goal:
 * For applications accepting command line arguments, there are local "fake"
   (wrapper) scripts in `.local/bin` that call the real application with the
   right arguments.
-* For applications where neither of these apply, I weep.
+* For applications where neither of these apply, I weep (or perhaps resort to
+  some ugly LD\_PRELOAD hacks, see issue #7).
 
 See [XDG Base Directory
 support](https://wiki.archlinux.org/index.php/XDG_Base_Directory_support) in the
 Arch Linux wiki for more details about which applications honour the specs.
-
-There is [`inotifywatchdog`](.local/bin/inotifywatchdog), a script that notifies
-you of any changes in a watched directory (ideally you might want to [watch
-`HOME`](.local/etc/inotifywatchdog/config)) &mdash; there is also a
-corresponding systemd user service file.
 
 
 Assumptions
