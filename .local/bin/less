@@ -2,9 +2,6 @@
 
 XDG_LOG_HOME="${XDG_LOG_HOME:-${XDG_CACHE_HOME:-$HOME/.cache}}"
 
-# History location:
-export LESSHISTFILE="$XDG_LOG_HOME/lesshist"
-
 # Colours (also applies to `man`):
 LESS_TERMCAP_me="$(printf "\033[0m")"
 LESS_TERMCAP_se="$(printf "\033[0m")"
@@ -16,4 +13,10 @@ LESS_TERMCAP_md="$(printf "\033[31m")"
 export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
        LESS_TERMCAP_so LESS_TERMCAP_ue LESS_TERMCAP_us
 
-exec /usr/bin/less "$@"
+case "$(basename "$0")" in
+	(man)
+		exec /usr/bin/man "$@" ;;
+	(*) # less
+		export LESSHISTFILE="$XDG_LOG_HOME/lesshist"
+		exec /usr/bin/less "$@" ;;
+esac
