@@ -37,10 +37,12 @@ https://edwardtufte.github.io/tufte-css/ tufte css
 http://lists.busybox.net/pipermail/busybox/2010-December/074114.html split usr
 
 http://standards.freedesktop.org/wm-spec/wm-spec-latest.html ewmh
-https://github.com/qutebrowser/qutebrowser qutebrowser github
 https://wiki.archlinux.org/index.php/Qutebrowser qutebrowser arch wiki
-https://github.com/systemd/systemd systemd
 https://wiki.archlinux.org/index.php/XDG_Base_Directory_support xdg basedir support
+https://tronche.com/gui/x/xlib/events/processing-overview.html xlib event processing
+
+https://github.com/systemd/systemd systemd
+https://github.com/qutebrowser/qutebrowser qutebrowser github
 https://www.passwordstore.org/ unix pass
 
 https://dns.ch-inter.net/index.php dns sui
