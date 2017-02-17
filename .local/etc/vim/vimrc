@@ -322,8 +322,7 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-"au FileType c,cpp,glsl,java,markdown,matlab,perl,php,python,rst,scala,sh,sql,tex,vhdl,zsh
-au BufWritePre <buffer> :call StripTrailingWhitespaces()
+au FileType c,cpp,glsl,java,markdown,matlab,perl,php,python,rst,scala,sh,sql,tex,txt,vhdl,zsh :call StripTrailingWhitespaces()
 
 " Fold C function implemenations:
 function! CFold()
