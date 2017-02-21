@@ -78,7 +78,7 @@ vcs_update()
 		vcs_state=clean
 		echo "$git_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null && vcs_state=ahead
 		echo "$git_status" | grep '^[MADR]' >/dev/null && vcs_state=ready
-		echo "$git_status" | grep '^.[M?R]' >/dev/null && vcs_state=dirty
+		echo "$git_status" | grep '^.[M?DR]' >/dev/null && vcs_state=dirty
 		echo "$git_status" | grep '^UU' >/dev/null && vcs_state=merge
 	fi
 	unset git_head
