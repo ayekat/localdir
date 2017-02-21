@@ -41,6 +41,7 @@ fi
 pc_vcs_huge="$(printf "\033[1;30m")"
 pc_vcs_clean="$(printf "\033[32m")"
 pc_vcs_ahead="$(printf "\033[36m")"
+pc_vcs_dvrgd="$(printf "\033[1;36m")"
 pc_vcs_ready="$(printf "\033[33m")"
 pc_vcs_dirty="$(printf "\033[31m")"
 pc_vcs_merge="$(printf "\033[1;31m")"
@@ -76,7 +77,9 @@ vcs_update()
 	if [ -n "$vcs_branch" ]; then
 		git_status="$(git -C "$1" status --porcelain 2>/dev/null | cut -c 1-2)"
 		vcs_state=clean
-		echo "$git_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null && vcs_state=ahead
+		echo "$git_head"|grep ' \[ahead [0-9]\+\]$'>/dev/null&&vcs_state=ahead
+		echo "$git_head"|grep ' \[ahead [0-9]\+, behind [0-9]\+\]$'>/dev/null \
+			&& vcs_state=dvrgd
 		echo "$git_status" | grep '^[MADR]' >/dev/null && vcs_state=ready
 		echo "$git_status" | grep '^.[M?DR]' >/dev/null && vcs_state=dirty
 		echo "$git_status" | grep '^UU' >/dev/null && vcs_state=merge

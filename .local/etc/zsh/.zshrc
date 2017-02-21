@@ -66,13 +66,14 @@ build_prompt() #{{{
 		_vcs_clean=1
 		_build_vcs_prompt() {
 			vcs_update "$1"
-			case "$vcs_state" in (ahead|ready|dirty|merge)
+			case "$vcs_state" in (ahead|dvrgd|ready|dirty|merge)
 				if [ $_vcs_clean -eq 1 ]; then
 					VCS_PROMPT+="%{$(printf "\033[34m")%}["
 					_vcs_clean=0
 				fi
 				case "$vcs_state" in
 					ahead) VCS_PROMPT+="%{$pc_vcs_ahead%}" ;;
+					dvrgd) VCS_PROMPT+="%{$pc_vcs_dvrgd%}" ;;
 					ready) VCS_PROMPT+="%{$pc_vcs_ready%}" ;;
 					dirty) VCS_PROMPT+="%{$pc_vcs_dirty%}" ;;
 					merge) VCS_PROMPT+="%{$pc_vcs_merge%}" ;;
@@ -98,6 +99,7 @@ build_prompt() #{{{
 			huge)  PROMPT+="%{$pc_vcs_huge%}"  ;;
 			clean) PROMPT+="%{$pc_vcs_clean%}" ;;
 			ahead) PROMPT+="%{$pc_vcs_ahead%}" ;;
+			dvrgd) PROMPT+="%{$pc_vcs_dvrgd%}" ;;
 			ready) PROMPT+="%{$pc_vcs_ready%}" ;;
 			dirty) PROMPT+="%{$pc_vcs_dirty%}" ;;
 			merge) PROMPT+="%{$pc_vcs_merge%}" ;;
