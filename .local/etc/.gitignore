@@ -1,9 +1,3 @@
-# Papiliorama
-/httpd/
-/KeePass/
-/.mono/
-
-# Others
 /asciinema/
 /dconf/
 /freerdp/
@@ -16,4 +10,5 @@
 /pluma/
 /sakura/
 /Thunar/
+/wireshark/
 /xfce4/
