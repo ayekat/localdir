@@ -39,6 +39,9 @@ ignores = (
   #  level = "JOINS PARTS QUITS";
   #  mask = "CeciEstUnBot doek gluc gluc_ gluc__ Lowlya leolepro texom512 Yumia zephyz rykeuse rykki Rykeuse_";
   #}
+  { channels = ( "#gnugeneration" ); mask = "roosemberth"; },
+  { channels = ( "#gnugeneration" ); mask = "roosembert"; },
+  { channels = ( "#gnugeneration" ); mask = "roos"; }
 );
 
 aliases = {
@@ -210,7 +213,6 @@ settings = {
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "fe-common/core" = {
-    bell_beeps = "yes";
     beep_msg_level = "MSGS NOTICES DCC DCCMSGS HILIGHT";
     theme = "ayekat";
   };
