@@ -2,6 +2,7 @@
 placeholder            : _FILE_
 
 # map MIME to applications:
+application/epub+zip   : zathura --fork
 application/postscript : zathura --fork
 application/pdf        : zathura --fork
 application/vnd.ms-powerpoint : libreoffice _FILE_ &
