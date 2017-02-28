@@ -249,5 +249,25 @@ windows = {
       }
     );
   };
+  4 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#qutebrowser";
+        tag = "znc";
+      }
+    );
+  };
+  5 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#epfl";
+        tag = "znc";
+      }
+    );
+  };
 };
 mainwindows = { 1 = { first_line = "1"; lines = "32"; }; };
