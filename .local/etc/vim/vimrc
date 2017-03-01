@@ -410,8 +410,8 @@ set cmdwinheight=10
 " Search for tags file recursively, up to root:
 set tags=./tags;/
 
-" Save a file as root:
-command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
+" Save a file as root (WARNING: breaks file undo history):
+command! Rw :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Undo-tree:
 map <leader>u :GundoToggle<CR>
