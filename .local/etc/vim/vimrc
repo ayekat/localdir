@@ -312,7 +312,7 @@ endif
 " ------------------------------------------------------------------------------
 " WHITESPACE {{{
 
-" Fix trailing whitespaces upon saving:
+" Fix trailing whitespaces when saving file with `:W`:
 function! StripTrailingWhitespaces()
 	let _s=@/
 	let l=line('.')
@@ -321,7 +321,7 @@ function! StripTrailingWhitespaces()
 	call cursor(l,c)
 	let @/=_s
 endfunction
-au FileType c,cpp,glsl,html,java,markdown,matlab,perl,php,python,rst,scala,sh,sql,tex,txt,vhdl,zsh au BufWritePre <buffer> :call StripTrailingWhitespaces()
+command! W :call StripTrailingWhitespaces() | :write
 
 " Fold C function implemenations:
 function! CFold()
