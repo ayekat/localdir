@@ -28,11 +28,6 @@ XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
-# Unset input method variable (Qt currently has issues with input methods, see
-# https://bugreports.qt.io/browse/QTBUG-58687 - also, there are issues with dead
-# keys, although that is not consistently reproducible):
-unset QT_IM_MODULE
-
 # Translate options: remove occurrences of -r/--restore from the list of options
 # while saving its argument for later; ignore -R (TODO):
 session=default
