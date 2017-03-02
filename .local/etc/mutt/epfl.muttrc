@@ -19,6 +19,7 @@ set postponed = +Drafts
 # mailing lists:
 subscribe bbq@lists.gnugen.ch
 subscribe cm0415@lists.gnugen.ch
+subscribe comite@gnugen.ch
 subscribe membres@lists.gnugen.ch
 subscribe membres.gnugeneration@epfl.ch
 
