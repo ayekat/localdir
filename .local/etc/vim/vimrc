@@ -164,6 +164,7 @@ au BufRead,BufNewFile *.smt setl filetype=lisp
 au BufRead,BufNewFile *.install setl filetype=sh
 au BufRead,BufNewFile *.l3 setl filetype=lisp
 au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/sh/* setl filetype=sh
+au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/git/config setl filetype=gitconfig
 
 " Assembly:
 let asmsyntax='nasm'
