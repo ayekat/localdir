@@ -228,10 +228,10 @@ if $TERM != "linux"
 	hi Search             ctermfg=0  ctermbg=136
 
 	" Diffs:
-	hi DiffAdd            ctermfg=46  ctermbg=22
-	hi DiffChange         ctermfg=45  ctermbg=24
-	hi DiffDelete         ctermfg=52  ctermbg=232
-	hi DiffText           ctermfg=226 ctermbg=94 cterm=none
+	hi DiffAdd            ctermfg=118 ctermbg=22
+	hi DiffChange                     ctermbg=237
+	hi DiffDelete         ctermfg=52  ctermbg=none
+	hi DiffText           ctermfg=123 ctermbg=24   cterm=none
 
 	" Gitdiffs:
 	hi diffAdded          ctermfg=2
