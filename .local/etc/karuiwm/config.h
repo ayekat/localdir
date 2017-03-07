@@ -53,6 +53,7 @@ static char const *xrandrleft[] = XRANDRCMD("left");
 static char const *xrandrright[] = XRANDRCMD("right");
 static char const *xrandrdown[] = XRANDRCMD("inverted");
 static char const *termcmd[] = { "urxvt", NULL };
+static char const *sakuracmd[] = { "sakura", NULL };
 static char const *scrotcmd[] = { "prtscr", NULL };
 static char const *scrotcmd_sel[] = { "prtscr", "-s", NULL };
 static char const *lockcmd[] = { "scrlock", NULL };
@@ -96,6 +97,7 @@ custom_shutdown()
 static Key const keys[] = {
 	/* applications */
 	{ MODKEY,                       XK_n,       spawn,            { .v=termcmd } },
+	{ MODKEY|ShiftMask,             XK_n,       spawn,            { .v=sakuracmd } },
 	{ MODKEY,                       XK_p,       dmenu,            { .i=DMenuSpawn } },
 	{ MODKEY|ShiftMask,             XK_Print,   spawn,            { .v=scrotcmd } },
 	{ MODKEY,                       XK_Print,   spawn,            { .v=scrotcmd_sel } },
