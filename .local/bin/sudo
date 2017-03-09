@@ -2,6 +2,6 @@
 # Wrapper around sudo that adds --preserve-env if certain commands are run.
 
 case "$1" in
-	vim|vimdiff|visudo) exec /usr/bin/sudo -E "$@" ;;
+	vim|vimdiff|visudo|pacdiff) exec /usr/bin/sudo -E "$@" ;;
 	*) exec /usr/bin/sudo "$@" ;;
 esac
