@@ -8,17 +8,13 @@
 #
 # Written by ayekat on a cold afternoon in november 2016.
 
-# Set HOME variable (makes Debian-specific hack less effortful)
-HOME                  DEFAULT="@{HOME}"
-#HOME                  DEFAULT="/home/@{PAM_USER}
-
 # XDG base directory specification (XDG_{LIB,LOG}_HOME are not standard!)
-XDG_CACHE_HOME        DEFAULT="${HOME}/.local/var/cache"
-XDG_CONFIG_HOME       DEFAULT="${HOME}/.local/etc"
-XDG_DATA_HOME         DEFAULT="${HOME}/.local/var/lib"
-XDG_RUNTIME_DIR       DEFAULT="${HOME}/.local/run"
-XDG_LIB_HOME          DEFAULT="${HOME}/.local/lib"
-XDG_LOG_HOME          DEFAULT="${HOME}/.local/var/log"
+XDG_CACHE_HOME        DEFAULT="@{HOME}/.local/var/cache"
+XDG_CONFIG_HOME       DEFAULT="@{HOME}/.local/etc"
+XDG_DATA_HOME         DEFAULT="@{HOME}/.local/var/lib"
+XDG_RUNTIME_DIR       DEFAULT="@{HOME}/.local/run"
+XDG_LIB_HOME          DEFAULT="@{HOME}/.local/lib"
+XDG_LOG_HOME          DEFAULT="@{HOME}/.local/var/log"
 LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 
 # Fix various applications to respect XDG
