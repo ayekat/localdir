@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
-XDG_LOG_HOME="${XDG_LOG_HOME:-${XDG_CACHE_HOME:-$HOME/.cache}}"
+XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
 # History location:
-export LESSHISTFILE="$XDG_LOG_HOME/lesshist"
+export LESSHISTFILE="$XDG_DATA_HOME/lesshist"
 
 # Colours:
 LESS_TERMCAP_me="$(printf "\033[0m")"

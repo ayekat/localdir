@@ -12,21 +12,19 @@ set nomodeline
 set runtimepath=$XDG_DATA_HOME/vim,$XDG_DATA_HOME/vim/after,$VIM,$VIMRUNTIME
 
 " Backup files:
-set backupdir=$XDG_CACHE_HOME/vim/backup
+set backupdir=$XDG_RUNTIME_DIR/vim/backup
 
 " Swap files:
-set directory=$XDG_CACHE_HOME/vim/swap
+set directory=$XDG_DATA_HOME/vim/swap
 
-" Command history:
-set viminfo+=n$XDG_LOG_HOME/vim/viminfo
-
-" Undo history:
+" Command and undo history:
+set viminfo+=n$XDG_DATA_HOME/vim/viminfo
 set undofile
 au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
-set undodir=$XDG_LOG_HOME/vim/undo
+set undodir=$XDG_DATA_HOME/vim/undo
 
 " netrw plugin history:
-let g:netrw_home=$XDG_CACHE_HOME.'/vim'
+let g:netrw_home=$XDG_DATA_HOME.'/vim'
 
 " Make sure the damn paths exists:
 function! MakeSureTheDamnPathExists(path)
@@ -34,9 +32,8 @@ function! MakeSureTheDamnPathExists(path)
 		call mkdir(a:path, 'p', 0700)
 	endif
 endfunction
-call MakeSureTheDamnPathExists($XDG_CACHE_HOME.'/vim')
+call MakeSureTheDamnPathExists($XDG_RUNTIME_DIR.'/vim')
 call MakeSureTheDamnPathExists($XDG_DATA_HOME.'/vim')
-call MakeSureTheDamnPathExists($XDG_LOG_HOME.'/vim')
 call MakeSureTheDamnPathExists(&directory)
 call MakeSureTheDamnPathExists(&undodir)
 call MakeSureTheDamnPathExists(&backupdir)
