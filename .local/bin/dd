@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-exec /usr/bin/dd status=progress "$@"
+PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
+exec dd status=progress "$@"

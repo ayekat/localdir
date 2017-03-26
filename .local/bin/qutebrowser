@@ -72,4 +72,5 @@ if [ "$basedir_specified" = 'n' ]; then
 fi
 
 # Run qutebrowser with the "fixed" options:
-exec /usr/bin/qutebrowser "$@"
+PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
+exec qutebrowser "$@"

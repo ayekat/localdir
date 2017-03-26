@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
-# Sanity wrapper around matlab.
 
-exec "$HOME/.local/opt/matlab/bin/matlab" -nodesktop -nosplash "$@"
+PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
+exec matlab -nodesktop -nosplash "$@"

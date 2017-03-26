@@ -27,4 +27,5 @@ mkdir -p "$(dirname "$IRSSI_CONFIG_REAL")"
 sed -e "s/ZNC_PASSWORD/$irssi_password/g" "$IRSSI_CONFIG" > "$IRSSI_CONFIG_REAL"
 
 # Run irssi with the generated config:
-exec /usr/bin/irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL"
+PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
+exec irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL" "$@"

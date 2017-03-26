@@ -1,3 +1,4 @@
 #!/usr/bin/env sh
 
-exec /usr/bin/pidgin -c "$XDG_DATA_HOME/purple" "$@"
+PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
+exec pidgin -c "$XDG_DATA_HOME/purple" "$@"
