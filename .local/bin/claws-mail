@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
-exec claws-mail --alternate-config-dir "$XDG_DATA_HOME"/claws-mail "$@"
+. "$(dirname "$0")"/path.sh
+exec "$EPATH" --alternate-config-dir "$XDG_DATA_HOME"/claws-mail "$@"

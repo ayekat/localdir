@@ -71,6 +71,10 @@ if [ "$basedir_specified" = 'n' ]; then
 	ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
 fi
 
+# Get location of the "real" qutebrowser executable:
+qutepath="$(PATH=$(echo ":$PATH:" | \
+                   sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||") \
+            which qutebrowser)"
+
 # Run qutebrowser with the "fixed" options:
-PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
-exec qutebrowser "$@"
+exec "$qutepath" "$@"

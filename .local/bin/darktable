@@ -1,4 +1,4 @@
 #!/usr/bin/env sh
 
-PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
-exec darktable --configdir "$XDG_DATA_HOME/darktable" "$@"
+. "$(dirname "$0")"/path.sh
+exec "$EPATH" --configdir "$XDG_DATA_HOME/darktable" "$@"

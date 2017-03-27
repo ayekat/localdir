@@ -1,5 +1,7 @@
 #!/usr/bin/env sh
 
+XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
+
 mutt_account="${1:-ayekat}"
 mutt_config="$XDG_CONFIG_HOME/mutt/${mutt_account}.muttrc"
 
@@ -8,5 +10,5 @@ if [ ! -e "$mutt_config" ]; then
 	exit 1
 fi
 
-PATH=$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")
-exec mutt -F "$mutt_config" "$@"
+. "$(dirname "$0")"/path.sh
+exec "$EPATH" -F "$mutt_config" "$@"
