@@ -11,4 +11,4 @@ if [ ! -e "$mutt_config" ]; then
 fi
 
 . "$(dirname "$0")"/path.sh
-exec "$EPATH" -F "$mutt_config" "$@"
+exec "$EPATH" -F "$mutt_config"
