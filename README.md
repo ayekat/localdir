@@ -69,11 +69,14 @@ shipping antique versions of software).
   which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
   authentication frameworks are used, these dotfiles will not work as-is.
 
-* `/usr/sbin`, `/sbin` and `/bin` are assumed to have been
+* `/usr/sbin`, `/sbin` and `/bin` are generally assumed to have
   [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
   into `/usr/bin`, so all absolute paths to system-widely available software
-  point into `/usr/bin` (note that this is a more extreme case of the [`/usr`
+  point into `/usr/bin` by default (note that this is a more extreme case of the
+  [`/usr`
   merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
+  As I strive for compatibility with non-Arch Linux systems, please let me know
+  when a path should point somewhere else.
 
 * Lots of configuration files will attempt to run scripts and binaries in
   `~/.local/bin/utils`, provided by the [utils
@@ -104,3 +107,8 @@ Policies
   `profile.d` directory for application-specific profile snippets, while only
   shell-specific configuration (prompts, input, history, etc.) should happen in
   zsh's config.
+
+* Although shell aliases are generally more lightweight than wrapper scripts,
+  wrapper scripts allow being used also from a non-shell environment (or with
+  `sudo`). So it mostly depends on the application whether we create aliases or
+  wrapper scripts for them.
