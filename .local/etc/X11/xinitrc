@@ -8,16 +8,15 @@ cmds_exist() {
 	done
 }
 
-
 # First of all, make sure we are in the home directory, to avoid weird default
 # working directory paths when opening a shell under X:
 cd
 
 
-# SYSTEM-WIDE ------------------------------------------------------------------
+# ENVIRONMENT ------------------------------------------------------------------
 
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
-	for f in /etc/X11/xinit/xinitrc.d/*.sh; do
+	for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
 		if [ -r "$f" ]; then
 			. "$f"
 		fi
@@ -26,7 +25,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 fi
 
 if [ -d "${XDG_CONFIG_HOME}/X11/xinitrc.d" ]; then
-	for f in "${XDG_CONFIG_HOME}"/X11/xinitrc.d/*.sh; do
+	for f in "${XDG_CONFIG_HOME}"/X11/xinitrc.d/?*.sh; do
 		if [ -r "$f" ]; then
 			. "$f"
 		fi
@@ -37,9 +36,15 @@ fi
 
 # INPUT/OUTPUT -----------------------------------------------------------------
 
+# Keyboard and mouse layout:
 setxkbmap ayekat
 ayemouse
-cmds_exist dispwin && lcdadjust
+
+# Input method:
+cmds_exist ibus-daemon && ibus-daemon -drx
+
+# Screen colour calibration:
+cmds_exist lcdadjust dispwin && lcdadjust
 
 
 # SERVICES ---------------------------------------------------------------------
@@ -47,22 +52,11 @@ cmds_exist dispwin && lcdadjust
 # Load X resources:
 cmds_exist xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
 
-# Start a scratchpad:
-cmds_exist urxvt && urxvt -e tmx SCRATCHPAD &
-
 # Set the wallpaper:
 cmds_exist nitrogen && nitrogen --restore
 
-# Enable Japanese input:
-if cmds_exist ibus-daemon; then
-	export GTK_IM_MODULE=ibus
-	export QT_IM_MODULE=ibus
-	export XMODIFIERS='@im=ibus'
-	ibus-daemon -drx
-fi
-
-# Set the hinting property for freetype (see /etc/profile.d/freetype2.sh):
-export FREETYPE_PROPERTIES='truetype:interpreter-version=35'
+# Start a scratchpad:
+cmds_exist urxvt tmx && urxvt -e tmx SCRATCHPAD &
 
 
 # WM ---------------------------------------------------------------------------
