@@ -9,3 +9,15 @@ x-scheme-handler/http=qutebrowser.desktop
 x-scheme-handler/https=qutebrowser.desktop
 x-scheme-handler/about=qutebrowser.desktop
 x-scheme-handler/unknown=qutebrowser.desktop
+
+[Added Associations]
+application/pdf=zathura.desktop
+image/jpeg=eom.desktop
+image/png=eom.desktop
+image/tiff=eom.desktop
+image/x-ms-bmp=eom.desktop
+text/html=qutebrowser.desktop
+x-scheme-handler/http=qutebrowser.desktop
+x-scheme-handler/https=qutebrowser.desktop
+x-scheme-handler/about=qutebrowser.desktop
+x-scheme-handler/unknown=qutebrowser.desktop
