@@ -200,19 +200,19 @@ hi MatchParen cterm=bold ctermfg=4 ctermbg=none
 if $TERM != "linux"
 	" Custom colour scheme for X vim {{{
 	" Dropdown menu:
-	hi Pmenu      ctermfg=244 ctermbg=234
+	hi Pmenu      ctermfg=245 ctermbg=234
 	hi PmenuSel   ctermfg=45  ctermbg=23
 	hi PmenuSbar              ctermbg=234
 	hi PmenuThumb             ctermbg=31
 
 	" Folding:
-	hi Folded     ctermfg=248 ctermbg=236 cterm=none
+	hi Folded     ctermfg=249 ctermbg=237 cterm=none
 
 	" Separate normal text from non-file-text:
 	"hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 
 	" Window separator (XXX inverted for some reason):
-	hi VertSplit  ctermfg=232 ctermbg=236
+	hi VertSplit  ctermfg=232 ctermbg=237
 
 	" Line numbers and syntastic column:
 	hi SignColumn             ctermbg=none
@@ -466,16 +466,16 @@ else
 	" normal statusline:
 	hi N_mode           ctermfg=22  ctermbg=148
 	hi N_git_branch     ctermfg=148 ctermbg=8
-	hi N_git_sep        ctermfg=236 ctermbg=8
+	hi N_git_sep        ctermfg=237 ctermbg=8
 	hi N_file           ctermfg=247 ctermbg=8
 	hi N_file_emphasise ctermfg=7   ctermbg=8
 	hi N_file_modified  ctermfg=3   ctermbg=8
-	hi N_middle         ctermfg=244 ctermbg=236
-	hi N_middle_sep     ctermfg=8   ctermbg=236
-	hi N_warning        ctermfg=1   ctermbg=236
+	hi N_middle         ctermfg=245 ctermbg=237
+	hi N_middle_sep     ctermfg=8   ctermbg=237
+	hi N_warning        ctermfg=1   ctermbg=237
 	hi N_pos            ctermfg=11  ctermbg=8
 	hi N_cursor         ctermfg=0   ctermbg=7
-	hi N_cursor_line    ctermfg=236 ctermbg=7
+	hi N_cursor_line    ctermfg=237 ctermbg=7
 	hi N_cursor_col     ctermfg=8   ctermbg=7
 
 	hi V_mode           ctermfg=52  ctermbg=208
@@ -496,8 +496,8 @@ else
 	hi cmd_info              ctermfg=7   ctermbg=0
 
 	" default statusline:
-	hi StatusLine            ctermfg=0   ctermbg=236 cterm=none
-	hi StatusLineNC          ctermfg=8   ctermbg=236 cterm=none
+	hi StatusLine            ctermfg=0   ctermbg=237 cterm=none
+	hi StatusLineNC          ctermfg=8   ctermbg=237 cterm=none
 endif
 " }}}
 
@@ -675,7 +675,7 @@ au! CmdwinEnter       * setl statusline=%!StatuslineCommand()
 if $TERM != 'linux'
 	set cursorline
 
-	hi N_linenr         ctermfg=244 ctermbg=236
+	hi N_linenr         ctermfg=245 ctermbg=237
 	hi N_linenr_cursor  ctermfg=148 ctermbg=8
 	hi N_cursorline                 ctermbg=none
 	hi V_linenr         ctermfg=208 ctermbg=52
