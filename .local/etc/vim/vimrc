@@ -190,7 +190,7 @@ let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
 color default
 
 " Make visual less penetrant:
-hi Visual cterm=inverse ctermbg=0
+hi Visual cterm=inverse ctermbg=none
 
 " Non-printable characters (tabs, spaces, special keys):
 hi SpecialKey cterm=bold ctermfg=238
@@ -212,8 +212,8 @@ if $TERM != "linux"
 	" Separate normal text from non-file-text:
 	"hi NonText    ctermfg=0   ctermbg=232 cterm=bold
 
-	" Window separator (XXX inverted for some reason):
-	hi VertSplit  ctermfg=232 ctermbg=237
+	" Window separator:
+	hi VertSplit  ctermfg=237 ctermbg=none cterm=none
 
 	" Line numbers and syntastic column:
 	hi SignColumn             ctermbg=none
