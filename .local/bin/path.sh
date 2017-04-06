@@ -2,4 +2,4 @@
 # executable that has the same name as the currently running executable.
 # Handy for using in "wrapper" scripts.
 
-EPATH="$(PATH="$(echo ":$PATH:" | sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||")" which "$(basename "$0")")"
+EPATH="$(PATH="$(echo ":$PATH:" | sed -e "s|:\\($(dirname "$0"):\\)\\+|:|g;s|^:||;s|:\$||")" which "$(basename "$0")")"
