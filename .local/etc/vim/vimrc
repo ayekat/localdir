@@ -73,7 +73,6 @@ NeoBundle 'ap/vim-css-color'
 NeoBundle 'honza/dockerfile.vim'
 NeoBundle 'nfnty/vim-nftables'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 'jamessan/vim-gnupg'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 if g:bundleinit
