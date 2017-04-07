@@ -42,6 +42,7 @@ list_sessions()
 # while saving its argument for later; ignore -R (TODO):
 session=default
 basedir_specified=n
+backend_specified=n
 opts_read=0
 while [ $opts_read -lt $# ]; do
 	opt="$1" && shift
@@ -49,16 +50,20 @@ while [ $opts_read -lt $# ]; do
 		(--basedir) basedir_specified=y ;;
 		(-r|-[!-]*r|--restore) session="$1" && shift && continue ;;
 		(--list-sessions) list_sessions && exit ;;
+		(--backend) backend_specified=y ;;
 		(-R) continue ;; # TODO
 	esac
 	set -- "$@" "$opt"
 	opts_read=$((opts_read + 1))
 done
 basedir="$XDG_RUNTIME_DIR/qutebrowser/$session"
+if [ "$backend_specified" != 'y' ]; then
+	set -- "$@" --backend webengine
+fi
 
 # Set up session base directory (but only if --basedir has not been specified by
 # the user):
-if [ "$basedir_specified" = 'n' ]; then
+if [ "$basedir_specified" != 'y' ]; then
 	set -- '--basedir' "$basedir" "$@"
 	mkdir -p \
 		"$basedir" \
