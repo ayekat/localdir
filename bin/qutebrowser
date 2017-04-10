@@ -49,7 +49,7 @@ done
 # Set backend to WebEngine, unless --backend has been specified by the user:
 basedir="$XDG_RUNTIME_DIR/qutebrowser/$session"
 if [ "$backend_specified" != 'y' ]; then
-	set -- "$@" --backend webengine
+	set -- --backend webengine "$@"
 fi
 
 # Set up session base directory, unless --basedir has been specified by the
