@@ -28,18 +28,8 @@ XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 
-list_sessions()
-{
-	if [ -d "$XDG_DATA_HOME/qutebrowser" ]; then
-		ls "$XDG_DATA_HOME/qutebrowser"
-	else
-		echo "No sessions" >&2
-		exit 1
-	fi
-}
-
-# Translate options: remove occurrences of -r/--restore from the list of options
-# while saving its argument for later; ignore -R (TODO):
+# Translate options: remove occurrences of -r/--restore from the list of
+# command line arguments and save the session name for later; ignore -R (TODO):
 session=default
 basedir_specified=n
 backend_specified=n
@@ -49,20 +39,21 @@ while [ $opts_read -lt $# ]; do
 	case "$opt" in
 		(--basedir) basedir_specified=y ;;
 		(-r|-[!-]*r|--restore) session="$1" && shift && continue ;;
-		(--list-sessions) list_sessions && exit ;;
 		(--backend) backend_specified=y ;;
 		(-R) continue ;; # TODO
 	esac
 	set -- "$@" "$opt"
 	opts_read=$((opts_read + 1))
 done
+
+# Set backend to WebEngine, unless --backend has been specified by the user:
 basedir="$XDG_RUNTIME_DIR/qutebrowser/$session"
 if [ "$backend_specified" != 'y' ]; then
 	set -- "$@" --backend webengine
 fi
 
-# Set up session base directory (but only if --basedir has not been specified by
-# the user):
+# Set up session base directory, unless --basedir has been specified by the
+# user:
 if [ "$basedir_specified" != 'y' ]; then
 	set -- '--basedir' "$basedir" "$@"
 	mkdir -p \
@@ -78,7 +69,7 @@ fi
 
 # Get location of the "real" qutebrowser executable:
 qutepath="$(PATH=$(echo ":$PATH:" | \
-                   sed -e "s|:$(dirname "$0"):|:|;s|^:||;s|:\$||") \
+                   sed -e "s|:\\($(dirname "$0"):\\)\\+|:|g;s|^:||;s|:\$||") \
             which qutebrowser)"
 
 # Run qutebrowser with the "fixed" options:
