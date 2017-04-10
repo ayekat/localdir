@@ -1,5 +1,5 @@
 # utils
 
-if [ -d "$HOME/.local/bin/utils" ]; then
-	export PATH="$HOME/.local/bin/utils:$PATH"
+if [ -d "$HOME/.local/lib/utils/bin" ]; then
+	export PATH="$HOME/.local/lib/utils/bin:$PATH"
 fi
