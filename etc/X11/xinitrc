@@ -80,7 +80,7 @@ mkdir -p "$session_logdir"
 ln -sf "$session_logfile" "$session_logdir/latest"
 while true; do
 	if cmds_exist karuibar; then
-		karuibar &
+		{ sleep 1 && karuibar; } &
 		karuibar_pid=$!
 	fi
 
