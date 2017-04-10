@@ -3,20 +3,18 @@ dotfiles
 
 This is my collection of user/application settings ("dotfiles") and personal
 scripts. They are mostly adapted to my personal needs, and some scripts may make
-[unfortunate assumptions about the environment](#assumptions) (most likely not
-considered "standard"). Nevertheless, I try to keep them as clean and non-WTF as
-possible, and people are invited to take a look at them, get ideas for their own
-dotfiles, and drop comments if something seems odd.
+unfortunate assumptions about the environment that may not necessarily be
+considered "standard", so it is not recommended to adopt them as-is.
 
-For using the dotfiles, I place them in some location (e.g.
-`~/.local/lib/dotfiles`), then symlink each file/directory to their respective
-locations.
+Nevertheless, I try to keep them as clean and non-WTF as possible, and people
+are invited to take a look at them, get ideas for their own dotfiles, and drop
+comments, suggestions, questions and bug reports if something seems odd.
 
 
 XDG/FHS
 -------
 
-I try to keep the top-level user home directory as clean as possible by
+My goal is to keep the top-level user home directory as clean as possible by
 honouring the [XDG base directory
 specification](https://specifications.freedesktop.org/basedir-spec/latest/index.html),
 adapted to recreate the [Linux file system
@@ -36,25 +34,37 @@ this means that the following environment variables are set:
 > * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
 >   nevertheless necessary for representing the FHS locally.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
+> * Some applications unfortunately do not honour the XDG base directory
+>   specifications, so I additionally [set environment
+>   variables](pam_environment) or [write wrapper scripts](bin)&mdash;or simply
+>   weep (see also issue #8). The [*XDG Base Directory
+>   support*](https://wiki.archlinux.org/index.php/XDG_Base_Directory_support)
+>   article in the Arch Linux wiki contains a list of applications that honour
+>   the specs (or can be made to do so).
 
-Furthermore, user-specific applications and scripts are expected to be placed in
-`~/.local/bin`.
+Furthermore, the `$PATH` variable is expanded to contain the following
+locations (assuming that this repository has been cloned into
+`~/.local/lib/dotfiles`):
 
-Unfortunately, some application do not honour the XDG basedir specification, and
-setting above variables is often not enough. Various approaches are taken to
-achieve the goal:
+| Location                    | Description |
+| --------------------------- | --- |
+| `~/.local/bin`              | User-specific executables (not tracked) |
+| `~/.local/lib/dotfiles/bin` | User-specific executables provided by this repository |
+| `~/.local/lib/utils/bin`    | User-specific executables provided by the [utils](https://github.co/ayekat/utils) repository |
+| `~/.local/opt/altera/...`   | Various paths containing [Altera Quartus II](https://en.wikipedia.org/wiki/Altera_Quartus)-specific executables |
 
-* For applications using their own environment variables, a simple entry in
-  `~/.pam_environment` is usually enough.
-* For applications accepting command line arguments, there are local "fake"
-  (wrapper) scripts in `.local/bin` that call the real application with the
-  right arguments.
-* For applications where neither of these apply, I weep (or perhaps resort to
-  some ugly LD\_PRELOAD hacks, see issue #7).
 
-See [XDG Base Directory
-support](https://wiki.archlinux.org/index.php/XDG_Base_Directory_support) in the
-Arch Linux wiki for more details about which applications honour the specs.
+Usage
+-----
+
+For using the dotfiles, I clone this repository into `~/.local/lib/dotfiles`,
+and then symlink each file/directory to their respective locations:
+
+* `~/.pam_environment` → `~/.local/lib/dotfiles/pam_environment`
+* `~/.local/etc` → `~/.local/lib/dotfiles/etc`
+* `~/.local/lib/argyll` → `~/.local/lib/dotfiles/lib/argyll`
+* `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
+* `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 
 
 Assumptions
@@ -67,7 +77,9 @@ shipping antique versions of software).
 
 * For setting the [XDG basedir variables](#xdgfhs) I use `~/.pam_environment`,
   which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
-  authentication frameworks are used, these dotfiles will not work as-is.
+  authentication frameworks are used, these dotfiles will not work as-is (but
+  with some additional fiddling in the shell initialisation, it should still be
+  doable).
 
 * `/usr/sbin`, `/sbin` and `/bin` are generally assumed to have
   [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
@@ -75,11 +87,12 @@ shipping antique versions of software).
   point into `/usr/bin` by default (note that this is a more extreme case of the
   [`/usr`
   merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
-  As I strive for compatibility with non-Arch Linux systems, please let me know
-  when a path should point somewhere else.
+  Nevertheless, I strive for compatibility with non-Arch Linux systems (even if
+  I consider the distinction of those paths to be absolutely unnecessary), so
+  please let me know when a path should point somewhere else.
 
 * Lots of configuration files will attempt to run scripts and binaries in
-  `~/.local/bin/utils`, provided by the [utils
+  `~/.local/lib/utils/bin`, provided by the [utils
   repository](https://github.com/ayekat/utils). The missing of latter should be
   non-fatal, though.
 
@@ -87,12 +100,12 @@ shipping antique versions of software).
 Policies
 --------
 
-* Application history generally goes into `XDG_DATA_HOME` (see f1147a9 for the
-  reasoning). The only things that go into `XDG_LOG_HOME` are "real" logs, i.e.
-  data that is no longer read and used by the application itself. The only
-  things that go into `XDG_CACHE_HOME` are files that are non-essential and can
-  quickly be regenerated by the application, if needed (which is both not the
-  case for history files).
+* Application history generally goes into `XDG_DATA_HOME` (see commit f1147a9
+  for the reasoning). The only things that go into `XDG_LOG_HOME` are "real"
+  logs, i.e. data that is no longer read and used by the application itself. The
+  only things that go into `XDG_CACHE_HOME` are files that are non-essential and
+  can quickly be regenerated by the application, if needed (which is both not
+  the case for history files).
 
 * Applications whose configuration is mixed up with other data (or generally not
   supposed to be manually edited) is put into `XDG_DATA_HOME`, reason being that
