@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+. "$(dirname "$0")"/path.sh
+exec "$EPATH" -ivy "$XDG_DATA_HOME"/ivy2 -sbt-dir "$XDG_DATA_HOME"/sbt "$@"
