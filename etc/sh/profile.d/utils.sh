@@ -1,5 +1,5 @@
 # utils
 
-if [ -d "$HOME/.local/lib/utils/bin" ]; then
-	export PATH="$HOME/.local/lib/utils/bin:$PATH"
+if [ -d "$XDG_LIB_HOME/utils/bin" ]; then
+	export PATH="$XDG_LIB_HOME/utils/bin:$PATH"
 fi

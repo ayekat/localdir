@@ -1,5 +1,5 @@
 # dotfiles
 
-if [ -d "$HOME/.local/lib/dotfiles/bin" ]; then
-	export PATH="$HOME/.local/lib/dotfiles/bin:$PATH"
+if [ -d "$XDG_LIB_HOME/dotfiles/bin" ]; then
+	export PATH="$XDG_LIB_HOME/dotfiles/bin:$PATH"
 fi
