@@ -198,7 +198,7 @@ def_key "j"
 #def_key "insert"
 #  select_item
 #
-def_key "space"
+def_key "t"
   select_item
   scroll_down
 
