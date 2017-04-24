@@ -125,3 +125,16 @@ Policies
   wrapper scripts allow being used also from a non-shell environment (or with
   `sudo`). So it mostly depends on the application whether we create aliases or
   wrapper scripts for them.
+
+
+Miscellaneous
+-------------
+
+As noted above, these dotfiles represent my personal setup&mdash;nevertheless, I
+encourage people to take a look at it, mainly for learning how applications can
+be made to (somewhat) conform to the XDG base directory specifications (and thus
+have a clean home directory).
+
+There are other, similar "experiments" out there:
+
+* https://github.com/Earnestly/dotfiles
