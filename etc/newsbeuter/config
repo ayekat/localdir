@@ -1,0 +1,12 @@
+browser "qutebrowser %u"
+cache-file ~/.local/var/cache/newsbeuter/cache.db
+notify-program "notify-send"
+notify-always yes
+
+color background        color250 black
+color info              white    blue
+color listnormal        color250 black
+color listfocus         white    color240
+color listnormal_unread green    black
+color listfocus_unread  color46  color240
+color article           color250 black
