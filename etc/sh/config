@@ -44,7 +44,7 @@ pc_vcs_ahead="$(printf "\033[36m")"
 pc_vcs_dvrgd="$(printf "\033[1;36m")"
 pc_vcs_ready="$(printf "\033[33m")"
 pc_vcs_dirty="$(printf "\033[31m")"
-pc_vcs_merge="$(printf "\033[1;31m")"
+pc_vcs_hdlss="$(printf "\033[1;31m")"
 pc_host=$(printf "\033[35m")
 pc_pwd=$(printf "\033[34m")
 pc_prompt=$(printf "\033[1;31m")
@@ -82,8 +82,11 @@ vcs_update()
 			&& vcs_state=dvrgd
 		echo "$git_status" | grep '^[MADR]' >/dev/null && vcs_state=ready
 		echo "$git_status" | grep '^.[M?ADR]' >/dev/null && vcs_state=dirty
-		echo "$git_status" | grep '^UU' >/dev/null && vcs_state=merge
-		test "$vcs_branch" != 'HEAD (no branch)' || vcs_branch=rebase
+		if [ "$vcs_branch" = 'HEAD (no branch)' ]; then
+			vcs_state=hdlss
+			vcs_branch=headless
+		fi
+		# ^UU → merge?
 	fi
 	unset git_head
 }

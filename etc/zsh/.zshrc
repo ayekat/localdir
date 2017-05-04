@@ -66,7 +66,7 @@ build_prompt() #{{{
 		_vcs_clean=1
 		_build_vcs_prompt() {
 			vcs_update "$1"
-			case "$vcs_state" in (ahead|dvrgd|ready|dirty|merge)
+			case "$vcs_state" in (ahead|dvrgd|ready|dirty|hdlss)
 				if [ $_vcs_clean -eq 1 ]; then
 					VCS_PROMPT+="%{$(printf "\033[34m")%}["
 					_vcs_clean=0
@@ -76,7 +76,7 @@ build_prompt() #{{{
 					dvrgd) VCS_PROMPT+="%{$pc_vcs_dvrgd%}" ;;
 					ready) VCS_PROMPT+="%{$pc_vcs_ready%}" ;;
 					dirty) VCS_PROMPT+="%{$pc_vcs_dirty%}" ;;
-					merge) VCS_PROMPT+="%{$pc_vcs_merge%}" ;;
+					hdlss) VCS_PROMPT+="%{$pc_vcs_hdlss%}" ;;
 				esac
 				VCS_PROMPT+="$2"
 			esac
@@ -102,7 +102,7 @@ build_prompt() #{{{
 			dvrgd) PROMPT+="%{$pc_vcs_dvrgd%}" ;;
 			ready) PROMPT+="%{$pc_vcs_ready%}" ;;
 			dirty) PROMPT+="%{$pc_vcs_dirty%}" ;;
-			merge) PROMPT+="%{$pc_vcs_merge%}" ;;
+			hdlss) PROMPT+="%{$pc_vcs_hdlss%}" ;;
 		esac
 		PROMPT+="[$vcs_branch]%{$reset_color%} "
 	fi
