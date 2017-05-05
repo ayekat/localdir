@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+
+. "$(dirname "$0")"/path.sh
+exec "$EPATH" -gs "$XDG_CONFIG_HOME/maven/settings.xml" "$@"
