@@ -9,8 +9,6 @@
 set -e
 set -u
 
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 IRSSI_HOME="$XDG_CONFIG_HOME/irssi"
 IRSSI_CONFIG="$XDG_CONFIG_HOME/irssi/config"
 IRSSI_CONFIG_REAL="$XDG_RUNTIME_DIR/irssi/irssi_config"

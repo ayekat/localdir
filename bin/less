@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
-
 # History location:
 export LESSHISTFILE="$XDG_DATA_HOME/lesshist"
 

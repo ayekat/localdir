@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
-
 mkdir -p "$XDG_CACHE_HOME/sloccount"
 
 . "$(dirname "$0")"/path.sh

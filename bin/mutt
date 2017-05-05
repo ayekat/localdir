@@ -1,7 +1,5 @@
 #!/usr/bin/env sh
 
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
-
 mutt_account="${1:-ayekat}"
 mutt_config="$XDG_CONFIG_HOME/mutt/${mutt_account}.muttrc"
 
