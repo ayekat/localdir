@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname "$0")"/path.sh
+# Excluded shell checks:
+# * SC1090 (Can't follow non-constant source)
+#   We use it all the time. It's not a crime.
+# * SC2059 (Don't use variables in the printf format string)
+#   When using wrappers around printfs, we extract the format string and pass it
+#   as the first argument. In such a case, we can't get rid of the warning.
+exec "$EPATH" --exclude=SC2059,SC1090 "$@"
