@@ -1,5 +1,6 @@
 #!/usr/bin/env sh
-. "$(basename "$0")"/path.sh
+
+. "$(dirname "$0")"/path.sh
 mkdir -p "$XDG_DATA_HOME/newsbeuter"
 mkdir -p "$XDG_CACHE_HOME/newsbeuter"
 exec "$EPATH"
