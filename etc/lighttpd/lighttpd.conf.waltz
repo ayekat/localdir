@@ -2,10 +2,10 @@
 
 # Modules:
 include "conf.d/mimetype.conf"
-$HTTP["host"] !~ "^wiki(\..*)$" {
+#$HTTP["host"] !~ "^paste(\..*)$" {
 	include "conf.d/cgi.conf"         # .cgi => python3
 	include "conf.d/rewrite.conf"     # *.* => /cgi/main.cgi
-}
+#}
 
 # Basic server configuration:
 server.port = 8080
@@ -16,6 +16,6 @@ index-file.names = ( "index.html" )
 dir-listing.activate = "disable"
 
 # Virtual Hosts:
-#$HTTP["host"] = "^ayekat.ch$" {
+#$HTTP["host"] =~ "^ayekat.ch$" {
 	server.document-root = "/home/ayekat/.local/srv/http/ayekat.ch"   # default
 #}
