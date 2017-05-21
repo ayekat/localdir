@@ -123,15 +123,16 @@ dzen2.foreground     : #888888
 # if DISPLAY_NUM == 0
 karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
-                   battery, battery_slice, backlight, alsa_out, alsa_in, \
-                   time_date, time_time, capslock
+                   battery, battery_slice, backlight, \
+                   alsa_out, alsa_in, time_date, time_time, capslock
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
 #else
 # ifdef SRVR_phobia
 karuibar.xgap    : 100
-karuibar.modules : network, memory, cpu, alsa_out, time_date, time_time, capslock
+karuibar.modules : mpd, network, memory, cpu, \
+                   alsa_out, time_date, time_time, capslock
 # endif
 #endif
 
