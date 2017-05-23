@@ -345,7 +345,7 @@ set copyindent
 " Indentation (tabs, spaces):
 set noexpandtab tabstop=4 shiftwidth=4
 au FileType c setl tabstop=8 shiftwidth=8
-au BufRead $HOME/epfl/courses/prog/* setl tabstop=4 shiftwidth=4
+au BufRead PKGBUILD setl expandtab tabstop=2 shiftwidth=2
 au FileType scala,tex,nftables setl expandtab tabstop=2 shiftwidth=2
 au FileType ant,cpp,haskell,java,lisp,named,python,sql,xml setl expandtab
 
