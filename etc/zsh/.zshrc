@@ -259,8 +259,8 @@ setopt hist_ignore_dups         # ignore duplicate commands
 setopt hist_ignore_space        # ignore commands with leading space
 
 export HISTFILE="$XDG_DATA_HOME/zsh/zhistory"
-export HISTSIZE=100000          # maximum history size in terminal's memory
-export SAVEHIST=100000          # maximum size of history file
+export HISTSIZE=1000000         # maximum history size in terminal's memory
+export SAVEHIST=1000000         # maximum size of history file
 
 # prevent commands from entering the history
 zshaddhistory() {
