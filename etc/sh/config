@@ -57,24 +57,10 @@ vcs_state=''
 vcs_branch=''
 vcs_update()
 {
-	# Don't calculate git repo infos on slow machines or huge repositories:
-	case "$(hostname)" in
-		ds-wrk3)
-			vcs_branch='git'
-			vcs_state='slow'
-			return ;;
-	esac
-	case "$1" in
-		"$HOME"/dev/linux)
-			vcs_branch='git'
-			vcs_state='huge'
-			return ;;
-	esac
-
 	git_head="$(git -C "$1" status --porcelain -b 2>/dev/null | head -n 1)"
 	vcs_state=''
 	vcs_branch="$(echo "$git_head" | sed -e 's/^## \([^.]\+\).*/\1/g')"
-	if [ -n "$vcs_branch" ]; then
+	if [ -z "$VCS_IGNORE" ] && [ -n "$vcs_branch" ]; then
 		git_status="$(git -C "$1" status --porcelain 2>/dev/null | cut -c 1-2)"
 		vcs_state=clean
 		echo "$git_head"|grep ' \[ahead [0-9]\+\]$'>/dev/null&&vcs_state=ahead
