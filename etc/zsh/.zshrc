@@ -173,16 +173,16 @@ precmd
 
 # Use vim mode, but keep handy emacs keys in insert mode:
 bindkey -v
-bindkey -M viins ''    backward-delete-char
-bindkey -M viins '[3~' delete-char
-bindkey -M viins ''    beginning-of-line
-bindkey -M viins ''    end-of-line
-bindkey -M viins ''    kill-line
-bindkey -M viins ''    down-line-or-history
-bindkey -M viins ''    up-line-or-history
-#bindkey -M viins ''    history-incremental-search-backward
-bindkey -M viins ''    backward-kill-line
-bindkey -M viins ''    backward-kill-word
+bindkey -M viins '^?'    backward-delete-char
+bindkey -M viins '^[[3~' delete-char
+bindkey -M viins '^A'    beginning-of-line
+bindkey -M viins '^E'    end-of-line
+bindkey -M viins '^K'    kill-line
+bindkey -M viins '^N'    down-line-or-history
+bindkey -M viins '^P'    up-line-or-history
+#bindkey -M viins '^R'    history-incremental-search-backward
+bindkey -M viins '^U'    backward-kill-line
+bindkey -M viins '^W'    backward-kill-word
 
 # Use vim to edit command lines:
 autoload -U edit-command-line
@@ -229,10 +229,10 @@ zstyle ':completion:*' ignore-parents parent pwd
 zstyle ':completion:*' preserve-prefix '//[^/]##/'
 zstyle ':completion:*' special-dirs true
 zstyle ':completion:*' squeeze-slashes true
-zstyle :compinstall filename '/home/ayekat/.config/zsh/.zshrc'
+zstyle ':compinstall' filename "$XDG_CONFIG_HOME/zsh/.zshrc"
 
 autoload -Uz compinit
-compinit -d $XDG_CACHE_HOME/zsh/zcompdump
+compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 # End of lines added by compinstall
 
 # Do not autocomplete when ambiguous (bash-like):
