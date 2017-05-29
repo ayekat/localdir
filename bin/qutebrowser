@@ -38,7 +38,7 @@ while [ $opts_read -lt $# ]; do
 	opt="$1" && shift
 	case "$opt" in
 		(--basedir) basedir_specified=y ;;
-		(-r|-[!-]*r|--restore) session="$1" && shift && continue ;;
+		(-r|-[!-]*r|--restore) test $# -gt 0 && session="$1" && shift && continue ;;
 		(--backend) backend_specified=y ;;
 		(-R) continue ;; # TODO
 	esac
