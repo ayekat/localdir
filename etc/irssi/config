@@ -221,7 +221,7 @@ settings = {
 logs = { };
 hilights = (
   {
-    text = "^[A-Za-z0-9.,:;!?|<>{} ]*([Aa]yekat|[Kk]arui)";
+    text = "([Aa]yekat|[Kk]arui)";
     nick = "yes";
     word = "yes";
     regexp = "yes";
