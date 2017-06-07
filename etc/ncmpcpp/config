@@ -14,7 +14,8 @@
 ncmpcpp_directory = ~/.local/etc/ncmpcpp
 #
 ##
-## Directory for storing log files (like error.log).
+## Directory for storing log files (like error.log). It defaults to
+## $XDG_CACHE_HOME/ncmpcpp.
 ##
 #
 log_directory = ~/.local/var/log/ncmpcpp
