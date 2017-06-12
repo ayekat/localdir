@@ -94,7 +94,7 @@ function build_prompt() #{{{
 
 	# VCS (PWD):
 	vcs_update "$(pwd)"
-	if [ -n "$vcs_state" ]; then
+	if [[ -n "$vcs_state" ]]; then
 		case "$vcs_state" in
 			(huge)  PROMPT+="%{$pc_vcs_huge%}"  ;;
 			(clean) PROMPT+="%{$pc_vcs_clean%}" ;;
@@ -114,7 +114,7 @@ function build_prompt() #{{{
 	PROMPT+="%{$pc_pwd%}%~%{$reset_color%} "
 
 	# Root?
-	if [ $(id -u) = 0 ]; then
+	if [[ $(id -u) = 0 ]]; then
 		PROMPT+="%{$pc_prompt%}#%{$reset_color%} "
 	fi
 
@@ -130,13 +130,13 @@ function build_rprompt() #{{{
 	RPROMPT+="%(?..%{$pc_retval_bad%}[%?]%{$reset_color%})"
 
 	# Last command's duration:
-	if [ -n "$timer" ]; then
+	if [[ -n "$timer" ]]; then
 		timer_total=$(($SECONDS - $timer))
 		timer_sec=$(($timer_total % 60))
 		timer_min=$(($timer_total / 60 % 60))
 		timer_hour=$(($timer_total / 3600 % 24))
 		timer_day=$(($timer_total / 86400))
-		if [ ${timer_total} -gt 1 ]; then
+		if [[ ${timer_total} -gt 1 ]]; then
 			tp=''
 			[[ -z "$tp" ]] && [[ $timer_day  -eq 0 ]] || tp+="${timer_day}d "
 			[[ -z "$tp" ]] && [[ $timer_hour -eq 0 ]] || tp+="${timer_hour}h "
@@ -255,7 +255,7 @@ bindkey "^I" expand-or-complete-with-dots
 # HISTORY {{{
 
 # Make sure the zsh log directory exists:
-test -d "$XDG_DATA_HOME/zsh" || mkdir -p "$XDG_DATA_HOME/zsh"
+[[ -d "$XDG_DATA_HOME/zsh" ]] || mkdir -p "$XDG_DATA_HOME/zsh"
 
 setopt inc_append_history       # immediately append history to history file
 setopt hist_ignore_dups         # ignore duplicate commands
