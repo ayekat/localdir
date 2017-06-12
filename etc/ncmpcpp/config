@@ -11,7 +11,7 @@
 ## ncmpcpp.
 ##
 #
-ncmpcpp_directory = ~/.local/etc/ncmpcpp
+ncmpcpp_directory = ~/.local/var/lib/ncmpcpp
 #
 ##
 ## Directory for storing log files (like error.log). It defaults to
