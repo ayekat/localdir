@@ -1,6 +1,15 @@
 # Profile loaded when logging into a shell.
 # Written by ayekat on a cold morning in january 2017.
 
+# Work around distributions that still keep separate sbin directories:
+for p in /usr/sbin /sbin; do
+	if [ -d "$p" ] && [ ! -h "$p" ]; then
+		PATH="$PATH:$p"
+	fi
+done
+unset p
+export PATH
+
 # Set user-path:
 export PATH="$HOME/.local/bin:$PATH"
 
