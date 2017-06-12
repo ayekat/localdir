@@ -19,7 +19,6 @@ ignores = (
       "#claws",
       "#debian",
       "#gitlab",
-      "#gnugeneration",
       "#netfilter",
       "#python",
       "#qemu",
