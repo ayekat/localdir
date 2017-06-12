@@ -34,6 +34,9 @@ this means that the following environment variables are set:
 > ### Notes
 > * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
 >   nevertheless necessary for representing the FHS locally.
+> * `~/.local/var` and `~/.local/run` are technically not supposed to be on this
+>   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
+>   keep them there as well.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 > * Some applications unfortunately do not honour the XDG base directory
 >   specifications, so I additionally [set environment

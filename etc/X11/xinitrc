@@ -64,12 +64,11 @@ cmds_exist urxvt tmx && urxvt -e tmx SCRATCHPAD &
 # If no WM is specified, default to karuiwm:
 [ -z "$wm" ] && wm=karuiwm
 
-# Some Java applications refuse to work correctly when they don't know the WM
-# (happens often with tiling WMs); set the WM name to a value known to Java to
-# fix that:
+# Some Java applications refuse to work correctly if run in a non-reparenting WM
+# they don't know. We set the WM name to a value known to Java to fix that:
 if cmds_exist wmname; then
 	case "$wm" in
-		xmonad|dwm|karuiwm) wmname LG3D ;;
+		(xmonad|dwm|karuiwm) wmname LG3D ;;
 	esac
 fi
 
