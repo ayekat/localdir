@@ -1,0 +1,33 @@
+# Maintainer: ayekat <takeya@bluewin.ch>
+
+pkgbase='ayekat-dotfiles-deps'
+pkgname=('ayekat-dotfiles-deps' 'ayekat-dotfiles-deps-desktop')
+pkgver=2017.06.08
+pkgrel=1
+arch=('any')
+url='https://github.com/ayekat/dotfiles'
+license=('GPL3')
+
+package_ayekat-dotfiles-deps() {
+  pkgname=ayekat-dotfiles-deps
+  pkgdesc="Dependencies for ayekat's dotfiles"
+  depends=('coreutils' 'fakeroot' 'grep' 'less' 'pam' 'sed' 'systemd' 'vim'
+           'zsh')
+  optdepends=('ayekat-utils-deps: command line utilities'
+              'shellcheck: shell syntax check in vim'
+              'zsh-syntax-highlighting: syntax highlighting in interactive zsh')
+}
+
+package_ayekat-dotfiles-deps-desktop() {
+  pkgname=ayekat-dotfiles-deps-desktop
+  pkgdesc="Desktop dependencies for ayekat's dotfiles"
+  depends=('ayekat-dotfiles-deps' 'ayekat-utils-deps-desktop'
+           'claws-mail' 'claws-mail-themes' 'cower' 'dmenu' 'dunst' 'eom'
+           'ibus-anthy' 'libnotify' 'mpc' 'mpd' 'mpv' 'ncmpcpp' 'nitrogen'
+           'numix-gtk-theme' 'pidgin' 'pidgin-libnotify' 'qutebrowser'
+           'qwertz-ch-ayekat' 'rxvt-unicode' 'sakura' 'telegram-desktop-bin'
+           'ttf-dejavu' 'ttf-linux-libertine' 'urxvt-perls' 'which' 'wmname'
+           'xclip' 'xorg-server' 'xorg-setxkbmap' 'xorg-xinit' 'xorg-xrdb'
+           'xorg-xset' 'xss-lock' 'xtrlock' 'zathura' 'zathura-pdf-mupdf'
+           'zenity')
+}
