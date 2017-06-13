@@ -70,6 +70,9 @@ and then symlink each file/directory to their respective locations:
 * `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 
+For Arch Linux systems, there is a [PKGBUILD](archlinux/PKGBUILD) that creates a
+meta-package to pull in the required packages.
+
 
 Assumptions
 -----------
