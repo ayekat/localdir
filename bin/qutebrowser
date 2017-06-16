@@ -55,7 +55,7 @@ fi
 # Set up session base directory, unless --basedir has been specified by the
 # user:
 if [ "$basedir_specified" != 'y' ]; then
-	set -- '--basedir' "$basedir" "$@"
+	set -- --basedir "$basedir" "$@"
 	mkdir -p \
 		"$basedir" \
 		"$XDG_CONFIG_HOME/qutebrowser" \
@@ -67,10 +67,16 @@ if [ "$basedir_specified" != 'y' ]; then
 	ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
 fi
 
-# Get location of the "real" qutebrowser executable:
-qutepath="$(PATH=$(echo ":$PATH:" | \
-                   sed -e "s|:\\($(dirname "$0"):\\)\\+|:|g;s|^:||;s|:\$||") \
-            which qutebrowser)"
-
-# Run qutebrowser with the "fixed" options:
-exec "$qutepath" "$@"
+# Run "real" qutebrowser executable:
+if [ "$(basename "$0")" != qutebrowser ]; then
+	exec qutebrowser "$@"
+fi
+dirname="$(readlink -f "$(dirname "$0")")"
+IFS=:
+for p in $PATH; do
+	if [ -x "$p"/qutebrowser ] && [ "$(readlink -f "$p")" != "$dirname" ]; then
+		exec "$p"/qutebrowser "$@"
+	fi
+done
+echo 'command not found: qutebrowser' >&2
+exit 127
