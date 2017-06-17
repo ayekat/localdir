@@ -13,4 +13,6 @@ set spoolfile = +INBOX
 set record    = +Sent
 set postponed = +Drafts
 
+subscribe aur-requests@archlinux.org
+
 source "$XDG_CONFIG_HOME/mutt/muttrc"
