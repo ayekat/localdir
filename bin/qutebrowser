@@ -71,11 +71,12 @@ fi
 if [ "$(basename "$0")" != qutebrowser ]; then
 	exec qutebrowser "$@"
 fi
-dirname="$(readlink -f "$(dirname "$0")")"
+spath="$(readlink -f "$0")"
 IFS=:
 for p in $PATH; do
-	if [ -x "$p"/qutebrowser ] && [ "$(readlink -f "$p")" != "$dirname" ]; then
-		exec "$p"/qutebrowser "$@"
+	epath="$p"/qutebrowser
+	if [ -x "$epath" ] && [ "$(readlink -f "$epath")" != "$spath" ]; then
+		exec "$epath" "$@"
 	fi
 done
 echo 'command not found: qutebrowser' >&2
