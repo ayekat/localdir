@@ -7,7 +7,7 @@
 	branch = auto
 [core]
 	editor = vim
-	excludesfile = ~/.config/git/ignore
+	excludesfile = ~/.local/etc/git/ignore
 [commit]
 	verbose = true
 [push]
