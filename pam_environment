@@ -11,13 +11,14 @@
 # Ugly workaround for Debian (as they ship an ancient version of PAM)
 HOME                  DEFAULT="/home/@{PAM_USER}" OVERRIDE="@{HOME}"
 
-# XDG base directory specification (XDG_{LIB,LOG}_HOME are not standard!)
+# XDG base directory specification (XDG_{LIB,LOG,TMP}_HOME are non-standard!)
 XDG_CACHE_HOME        DEFAULT="${HOME}/.local/var/cache"
 XDG_CONFIG_HOME       DEFAULT="${HOME}/.local/etc"
 XDG_DATA_HOME         DEFAULT="${HOME}/.local/var/lib"
 XDG_RUNTIME_DIR       DEFAULT="${HOME}/.local/run"
 XDG_LIB_HOME          DEFAULT="${HOME}/.local/lib"
 XDG_LOG_HOME          DEFAULT="${HOME}/.local/var/log"
+XDG_TMP_HOME          DEFAULT="${HOME}/.local/tmp"
 LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 
 # Fix various applications to respect XDG
