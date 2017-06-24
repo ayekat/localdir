@@ -23,7 +23,7 @@ LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 
 # Fix various applications to respect XDG
 CARGO_HOME            DEFAULT="${XDG_DATA_HOME}/cargo"
-CHECKUPDATES_DB       DEFAULT="${XDG_DATA_HOME}/pacman-checkupdates"
+CHECKUPDATES_DB       DEFAULT="${XDG_DATA_HOME}/pacman/checkupdates"
 GNUPGHOME             DEFAULT="${XDG_DATA_HOME}/gnupg"
 GIMP2_DIRECTORY       DEFAULT="${XDG_DATA_HOME}/gimp"
 GTK2_RC_FILES         DEFAULT="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
