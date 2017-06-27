@@ -2,7 +2,7 @@
 # Written by ayekat on a monday night travel in march 2013.
 
 # ------------------------------------------------------------------------------
-# LOOK
+# COLOURS
 
 set default-bg "#000000"
 
@@ -38,3 +38,6 @@ set first-page-column 2
 
 # Make ^n open a new document (like atril/evince):
 map <C-n> feedkeys ":exec zathura $FILE<Return>"
+
+# Smooth scrolling:
+set smooth-scroll true
