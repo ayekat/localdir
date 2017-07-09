@@ -39,11 +39,17 @@ while [ $opts_read -lt $# ]; do
 	case "$opt" in
 		(--basedir) basedir_specified=y ;;
 		(-r|-[!-]*r|--restore) test $# -gt 0 && session="$1" && shift && continue ;;
+		(--backend) backend_specified=y ;;
 		(-R) continue ;; # TODO
 	esac
 	set -- "$@" "$opt"
 	opts_read=$((opts_read + 1))
 done
+
+# Set backend to WebEngine, unless --backend has been specified by the user:
+if [ "$backend_specified" != 'y' ]; then
+	set -- --backend webengine "$@"
+fi
 
 # Set up session base directory, unless --basedir has been specified by the
 # user:
