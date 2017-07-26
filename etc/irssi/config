@@ -16,9 +16,11 @@ ignores = (
     channels = (
       "#archlinux",
       "#archlinux-arm",
+      "#archlinux-offtopic",
       "#claws",
       "#debian",
       "#gitlab",
+      "#manjaro",
       "#netfilter",
       "#python",
       "#qemu",
