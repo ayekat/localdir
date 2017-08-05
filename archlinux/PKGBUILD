@@ -31,7 +31,7 @@ package_ayekat-dotfiles-deps-desktop() {
            irssi pidgin pidgin-libnotify telegram-desktop-bin
            karuiwm-legacy-ayekat wmname xorg-server xorg-xinit zenity
            nitrogen numix-gtk-theme xorg-xrdb
-           qutebrowser
+           inetutils qutebrowser
            ttf-dejavu ttf-linux-libertine
            urxvt-perls
            xorg-xset xss-lock)

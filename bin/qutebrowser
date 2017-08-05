@@ -67,6 +67,11 @@ if [ "$basedir_specified" != 'y' ]; then
 	ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
 fi
 
+# My stationary machine runs with nouveau, which is unsupported by QtWebEngine:
+if [ "$(hostname)" = phobia ]; then
+	export LIBGL_ALWAYS_SOFTWARE=1
+fi
+
 # Run "real" qutebrowser executable:
 if [ "$(basename "$0")" != qutebrowser ]; then
 	exec qutebrowser "$@"
