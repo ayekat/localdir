@@ -359,6 +359,9 @@ set linebreak      " wrap at words (does not work with list)
 au FileType markdown,tex,rst setl textwidth=80
 au FileType gitcommit,mail setl textwidth=72
 
+" Correctly handle UNIX (LF), DOS (CR+LF) and Mac (CR) style linebreaks:
+set ffs=unix,dos,mac
+
 " }}}
 " ------------------------------------------------------------------------------
 " KEY BINDINGS, BEHAVIOUR {{{
