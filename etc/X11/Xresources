@@ -119,7 +119,7 @@ dzen2.foreground     : #888888
 ! ------------------------------------------------------------------------------
 ! KARUIBAR {{{
 
-#ifdef SRVR_ixh
+#ifdef SRVR_chirschi
 # if DISPLAY_NUM == 0
 karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
