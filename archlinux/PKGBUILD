@@ -3,7 +3,7 @@
 pkgbase=ayekat-dotfiles-deps
 pkgname=(ayekat-dotfiles-deps ayekat-dotfiles-deps-desktop)
 pkgver=2017.06.08
-pkgrel=3
+pkgrel=4
 arch=('any')
 url='https://github.com/ayekat/dotfiles'
 license=('GPL3')
@@ -14,6 +14,7 @@ package_ayekat-dotfiles-deps() {
   depends=(coreutils fakeroot grep less pam rxvt-unicode-terminfo sed systemd
            vim which zsh)
   optdepends=('ayekat-utils-deps: command line utilities'
+              'lighttpd: personal website'
               'shellcheck: shell syntax check in vim'
               'zsh-syntax-highlighting: syntax highlighting in interactive zsh')
 }
@@ -27,12 +28,14 @@ package_ayekat-dotfiles-deps-desktop() {
            cower
            dunst libnotify
            eom zathura zathura-pdf-mupdf
+           gtk-engine-murrine nitrogen numix-gtk-theme xorg-xrdb
            ibus-anthy qwertz-ch-ayekat xorg-setxkbmap
            irssi pidgin pidgin-libnotify telegram-desktop-bin
            karuiwm-legacy-ayekat wmname xorg-server xorg-xinit zenity
-           nitrogen numix-gtk-theme xorg-xrdb
-           inetutils qutebrowser
+           inetutils python-opengl qutebrowser qt5-webengine
            ttf-dejavu ttf-linux-libertine
            urxvt-perls
            xorg-xset xss-lock)
+  optdepends=('libreoffice: office suite'
+              'newsbeuter: RSS feeds')
 }
