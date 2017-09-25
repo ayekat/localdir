@@ -1,17 +1,24 @@
+# EPFL
+/Foxit Software/
+/QtProject.conf
+
+# Papiliorama
+/KeePass/
+/freerdp/
+/.mono/
+
+# General
 /asciinema/
 /ayepaste/
 /darktable/
 /dconf/
-/freerdp/
 /htop/
 /ibus/
 /inkscape/
-/KeePass/
 /klavaro/
 /libreoffice/
 /mate/
 /mutt/
-/.mono/
 /nitrogen/
 /openvpn/
 /pluma/
