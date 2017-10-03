@@ -50,7 +50,9 @@ cmds_exist lcdadjust dispwin && lcdadjust
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-cmds_exist xrdb && xrdb "$XDG_CONFIG_HOME/X11/Xresources"
+if cmds_exist xrdb; then
+	xrdb -DXDG_LIB_HOME="$XDG_LIB_HOME" "$XDG_CONFIG_HOME/X11/Xresources"
+fi
 
 # Set the wallpaper:
 cmds_exist nitrogen && nitrogen --restore

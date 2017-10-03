@@ -88,8 +88,8 @@ URxvt.iso14755_52    : false
 ! Set urgent hint whenever encountering the bell character:
 URxvt.urgentOnBell   : true
 
-! Settings for perl extensions:
-URxvt.perl-lib       : /home/ayekat/.local/lib/urxvt/perl/
+! Settings for perl extensions (XDG_LIB_HOME should be set by xrdb):
+URxvt.perl-lib       : XDG_LIB_HOME/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard
 URxvt.perl-ext-common: default,url-select,keyboard-select
 
