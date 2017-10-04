@@ -60,61 +60,88 @@ function build_prompt() #{{{
 	fi
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 
-	# VCS (watched):
+	# Git:
 	if [[ -z "$1" ]]; then
-		VCS_PROMPT=''
-		_vcs_clean=1
-		_build_vcs_prompt() {
-			vcs_update "$1"
-			case "$vcs_state" in (ahead|dvrgd|ready|dirty|hdlss)
-				if [[ $_vcs_clean -eq 1 ]]; then
-					VCS_PROMPT+="%{$(printf "\033[34m")%}["
-					_vcs_clean=0
-				fi
-				case "$vcs_state" in
-					(ahead) VCS_PROMPT+="%{$pc_vcs_ahead%}" ;;
-					(dvrgd) VCS_PROMPT+="%{$pc_vcs_dvrgd%}" ;;
-					(ready) VCS_PROMPT+="%{$pc_vcs_ready%}" ;;
-					(dirty) VCS_PROMPT+="%{$pc_vcs_dirty%}" ;;
-					(hdlss) VCS_PROMPT+="%{$pc_vcs_hdlss%}" ;;
-				esac
-				VCS_PROMPT+="$2"
-			esac
-		}
-		_build_vcs_prompt "$XDG_LIB_HOME/dotfiles" 'd'
-		_build_vcs_prompt "$XDG_LIB_HOME/utils" 'u'
-		_build_vcs_prompt "$XDG_DATA_HOME/pass" 'p'
-		if [[ $_vcs_clean -eq 0 ]]; then
-			VCS_PROMPT+="%{$(printf "\033[34m")%}]%{$reset_color%} "
-		fi
-		unset -f _build_vcs_prompt
-		unset _vcs_clean
-	fi
-	PROMPT+="$VCS_PROMPT"
+		GIT_PROMPT=''
 
-	# VCS (PWD):
-	vcs_update "$(pwd)"
-	if [[ -n "$vcs_state" ]]; then
-		case "$vcs_state" in
-			(huge)  PROMPT+="%{$pc_vcs_huge%}"  ;;
-			(clean) PROMPT+="%{$pc_vcs_clean%}" ;;
-			(ahead) PROMPT+="%{$pc_vcs_ahead%}" ;;
-			(dvrgd) PROMPT+="%{$pc_vcs_dvrgd%}" ;;
-			(ready) PROMPT+="%{$pc_vcs_ready%}" ;;
-			(dirty) PROMPT+="%{$pc_vcs_dirty%}" ;;
-			(hdlss) PROMPT+="%{$pc_vcs_hdlss%}" ;;
-		esac
-		PROMPT+="[$vcs_branch]%{$reset_color%} "
+		# Watched repositories:
+		watched_clean=1
+		build_watched_prompt() {
+			git_update "$1" || return
+			if [[ -z "$git_status" ]] \
+			&& [[ -z "$git_remote"  ]] \
+			&& [[ -z "$git_detached" ]]; then
+				return
+			fi
+			if [[ $watched_clean -eq 1 ]]; then
+				GIT_PROMPT+="%{$pc_git_bracket%}["
+				watched_clean=0
+			fi
+			if [[ -n "$git_detached" ]] || [[ -n "$git_state" ]]; then
+				GIT_PROMPT+="%{$pc_git_detached%}"
+			fi
+			case "$git_status" in
+				(modified) GIT_PROMPT+="%{$pc_git_status_mod%}" ;;
+				(staged)   GIT_PROMPT+="%{$pc_git_status_stg%}" ;;
+				('')       GIT_PROMPT+="%{$pc_git_status_cln%}" ;;
+			esac
+			GIT_PROMPT+="$2%{$reset_color%}"
+		}
+		build_watched_prompt "$XDG_LIB_HOME/dotfiles" 'd'
+		build_watched_prompt "$XDG_LIB_HOME/utils" 'u'
+		build_watched_prompt "$XDG_DATA_HOME/pass" 'p'
+		if [[ $watched_clean -eq 0 ]]; then
+			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
+		fi
+		unset -f build_watched_prompt
+		unset watched_clean
+
+		# Current repository:
+		if git_update "$(pwd)"; then
+			GIT_PROMPT+="%{$pc_git_bracket%}["
+			
+			# Branch/status:
+			if [[ -n "$git_detached" ]]; then
+				GIT_PROMPT+="%{$pc_git_detached%}"
+			fi
+			case "$git_status" in
+				(modified) GIT_PROMPT+="%{$pc_git_status_mod%}" ;;
+				(staged)   GIT_PROMPT+="%{$pc_git_status_stg%}" ;;
+				('')       GIT_PROMPT+="%{$pc_git_status_cln%}" ;;
+			esac
+			GIT_PROMPT+="$git_branch"
+
+			# Remote:
+			if [[ -n "$git_remote" ]]; then
+				GIT_PROMPT+="%{$pc_git_bracket%}|"
+				case "$git_remote" in
+					(ahead)    GIT_PROMPT+="%{$pc_git_remote_ahd%}" ;;
+					(behind)   GIT_PROMPT+="%{$pc_git_remote_bhd%}" ;;
+					(diverged) GIT_PROMPT+="%{$pc_git_remote_div%}" ;;
+				esac
+				GIT_PROMPT+="$git_remote"
+			fi
+
+			# State:
+			if [[ -n "$git_state" ]]; then
+				GIT_PROMPT+="%{$pc_git_bracket%}|%{$pc_git_state%}$git_state"
+			fi
+
+			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
+		fi
 	fi
+	PROMPT+="$GIT_PROMPT"
 
 	# Hostname (if SSH):
-	[[ -n "$SSH_CONNECTION" ]] && PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
+	if [[ -n "$SSH_CONNECTION" ]]; then
+		PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
+	fi
 
 	# PWD:
 	PROMPT+="%{$pc_pwd%}%~%{$reset_color%} "
 
 	# Root?
-	if [[ $(id -u) = 0 ]]; then
+	if [[ "$(id -u)" = 0 ]]; then
 		PROMPT+="%{$pc_prompt%}#%{$reset_color%} "
 	fi
 

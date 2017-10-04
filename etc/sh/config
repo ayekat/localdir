@@ -38,43 +38,89 @@ fi
 # PROMPT {{{
 
 # Prompt colours:
-pc_vcs_huge="$(printf "\033[1;30m")"
-pc_vcs_clean="$(printf "\033[32m")"
-pc_vcs_ahead="$(printf "\033[36m")"
-pc_vcs_dvrgd="$(printf "\033[1;36m")"
-pc_vcs_ready="$(printf "\033[33m")"
-pc_vcs_dirty="$(printf "\033[31m")"
-pc_vcs_hdlss="$(printf "\033[1;31m")"
+pc_git_detached="$(printf '\033[1m')"
+pc_git_status_mod="$(printf '\033[31m')"
+pc_git_status_stg="$(printf '\033[33m')"
+pc_git_status_cln="$(printf '\033[32m')"
+pc_git_remote_ahd="$(printf '\033[0;36m')"
+pc_git_remote_bhd="$(printf '\033[0;34m')"
+pc_git_remote_div="$(printf '\033[0;35m')"
+pc_git_state="$(printf '\033[0;1m')"
+pc_git_bracket="$(printf '\033[0;34m')"
 pc_host=$(printf "\033[35m")
 pc_pwd=$(printf "\033[34m")
 pc_prompt=$(printf "\033[1;31m")
 pc_jobs=$(printf "\033[30;47m")
 
-# VCS
-# vcs_state and vcs_branch are set by calling vcs_update() with the path to the
-# git repository.
-vcs_state=''
-vcs_branch=''
-vcs_update()
+# Git
+# Variables are updated by calling git_update() with the path to the git
+# repository.
+git_update()
 {
-	git_head="$(git -C "$1" status --porcelain -b 2>/dev/null | head -n 1)"
-	vcs_state=''
-	vcs_branch="$(echo "$git_head" | sed -e 's/^## \([^.]\+\).*/\1/g')"
-	if [ -z "$VCS_IGNORE" ] && [ -n "$vcs_branch" ]; then
-		git_status="$(git -C "$1" status --porcelain 2>/dev/null | cut -c 1-2)"
-		vcs_state=clean
-		echo "$git_head"|grep ' \[ahead [0-9]\+\]$'>/dev/null&&vcs_state=ahead
-		echo "$git_head"|grep ' \[ahead [0-9]\+, behind [0-9]\+\]$'>/dev/null \
-			&& vcs_state=dvrgd
-		echo "$git_status" | grep '^[MADR]' >/dev/null && vcs_state=ready
-		echo "$git_status" | grep '^.[M?ADR]' >/dev/null && vcs_state=dirty
-		if [ "$vcs_branch" = 'HEAD (no branch)' ]; then
-			vcs_state=hdlss
-			vcs_branch=headless
+	git_path=''
+	git_branch=''
+	git_state=''
+	git_remote=''
+	git_status=''
+	git_detached=''
+
+	# Git:
+	cmds_exist git || return 1
+	git_path="$(git -C "$1" rev-parse --show-toplevel 2>/dev/null)" || return 1
+	git_dir="$(git -C "$git_path" rev-parse --git-dir 2>/dev/null)" || return 1
+
+	# Branch and state:
+	if [ -d "$git_dir"/rebase-merge ]; then
+		git_branch="$(<"$git_dir"/rebase-merge/head-name)"
+		if [ -f "$git_dir"/rebase-merge/interactive ]; then
+			git_state='rebase-interactive'
+		else
+			git_state='rebase-merge'
 		fi
-		# ^UU → merge?
+	else
+		if git_branch="$(git -C "$1" symbolic-ref HEAD 2>/dev/null)"; then
+			git_branch="${git_branch#refs/heads/}"
+		else
+			git_detached=y
+			git_branch="$(git -C "$1" rev-parse --short HEAD 2>/dev/null ||
+			              echo 'unknown')"
+		fi
+		if [ -f "$git_dir"/rebase-apply/rebasing ]; then
+			git_state='rebase'
+		elif [ -f "$git_dir"/rebase-apply/applying ]; then
+			git_state='amend'
+		elif [ -d "$git_dir"/rebase-apply ]; then
+			git_state='amend/rebase'
+		elif [ -f "$git_dir"/MERGE_HEAD ]; then
+			git_state='merge'
+		elif [ -f "$git_dir"/CHERRY_PICK_HEAD ]; then
+			git_state='cherrypick'
+		elif [ -f "$git_dir"/BISECT_LOG ]; then
+			git_state='bisect'
+		fi
 	fi
-	unset git_head
+	unset git_dir
+
+	# Remote (TODO: what if weird remote?):
+	git_status_head="$(git -C "$git_path" status --porcelain -b | head -n 1)"
+	if echo "$git_status_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null; then
+		git_remote='ahead'
+	elif echo "$git_status_head" | grep ' \[behind [0-9]\+\]$' >/dev/null; then
+		git_remote='behind'
+	elif echo "$git_status_head" | \
+	     grep ' \[ahead [0-9]\+, behind [0-9]\+\]$' >/dev/null; then
+		git_remote='diverged'
+	fi
+	unset git_status_head
+
+	# Status:
+	git_status_body="$(git -C "$git_path" status --porcelain | cut -c 1-2)"
+	if echo "$git_status_body" | grep '.[M?ADR]' >/dev/null; then
+		git_status='modified'
+	elif echo "$git_status_body" | grep '[MADR]' >/dev/null; then
+		git_status='staged'
+	fi
+	unset git_status_body
 }
 
 # }}}
