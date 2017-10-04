@@ -1,5 +1,5 @@
 #!/bin/sh
-# Xinit ressource file for starting dwm
+# Xinit ressource file for starting a stand-alone WM
 # Written by ayekat on a rainy day in october 2012
 
 cmds_exist() {
@@ -10,7 +10,7 @@ cmds_exist() {
 
 # First of all, make sure we are in the home directory, to avoid weird default
 # working directory paths when opening a shell under X:
-cd
+cd || exit 1
 
 
 # ENVIRONMENT ------------------------------------------------------------------
@@ -24,8 +24,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 	unset f
 fi
 
-if [ -d "${XDG_CONFIG_HOME}/X11/xinitrc.d" ]; then
-	for f in "${XDG_CONFIG_HOME}"/X11/xinitrc.d/?*.sh; do
+if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
+	for f in "$XDG_CONFIG_HOME"/X11/xinitrc.d/?*.sh; do
 		if [ -r "$f" ]; then
 			. "$f"
 		fi
@@ -75,12 +75,13 @@ if cmds_exist wmname; then
 fi
 
 # Launch WM and log all of its output:
-session_logdir="$XDG_LOG_HOME/X11/$DISPLAY"
-session_logfile="${session_logdir}/$(date +%s).log"
+session_logdir="$XDG_LOG_HOME"/X11/"$DISPLAY"
+session_logfile="$session_logdir"/"$(date +%s)".log
 mkdir -p "$session_logdir"
-ln -sf "$session_logfile" "$session_logdir/latest"
+ln -sf "$session_logfile" "$session_logdir"/latest
 while true; do
 	if cmds_exist karuibar; then
+		# Start karuibar with a delay to keep it above karuiwm-legacy's bar:
 		{ sleep 1 && karuibar; } &
 		karuibar_pid=$!
 	fi
@@ -102,4 +103,4 @@ while true; do
 	else
 		break
 	fi
-done >"$session_logfile" 2>"$session_logfile"
+done >"$session_logfile" 2>&1
