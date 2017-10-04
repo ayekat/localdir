@@ -11,11 +11,12 @@ set nomodeline
 " Scripts' location:
 set runtimepath=$XDG_DATA_HOME/vim,$XDG_DATA_HOME/vim/after,$VIM,$VIMRUNTIME
 
-" Backup files:
-set backupdir=$XDG_RUNTIME_DIR/vim/backup
-
 " Swap files:
 set directory=$XDG_DATA_HOME/vim/swap
+
+" Backup files (I trust the filesystem and the swap files):
+set nobackup
+set nowritebackup
 
 " Command and undo history:
 set viminfo+=n$XDG_DATA_HOME/vim/viminfo
@@ -32,11 +33,9 @@ function! MakeSureTheDamnPathExists(path)
 		call mkdir(a:path, 'p', 0700)
 	endif
 endfunction
-call MakeSureTheDamnPathExists($XDG_RUNTIME_DIR.'/vim')
 call MakeSureTheDamnPathExists($XDG_DATA_HOME.'/vim')
 call MakeSureTheDamnPathExists(&directory)
 call MakeSureTheDamnPathExists(&undodir)
-call MakeSureTheDamnPathExists(&backupdir)
 
 " }}}
 " ------------------------------------------------------------------------------
