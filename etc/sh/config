@@ -67,22 +67,23 @@ git_update()
 	# Git:
 	cmds_exist git || return 1
 	git_path="$(git -C "$1" rev-parse --show-toplevel 2>/dev/null)" || return 1
-	git_dir="$(git -C "$git_path" rev-parse --git-dir 2>/dev/null)" || return 1
+	git_dir="$(git -C "$git_path" rev-parse --absolute-git-dir 2>/dev/null)" || return 1
 
 	# Branch and state:
 	if [ -d "$git_dir"/rebase-merge ]; then
 		git_branch="$(<"$git_dir"/rebase-merge/head-name)"
+		git_branch="${git_branch#refs/heads/}"
 		if [ -f "$git_dir"/rebase-merge/interactive ]; then
 			git_state='rebase-interactive'
 		else
 			git_state='rebase-merge'
 		fi
 	else
-		if git_branch="$(git -C "$1" symbolic-ref HEAD 2>/dev/null)"; then
+		if git_branch="$(git -C "$git_path" symbolic-ref HEAD 2>/dev/null)"; then
 			git_branch="${git_branch#refs/heads/}"
 		else
 			git_detached=y
-			git_branch="$(git -C "$1" rev-parse --short HEAD 2>/dev/null ||
+			git_branch="$(git -C "$git_path" rev-parse --short HEAD 2>/dev/null ||
 			              echo 'unknown')"
 		fi
 		if [ -f "$git_dir"/rebase-apply/rebasing ]; then
