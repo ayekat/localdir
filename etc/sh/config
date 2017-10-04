@@ -2,7 +2,7 @@
 # Written by ayekat on a warm summer day in 2013.
 
 # Helper:
-cmd_exists()
+cmds_exist()
 {
 	for c in "$@"; do
 		which "$c" >/dev/null 2>&1 || return 1
