@@ -382,21 +382,18 @@ map J 2<C-e>
 map L 4zl
 map H 4zh
 
-" Easy 'back to beginning of line':
-map ä 0
-
 " Remove delay for leaving insert mode:
 set timeoutlen=1000 ttimeoutlen=0
 
 " Split window handling:
 map <leader>j <C-w>w
 map <leader>k <C-w>W
-map <leader><Space> :call DWM_Focus()<CR>
+map <leader><Space> :call DWM_Focus()<LF>
 
 " Tabbed window handling:
-map <leader>l :tabnext<CR>
-map <leader>h :tabprevious<CR>
-map <leader>t :tabnew
+map <leader>l :tabnext<LF>
+map <leader>h :tabprevious<LF>
+map <leader>t :tabnew<LF>
 set tabpagemax=20
 
 " Show command history:
@@ -413,7 +410,7 @@ set tags=./tags;/
 command! Rw :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Undo-tree:
-map <leader>u :GundoToggle<CR>
+map <leader>u :GundoToggle<LF>
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -711,9 +708,9 @@ if $TERM != 'linux'
 	au BufEnter,WinEnter * call SetLineNr('n')
 
 	" visual mode (ugly, since there is no VisualEnter/VisualLeave):
-	noremap <silent> v :call SetLineNr('v')<CR>v
-	noremap <silent> V :call SetLineNr('v')<CR>V
-	noremap <silent> <C-v> :call SetLineNr('v')<CR><C-v>
+	noremap <silent> v :call SetLineNr('v')<LF>v
+	noremap <silent> V :call SetLineNr('v')<LF>V
+	noremap <silent> <C-v> :call SetLineNr('v')<LF><C-v>
 	set updatetime=0
 	au! CursorHold * call SetLineNr('n')
 endif
