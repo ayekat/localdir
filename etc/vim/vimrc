@@ -55,7 +55,7 @@ if has('vim_starting')
 endif
 
 " List of bundles I use (including NeoBundle itself): "
-call neobundle#begin(expand('$XDG_DATA_HOME/vim/neobundle/'))
+call neobundle#begin(g:bundledir)
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'ayekat/dwm.vim'
@@ -65,11 +65,8 @@ NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'Matt-Stevens/vim-systemd-syntax'
 NeoBundle 'vim-scripts/bbcode'
-NeoBundle 'rust-lang/rust.vim'
-NeoBundle 'rosstimson/scala-vim-support'
 NeoBundle 'EdJoJob/llvmir-vim'
 NeoBundle 'ap/vim-css-color'
-NeoBundle 'honza/dockerfile.vim'
 NeoBundle 'nfnty/vim-nftables'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'mqudsi/meson.vim'
