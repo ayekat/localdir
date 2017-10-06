@@ -107,6 +107,8 @@ URxvt.perl-ext-common: default,url-select,keyboard-select
 
 !URxvt.keysym.Escape  : \033\000
 
+URxvt.geometry       : 85x25
+
 ! }}}
 ! ------------------------------------------------------------------------------
 ! DZEN {{{
