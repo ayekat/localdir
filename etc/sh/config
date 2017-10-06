@@ -116,9 +116,9 @@ git_update()
 
 	# Status:
 	git_status_body="$(git -C "$git_path" status --porcelain | cut -c 1-2)"
-	if echo "$git_status_body" | grep '.[M?ADR]' >/dev/null; then
+	if echo "$git_status_body" | grep '^.[M?ADRU]' >/dev/null; then
 		git_status='modified'
-	elif echo "$git_status_body" | grep '[MADR]' >/dev/null; then
+	elif echo "$git_status_body" | grep '^[MADR]' >/dev/null; then
 		git_status='staged'
 	fi
 	unset git_status_body
