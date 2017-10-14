@@ -32,24 +32,17 @@ XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
 # command line arguments and save the session name for later; ignore -R (TODO):
 session=default
 basedir_specified=n
-backend_specified=n
 opts_read=0
 while [ $opts_read -lt $# ]; do
 	opt="$1" && shift
 	case "$opt" in
 		(--basedir) basedir_specified=y ;;
 		(-r|-[!-]*r|--restore) test $# -gt 0 && session="$1" && shift && continue ;;
-		(--backend) backend_specified=y ;;
 		(-R) continue ;; # TODO
 	esac
 	set -- "$@" "$opt"
 	opts_read=$((opts_read + 1))
 done
-
-# Set backend to WebEngine, unless --backend has been specified by the user:
-if [ "$backend_specified" != 'y' ]; then
-	set -- --backend webengine "$@"
-fi
 
 # Set up session base directory, unless --basedir has been specified by the
 # user:
@@ -65,11 +58,6 @@ if [ "$basedir_specified" != 'y' ]; then
 	ln -fsT "$XDG_CONFIG_HOME/qutebrowser" "$basedir/config"
 	ln -fsT "$XDG_CACHE_HOME/qutebrowser/$session" "$basedir/cache"
 	ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
-fi
-
-# My stationary machine runs with nouveau, which is unsupported by QtWebEngine:
-if [ "$(hostname)" = phobia ]; then
-	export LIBGL_ALWAYS_SOFTWARE=1
 fi
 
 # Run "real" qutebrowser executable:
