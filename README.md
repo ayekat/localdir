@@ -30,18 +30,14 @@ this means that the following environment variables are set:
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
-| `XDG_TMP_HOME`    | `~/.local/var/tmp`   |
 
 > ### Notes
-> * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_TMP_HOME` are non-standard, but they
->   are nevertheless necessary for representing the FHS locally.
+> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
+>   nevertheless necessary for representing the FHS locally.
 > * `~/.local/var` and `~/.local/run` are technically not supposed to be on this
 >   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
 >   keep them there as well.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
-> * `~/.local/var/tmp` is recommended to be a symbolic link to
->   `XDG_DOWNLOAD_DIR` or `XDG_DESKTOP_DIR` as defined in
->   [`user-dirs.dirs`](etc/user-dirs.dirs) (`~/tmp` in these dotfiles).
 > * Some applications unfortunately do not honour the XDG base directory
 >   specifications, so I additionally [set environment
 >   variables](pam_environment) or [write wrapper scripts](bin)&mdash;or simply
@@ -75,7 +71,6 @@ and then symlink each file/directory to their respective locations:
 * `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
-* `~/.local/var/tmp` → `~/tmp`
 
 For Arch Linux systems, there is a [PKGBUILD](archlinux/PKGBUILD) that creates a
 meta-package to pull in the required packages.

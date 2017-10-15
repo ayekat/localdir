@@ -2,7 +2,7 @@
 # Written by ayekat on a cold morning in january 2017.
 
 # Work around distributions that still keep separate sbin directories:
-_inpath() { case "$PATH" in ($1:*|*:$1:*|*:$1) ;; (*) false ;; esac; }
+_inpath() { case ":$PATH:" in (*:$1:*) ;; (*) false ;; esac; }
 for _p in /usr/local/sbin /usr/sbin /sbin; do
 	if ! _inpath "$_p" && [ -d "$_p" ] && [ ! -h "$_p" ]; then
 		PATH="$PATH:$_p"
