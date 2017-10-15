@@ -121,8 +121,13 @@ config.set('colors.completion.category.bg', '#000000')
 config.set('colors.completion.category.fg', '#eeeeee')
 config.set('colors.completion.item.selected.bg', '#444444')
 config.set('colors.completion.item.selected.fg', '#ffffff')
+config.set('colors.completion.item.selected.border.top', '#444444')
+config.set('colors.completion.item.selected.border.bottom', '#444444')
+config.set('colors.completion.match.fg', '#afd700')
 config.set('completion.scrollbar.padding', 0)
 config.set('completion.scrollbar.width', 15)
+config.set('colors.completion.scrollbar.bg', '#222222')
+config.set('colors.completion.scrollbar.fg', '#afd700')
 
 # Prompt:
 config.set('prompt.radius', 0)
