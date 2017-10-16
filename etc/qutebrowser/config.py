@@ -36,6 +36,8 @@ config.bind('M', 'hint links spawn mpv {url}', mode='normal')
 # Editing:
 config.set('editor.command', ['xvim', '{}'])
 config.set('input.insert_mode.auto_load', True)
+config.unbind('<Ctrl-v>', mode='passthrough')
+config.bind('<Escape>', 'leave-mode', mode='passthrough')
 
 # Search:
 config.set('url.auto_search', 'dns')
