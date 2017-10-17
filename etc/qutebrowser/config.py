@@ -7,6 +7,8 @@
 # Storage:
 config.set('auto_save.session', True)
 config.set('completion.web_history_max_items', 10000)
+import os
+config.set('downloads.location.directory', os.environ['HOME'])
 
 # Content:
 config.set('url.default_page', 'about:blank')
