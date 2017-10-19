@@ -137,6 +137,7 @@ config.set('colors.completion.scrollbar.fg', '#afd700')
 config.set('prompt.radius', 0)
 
 # Download menu:
+config.set('downloads.position', 'bottom')
 config.set('colors.downloads.bar.bg', '#222222')
 config.set('colors.downloads.start.bg', '#0000aa')
 config.set('colors.downloads.start.fg', '#eeeeee')
