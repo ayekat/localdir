@@ -25,8 +25,11 @@ config.set('new_instance_open_target', 'tab-silent')
 
 # CONTROL ======================================================================
 
-# Navigation:
+# Tabs:
 config.set('tabs.background', True)
+config.set('tabs.select_on_remove', 'prev')
+
+# Navigation:
 config.set('hints.mode', 'letter')
 config.set('hints.chars', 'fjdkslaghnv')
 config.unbind('<Ctrl-h>', mode='normal')
