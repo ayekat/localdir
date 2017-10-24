@@ -16,7 +16,7 @@ XDG/FHS
 -------
 
 My goal is to keep the top-level user home directory as clean as possible by
-honouring the [XDG base directory specification][url:xdgspec], adapted to
+honouring the [XDG base directory specification][fdo:xdgspec], adapted to
 recreate the [Linux file system hierarchy][man:hier] (FHS) under `~/.local`. In
 detail, this means that the following environment variables are set:
 
@@ -87,10 +87,10 @@ PAM][issue:8], both related to Debian shipping antique versions of software).
 * `/usr/sbin`, `/sbin` and `/bin` are generally assumed to have
   [merged][an:usrmerge] into `/usr/bin`, so all absolute paths to system-widely
   available software point into `/usr/bin` by default (note that this is a more
-  extreme case of the [`/usr` merge]).  Nevertheless, I strive for compatibility
-  with non-Arch Linux systems (even if I consider the distinction of those paths
-  to be absolutely unnecessary), so please let me know when a path should point
-  somewhere else.
+  extreme case of the [`/usr` merge][fdo:usrmerge]). Nevertheless, I strive for
+  compatibility with non-Arch Linux systems (even if I consider the distinction
+  of those paths to be absolutely unnecessary), so please let me know when a
+  path should point somewhere else.
 
 * Lots of configuration files will attempt to run scripts and binaries in
   `~/.local/lib/utils/bin`, provided by the [utils repository][gh:utils]. The
