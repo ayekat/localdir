@@ -16,11 +16,9 @@ XDG/FHS
 -------
 
 My goal is to keep the top-level user home directory as clean as possible by
-honouring the [XDG base directory
-specification](https://specifications.freedesktop.org/basedir-spec/latest/index.html),
-adapted to recreate the [Linux file system
-hierarchy](http://linux.die.net/man/7/hier) (FHS) under `~/.local`. In detail,
-this means that the following environment variables are set:
+honouring the [XDG base directory specification][url:xdgspec], adapted to
+recreate the [Linux file system hierarchy][man:hier] (FHS) under `~/.local`. In
+detail, this means that the following environment variables are set:
 
 | Variable          | Location             |
 | ----------------- | -------------------- |
@@ -38,14 +36,12 @@ this means that the following environment variables are set:
 >   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
 >   keep them there as well.
 > * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
-> * Some applications unfortunately do not honour the XDG base directory
->   specifications, so I additionally [set environment
->   variables](pam_environment) or [write wrapper scripts](bin)&mdash;or simply
->   weep (see also [issue #7](https://github.com/ayekat/dotfiles/issues/7)). The
->   [*XDG Base Directory
->   support*](https://wiki.archlinux.org/index.php/XDG_Base_Directory_support)
->   article in the Arch Linux wiki contains a list of applications that honour
->   the specs (or can be made to do so).
+> * Some applications unfortunately do not honour the XDG basedir specs, so I
+>   additionally [set environment variables][file:pam_environment] or [write
+>   wrapper scripts][dir:bin]&mdash;or simply weep (see also [issue
+>   #7][issue:7]). The [*XDG Base Directory support*][aw:xdgsupport] article in
+>   the Arch Linux wiki contains a list of applications that honour the specs
+>   (or can be made to do so).
 
 Furthermore, the `$PATH` variable is expanded to contain the following
 locations (assuming that this repository has been cloned into
@@ -55,8 +51,8 @@ locations (assuming that this repository has been cloned into
 | --------------------------- | --- |
 | `~/.local/bin`              | User-specific executables (not tracked) |
 | `~/.local/lib/dotfiles/bin` | User-specific executables provided by this repository |
-| `~/.local/lib/utils/bin`    | User-specific executables provided by the [utils](https://github.co/ayekat/utils) repository |
-| `~/.local/opt/altera/...`   | Various paths containing [Altera Quartus II](https://en.wikipedia.org/wiki/Altera_Quartus)-specific executables |
+| `~/.local/lib/utils/bin`    | User-specific executables provided by the [utils][gh:utils] repository |
+| `~/.local/opt/altera/...`   | Various paths containing [Altera Quartus II][wp:quartus]-specific executables |
 
 
 Usage
@@ -72,7 +68,7 @@ and then symlink each file/directory to their respective locations:
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
 
-For Arch Linux systems, there is a [PKGBUILD](archlinux/PKGBUILD) that creates a
+For Arch Linux systems, there is a [PKGBUILD][file:pkgbuild] that creates a
 meta-package to pull in the required packages.
 
 
@@ -81,29 +77,24 @@ Assumptions
 
 The dotfiles have primarily been used on Arch Linux (and for limited use-cases
 on Debian, too, although there are minor issues with tmux and [major issues with
-PAM](https://github.com/ayekat/dotfiles/issues/8), both related to Debian
-shipping antique versions of software).
+PAM][issue:8], both related to Debian shipping antique versions of software).
 
 * For setting the [XDG basedir variables](#xdgfhs) I use `~/.pam_environment`,
-  which is read by [PAM](https://wiki.archlinux.org/index.php/PAM). If other
-  authentication frameworks are used, these dotfiles will not work as-is (but
-  with some additional fiddling in the shell initialisation, it should still be
-  doable).
+  which is read by [PAM][aw:pam]. If other authentication frameworks are used,
+  these dotfiles will not work as-is (but with some additional fiddling in the
+  shell initialisation, it should still be doable).
 
 * `/usr/sbin`, `/sbin` and `/bin` are generally assumed to have
-  [merged](https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/)
-  into `/usr/bin`, so all absolute paths to system-widely available software
-  point into `/usr/bin` by default (note that this is a more extreme case of the
-  [`/usr`
-  merge](https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/)).
-  Nevertheless, I strive for compatibility with non-Arch Linux systems (even if
-  I consider the distinction of those paths to be absolutely unnecessary), so
-  please let me know when a path should point somewhere else.
+  [merged][an:usrmerge] into `/usr/bin`, so all absolute paths to system-widely
+  available software point into `/usr/bin` by default (note that this is a more
+  extreme case of the [`/usr` merge]).  Nevertheless, I strive for compatibility
+  with non-Arch Linux systems (even if I consider the distinction of those paths
+  to be absolutely unnecessary), so please let me know when a path should point
+  somewhere else.
 
 * Lots of configuration files will attempt to run scripts and binaries in
-  `~/.local/lib/utils/bin`, provided by the [utils
-  repository](https://github.com/ayekat/utils). The missing of latter should be
-  non-fatal, though.
+  `~/.local/lib/utils/bin`, provided by the [utils repository][gh:utils]. The
+  missing of latter should be non-fatal, though.
 
 
 Policies
@@ -147,3 +138,18 @@ have a clean home directory).
 There are other, similar "experiments" out there:
 
 * https://github.com/Earnestly/dotfiles
+
+
+[an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
+[aw:pam]: https://wiki.archlinux.org/index.php/PAM
+[aw:xdgsupport]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
+[dir:bin]: bin
+[fdo:xdgspec]: https://specifications.freedesktop.org/basedir-spec/latest/index.html
+[fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
+[file:pam_environment]: pam_environment
+[file:pkgbuild]: archlinux/PKGBUILD
+[gh:utils]: https://github.com/ayekat/utils
+[issue:7]: https://github.com/ayekat/dotfiles/issues/7
+[issue:8]: https://github.com/ayekat/dotfiles/issues/8
+[man:hier]: http://linux.die.net/man/7/hier
+[wp:quartus]: https://en.wikipedia.org/wiki/Altera_Quartus
