@@ -117,8 +117,7 @@ config.set('colors.tabs.selected.odd.fg', '#000000')
 config.set('colors.hints.bg', '#000000')
 config.set('colors.hints.fg', '#ffff00')
 config.set('colors.hints.match.fg', '#00ff00')
-config.set('hints.border', '#2px solid black')
-config.set('hints.uppercase', True)
+config.set('hints.border', '1px solid #ffff00')
 
 # Completion menu:
 config.set('colors.completion.even.bg', '#222222')
