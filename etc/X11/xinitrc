@@ -2,7 +2,7 @@
 # Xinit ressource file for starting a stand-alone WM
 # Written by ayekat on a rainy day in october 2012
 
-cmds_exist() {
+have() {
 	for c in "$@"; do
 		which "$c" >/dev/null 2>&1 || return 1
 	done
@@ -41,24 +41,22 @@ setxkbmap ayekat
 ayemouse
 
 # Input method:
-cmds_exist ibus-daemon && ibus-daemon -drx
+have ibus-daemon && ibus-daemon -drx
 
 # Screen colour calibration:
-cmds_exist lcdadjust dispwin && lcdadjust
+have lcdadjust dispwin && lcdadjust
 
 
 # SERVICES ---------------------------------------------------------------------
 
 # Load X resources:
-if cmds_exist xrdb; then
-	xrdb -DXDG_LIB_HOME="$XDG_LIB_HOME" "$XDG_CONFIG_HOME/X11/Xresources"
-fi
+have xrdb && xrdb -DXDG_LIB_HOME="$XDG_LIB_HOME" "$XDG_CONFIG_HOME/X11/Xresources"
 
 # Set the wallpaper:
-cmds_exist nitrogen && nitrogen --restore
+have nitrogen && nitrogen --restore
 
 # Start a scratchpad:
-cmds_exist urxvt tmx && urxvt -e tmx SCRATCHPAD &
+have urxvt tmx && urxvt -e tmx SCRATCHPAD &
 
 
 # WM ---------------------------------------------------------------------------
@@ -68,7 +66,7 @@ cmds_exist urxvt tmx && urxvt -e tmx SCRATCHPAD &
 
 # Some Java applications refuse to work correctly if run in a non-reparenting WM
 # they don't know. We set the WM name to a value known to Java to fix that:
-if cmds_exist wmname; then
+if have wmname; then
 	case "$wm" in
 		(xmonad|dwm|karuiwm) wmname LG3D ;;
 	esac
@@ -80,13 +78,13 @@ session_logfile="$session_logdir"/"$(date +%s)".log
 mkdir -p "$session_logdir"
 ln -sf "$session_logfile" "$session_logdir"/latest
 while true; do
-	if cmds_exist karuibar; then
+	if have karuibar; then
 		# Start karuibar with a delay to keep it above karuiwm-legacy's bar:
 		{ sleep 1 && karuibar; } &
 		karuibar_pid=$!
 	fi
 
-	if cmds_exist xss-lock scrlock; then
+	if have xss-lock scrlock; then
 		xset s 300
 		xss-lock scrlock &
 		xss_lock_pid=$!
@@ -94,12 +92,11 @@ while true; do
 
 	"$wm"
 
-	cmds_exist xss-lock && kill $xss_lock_pid
-	cmds_exist karuibar && kill $karuibar_pid
+	have xss-lock && kill $xss_lock_pid
+	have karuibar && kill $karuibar_pid
 
-	if cmds_exist zenity; then
-		zenity --question --text="$wm has stopped. Do you want to start again?"
-		test $? -eq 0 || break
+	if have zenity; then
+		zenity --question --text="$wm has stopped. Start again?" || break
 	else
 		break
 	fi

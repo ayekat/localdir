@@ -3,7 +3,6 @@
 # Wrapper script around irssi that
 # * Makes irssi (halfway) respect the XDG basedir spec;
 # * Allows storing the password encrypted and in a different location;
-# * Auto-wraps irssi inside uim-fep if available.
 # Written by ayekat on a cold wednesday afternoon in january 2017.
 
 set -e

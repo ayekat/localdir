@@ -5,7 +5,7 @@
 # SSH/TMUX {{{
 
 # If logged in via SSH, start or reattach to tmux session:
-if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && cmds_exist tmux tmx; then
+if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && have tmux tmx; then
 	if [ "$(hostname)" = 'rainbowdash' ]; then
 		export TMUX_TMPDIR=/tmp # no lingering here
 	fi
