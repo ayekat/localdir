@@ -2,8 +2,8 @@
 
 pkgbase=ayekat-dotfiles-deps
 pkgname=(ayekat-dotfiles-deps ayekat-dotfiles-deps-desktop)
-pkgver=2017.06.08
-pkgrel=4
+pkgver=2017.11.01
+pkgrel=1
 arch=('any')
 url='https://github.com/ayekat/dotfiles'
 license=('GPL3')
@@ -32,7 +32,7 @@ package_ayekat-dotfiles-deps-desktop() {
            ibus-anthy qwertz-ch-ayekat xorg-setxkbmap
            irssi pidgin pidgin-libnotify telegram-desktop-bin
            karuiwm-legacy-ayekat wmname xorg-server xorg-xinit zenity
-           inetutils python-opengl qutebrowser qt5-webengine
+           python-opengl qutebrowser
            ttf-dejavu ttf-linux-libertine
            urxvt-perls
            xorg-xset xss-lock)

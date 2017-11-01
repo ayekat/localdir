@@ -14,6 +14,7 @@ arch=('x86_64')
 url='https://github.com/ayekat/karuiwm'
 license=('MIT')
 depends=('libx11' 'libxinerama')
+makedepends=('inetutils')
 provides=('karuiwm' 'karuiwm-legacy' 'karuiwm-legacy-ayekat')
 conflicts=('karuiwm' 'karuiwm-legacy' 'karuiwm-legacy-ayekat')
 optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
