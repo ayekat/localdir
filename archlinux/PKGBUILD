@@ -3,39 +3,48 @@
 pkgbase=ayekat-dotfiles-deps
 pkgname=(ayekat-dotfiles-deps ayekat-dotfiles-deps-desktop)
 pkgver=2017.11.01
-pkgrel=1
-arch=('any')
+pkgrel=2
+arch=(any)
 url='https://github.com/ayekat/dotfiles'
-license=('GPL3')
+license=(GPL3)
 
 package_ayekat-dotfiles-deps() {
   pkgname=ayekat-dotfiles-deps
   pkgdesc="Dependencies for ayekat's dotfiles"
   depends=(coreutils fakeroot grep less pam rxvt-unicode-terminfo sed systemd
            vim which zsh)
-  optdepends=('ayekat-utils-deps: command line utilities'
-              'lighttpd: personal website'
-              'shellcheck: shell syntax check in vim'
-              'zsh-syntax-highlighting: syntax highlighting in interactive zsh')
+  optdepends=(
+    'ayekat-utils-deps: command line utilities'
+    'lighttpd: personal website'
+    'shellcheck: shell syntax check in vim'
+    'zsh-syntax-highlighting: syntax highlighting in interactive zsh'
+  )
 }
 
 package_ayekat-dotfiles-deps-desktop() {
   pkgname=ayekat-dotfiles-deps-desktop
   pkgdesc="Desktop dependencies for ayekat's dotfiles"
-  depends=(alsa-utils mpd mpv ncmpcpp
-           ayekat-dotfiles-deps ayekat-utils-deps-desktop
-           claws-mail claws-mail-themes mutt
-           cower
-           dunst libnotify
-           eom zathura zathura-pdf-mupdf
-           gtk-engine-murrine nitrogen numix-gtk-theme xorg-xrdb
-           ibus-anthy qwertz-ch-ayekat xorg-setxkbmap
-           irssi pidgin pidgin-libnotify telegram-desktop-bin
-           karuiwm-legacy-ayekat wmname xorg-server xorg-xinit zenity
-           python-opengl qutebrowser
-           ttf-dejavu ttf-linux-libertine
-           urxvt-perls
-           xorg-xset xss-lock)
-  optdepends=('libreoffice: office suite'
-              'newsbeuter: RSS feeds')
+  depends=(
+    alsa-utils mpd mpv ncmpcpp
+    ayekat-dotfiles-deps ayekat-utils-deps-desktop
+    claws-mail claws-mail-themes mutt
+    cower
+    dunst libnotify
+    eom zathura zathura-pdf-mupdf
+    gtk-engine-murrine nitrogen numix-gtk-theme xorg-xrdb
+    gvim
+    ibus-anthy qwertz-ch-ayekat xorg-setxkbmap
+    irssi pidgin pidgin-libnotify telegram-desktop
+    karuiwm-legacy-ayekat wmname xorg-server xorg-xinit zenity
+    python-opengl qutebrowser
+    rxvt-unicode urxvt-perls
+    ttf-dejavu ttf-linux-libertine
+    xorg-xset xss-lock
+  )
+  optdepends=(
+    'darktable: photo editing'
+    'gimp: image editing'
+    'libreoffice: office suite'
+    'newsboat: RSS feeds'
+  )
 }
