@@ -43,6 +43,10 @@ alias mv='mv -i'
 alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 alias view='vim -R'
 
+# Expand aliases for some commands as well:
+alias sudo='sudo '
+alias watch='watch '
+
 # Server only aliases (mostly additional security):
 if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
