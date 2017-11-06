@@ -40,9 +40,6 @@ fi
 setxkbmap ayekat
 ayemouse
 
-# Input method:
-have ibus-daemon && ibus-daemon -drx
-
 # Screen colour calibration:
 have lcdadjust dispwin && lcdadjust
 
