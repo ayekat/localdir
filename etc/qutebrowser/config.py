@@ -143,6 +143,12 @@ config.set('colors.completion.scrollbar.fg', '#afd700')
 config.set('prompt.radius', 0)
 config.set('fonts.prompts', '8pt sans-serif')
 
+# Messages bar:
+config.set('fonts.messages.error', '8pt monospace')
+config.set('fonts.messages.info', '8pt monospace')
+config.set('fonts.messages.warning', '8pt monospace')
+config.set('colors.messages.warning.fg', '#000000')
+
 # Download menu:
 config.set('downloads.position', 'bottom')
 config.set('fonts.downloads', '8pt monospace')
