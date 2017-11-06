@@ -104,6 +104,7 @@ config.set('url.searchengines', {
 config.set('tabs.width.indicator', 0)
 config.set('tabs.title.format', '{perc}{title}')
 config.set('tabs.padding', {'top': 1, 'bottom': 1, 'left': 2, 'right': 2})
+config.set('fonts.tabs', '8pt monospace')
 config.set('colors.tabs.even.bg', '#222222')
 config.set('colors.tabs.odd.bg', '#222222')
 config.set('colors.tabs.even.fg', '#aaaaaa')
@@ -114,12 +115,15 @@ config.set('colors.tabs.selected.even.fg', '#000000')
 config.set('colors.tabs.selected.odd.fg', '#000000')
 
 # Content:
+config.set('hints.border', '1px solid #ffff00')
+config.set('fonts.hints', 'bold 8pt monospace')
 config.set('colors.hints.bg', '#000000')
 config.set('colors.hints.fg', '#ffff00')
 config.set('colors.hints.match.fg', '#00ff00')
-config.set('hints.border', '1px solid #ffff00')
 
 # Completion menu:
+config.set('fonts.completion.category', 'bold 8pt monospace')
+config.set('fonts.completion.entry', '8pt monospace')
 config.set('colors.completion.even.bg', '#222222')
 config.set('colors.completion.odd.bg', '#222222')
 config.set('colors.completion.fg', '#aaaaaa')
@@ -137,9 +141,11 @@ config.set('colors.completion.scrollbar.fg', '#afd700')
 
 # Prompt:
 config.set('prompt.radius', 0)
+config.set('fonts.prompts', '8pt sans-serif')
 
 # Download menu:
 config.set('downloads.position', 'bottom')
+config.set('fonts.downloads', '8pt monospace')
 config.set('colors.downloads.bar.bg', '#222222')
 config.set('colors.downloads.start.bg', '#0000aa')
 config.set('colors.downloads.start.fg', '#eeeeee')
@@ -147,6 +153,7 @@ config.set('colors.downloads.stop.bg', '#00aa00')
 config.set('colors.downloads.stop.fg', '#ffffff')
 
 # Status bar:
+config.set('fonts.statusbar', '8pt monospace')
 config.set('colors.statusbar.normal.bg', '#222222')
 config.set('colors.statusbar.normal.fg', '#aaaaaa')
 config.set('colors.statusbar.insert.bg', '#005f5f')
