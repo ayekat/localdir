@@ -5,21 +5,21 @@
 # An example config.h can be found here:
 # https://github.com/ayekat/karuiwm/blob/legacy/config.def.h
 
-pkgname='karuiwm-legacy-ayekat-git'
-_pkgname='karuiwm'
+pkgname=karuiwm-legacy-ayekat-git
+_pkgname=karuiwm
 pkgdesc="Dynamically tiling window manager for X11 (legacy version, ayekat's config)"
 pkgver=r204.55f3a56
-pkgrel=1
-arch=('x86_64')
+pkgrel=2
+arch=(x86_64)
 url='https://github.com/ayekat/karuiwm'
-license=('MIT')
-depends=('libx11' 'libxinerama')
-makedepends=('inetutils')
-provides=('karuiwm' 'karuiwm-legacy' 'karuiwm-legacy-ayekat')
-conflicts=('karuiwm' 'karuiwm-legacy' 'karuiwm-legacy-ayekat')
+license=(MIT)
+depends=(libx11 libxinerama)
+makedepends=(inetutils)
+provides=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
+conflicts=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
 optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
-source=('git+https://github.com/ayekat/karuiwm.git' 'config.h')
-md5sums=('SKIP' 'SKIP')
+source=('git+https://github.com/ayekat/karuiwm.git' config.h)
+md5sums=(SKIP SKIP)
 
 pkgver() {
   cd "$_pkgname"
@@ -30,6 +30,7 @@ prepare() {
   cd "$srcdir"/"$_pkgname"
   git checkout legacy
   cp "$srcdir"/config.h config.h
+  sed -i 's/karuiwm/karuiwm-legacy/g' "$srcdir"/"$_pkgname"/karuiwm.c
 }
 
 build() {
@@ -39,6 +40,6 @@ build() {
 
 package() {
   cd "$srcdir/$_pkgname"
-  depends+=('ayekat-utils-deps-desktop' 'dmenu' 'mpc' 'rxvt-unicode' 'sakura')
-  install -Dm 755 karuiwm "$pkgdir"/usr/bin/karuiwm
+  depends+=(ayekat-utils-deps-desktop dmenu mpc rxvt-unicode sakura)
+  install -Dm 755 karuiwm "$pkgdir"/usr/bin/karuiwm-legacy
 }
