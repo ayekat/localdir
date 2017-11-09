@@ -17,6 +17,7 @@ ignores = (
       "#archlinux",
       "#archlinux-arm",
       "#archlinux-offtopic",
+      "#archlinux-security",
       "#claws",
       "#debian",
       "#gitlab",
