@@ -41,9 +41,6 @@ ignores = (
   #  level = "JOINS PARTS QUITS";
   #  mask = "CeciEstUnBot doek gluc gluc_ gluc__ Lowlya leolepro texom512 Yumia zephyz rykeuse rykki Rykeuse_";
   #}
-  { channels = ( "#gnugeneration" ); mask = "roosemberth"; },
-  { channels = ( "#gnugeneration" ); mask = "roosembert"; },
-  { channels = ( "#gnugeneration" ); mask = "roos"; }
 );
 
 aliases = {
