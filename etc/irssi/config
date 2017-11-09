@@ -22,6 +22,7 @@ ignores = (
       "#gitlab",
       "#manjaro",
       "#netfilter",
+      "#pass",
       "#python",
       "#qemu",
       "#qutebrowser",
@@ -33,7 +34,7 @@ ignores = (
       "#zenoss",
       "#zsh"
     );
-    level = "JOINS PARTS QUITS";
+    level = "JOINS PARTS QUITS NICKS";
   },
   #{
   #  channels = ( "#gnugeneration" );
