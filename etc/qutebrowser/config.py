@@ -33,6 +33,8 @@ config.set('tabs.select_on_remove', 'prev')
 config.set('hints.mode', 'letter')
 config.set('hints.chars', 'fjdkslaghnv')
 config.unbind('<Ctrl-h>', mode='normal')
+config.bind('0', 'scroll-to-perc --horizontal 0', mode='normal')
+config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
 
 # Content:
 config.bind('m', 'spawn mpv {url}', mode='normal')
