@@ -26,37 +26,22 @@
 #define termfg       #BBBBBB
 #define termbg       #111111
 
-! Black:
 *color0              : black
 *color8              : lightblack
-! Red:
 *color1              : red
 *color9              : lightred
-! Green:
 *color2              : green
 *color10             : lightgreen
-! Yellow:
 *color3              : yellow
 *color11             : lightyellow
-! Blue:
 *color4              : blue
 *color12             : lightblue
-! Magenta:
 *color5              : magenta
 *color13             : lightmagenta
-! Cyan:
 *color6              : cyan
 *color14             : lightcyan
-! White:
 *color7              : white
 *color15             : lightwhite
-
-! }}}
-! ------------------------------------------------------------------------------
-! XTERM {{{
-
-xterm.*.foreground     : termfg
-xterm.*.background     : termbg
 
 ! }}}
 ! ------------------------------------------------------------------------------
@@ -71,6 +56,7 @@ URxvt.cursorBlink    : true
 URxvt.scrollBar      : false
 URxvt.internalBorder : 1
 URxvt.colorBD        : lightwhite
+URxvt.geometry       : 85x25
 
 ! Scrollback buffer:
 URxvt.saveLines      : 10000
@@ -88,34 +74,29 @@ URxvt.iso14755_52    : false
 ! Set urgent hint whenever encountering the bell character:
 URxvt.urgentOnBell   : true
 
-! Settings for perl extensions (XDG_LIB_HOME should be set by xrdb):
+! Perl extensions (XDG_LIB_HOME should be set by xrdb):
 URxvt.perl-lib       : XDG_LIB_HOME/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard
 URxvt.perl-ext-common: default,url-select,keyboard-select
 
-! Open new window in same PWD:
-  URxvt.keysym.C-S-N : perl:insamedir:open
-! Open URLs with keyboard (requires urxvt-perls package):
-  URxvt.url-select.launcher: /usr/bin/xdg-open
-  URxvt.url-select.underline: true
-  URxvt.keysym.C-S-K : perl:url-select:select_next
-! Search buffer:
-  URxvt.keysym.C-S-F : perl:keyboard-select:search
-! Copy+paste:
-  URxvt.keysym.Shift-Control-V : perl:clipboard:paste
-  URxvt.keysym.Shift-Control-C : perl:clipboard:copy
+! Perl extensions {{{
 
-!URxvt.keysym.Escape  : \033\000
+! perl:url-select (part of urxvt-perls): Interact with URLs by keyboard:
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.keysym.C-S-K : perl:url-select:select_next
 
-URxvt.geometry       : 85x25
+! perl:keyboard-select (prat of urxvt-perls): Search in buffer:
+URxvt.keysym.C-S-F : perl:keyboard-select:search
+
+! perl:clipboard (part of dotfiles (NOT the one in urxvt-perls)): Copy+paste:
+URxvt.keysym.Shift-Control-V : perl:clipboard:paste
+URxvt.keysym.Shift-Control-C : perl:clipboard:copy
+
+! perl:insamedir (part of dotfiles): Open new window in same PWD:
+URxvt.keysym.C-S-N : perl:insamedir:open
 
 ! }}}
-! ------------------------------------------------------------------------------
-! DZEN {{{
-
-dzen2.font           : Fixed-10:Medium:SemiCondensed
-dzen2.background     : black
-dzen2.foreground     : #888888
 
 ! }}}
 ! ------------------------------------------------------------------------------
@@ -155,7 +136,6 @@ karuibar.battery_slice.acpi_use_real: true
 
 !karuibar.backlight.device     : intel_backlight
 karuibar.backlight.device     : acpi_video0
-
 
 karuibar.alsa_in.channel      : Capture
 karuibar.alsa_in.persistent   : false
