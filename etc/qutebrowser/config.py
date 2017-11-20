@@ -25,6 +25,9 @@ config.set('new_instance_open_target', 'tab-silent')
 
 # CONTROL ======================================================================
 
+# Windows:
+config.unbind('<Ctrl-Shift-n>', mode='normal')
+
 # Tabs:
 config.set('tabs.background', True)
 config.set('tabs.select_on_remove', 'prev')
