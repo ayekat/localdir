@@ -24,6 +24,3 @@ export OS_NAME
 export EDITOR='/usr/bin/vim'
 export VISUAL='/usr/bin/vim'
 export PAGER='/usr/bin/less'
-
-# GPG+SSH:
-export SSH_AUTH_SOCK="$XDG_RUNTIME_DIR/gnupg/S.gpg-agent.ssh"
