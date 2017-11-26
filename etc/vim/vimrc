@@ -145,7 +145,6 @@ au FileType gitcommit setl foldmethod=manual
 syntax on
 
 " Fix unrecognised file types:
-au BufRead,BufNewFile *.md setl filetype=markdown
 au BufRead,BufNewFile *.tex setl filetype=tex
 au BufRead,BufNewFile *.xbm setl filetype=c
 au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl setl filetype=glsl
