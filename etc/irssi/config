@@ -2,7 +2,7 @@
 
 servers = (
   {
-    address = "znc.ayekat.ch";
+    address = "znc.zuepfe.net";
     port = "9876";
     password = "ayekat:ZNC_PASSWORD";
     use_ssl = "yes";
