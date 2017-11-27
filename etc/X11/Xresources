@@ -84,17 +84,17 @@ URxvt.perl-ext-common: default,url-select,keyboard-select
 ! perl:url-select (part of urxvt-perls): Interact with URLs by keyboard:
 URxvt.url-select.launcher: /usr/bin/xdg-open
 URxvt.url-select.underline: true
-URxvt.keysym.C-S-K : perl:url-select:select_next
+URxvt.keysym.C-S-K   : perl:url-select:select_next
 
 ! perl:keyboard-select (prat of urxvt-perls): Search in buffer:
-URxvt.keysym.C-S-F : perl:keyboard-select:search
+URxvt.keysym.C-S-F   : perl:keyboard-select:search
 
 ! perl:clipboard (part of dotfiles (NOT the one in urxvt-perls)): Copy+paste:
-URxvt.keysym.Shift-Control-V : perl:clipboard:paste
-URxvt.keysym.Shift-Control-C : perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
 
 ! perl:insamedir (part of dotfiles): Open new window in same PWD:
-URxvt.keysym.C-S-N : perl:insamedir:open
+URxvt.keysym.C-S-N   : perl:insamedir:open
 
 ! }}}
 
