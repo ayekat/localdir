@@ -1,4 +1,3 @@
 #!/usr/bin/env sh
 
-. "$(dirname "$0")"/path.sh
-exec "$EPATH" --alternate-config-dir "$XDG_DATA_HOME"/claws-mail "$@"
+exec unwrap claws-mail --alternate-config-dir "$XDG_DATA_HOME"/claws-mail "$@"

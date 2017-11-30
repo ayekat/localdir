@@ -1,0 +1,101 @@
+#!/usr/bin/env sh
+
+# Run a command from a wrapper. The goal is to allow wrapper scripts located in
+# $PATH to `exec` the "real" command without ending up in an infinite loop.
+
+# Written by a tired ayekat in a train on a cold Wednesday night in November
+# 2017.
+
+set -e
+set -u
+
+RUNNAME="$(basename "$0")"
+E_SUCCESS=0
+E_USER=1
+E_INTERNAL=2
+E_COMMAND=127
+
+which()
+(
+	test $# -gt 0 || return 1
+	cmd="$1"; shift
+	if [ $# -gt 0 ]; then
+		ignored="$1"
+		shift
+	fi
+	test $# -eq 0 || return 1
+
+	IFS=:
+	for p in $PATH; do
+		cmdpath="$(readlink -f "$p/$cmd")"
+		case "$ignored" in (*:$cmdpath:*)
+			continue
+		esac
+		if [ -x "$cmdpath" ]; then
+			echo "$cmdpath"
+			return 0
+		fi
+	done
+	return 127
+)
+
+die()
+{
+	retval=$(($1 + 0)); shift
+	if [ $retval -eq $E_INTERNAL ]; then
+		printf 'Internal error: ' >&2
+	fi
+	printf "$@" >&2
+	echo >&2
+	if [ $retval -eq $E_USER ]; then
+		printf 'Run with -h for more help\n' >&2
+	fi
+	exit $retval
+}
+
+help()
+{
+	cat <<- EOF
+	Usage: $RUNNAME [OPTION...] COMMAND ...
+
+	Options:
+	  -h           Display this help message and exit.
+	  -i FILEPATH  In addition to ignoring the wrapper script location,
+	               also ignore FILEPATH when searching for commands
+	               (this option may be passed multiple times)
+	EOF
+}
+
+# Options:
+ignored=':'
+while getopts :hi: opt; do
+	case "$opt" in
+		(h) help; exit $E_SUCCESS ;;
+		(i) ignored="$ignored$OPTARG:" ;;
+		(:) die $E_USER 'Missing argument for -%s' "$OPTARG" ;;
+		('?') die $E_USER 'Unknown option: -%s' "$OPTARG" ;;
+		(*) die $E_INTERNAL 'Unhandled option: -%s' "$OPTARG" ;;
+	esac
+done
+shift $((OPTIND - 1))
+
+# Command:
+test $# -gt 0 || die $E_USER 'Please specify a command'
+cmd="$1"
+shift
+case "$cmd" in (*/*)
+	die $E_USER 'Please specify a command, not a path'
+esac
+
+# Get wrapper script path:
+if ! wpath="$(which "$cmd" "$ignored")"; then
+	die $E_COMMAND 'command not found: %s' "$cmd"
+fi
+
+# Get "real" path:
+if ! rpath="$(which "$cmd" ":$wpath$ignored")"; then
+	die $E_COMMAND 'wrapper script not unwrappable: %s' "$wpath"
+fi
+
+# Execute real executable:
+exec "$rpath" "$@"

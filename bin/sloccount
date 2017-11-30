@@ -1,6 +1,4 @@
 #!/usr/bin/env sh
 
 mkdir -p "$XDG_CACHE_HOME/sloccount"
-
-. "$(dirname "$0")"/path.sh
-exec env LANG=C "$EPATH" --datadir "$XDG_CACHE_HOME/sloccount" "$@"
+exec env LANG=C unwrap sloccount --datadir "$XDG_CACHE_HOME/sloccount" "$@"

@@ -8,5 +8,4 @@ if [ ! -e "$mutt_config" ]; then
 	exit 1
 fi
 
-. "$(dirname "$0")"/path.sh
-exec "$EPATH" -F "$mutt_config"
+exec unwrap mutt -F "$mutt_config"
