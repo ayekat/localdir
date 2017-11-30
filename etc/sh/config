@@ -14,12 +14,11 @@ have()
 # Colours for gcc:
 export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
 
-# Colours and output format (coreutils>=8.25) for ls:
-QUOTING_STYLE=literal
+# Colours for ls:
 LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
 #          file dir   exec  link  orphan          block   char  pipe  socket
 #                                 link    target
-export QUOTING_STYLE LS_COLORS
+export LS_COLORS
 
 # Colours for less:
 LESS_TERMCAP_me="$(printf "\033[0m")"
@@ -37,7 +36,7 @@ unalias -a
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias ll='ls -lh --time-style=long-iso'
-alias ls='ls -A --color=auto'
+alias ls='ls -A --color=auto --quoting-style=literal'
 alias lt='ll -t'
 alias mv='mv -i'
 alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
@@ -47,13 +46,12 @@ alias view='vim -R'
 alias sudo='sudo '
 alias watch='watch '
 
-# Server only aliases (mostly additional security):
+# Server only aliases (mostly additional safety):
 if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
 fi
 
 # ------------------------------------------------------------------------------
-# PROMPT {{{
 
 # Prompt colours:
 pc_git_detached="$(printf '\033[1m')"
@@ -142,5 +140,4 @@ git_update()
 	unset git_status_body
 }
 
-# }}}
 # ------------------------------------------------------------------------------
