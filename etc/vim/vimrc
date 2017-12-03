@@ -70,6 +70,7 @@ NeoBundle 'ap/vim-css-color'
 NeoBundle 'nfnty/vim-nftables'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'mqudsi/meson.vim'
+NeoBundle 'nblock/vim-dokuwiki'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 if g:bundleinit
@@ -101,6 +102,26 @@ let g:syntastic_error_symbol = 'XX'
 " Don't use default keybindings of DWM plugin; don't auto-arrange at :split:
 let g:dwm_map_keys = 0
 let g:dwm_auto_center = 0
+
+" }}}
+" ------------------------------------------------------------------------------
+" FILE TYPES {{{
+
+" Fix unrecognised file types:
+au BufRead,BufNewFile *.tex setl filetype=tex
+au BufRead,BufNewFile *.xbm setl filetype=c
+au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl setl filetype=glsl
+au BufRead,BufNewFile dunstrc,redshift.conf setl filetype=cfg
+au BufRead,BufNewFile *.target setl filetype=systemd
+au BufRead,BufNewFile *.muttrc setl filetype=muttrc
+au BufRead,BufNewFile *.tool setl filetype=scala
+au BufRead,BufNewFile *.zone setl filetype=dns
+au BufRead,BufNewFile *.smt setl filetype=lisp
+au BufRead,BufNewFile *.install setl filetype=sh
+au BufRead,BufNewFile *.l3 setl filetype=lisp
+au BufRead,BufNewFile *.dokuwiki setl filetype=dokuwiki
+au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/sh/* setl filetype=sh
+au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/git/config setl filetype=gitconfig
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -143,21 +164,6 @@ au FileType gitcommit setl foldmethod=manual
 
 " Without any syntax highlighting, programming is a pain:
 syntax on
-
-" Fix unrecognised file types:
-au BufRead,BufNewFile *.tex setl filetype=tex
-au BufRead,BufNewFile *.xbm setl filetype=c
-au BufRead,BufNewFile *.frag,*.vert,*.geom,*.glsl setl filetype=glsl
-au BufRead,BufNewFile dunstrc,redshift.conf setl filetype=cfg
-au BufRead,BufNewFile *.target setl filetype=systemd
-au BufRead,BufNewFile *.muttrc setl filetype=muttrc
-au BufRead,BufNewFile *.tool setl filetype=scala
-au BufRead,BufNewFile *.zone setl filetype=dns
-au BufRead,BufNewFile *.smt setl filetype=lisp
-au BufRead,BufNewFile *.install setl filetype=sh
-au BufRead,BufNewFile *.l3 setl filetype=lisp
-au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/sh/* setl filetype=sh
-au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/.local/etc/git/config setl filetype=gitconfig
 
 " Assembly:
 let asmsyntax='nasm'
