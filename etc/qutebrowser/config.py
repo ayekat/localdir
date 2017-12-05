@@ -59,6 +59,7 @@ config.set('url.searchengines', {
     'img':     'https://www.google.com/search?tbm=isch&q={}',
     'news':    'https://www.google.com/search?tbm=nws&q={}',
     'map':     'http://search.epfl.ch/process_web2010?lang=en&as_site_search=&q={}&engine=place',
+    'osm':     'http://www.openstreetmap.org/search?query={}',
     'meteo':   'http://meteo.search.ch/?plz_ort={}',
     'yt':      'http://www.youtube.com/results?search_query={}',
     'bc':      'http://bandcamp.com/search?q={}',
