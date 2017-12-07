@@ -84,6 +84,12 @@ git_update()
 	have git || return 1
 	git_path="$(git -C "$1" rev-parse --show-toplevel 2>/dev/null)" || return 1
 	git_dir="$(git -C "$git_path" rev-parse --absolute-git-dir 2>/dev/null)" || return 1
+	git_bare=''
+	git_status_full=''
+	case "$1" in
+		("$git_dir"*) git_bare=1 ;;
+		(*) git_status_full="$(git -C "$git_path" status --porcelain -b)" ;;
+	esac
 
 	# Branch and state:
 	if [ -d "$git_dir"/rebase-merge ]; then
@@ -119,25 +125,34 @@ git_update()
 	unset git_dir
 
 	# Remote (TODO: what if weird remote?):
-	git_status_head="$(git -C "$git_path" status --porcelain -b | head -n 1)"
-	if echo "$git_status_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null; then
-		git_remote='ahead'
-	elif echo "$git_status_head" | grep ' \[behind [0-9]\+\]$' >/dev/null; then
-		git_remote='behind'
-	elif echo "$git_status_head" | \
-	     grep ' \[ahead [0-9]\+, behind [0-9]\+\]$' >/dev/null; then
-		git_remote='diverged'
+	if [ -n "$git_bare" ]; then
+		git_remote='bare'
+	else
+		git_status_head="$(echo "$git_status_full" | head -n 1)"
+		if echo "$git_status_head" | grep ' \[ahead [0-9]\+\]$' >/dev/null; then
+			git_remote='ahead'
+		elif echo "$git_status_head" | grep ' \[behind [0-9]\+\]$' >/dev/null; then
+			git_remote='behind'
+		elif echo "$git_status_head" | \
+		     grep ' \[ahead [0-9]\+, behind [0-9]\+\]$' >/dev/null; then
+			git_remote='diverged'
+		fi
+		unset git_status_head
 	fi
-	unset git_status_head
 
 	# Status:
-	git_status_body="$(git -C "$git_path" status --porcelain | cut -c 1-2)"
-	if echo "$git_status_body" | grep '^.[M?ADRU]' >/dev/null; then
-		git_status='modified'
-	elif echo "$git_status_body" | grep '^[MADR]' >/dev/null; then
-		git_status='staged'
+	if [ -z "$git_bare" ]; then
+		git_status_body="$(echo "$git_status_full" | head -n +2 | cut -c 1-2)"
+		if echo "$git_status_body" | grep '^.[M?ADRU]' >/dev/null; then
+			git_status='modified'
+		elif echo "$git_status_body" | grep '^[MADR]' >/dev/null; then
+			git_status='staged'
+		fi
+		unset git_status_body
 	fi
-	unset git_status_body
+
+	unset git_bare
+	unset git_status_full
 }
 
 # ------------------------------------------------------------------------------
