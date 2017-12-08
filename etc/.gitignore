@@ -3,9 +3,10 @@
 /QtProject.conf
 
 # Papiliorama
-/KeePass/
-/freerdp/
 /.mono/
+/freerdp/
+/KeePass/
+/openvpn/
 
 # General
 /asciinema/
@@ -20,7 +21,6 @@
 /mate/
 /mutt/
 /nitrogen/
-/openvpn/
 /pluma/
 /roxterm.sourceforge.net/
 /sakura/
