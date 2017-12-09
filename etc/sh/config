@@ -142,7 +142,7 @@ git_update()
 
 	# Status:
 	if [ -z "$git_bare" ]; then
-		git_status_body="$(echo "$git_status_full" | head -n +2 | cut -c 1-2)"
+		git_status_body="$(echo "$git_status_full" | tail -n +2 | cut -c 1-2)"
 		if echo "$git_status_body" | grep '^.[M?ADRU]' >/dev/null; then
 			git_status='modified'
 		elif echo "$git_status_body" | grep '^[MADR]' >/dev/null; then
