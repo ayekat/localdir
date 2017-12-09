@@ -1,14 +1,19 @@
-# EPFL
-/Foxit Software/
-/QtProject.conf
+# EPFL COM-407 (TCP/IP):
+/gpicview/
+/libfm/
+/lxpanel/
+/lxsession-default-apps/
+/lxsession/
+/openbox/
+/pcmanfm/
 
-# Papiliorama
+# Papiliorama:
 /.mono/
 /freerdp/
 /KeePass/
 /openvpn/
 
-# General
+# General:
 /asciinema/
 /ayepaste/
 /darktable/
