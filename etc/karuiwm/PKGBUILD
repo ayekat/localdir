@@ -3,7 +3,7 @@
 # NOTE:
 # This PKGBUILD will require you to provide your config.h.
 # An example config.h can be found here:
-# https://github.com/ayekat/karuiwm/blob/legacy/config.def.h
+# https://gitlab.com/ayekat/karuiwm/blob/legacy/config.def.h
 
 pkgname=karuiwm-legacy-ayekat-git
 _pkgname=karuiwm
@@ -11,14 +11,14 @@ pkgdesc="Dynamically tiling window manager for X11 (legacy version, ayekat's con
 pkgver=r204.55f3a56
 pkgrel=2
 arch=(x86_64)
-url='https://github.com/ayekat/karuiwm'
+url='https://gitlab.com/ayekat/karuiwm'
 license=(MIT)
 depends=(libx11 libxinerama)
 makedepends=(inetutils)
 provides=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
 conflicts=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
 optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
-source=('git+https://github.com/ayekat/karuiwm.git' config.h)
+source=('git+https://gitlab.com/ayekat/karuiwm.git' config.h)
 md5sums=(SKIP SKIP)
 
 pkgver() {
