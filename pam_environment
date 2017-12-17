@@ -11,7 +11,7 @@
 # Ugly workaround for Debian (as they ship an ancient version of PAM)
 HOME                  DEFAULT="/home/@{PAM_USER}" OVERRIDE="@{HOME}"
 
-# XDG base directory specification (XDG_{LIB,LOG,TMP}_HOME are non-standard!)
+# XDG base directory specification (XDG_{LIB,LOG}_HOME are non-standard!)
 XDG_CACHE_HOME        DEFAULT="${HOME}/.local/var/cache"
 XDG_CONFIG_HOME       DEFAULT="${HOME}/.local/etc"
 XDG_DATA_HOME         DEFAULT="${HOME}/.local/var/lib"
@@ -25,11 +25,10 @@ XDG_DATA_DIRS         DEFAULT="${HOME}/.local/share:${XDG_DATA_DIRS}"
 # Fix various applications to respect XDG
 CARGO_HOME            DEFAULT="${XDG_DATA_HOME}/cargo"
 CHECKUPDATES_DB       DEFAULT="${XDG_DATA_HOME}/pacman/checkupdates"
-GNUPGHOME             DEFAULT="${XDG_DATA_HOME}/gnupg"
 GIMP2_DIRECTORY       DEFAULT="${XDG_DATA_HOME}/gimp"
+GNUPGHOME             DEFAULT="${XDG_DATA_HOME}/gnupg"
 GTK2_RC_FILES         DEFAULT="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
 LESSHISTFILE          DEFAULT="${XDG_DATA_HOME}/lesshist"
-MPLAYER_HOME          DEFAULT="${XDG_CONFIG_HOME}/mplayer"
 MYSQL_HISTFILE        DEFAULT="${XDG_DATA_HOME}/mysql_history"
 NETHACKOPTIONS        DEFAULT="\@${XDG_CONFIG_HOME}/nethack/nethackrc"
 NPM_CONFIG_USERCONFIG DEFAULT="${XDG_CONFIG_HOME}/npm/npmrc"
@@ -37,7 +36,6 @@ PASSWORD_STORE_DIR    DEFAULT="${XDG_DATA_HOME}/pass"
 PGPPATH               DEFAULT="${XDG_DATA_HOME}/gnupg"
 PYTHONSTARTUP         DEFAULT="${XDG_LIB_HOME}/python/startup.py"
 RANDFILE              DEFAULT="${XDG_CACHE_HOME}/rnd"
-RXVT_SOCKET           DEFAULT="${XDG_RUNTIME_DIR}/urxvtd.sock"
 TASKDATA              DEFAULT="${XDG_DATA_HOME}/task"
 TASKRC                DEFAULT="${XDG_CONFIG_HOME}/task/taskrc"
 TMUX_TMPDIR           DEFAULT="${XDG_RUNTIME_DIR}"
