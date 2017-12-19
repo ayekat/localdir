@@ -47,7 +47,7 @@ config.bind('M', 'hint links spawn mpv {url}', mode='normal')
 config.set('editor.command', ['xvim', '{}'])
 config.set('input.insert_mode.auto_load', True)
 config.unbind('<Ctrl-v>', mode='normal')
-config.bind('<Ctrl-c>', 'enter-mode passthrough', mode='normal')
+config.bind('I', 'enter-mode passthrough', mode='normal')
 config.unbind('<Ctrl-v>', mode='passthrough')
 config.bind('<Escape>', 'leave-mode', mode='passthrough')
 
