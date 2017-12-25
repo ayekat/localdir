@@ -26,6 +26,7 @@ inode/directory        : thunar _FILE_ &
 message/rfc822         : xvim _FILE_ &
 text/html              : qutebrowser _FILE_ &
 text/plain             : xvim _FILE_ &
+text/x-diff            : xvim _FILE_ &
 text/x-shellscript     : xvim _FILE_ &
 text/x-tex             : xvim _FILE_ &
 video/mp4              : mpv
