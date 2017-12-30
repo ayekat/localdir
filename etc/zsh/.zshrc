@@ -61,7 +61,7 @@ function build_prompt() #{{{
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 
 	# Git:
-	if [[ -z "$1" ]]; then
+	if [[ $# -eq 0 ]]; then
 		GIT_PROMPT=''
 
 		# Watched repositories:
@@ -133,7 +133,7 @@ function build_prompt() #{{{
 	PROMPT+="$GIT_PROMPT"
 
 	# Hostname (if SSH):
-	if [[ -n "$SSH_CONNECTION" ]]; then
+	if [[ -n "${SSH_CONNECTION:-}" ]]; then
 		PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
 	fi
 
