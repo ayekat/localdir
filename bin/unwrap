@@ -27,7 +27,9 @@ which()
 
 	IFS=:
 	for p in $PATH; do
-		cmdpath="$(readlink -f "$p/$cmd")"
+		if ! cmdpath="$(readlink -f "$p/$cmd")"; then
+			continue
+		fi
 		case "$ignored" in (*:$cmdpath:*)
 			continue
 		esac
