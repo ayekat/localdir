@@ -7,18 +7,22 @@
 
 pkgname=karuiwm-legacy-ayekat-git
 _pkgname=karuiwm
-pkgdesc="Dynamically tiling window manager for X11 (legacy version, ayekat's config)"
 pkgver=r204.55f3a56
 pkgrel=2
+
+pkgdesc="Dynamically tiling window manager for X11 (legacy version, ayekat's config)"
 arch=(x86_64)
 url='https://gitlab.com/ayekat/karuiwm/tree/legacy'
 license=(MIT)
+
 depends=(libx11 libxinerama)
 makedepends=(inetutils)
+optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
+
 provides=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
 conflicts=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
-optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
-source=('git+https://gitlab.com/ayekat/karuiwm.git' config.h)
+
+source=('git+https://gitlab.com/ayekat/karuiwm.git#branch=legacy' config.h)
 md5sums=(SKIP SKIP)
 
 pkgver() {
@@ -28,8 +32,7 @@ pkgver() {
 
 prepare() {
   cd "$srcdir"/"$_pkgname"
-  git checkout legacy
-  cp "$srcdir"/config.h config.h
+  ln -sf "$srcdir"/config.h config.h
   sed -i 's/karuiwm/karuiwm-legacy/g' "$srcdir"/"$_pkgname"/karuiwm.c
 }
 
