@@ -37,11 +37,12 @@ ignores = (
     );
     level = "JOINS PARTS QUITS NICKS";
   },
-  #{
-  #  channels = ( "#gnugeneration" );
-  #  level = "JOINS PARTS QUITS";
-  #  mask = "CeciEstUnBot doek gluc gluc_ gluc__ Lowlya leolepro texom512 Yumia zephyz rykeuse rykki Rykeuse_";
-  #}
+  { mask = "doek";     level = "JOINS PARTS QUITS"; },
+  { mask = "leolepro"; level = "JOINS PARTS QUITS"; },
+  { mask = "Lowlya";   level = "JOINS PARTS QUITS"; },
+  { mask = "texom512"; level = "JOINS PARTS QUITS"; },
+  { mask = "Yumia";    level = "JOINS PARTS QUITS"; },
+  { mask = "zephyz";   level = "JOINS PARTS QUITS"; },
 );
 
 aliases = {
