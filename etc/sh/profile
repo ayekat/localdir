@@ -1,19 +1,26 @@
 # Profile loaded when logging into a shell.
 # Written by ayekat on a cold morning in january 2017.
 
+path() {
+	test ! -h "$2" || return
+	case ":$PATH:" in
+		(*:"$2":*)
+			;;
+		(*)
+			case "$1" in
+				(prepend) PATH="$2:$PATH" ;;
+				(append) PATH="$PATH:$2" ;;
+			esac
+	esac
+}
+
 # Work around distributions that still keep separate sbin directories:
-_inpath() { case ":$PATH:" in (*:$1:*) ;; (*) false ;; esac; }
-for _p in /usr/local/sbin /usr/sbin /sbin; do
-	if ! _inpath "$_p" && [ -d "$_p" ] && [ ! -h "$_p" ]; then
-		PATH="$PATH:$_p"
-	fi
-done
-unset _p
-unset -f _inpath
-export PATH
+path append '/usr/local/sbin'
+path append '/usr/sbin'
+path append '/sbin'
 
 # Set user-path:
-export PATH="$HOME/.local/bin:$PATH"
+path prepend "$HOME/.local/bin"
 
 # Load profiles in profile.d:
 if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
@@ -24,3 +31,6 @@ if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
 	done
 	unset profile
 fi
+
+unset -f path
+export PATH
