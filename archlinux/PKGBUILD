@@ -3,10 +3,10 @@
 pkgbase=ayekat-dotfiles-deps
 pkgname=(ayekat-dotfiles-deps ayekat-dotfiles-deps-desktop)
 pkgver=2017.11.01
-pkgrel=2
+pkgrel=3
+
 arch=(any)
 url='https://github.com/ayekat/dotfiles'
-license=(GPL3)
 
 package_ayekat-dotfiles-deps() {
   pkgname=ayekat-dotfiles-deps
@@ -45,6 +45,6 @@ package_ayekat-dotfiles-deps-desktop() {
     'darktable: photo editing'
     'gimp: image editing'
     'libreoffice: office suite'
-    'newsboat: RSS feeds'
+    'newsboat: Atom/RSS feeds'
   )
 }
