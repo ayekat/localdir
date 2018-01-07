@@ -1,7 +1,13 @@
 browser "qutebrowser %u"
-cache-file ~/.local/var/cache/newsbeuter/cache.db
+cache-file ~/.local/var/cache/newsboat/cache.db
 notify-program "notify-send"
 notify-always yes
+refresh-on-startup yes
+
+bind-key j next
+bind-key k prev
+bind-key J next-feed
+bind-key K prev-feed
 
 color background        color250 black
 color info              white    blue
