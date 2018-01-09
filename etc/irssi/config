@@ -255,7 +255,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#qutebrowser";
+        name = "#systemd";
         tag = "znc";
       }
     );
@@ -265,7 +265,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#epfl";
+        name = "#qutebrowser";
         tag = "znc";
       }
     );
