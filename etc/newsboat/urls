@@ -1,6 +1,7 @@
 http://ayekat.ch/atom.xml
 https://xkcd.com/atom.xml
 
+https://www.archlinux.org/feeds/packages/
 https://bugs.archlinux.org/feed.php?feed_type=atom&project=1
 https://bugs.archlinux.org/feed.php?feed_type=atom&project=1&topic=edit
 https://bugs.archlinux.org/feed.php?feed_type=atom&project=1&topic=clo
