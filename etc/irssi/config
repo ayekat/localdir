@@ -27,6 +27,7 @@ ignores = (
       "#python",
       "#qemu",
       "#qutebrowser",
+      "#qutebrowser-offtopic",
       "#raspbian",
       "#systemd",
       "#ubuntu",
@@ -37,12 +38,12 @@ ignores = (
     );
     level = "JOINS PARTS QUITS NICKS";
   },
-  { mask = "doek";     level = "JOINS PARTS QUITS"; },
-  { mask = "leolepro"; level = "JOINS PARTS QUITS"; },
-  { mask = "Lowlya";   level = "JOINS PARTS QUITS"; },
-  { mask = "texom512"; level = "JOINS PARTS QUITS"; },
-  { mask = "Yumia";    level = "JOINS PARTS QUITS"; },
-  { mask = "zephyz";   level = "JOINS PARTS QUITS"; },
+  { mask = "doek";     level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "leolepro"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "Lowlya";   level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "texom512"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "Yumia";    level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "zephyz";   level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
 );
 
 aliases = {
