@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+exec unwrap msmtp --file="$XDG_CONFIG_HOME/msmtp/msmtprc" "$@"
