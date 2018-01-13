@@ -1,0 +1,46 @@
+! Look:
+URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,xft:Unifont,xft:NotoMono
+URxvt.depth          : 24
+URxvt.foreground     : termfg
+URxvt.background     : termbg
+URxvt.cursorBlink    : true
+URxvt.scrollBar      : false
+URxvt.internalBorder : 1
+URxvt.colorBD        : lightwhite
+URxvt.geometry       : 85x25
+
+! Scrollback buffer:
+URxvt.saveLines      : 10000
+
+! Scroll behaviour:
+URxvt.scrollTtyOutput: false
+URxvt.scrollTtyKeypress: true
+URxvt.scrollWithBuffer: true
+URxvt.secondaryScroll: true
+
+! Disable ISO-14755 mode for Ctrl+Shift:
+URxvt.iso14755       : false
+URxvt.iso14755_52    : false
+
+! Set urgent hint whenever encountering the bell character:
+URxvt.urgentOnBell   : true
+
+! Perl extensions (XDG_LIB_HOME should be set by xrdb):
+URxvt.perl-lib       : XDG_LIB_HOME/urxvt/perl/
+URxvt.perl-ext       : insamedir,clipboard
+URxvt.perl-ext-common: default,url-select,keyboard-select
+
+! perl:url-select (part of urxvt-perls): Interact with URLs by keyboard:
+URxvt.url-select.launcher: /usr/bin/xdg-open
+URxvt.url-select.underline: true
+URxvt.keysym.C-S-K   : perl:url-select:select_next
+
+! perl:keyboard-select (prat of urxvt-perls): Search in buffer:
+URxvt.keysym.C-S-F   : perl:keyboard-select:search
+
+! perl:clipboard (part of dotfiles (NOT the one in urxvt-perls)): Copy+paste:
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+
+! perl:insamedir (part of dotfiles): Open new window in same PWD:
+URxvt.keysym.C-S-N   : perl:insamedir:open

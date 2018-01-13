@@ -2,9 +2,6 @@
 ! Written by ayekat a long time ago, updated on a sunny wednesday afternoon in
 ! september 2014.
 
-! ------------------------------------------------------------------------------
-! COLOURS {{{
-
 ! Colour palette:
 #define black        #222222
 #define red          #E06655
@@ -43,109 +40,6 @@
 *color7              : white
 *color15             : lightwhite
 
-! }}}
-! ------------------------------------------------------------------------------
-! URXVT {{{
-
-! Look:
-URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,xft:Unifont,xft:NotoMono
-URxvt.depth          : 24
-URxvt.foreground     : termfg
-URxvt.background     : termbg
-URxvt.cursorBlink    : true
-URxvt.scrollBar      : false
-URxvt.internalBorder : 1
-URxvt.colorBD        : lightwhite
-URxvt.geometry       : 85x25
-
-! Scrollback buffer:
-URxvt.saveLines      : 10000
-
-! Scroll behaviour:
-URxvt.scrollTtyOutput: false
-URxvt.scrollTtyKeypress: true
-URxvt.scrollWithBuffer: true
-URxvt.secondaryScroll: true
-
-! Disable ISO-14755 mode for Ctrl+Shift:
-URxvt.iso14755       : false
-URxvt.iso14755_52    : false
-
-! Set urgent hint whenever encountering the bell character:
-URxvt.urgentOnBell   : true
-
-! Perl extensions (XDG_LIB_HOME should be set by xrdb):
-URxvt.perl-lib       : XDG_LIB_HOME/urxvt/perl/
-URxvt.perl-ext       : insamedir,clipboard
-URxvt.perl-ext-common: default,url-select,keyboard-select
-
-! Perl extensions {{{
-
-! perl:url-select (part of urxvt-perls): Interact with URLs by keyboard:
-URxvt.url-select.launcher: /usr/bin/xdg-open
-URxvt.url-select.underline: true
-URxvt.keysym.C-S-K   : perl:url-select:select_next
-
-! perl:keyboard-select (prat of urxvt-perls): Search in buffer:
-URxvt.keysym.C-S-F   : perl:keyboard-select:search
-
-! perl:clipboard (part of dotfiles (NOT the one in urxvt-perls)): Copy+paste:
-URxvt.keysym.Shift-Control-V: perl:clipboard:paste
-URxvt.keysym.Shift-Control-C: perl:clipboard:copy
-
-! perl:insamedir (part of dotfiles): Open new window in same PWD:
-URxvt.keysym.C-S-N   : perl:insamedir:open
-
-! }}}
-
-! }}}
-! ------------------------------------------------------------------------------
-! KARUIBAR {{{
-
-#ifdef SRVR_chirschi
-# if DISPLAY_NUM == 0
-karuibar.xgap    : 100
-karuibar.modules : mpd, network, memory, cpu, \
-                   battery, battery_slice, backlight, \
-                   alsa_out, alsa_in, time_date, time_time, capslock
-# else
-karuibar.modules : stdin; cpu, time_date, time_time, capslock
-# endif
-#else
-# ifdef SRVR_phobia
-karuibar.xgap    : 100
-karuibar.modules : mpd, network, memory, cpu, \
-                   alsa_out, time_date, time_time, capslock
-# endif
-#endif
-
-karuibar.foreground  : termfg
-karuibar.background  : black
-karuibar.wsep        : 1
-karuibar.wpad        : 7
-karuibar.bottom      : false
-
-karuibar.stdin.foreground     : #00D7FF
-karuibar.stdin.background     : #005F5F
-
-karuibar.mpd_gnu.host         : mpd.gnugen.ch
-
-karuibar.battery.acpi_use_real: true
-karuibar.battery_slice.id     : BAT1
-karuibar.battery_slice.acpi_use_real: true
-
-!karuibar.backlight.device     : intel_backlight
-karuibar.backlight.device     : acpi_video0
-
-karuibar.alsa_in.channel      : Capture
-karuibar.alsa_in.persistent   : false
-karuibar.alsa_in.capture      : true
-
-karuibar.time_date.format     : %Y-%m-%d
-karuibar.time_date.foreground : white
-karuibar.time_date.background : lightblack
-karuibar.time_time.format     : %H:%M
-karuibar.time_time.foreground : lightblack
-karuibar.time_time.background : white
-
-! }}}
+! Application-specific configuration:
+#include "Xresources.d/urxvt"
+#include "Xresources.d/karuibar"
