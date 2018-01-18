@@ -8,4 +8,4 @@ if [ ! -e "$mutt_config" ]; then
 	exit 1
 fi
 
-exec unwrap mutt -F "$mutt_config"
+exec mutt -F "$mutt_config"
