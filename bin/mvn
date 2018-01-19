@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-exec unwrap mvn -gs "$XDG_CONFIG_HOME/maven/settings.xml" "$@"
