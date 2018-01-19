@@ -91,8 +91,7 @@ config.set('url.searchengines', {
     'hulbee':  'https://hulbee.com/?query={}&region=browser&uiLanguage=browser',
     'gw':      'https://gnugeneration.epfl.ch/accueil?do=search&id={}',
 
-    'man':     'http://www.google.com/cse?q={}&ie=ISO-8859-1&cx=partner-pub-5823754184406795:54htp1rtx5u&cof=FORID:9',
-    'mankier': 'https://www.mankier.com/?q={}',
+    'man':     'http://jlk.fjfi.cvut.cz/arch/manpages/search?q={}',
 
     'wa':      'http://www.wolframalpha.com/input/?i={}&dataset=',
     'seq':     'http://oeis.org/search?q={}&language=english',
