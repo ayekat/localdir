@@ -53,7 +53,7 @@ have xrdb && xrdb -DXDG_LIB_HOME="$XDG_LIB_HOME" "$XDG_CONFIG_HOME/X11/Xresource
 have nitrogen && nitrogen --restore
 
 # Start a scratchpad:
-have urxvt tmx && urxvt -e tmx SCRATCHPAD &
+have urxvt tmux tmux-view && urxvt -e tmux-view SCRATCHPAD &
 
 
 # WM ---------------------------------------------------------------------------
