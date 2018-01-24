@@ -1,0 +1,116 @@
+# BASE =========================================================================
+
+# IMAP:
+set mbox_type = Maildir
+set mailcap_path = "$XDG_CONFIG_HOME/mailcap"
+set certificate_file = "$XDG_CACHE_HOME/mutt/certificates"
+set header_cache = "$XDG_CACHE_HOME/mutt/headers"
+set message_cachedir = "$XDG_CACHE_HOME/mutt/bodies"
+set tmpdir = "$XDG_CACHE_HOME/mutt/tmp"
+set mail_check = 60
+set beep = no
+set beep_new = yes
+
+# SMTP:
+set sendmail = "$HOME/.local/lib/dotfiles/bin/msmtp"
+set envelope_from = yes
+
+# Folders:
+set folder = "$XDG_DATA_HOME/mail/"
+mailboxes "+Bluewin ==================="
+source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc
+mailboxes "+EPFL ======================"
+source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc
+mailboxes "+Papiliorama ==============="
+source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc
+
+source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc # default folder
+
+# Account hooks (triggered when changing into a directory of that account):
+folder-hook bluewin/* "source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc"
+folder-hook epfl/* "source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc"
+folder-hook papiliorama/* "source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc"
+
+# COMPOSING ====================================================================
+
+# Mail:
+set use_from = yes
+set realname = 'Tinu Weber'
+my_hdr X-Operating-System: `uname -a`
+
+# Editing:
+set editor = "$VISUAL"
+set send_charset = "utf-8"
+set date_format = "!%a, %b %d, %Y at %H:%M:%S %Z"
+
+# Security (GPG):
+source /etc/Muttrc.gpg.dist
+set pgp_autosign = yes
+set pgp_use_gpg_agent = yes
+set pgp_self_encrypt = yes
+set pgp_self_encrypt_as = 0x921A7822
+
+#macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+#macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+
+# CONTROL ======================================================================
+
+# Trash:
+folder-hook . 'macro index,pager d "<save-message>$trash<enter>y"'
+folder-hook Trash$ 'macro index,pager d "<delete-message>"'
+
+# Sidebar:
+bind index,pager K sidebar-prev
+bind index,pager J sidebar-next
+bind index,pager O sidebar-open
+bind index,pager B sidebar-toggle-visible
+bind index,pager \CU sidebar-page-up
+bind index,pager \CD sidebar-page-down
+
+# LOOK =========================================================================
+
+# Index:
+set sort = threads
+set sort_aux = last-date-received
+set menu_scroll = yes
+
+# Sidebar:
+set sidebar_visible = yes
+set sidebar_short_path
+set sidebar_folder_indent
+set sidebar_indent_string = "  "
+set sidebar_divider_char = "│"
+set sidebar_delim_chars = "/"
+set mail_check_stats
+set sidebar_format = "%B %?N?(%N)?%* %S"
+
+# LOOK (COLOURS) ===============================================================
+
+# Index:
+color normal      default        default
+color hdrdefault  green          default
+color quoted      green          default
+color quoted1     magenta        default
+color quoted2     blue           default
+color signature   cyan           default
+color indicator   color252       color238
+color error       brightred      default
+color status      white          blue
+color tree        brightmagenta  black
+color tilde       blue           default
+color attachment  brightyellow   default
+color markers     brightred      default
+color message     white          black
+color search      brightwhite    magenta
+color bold        brightyellow   default
+
+color index       green          default '~N !~T'  # new
+color index       green          default '~O !~T'  # unread
+color index       cyan           black       '~T'  # tagged
+color index       color240       default     '~D'  # deleted
+
+# Sidebar:
+color sidebar_indicator black    white
+color sidebar_highlight white    color238
+color sidebar_new       green    default
+color sidebar_flagged   cyan     default

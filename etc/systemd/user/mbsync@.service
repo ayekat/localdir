@@ -1,0 +1,6 @@
+[Unit]
+Description=Mailbox synchronisation service for %I
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/mbsync -c ${XDG_CONFIG_HOME}/mbsync/mbsyncrc %i

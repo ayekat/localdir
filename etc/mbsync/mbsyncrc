@@ -1,0 +1,91 @@
+# BLUEWIN ======================================================================
+
+# Account properties:
+IMAPAccount bluewin
+	Host            imaps.bluewin.ch
+	Port            993
+	User            takeya
+	PassCmd         "pass show social/mail/takeya@bluewin.ch | head -n 1"
+	SSLType         IMAPS
+	CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# Remote store:
+IMAPStore bluewin-remote
+	Account         bluewin
+
+# Local store:
+MaildirStore bluewin-local
+	Path            ~/.local/var/lib/mail/bluewin/
+	Inbox           ~/.local/var/lib/mail/bluewin/INBOX
+	SubFolders      Verbatim
+
+# Channel between the two stores:
+Channel bluewin
+	Master          :bluewin-remote:
+	Slave           :bluewin-local:
+	Patterns        *
+	SyncState       *
+	Create          Both
+	Expunge         Both
+
+# EPFL =========================================================================
+
+# Account properties:
+IMAPAccount epfl
+	Host            ewa.epfl.ch
+	Port            993
+	User            mtweber
+	PassCmd         "pass show social/mail/martin.weber@epfl.ch | head -n 1"
+	SSLType         IMAPS
+	AuthMechs       PLAIN
+	PipelineDepth   1
+	CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# Remote store:
+IMAPStore epfl-remote
+	Account         epfl
+
+# Local store:
+MaildirStore epfl-local
+	Path            ~/.local/var/lib/mail/epfl/
+	Inbox           ~/.local/var/lib/mail/epfl/INBOX
+	SubFolders      Verbatim
+
+# Channel between the two stores:
+Channel epfl
+	Master          :epfl-remote:
+	Slave           :epfl-local:
+	Patterns        *
+	SyncState       *
+	Create          Both
+	Expunge         Both
+
+# Papiliorama ==================================================================
+
+# Account properties:
+IMAPAccount papiliorama
+	Host            outlook.office365.com
+	Port            993
+	User            martin.weber@papiliorama.ch
+	PassCmd         "pass show social/mail/martin.weber@papiliorama.ch | head -n 1"
+	SSLType         IMAPS
+	CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# Remote store:
+IMAPStore papiliorama-remote
+	Account         papiliorama
+
+# Local store:
+MaildirStore papiliorama-local
+	Path            ~/.local/var/lib/mail/papiliorama/
+	Inbox           ~/.local/var/lib/mail/papiliorama/INBOX
+	SubFolders      Verbatim
+
+# Channel between the two stores:
+Channel papiliorama
+	Master          :papiliorama-remote:
+	Slave           :papiliorama-local:
+	Patterns        *
+	SyncState       *
+	Create          Both
+	Expunge         Both

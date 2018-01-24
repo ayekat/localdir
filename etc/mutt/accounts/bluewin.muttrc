@@ -1,0 +1,45 @@
+set from = 'takeya@bluewin.ch'
+
+set spoolfile = +bluewin/INBOX
+set record    = +bluewin/Sent
+set postponed = +bluewin/Drafts
+set trash     = +bluewin/Trash
+
+mailboxes "+bluewin/INBOX" \
+          "+bluewin/Arch Linux" \
+          "+bluewin/Arch Linux/Announce" \
+          "+bluewin/Arch Linux/Security" \
+          "+bluewin/Arch Linux/BBS" \
+          "+bluewin/Arch Linux/General" \
+          "+bluewin/Arch Linux/DevPublic" \
+          "+bluewin/Arch Linux/AURGeneral" \
+          "+bluewin/Arch Linux/Packaging" \
+          "+bluewin/Arch Linux/Packaging/AURRequests" \
+          "+bluewin/Arch Linux/Packaging/lighttpd" \
+          "+bluewin/Arch Linux/Packaging/pass" \
+          "+bluewin/Arch Linux/Packaging/cc-tool" \
+          "+bluewin/Arch Linux/Packaging/epfl-menu" \
+          "+bluewin/Arch Linux/Packaging/telegram-desktop" \
+          "+bluewin/Devel" \
+          "+bluewin/Devel/karuiwm" \
+          "+bluewin/Devel/qutebrowser" \
+          "+bluewin/Devel/PAM" \
+          "+bluewin/SysAdmin" \
+          "+bluewin/SysAdmin/Nodes" \
+          "+bluewin/SysAdmin/Nodes/chirschi" \
+          "+bluewin/SysAdmin/Nodes/kowalski" \
+          "+bluewin/SysAdmin/Nodes/himbeeri" \
+          "+bluewin/SysAdmin/Nodes/karma" \
+          "+bluewin/SysAdmin/Nodes/mirabelle" \
+          "+bluewin/SysAdmin/Nodes/tomate" \
+          "+bluewin/SysAdmin/Nodes/waltz" \
+          "+bluewin/SysAdmin/Nodes/waltz/rowland" \
+          "+bluewin/SysAdmin/DNS" \
+          "+bluewin/SysAdmin/DNS/ayekat.ch" \
+          "+bluewin/SysAdmin/DNS/diogenessyndrome.ch" \
+          "+bluewin/SysAdmin/DNS/zuepfe.net" \
+          "+bluewin/Work" \
+          "+bluewin/Work/Bity" \
+          "+bluewin/Info" \
+          "+bluewin/Sent" \
+          "+bluewin/Trash"

@@ -1,0 +1,19 @@
+set from = 'martin.weber@epfl.ch'
+
+set spoolfile = +epfl/INBOX
+set record    = +epfl/Sent
+set postponed = +epfl/Drafts
+set trash     = +epfl/Trash
+
+mailboxes "+epfl/INBOX" \
+          "+epfl/INBOX/Courses" \
+          "+epfl/INBOX/Courses" \
+          "+epfl/INBOX/Courses/COM-407_TCPIP" \
+          "+epfl/INBOX/Courses/HUM-442_ESPN" \
+          "+epfl/INBOX/GNU" \
+          "+epfl/INBOX/ZIVI" \
+          "+epfl/INBOX/Work" \
+          "+epfl/INBOX/Music" \
+          "+epfl/INBOX/Else" \
+          "+epfl/Sent" \
+          "+epfl/Trash"
