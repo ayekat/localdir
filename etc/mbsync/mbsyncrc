@@ -26,6 +26,7 @@ Channel bluewin
 	Patterns        *
 	SyncState       *
 	Create          Both
+	Remove          Both
 	Expunge         Both
 
 # EPFL =========================================================================
@@ -58,6 +59,7 @@ Channel epfl
 	Patterns        *
 	SyncState       *
 	Create          Both
+	Remove          Both
 	Expunge         Both
 
 # Papiliorama ==================================================================
@@ -88,4 +90,5 @@ Channel papiliorama
 	Patterns        *
 	SyncState       *
 	Create          Both
+	Remove          Both
 	Expunge         Both
