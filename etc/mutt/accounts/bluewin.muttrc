@@ -23,6 +23,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
           "+bluewin/Software/pass" \
+          "+bluewin/Software/pipepanic" \
           "+bluewin/Software/qutebrowser" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \

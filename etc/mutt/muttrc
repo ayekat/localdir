@@ -7,7 +7,7 @@ set certificate_file = "$XDG_CACHE_HOME/mutt/certificates"
 set header_cache = "$XDG_CACHE_HOME/mutt/headers"
 set message_cachedir = "$XDG_CACHE_HOME/mutt/bodies"
 set tmpdir = "$XDG_CACHE_HOME/mutt/tmp"
-set mail_check = 60
+set mail_check = 15
 set beep = no
 set beep_new = yes
 
