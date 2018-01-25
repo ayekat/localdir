@@ -1,2 +1,2 @@
 Arch Linux/General
-^(To|Cc):.*arch-general@archlinux\.org
+^(From|To|Cc):.*arch-general@archlinux\.org

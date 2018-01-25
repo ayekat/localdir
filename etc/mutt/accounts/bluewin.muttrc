@@ -7,11 +7,14 @@ set trash     = +bluewin/Trash
 
 mailboxes "+bluewin/INBOX" \
           "+bluewin/Arch Linux" \
+          "+bluewin/Arch Linux/BBS" \
+          "+bluewin/Arch Linux/Bugs" \
+          "+bluewin/Arch Linux/Wiki" \
           "+bluewin/Arch Linux/Announce" \
           "+bluewin/Arch Linux/Security" \
-          "+bluewin/Arch Linux/BBS" \
           "+bluewin/Arch Linux/General" \
           "+bluewin/Arch Linux/DevPublic" \
+          "+bluewin/Arch Linux/AUR" \
           "+bluewin/Arch Linux/AURGeneral" \
           "+bluewin/Arch Linux/AURRequests" \
           "+bluewin/Software" \
@@ -22,11 +25,12 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/lighttpd" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
+          "+bluewin/Software/PKGBUILDs" \
           "+bluewin/Software/pass" \
-          "+bluewin/Software/pipepanic" \
           "+bluewin/Software/qutebrowser" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \
+          "+bluewin/Software/zr" \
           "+bluewin/SysAdmin" \
           "+bluewin/SysAdmin/Nodes" \
           "+bluewin/SysAdmin/Nodes/brombeeri" \
