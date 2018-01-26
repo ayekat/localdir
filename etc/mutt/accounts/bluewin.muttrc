@@ -27,6 +27,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/PAM" \
           "+bluewin/Software/PKGBUILDs" \
           "+bluewin/Software/pass" \
+          "+bluewin/Software/pooch" \
           "+bluewin/Software/qutebrowser" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \
