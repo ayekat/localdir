@@ -1,14 +1,12 @@
 # Maintainer: Tinu Weber <http://ayekat.ch>
 
 pkgname=ayekat-mail-deps
-pkgver=2018.01.24
+pkgver=2018.01.26
 pkgrel=1
 arch=(any)
 
 pkgdesc="Dependencies for ayekat's mail client setup"
 
 package() {
-  depends=(gnupg isync msmtp mutt)
-  optdepends=('claws-mail: GUI mail client'
-              'systemd: For running msmtp on a timer')
+  depends=(gnupg isync msmtp mutt pooch)
 }

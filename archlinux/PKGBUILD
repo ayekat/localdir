@@ -27,7 +27,7 @@ package_ayekat-dotfiles-deps-desktop() {
   depends=(
     alsa-utils mpd mpv ncmpcpp
     ayekat-dotfiles-deps ayekat-utils-deps-desktop
-    claws-mail claws-mail-themes mutt
+    ayekat-mail-deps
     cower
     dunst libnotify
     eom zathura zathura-pdf-mupdf

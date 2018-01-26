@@ -1,9 +1,0 @@
-[Unit]
-Description=Mailbox filtering and notification service for %I
-
-[Service]
-Type=simple
-ExecStart=%h/.local/lib/utils/bin/pooch %i
-
-[Install]
-WantedBy=default.target
