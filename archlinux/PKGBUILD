@@ -2,10 +2,10 @@
 
 pkgbase=ayekat-dotfiles-deps
 pkgname=(ayekat-dotfiles-deps ayekat-dotfiles-deps-desktop)
-pkgver=2017.11.01
-pkgrel=3
-
+pkgver=2018.01.26
+pkgrel=1
 arch=(any)
+
 url='https://github.com/ayekat/dotfiles'
 
 package_ayekat-dotfiles-deps() {
