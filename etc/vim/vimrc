@@ -359,7 +359,7 @@ au BufRead,BufNewFile /etc/fstab setl nowrap
 set linebreak      " wrap at words (does not work with list)
 
 " Physically wrap lines:
-au FileType markdown,tex,rst setl textwidth=80
+au FileType asciidoc,markdown,rst,tex setl textwidth=80
 au FileType gitcommit,mail setl textwidth=72
 
 " Correctly handle UNIX (LF), DOS (CR+LF) and Mac (CR) style linebreaks:
