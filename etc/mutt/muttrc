@@ -56,7 +56,7 @@ set pgp_self_encrypt_as = 0x921A7822
 # CONTROL ======================================================================
 
 # Trash:
-folder-hook . 'macro index,pager d "<save-message>$trash<enter>y"'
+folder-hook . 'macro index,pager d "<save-message>$trash<enter>y\$y"'
 folder-hook Trash$ 'macro index,pager d "<delete-message>"'
 
 # Sidebar:
