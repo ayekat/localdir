@@ -18,21 +18,22 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Arch Linux/AURGeneral" \
           "+bluewin/Arch Linux/AURRequests" \
           "+bluewin/Software" \
-          "+bluewin/Software/debootstrap" \
           "+bluewin/Software/cc-tool" \
+          "+bluewin/Software/debootstrap" \
           "+bluewin/Software/epfl-menu" \
           "+bluewin/Software/karuiwm" \
           "+bluewin/Software/lighttpd" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
-          "+bluewin/Software/PKGBUILDs" \
           "+bluewin/Software/pass" \
           "+bluewin/Software/pooch" \
           "+bluewin/Software/qutebrowser" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \
+          "+bluewin/Software/xss-lock" \
           "+bluewin/Software/zr" \
           "+bluewin/SysAdmin" \
+          "+bluewin/SysAdmin/PKGBUILDs" \
           "+bluewin/SysAdmin/Nodes" \
           "+bluewin/SysAdmin/Nodes/brombeeri" \
           "+bluewin/SysAdmin/Nodes/chirschi" \
@@ -49,4 +50,5 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Work/Bity" \
           "+bluewin/Info" \
           "+bluewin/Sent" \
-          "+bluewin/Trash"
+          "+bluewin/Trash" \
+          "+bluewin/Spam"
