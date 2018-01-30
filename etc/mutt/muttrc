@@ -50,10 +50,14 @@ set pgp_use_gpg_agent = yes
 set pgp_self_encrypt = yes
 set pgp_self_encrypt_as = 0x921A7822
 
+# CONTROL ======================================================================
+
+# Folders:
 #macro index c "<change-folder>?<toggle-mailboxes>" "open a different folder"
 #macro pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
-
-# CONTROL ======================================================================
+macro index gb '<change-folder>=bluewin/INBOX<enter>' 'go to bluewin inbox'
+macro index ge '<change-folder>=epfl/INBOX<enter>' 'go to epfl inbox'
+macro index gp '<change-folder>=papiliorama/INBOX<enter>' 'go to papiliorama inbox'
 
 # Trash:
 folder-hook . 'macro index,pager d "<save-message>$trash<enter>y\$y"'
