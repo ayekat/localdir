@@ -71,6 +71,9 @@ bind index,pager B sidebar-toggle-visible
 bind index,pager \CU sidebar-page-up
 bind index,pager \CD sidebar-page-down
 
+# Content:
+macro pager w '<pipe-message>w3m -T text/html -O iso-8859-1'
+
 # LOOK =========================================================================
 
 # Index:
