@@ -410,7 +410,7 @@ vnoremap ; q:
 set cmdwinheight=10
 
 " Search for tags file recursively, up to root:
-set tags=./tags;/
+set tags=./tags;$HOME
 
 " Save a file as root (WARNING: breaks file undo history):
 command! Rw :execute ':silent w !sudo tee % > /dev/null' | :edit!
