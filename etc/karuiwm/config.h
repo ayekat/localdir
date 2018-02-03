@@ -74,7 +74,7 @@ static char const *demotecmd[] = { "demote", "-l", "10", "-i",
                                              "-sf", "#FFE0A0", "-sb", "#444444",
                                              "-p", "emote", "-fn", FONTSTR_DMENU,
                                              NULL };
-static char const *dpasscmd[] = { "dpass", "-l", "10", "-i",
+static char const *dpasscmd[] = { "passmenu", "--type", "-l", "10", "-i",
                                            "-nf", "#888888", "-nb", "#282828",
                                            "-sf", "#E0A0FF", "-sb", "#444444",
                                            "-p", "pass", "-fn", FONTSTR_DMENU,

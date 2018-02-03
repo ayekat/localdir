@@ -1,4 +1,4 @@
-# Maintainer: ayekat <takeya@bluewin.ch>
+# Maintainer: Tinu Weber <http://ayekat.ch>
 
 # NOTE:
 # This PKGBUILD will require you to provide your config.h.
@@ -8,19 +8,19 @@
 pkgname=karuiwm-legacy-ayekat-git
 _pkgname=karuiwm
 pkgver=r204.55f3a56
-pkgrel=2
+pkgrel=3
+arch=(x86_64)
 
 pkgdesc="Dynamically tiling window manager for X11 (legacy version, ayekat's config)"
-arch=(x86_64)
 url='https://gitlab.com/ayekat/karuiwm/tree/legacy'
 license=(MIT)
+
+provides=(karuiwm-legacy karuiwm-legacy-ayekat)
+conflicts=(karuiwm-legacy karuiwm-legacy-ayekat)
 
 depends=(libx11 libxinerama)
 makedepends=(inetutils)
 optdepends=('wmname: Fix Java client behaviour for non-reparenting WM')
-
-provides=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
-conflicts=(karuiwm karuiwm-legacy karuiwm-legacy-ayekat)
 
 source=('git+https://gitlab.com/ayekat/karuiwm.git#branch=legacy' config.h)
 md5sums=(SKIP SKIP)
@@ -31,18 +31,18 @@ pkgver() {
 }
 
 prepare() {
-  cd "$srcdir"/"$_pkgname"
+  cd "$_pkgname"
   ln -sf "$srcdir"/config.h config.h
   sed -i 's/karuiwm/karuiwm-legacy/g' "$srcdir"/"$_pkgname"/karuiwm.c
 }
 
 build() {
-  cd "$srcdir"/"$_pkgname"
+  cd "$_pkgname"
   make
 }
 
 package() {
-  cd "$srcdir/$_pkgname"
+  cd "$_pkgname"
   depends+=(ayekat-utils-deps-desktop dmenu mpc rxvt-unicode sakura)
   install -Dm 755 karuiwm "$pkgdir"/usr/bin/karuiwm-legacy
 }
