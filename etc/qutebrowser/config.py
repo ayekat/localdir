@@ -92,6 +92,7 @@ config.set('url.searchengines', {
     'gw':      'https://gnugeneration.epfl.ch/accueil?do=search&id={}',
 
     'man':     'http://jlk.fjfi.cvut.cz/arch/manpages/search?q={}',
+    'sc':      'https://github.com/koalaman/shellcheck/wiki/SC{}',
 
     'wa':      'http://www.wolframalpha.com/input/?i={}&dataset=',
     'seq':     'http://oeis.org/search?q={}&language=english',
