@@ -1,3 +1,3 @@
 remove-depends xclip
-add-optdepends xclip for X clipboard usage
-add-optdepends xdotool for passmenu
+add-optdepends xclip: for X clipboard usage
+add-optdepends xdotool: for passmenu
