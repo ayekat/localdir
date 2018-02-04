@@ -23,3 +23,4 @@ x-scheme-handler/https=qutebrowser.desktop;
 x-scheme-handler/about=qutebrowser.desktop;
 x-scheme-handler/unknown=qutebrowser.desktop;
 image/x-nikon-nef=darktable.desktop;
+video/x-matroska=mpv.desktop;
