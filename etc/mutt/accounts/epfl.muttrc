@@ -28,3 +28,5 @@ mailboxes "+epfl/INBOX" \
           "+epfl/Sent" \
           "+epfl/Trash" \
           "+epfl/Junk E-Mail"
+
+subscribe contact@gnugen.ch
