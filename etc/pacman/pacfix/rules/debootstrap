@@ -1,2 +1,2 @@
 apply debootstrap-bashism.patch
-add-depends bash
+add-depend bash

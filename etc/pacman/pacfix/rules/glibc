@@ -1,1 +1,1 @@
-add-optdepends sed: for locale-gen
+add-optdepend sed: for locale-gen

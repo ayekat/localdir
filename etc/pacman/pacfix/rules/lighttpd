@@ -1,2 +1,2 @@
-remove-depends systemd
+remove-depend systemd
 apply lighttpd-tmpfiles.patch
