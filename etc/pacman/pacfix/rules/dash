@@ -1,0 +1,2 @@
+add-symlink dash /usr/bin/sh
+add-provides sh

@@ -1,0 +1,2 @@
+remove-file /usr/bin/sh
+remove-provides sh

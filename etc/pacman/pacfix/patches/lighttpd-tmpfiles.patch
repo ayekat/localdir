@@ -1,0 +1,6 @@
+--- a/usr/lib/tmpfiles.d/lighttpd.conf
+--- b/usr/lib/tmpfiles.d/lighttpd.conf
+@@ -1,2 +1,2 @@
+ d /run/lighttpd 755 http http -
+-d /var/cache/lighttpd 755 http http 10d
++d /var/cache/lighttpd 700 http http 10d

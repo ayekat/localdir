@@ -1,0 +1,11 @@
+--- a/usr/bin/debootstrap
+--- b/usr/bin/debootstrap
+@@ -428,7 +428,7 @@
+ elif [ -e $DEBOOTSTRAP_DIR/arch ]; then
+ 	HOST_ARCH=`cat $DEBOOTSTRAP_DIR/arch`
+ elif in_path pacman; then
+-	carch="$(. /etc/makepkg.conf && echo $CARCH)"
++	carch="$(bash -c '. /etc/makepkg.conf && echo $CARCH')"
+ 	case "$carch" in
+ 		i686)    HOST_ARCH=i386 ;;
+ 		x86_64)  HOST_ARCH=amd64 ;;
