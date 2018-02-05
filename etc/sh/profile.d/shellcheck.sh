@@ -13,6 +13,10 @@ SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2016"
 # as the first argument. In such a case, we can't get rid of the warning.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2059"
 
+# SC2086 (Double quote to prevent globbing and word splitting)
+# We usually know when we want to split and when not.
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2086"
+
 # SC2094 (Make sure not to read and write the same file in the same pipeline)
 # Erroneously pops up when just *using* the file name within a pipeline that
 # reads from that file.
