@@ -2,4 +2,4 @@
 remove-depend systemd
 
 # https://bugs.archlinux.org/task/51931 (ignored)
-apply lighttpd-tmpfiles.patch
+apply /usr/lib/tmpfiles.d/lighttpd.conf lighttpd-tmpfiles.patch

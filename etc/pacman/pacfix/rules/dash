@@ -1,5 +1,5 @@
 # https://bugs.archlinux.org/task/14086 (rejected)
 # https://bugs.archlinux.org/task/38766 (rejected)
 # https://bugs.archlinux.org/task/42134 (rejected)
-add-link dash /usr/bin/sh
+add-link /usr/bin/sh dash
 add-provides sh
