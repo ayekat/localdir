@@ -1,2 +1,5 @@
+# https://bugs.archlinux.org/task/14086 (rejected)
+# https://bugs.archlinux.org/task/38766 (rejected)
+# https://bugs.archlinux.org/task/42134 (rejected)
 remove-file /usr/bin/sh
 remove-provides sh

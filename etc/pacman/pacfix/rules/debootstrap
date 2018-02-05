@@ -1,2 +1,3 @@
+# https://bugs.archlinux.org/task/48908 (ignored)
 apply debootstrap-bashism.patch
 add-depend bash

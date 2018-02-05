@@ -1,1 +1,5 @@
+# https://bugs.archlinux.org/task/7184 (rejected)
+# https://bugs.archlinux.org/task/25178 (rejected)
+# https://bugs.archlinux.org/task/41294 (rejected)
+# https://bugs.archlinux.org/task/55635 (rejected)
 add-optdepend sed: for locale-gen

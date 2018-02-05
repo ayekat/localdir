@@ -1,2 +1,5 @@
+# https://bugs.archlinux.org/task/45902 (rejected)
 remove-depend systemd
+
+# https://bugs.archlinux.org/task/51931 (ignored)
 apply lighttpd-tmpfiles.patch
