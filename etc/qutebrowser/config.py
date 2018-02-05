@@ -93,6 +93,7 @@ config.set('url.searchengines', {
 
     'man':     'http://jlk.fjfi.cvut.cz/arch/manpages/search?q={}',
     'sc':      'https://github.com/koalaman/shellcheck/wiki/SC{}',
+    'posix':   'http://pubs.opengroup.org/onlinepubs/9699919799/utilities/{}.html',
 
     'wa':      'http://www.wolframalpha.com/input/?i={}&dataset=',
     'seq':     'http://oeis.org/search?q={}&language=english',
