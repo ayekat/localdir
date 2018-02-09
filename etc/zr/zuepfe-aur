@@ -1,0 +1,3 @@
+REPOHOST=archlinux
+REPOPATH=web
+REPONAME=zuepfe-aur
