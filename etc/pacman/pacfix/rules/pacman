@@ -1,0 +1,2 @@
+# https://bugs.archlinux.org/task/40464
+add-optdepend fakeroot: for checkupdates

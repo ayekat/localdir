@@ -1,5 +1,5 @@
-# https://bugs.archlinux.org/task/14086 (rejected)
-# https://bugs.archlinux.org/task/38766 (rejected)
-# https://bugs.archlinux.org/task/42134 (rejected)
+# https://bugs.archlinux.org/task/14086 (closed)
+# https://bugs.archlinux.org/task/38766 (closed)
+# https://bugs.archlinux.org/task/42134 (closed)
 delete-file /usr/bin/sh
 remove-provide sh

@@ -1,5 +1,7 @@
-# https://bugs.archlinux.org/task/45902 (rejected)
+# https://bugs.archlinux.org/task/45902 (closed)
 remove-depend systemd
 
-# https://bugs.archlinux.org/task/51931 (ignored)
+# https://bugs.archlinux.org/task/51931
+# Can be solved by either of these two:
 apply /usr/lib/tmpfiles.d/lighttpd.conf lighttpd-tmpfiles.patch
+#change-mode /var/cache/lighttpd 755
