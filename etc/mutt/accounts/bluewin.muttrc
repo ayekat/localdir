@@ -25,13 +25,13 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/lighttpd" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
+          "+bluewin/Software/pacman-contrib-zuepfe" \
           "+bluewin/Software/pass" \
           "+bluewin/Software/pooch" \
           "+bluewin/Software/qutebrowser" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \
           "+bluewin/Software/xss-lock" \
-          "+bluewin/Software/zr" \
           "+bluewin/SysAdmin" \
           "+bluewin/SysAdmin/PKGBUILDs" \
           "+bluewin/SysAdmin/Nodes" \
