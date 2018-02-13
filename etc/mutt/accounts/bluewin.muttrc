@@ -25,7 +25,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/lighttpd" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
-          "+bluewin/Software/pacman-contrib-zuepfe" \
+          "+bluewin/Software/pacman-hacks" \
           "+bluewin/Software/pass" \
           "+bluewin/Software/pooch" \
           "+bluewin/Software/qutebrowser" \
