@@ -1,2 +1,5 @@
 # https://bugs.archlinux.org/task/40464
 add-optdepend fakeroot: for checkupdates
+
+# we have a meta-package for base-devel
+add-optdepend base-devel: for makepkg
