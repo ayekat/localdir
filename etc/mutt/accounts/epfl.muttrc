@@ -29,4 +29,6 @@ mailboxes "+epfl/INBOX" \
           "+epfl/Trash" \
           "+epfl/Junk E-Mail"
 
-subscribe contact@gnugen.ch
+subscribe assts-progos@groupes.epfl.ch
+subscribe assts-projprogsys@groupes.epfl.ch
+subscribe membres@lists.gnugen.ch
