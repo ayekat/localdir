@@ -137,7 +137,9 @@ have a clean home directory).
 
 There are other, similar "experiments" out there:
 
-* https://github.com/Earnestly/dotfiles
+* https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout)
+* https://github.com/roosemberth/dotfiles (semi-fork of this repo, adapted for
+  NixOS)
 
 
 [an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
