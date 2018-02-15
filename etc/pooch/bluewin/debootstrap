@@ -1,3 +1,3 @@
 Software/debootstrap
-^To:.*@bugs\.debian\.org
+^(To|Cc):.*@bugs\.debian\.org
 ^Subject:.*debootstrap
