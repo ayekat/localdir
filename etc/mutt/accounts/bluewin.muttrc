@@ -33,6 +33,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/ttylog" \
           "+bluewin/Software/xss-lock" \
           "+bluewin/SysAdmin" \
+          "+bluewin/SysAdmin/dotfiles" \
           "+bluewin/SysAdmin/PKGBUILDs" \
           "+bluewin/SysAdmin/Nodes" \
           "+bluewin/SysAdmin/Nodes/brombeeri" \
