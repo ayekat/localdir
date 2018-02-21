@@ -2,4 +2,4 @@
 add-optdepend fakeroot: for checkupdates
 
 # we have a meta-package for base-devel
-add-optdepend base-devel: for makepkg
+add-optdepend base-devel: for building packages with makepkg
