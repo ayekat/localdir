@@ -1,5 +1,0 @@
-# base group dependency
-add-depend bash
-# NOTE: with pacman 5.1, there will be a new command `pacman-conf`, which makes
-# sourcing makepkg.conf obsolete, and then the bash dependency can be dropped as
-# well.

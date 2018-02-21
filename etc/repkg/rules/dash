@@ -1,5 +1,0 @@
-# https://bugs.archlinux.org/task/14086 (closed)
-# https://bugs.archlinux.org/task/38766 (closed)
-# https://bugs.archlinux.org/task/42134 (closed)
-create-link /usr/bin/sh dash
-add-provide sh

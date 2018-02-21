@@ -1,6 +1,0 @@
-# https://bugs.archlinux.org/task/55059
-remove-depend xclip
-add-optdepend xclip: for X clipboard usage
-
-# https://bugs.archlinux.org/task/55504
-add-optdepend xdotool: for passmenu
