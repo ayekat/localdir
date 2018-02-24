@@ -31,6 +31,7 @@ ignores = (
       "#raspbian",
       "#systemd",
       "#ubuntu",
+      "#vim",
       "##windows",
       "#xorg",
       "#zenoss",
