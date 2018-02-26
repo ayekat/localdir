@@ -19,10 +19,8 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Arch Linux/AURRequests" \
           "+bluewin/Software" \
           "+bluewin/Software/cc-tool" \
-          "+bluewin/Software/debootstrap" \
           "+bluewin/Software/epfl-menu" \
           "+bluewin/Software/karuiwm" \
-          "+bluewin/Software/lighttpd" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
           "+bluewin/Software/pacman-hacks" \
