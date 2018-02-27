@@ -15,6 +15,8 @@ set beep_new = yes
 set sendmail = "$HOME/.local/lib/dotfiles/bin/msmtp"
 set envelope_from = yes
 
+# ACCOUNTS =====================================================================
+
 # Folders:
 set folder = "$XDG_DATA_HOME/mail/"
 mailboxes "+Bluewin ==================="
@@ -24,14 +26,15 @@ source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc
 mailboxes "+Papiliorama ==============="
 source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc
 
-source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc # default folder
+# Default folder:
+source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc
 
 # Account hooks (triggered when changing into a directory of that account):
 folder-hook bluewin/* "source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc"
 folder-hook epfl/* "source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc"
 folder-hook papiliorama/* "source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc"
 
-# VIEWING =====================================================================
+# VIEW =========================================================================
 
 # Try to show text-version of mail first:
 alternative_order text/plain text/enriched text/html
@@ -40,7 +43,7 @@ alternative_order text/plain text/enriched text/html
 # mailcap):
 auto_view text/html
 
-# COMPOSING ====================================================================
+# COMPOSE ======================================================================
 
 # Mail:
 set use_from = yes
@@ -59,7 +62,7 @@ set pgp_use_gpg_agent = yes
 set pgp_self_encrypt = yes
 set pgp_self_encrypt_as = 0x921A7822
 
-# CONTROL ======================================================================
+# NAVIGATE =====================================================================
 
 # Folders:
 macro index,pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
@@ -68,17 +71,22 @@ macro index ge '<change-folder>=epfl/INBOX<enter>' 'go to epfl inbox'
 macro index gp '<change-folder>=papiliorama/INBOX<enter>' 'go to papiliorama inbox'
 set sleep_time = 0
 
+# Sidebar:
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index O sidebar-open
+bind index \Cu sidebar-page-up
+bind index \Cd sidebar-page-down
+
+# Mail:
+bind pager j next-line
+bind pager k previous-line
+
+# MANAGE =======================================================================
+
 # Trash:
 folder-hook . 'macro index,pager d "<save-message>$trash<enter>y\$y"'
 folder-hook Trash$ 'macro index,pager d "<delete-message>"'
-
-# Sidebar:
-bind index,pager K sidebar-prev
-bind index,pager J sidebar-next
-bind index,pager O sidebar-open
-bind index,pager B sidebar-toggle-visible
-bind index,pager \CU sidebar-page-up
-bind index,pager \CD sidebar-page-down
 
 # LOOK =========================================================================
 
