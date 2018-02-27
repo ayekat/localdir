@@ -8,7 +8,10 @@ set trash     = +epfl/Trash
 mailboxes "+epfl/INBOX" \
           "+epfl/INBOX/Courses" \
           "+epfl/INBOX/Courses" \
-          "+epfl/INBOX/Courses/COM-407_TCPIP" \
+          "+epfl/INBOX/Courses/COM-402_ISP" \
+          "+epfl/INBOX/Courses/CS-207_POS" \
+          "+epfl/INBOX/Courses/CS-207a_PPS" \
+          "+epfl/INBOX/Courses/CS-431_NLP" \
           "+epfl/INBOX/Courses/HUM-442_ESPN" \
           "+epfl/INBOX/GNU" \
           "+epfl/INBOX/GNU/Events" \
