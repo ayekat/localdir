@@ -31,6 +31,15 @@ folder-hook bluewin/* "source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc"
 folder-hook epfl/* "source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc"
 folder-hook papiliorama/* "source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc"
 
+# VIEWING =====================================================================
+
+# Try to show text-version of mail first:
+alternative_order text/plain text/enriched text/html
+
+# Automatically dump HTML mails as text (requires a `copiousoutput` entry in
+# mailcap):
+auto_view text/html
+
 # COMPOSING ====================================================================
 
 # Mail:
@@ -70,9 +79,6 @@ bind index,pager O sidebar-open
 bind index,pager B sidebar-toggle-visible
 bind index,pager \CU sidebar-page-up
 bind index,pager \CD sidebar-page-down
-
-# Content:
-macro pager w '<pipe-message>w3m -T text/html -O iso-8859-1'
 
 # LOOK =========================================================================
 
