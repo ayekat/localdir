@@ -94,6 +94,7 @@ folder-hook Trash$ 'macro index,pager d "<delete-message>"'
 set sort = threads
 set sort_aux = last-date-received
 set menu_scroll = yes
+set index_format = "%26.26d│%Z│%-25.25L│%?l?%4l&%4c?│%s"
 
 # Sidebar:
 set sidebar_visible = yes
