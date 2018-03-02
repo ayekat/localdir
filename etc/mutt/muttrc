@@ -43,17 +43,27 @@ alternative_order text/plain text/enriched text/html
 # mailcap):
 auto_view text/html
 
+# Don't scroll off the edge of a menu (unless there are less entries):
+set menu_move_off = no
+
+# Give at least one line of context around an entry in a menu:
+set menu_context = 1
+
 # COMPOSE ======================================================================
 
-# Mail:
+# Headers:
+set edit_headers = yes
 set use_from = yes
 set realname = 'Tinu Weber'
-my_hdr X-Operating-System: `uname -a`
+
+# Start:
+set autoedit = yes
+set fast_reply = yes
 
 # Editing:
 set editor = "$VISUAL"
 set send_charset = "utf-8"
-set date_format = "!%a, %b %d, %Y at %H:%M:%S %Z"
+set date_format = "%a, %b %d, %Y at %H:%M:%S %Z"
 
 # Security (GPG):
 source /etc/Muttrc.gpg.dist
@@ -64,23 +74,29 @@ set pgp_self_encrypt_as = 0x921A7822
 
 # NAVIGATE =====================================================================
 
-# Folders:
-macro index,pager c "<change-folder>?<toggle-mailboxes>" "open a different folder"
+set sleep_time = 0
+
+# Both:
+macro index,pager c '<change-folder>?<toggle-mailboxes>' 'open a different folder'
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+bind index,pager r group-reply
+
+# Index:
 macro index gb '<change-folder>=bluewin/INBOX<enter>' 'go to bluewin inbox'
 macro index ge '<change-folder>=epfl/INBOX<enter>' 'go to epfl inbox'
 macro index gp '<change-folder>=papiliorama/INBOX<enter>' 'go to papiliorama inbox'
-set sleep_time = 0
-
-# Sidebar:
+macro index gg '<first-entry>' 'move to the first entry'
+bind index G last-entry
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index O sidebar-open
-bind index \Cu sidebar-page-up
-bind index \Cd sidebar-page-down
 
-# Mail:
+# Pager:
 bind pager j next-line
 bind pager k previous-line
+macro pager gg '<top>' 'jump to the top of the message'
+bind pager G bottom
 
 # MANAGE =======================================================================
 
@@ -94,7 +110,7 @@ folder-hook Trash$ 'macro index,pager d "<delete-message>"'
 set sort = threads
 set sort_aux = last-date-received
 set menu_scroll = yes
-set index_format = "%26.26d│%Z│%-25.25L│%?l?%4l&%4c?│%s"
+set index_format = "%{%Y-%m-%d (%a) %H:%M}│%Z│%-30.30L│%?l?%4l&%4c?│%s"
 
 # Sidebar:
 set sidebar_visible = yes
