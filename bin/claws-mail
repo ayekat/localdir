@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-exec unwrap claws-mail --alternate-config-dir "$XDG_DATA_HOME"/claws-mail "$@"
