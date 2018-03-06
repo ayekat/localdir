@@ -24,3 +24,6 @@ export OS_NAME
 export EDITOR='/usr/bin/vim'
 export VISUAL='/usr/bin/vim'
 export PAGER='/usr/bin/less'
+
+# Search in the POSIX section for commands first:
+export MANSECT='1p:1:n:l:8:3:0:2:5:4:9:6:7'
