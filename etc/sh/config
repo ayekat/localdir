@@ -5,7 +5,7 @@
 have()
 {
 	for c in "$@"; do
-		which "$c" >/dev/null 2>&1 || return 1
+		command -v "$c" >/dev/null || return 1
 	done
 }
 
@@ -21,13 +21,13 @@ LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
 export LS_COLORS
 
 # Colours for less:
-LESS_TERMCAP_me="$(printf "\033[0m")"
-LESS_TERMCAP_se="$(printf "\033[0m")"
-LESS_TERMCAP_so="$(printf "\033[30;43m")"
-LESS_TERMCAP_ue="$(printf "\033[0m")"
-LESS_TERMCAP_us="$(printf "\033[32m")"
-LESS_TERMCAP_mb="$(printf "\033[34m")"
-LESS_TERMCAP_md="$(printf "\033[31m")"
+LESS_TERMCAP_me="$(printf '\033[0m')"
+LESS_TERMCAP_se="$(printf '\033[0m')"
+LESS_TERMCAP_so="$(printf '\033[30;43m')"
+LESS_TERMCAP_ue="$(printf '\033[0m')"
+LESS_TERMCAP_us="$(printf '\033[32m')"
+LESS_TERMCAP_mb="$(printf '\033[34m')"
+LESS_TERMCAP_md="$(printf '\033[31m')"
 export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
        LESS_TERMCAP_so LESS_TERMCAP_ue LESS_TERMCAP_us
 
@@ -63,11 +63,11 @@ pc_git_remote_bhd="$(printf '\033[0;34m')"
 pc_git_remote_div="$(printf '\033[0;35m')"
 pc_git_state="$(printf '\033[0m')"
 pc_git_bracket="$(printf '\033[0;34m')"
-pc_user=$(printf "\033[36m")
-pc_host=$(printf "\033[35m")
-pc_pwd=$(printf "\033[34m")
-pc_prompt=$(printf "\033[1;31m")
-pc_jobs=$(printf "\033[30;47m")
+pc_user=$(printf '\033[36m')
+pc_host=$(printf '\033[35m')
+pc_pwd=$(printf '\033[34m')
+pc_prompt=$(printf '\033[1;31m')
+pc_jobs=$(printf '\033[30;47m')
 
 # Git
 # Variables are updated by calling git_update() with the path to the git

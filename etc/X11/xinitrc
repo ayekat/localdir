@@ -4,7 +4,7 @@
 
 have() {
 	for c in "$@"; do
-		which "$c" >/dev/null 2>&1 || return 1
+		command -v "$c" >/dev/null || return 1
 	done
 }
 
