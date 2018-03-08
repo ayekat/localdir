@@ -101,8 +101,9 @@ bind pager G bottom
 # MANAGE =======================================================================
 
 # Trash:
-folder-hook . 'macro index,pager d "<save-message>$trash<enter>y\$y"'
-folder-hook Trash$ 'macro index,pager d "<delete-message>"'
+folder-hook . 'macro index,pager <Delete> "<save-message>$trash<enter>y\$y"'
+folder-hook Trash$ 'macro index,pager <Delete> "<delete-message>"'
+bind index,pager d noop
 
 # LOOK =========================================================================
 
