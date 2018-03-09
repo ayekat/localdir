@@ -1,5 +1,5 @@
 ! Look:
-URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,xft:Unifont,xft:NotoMono
+URxvt.font           : -misc-fixed-medium-r-semicondensed--13-120-75-75-c-60-iso10646-1,xft:Unifont
 URxvt.depth          : 24
 URxvt.foreground     : termfg
 URxvt.background     : termbg
