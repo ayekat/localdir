@@ -22,6 +22,7 @@ ignores = (
       "#debian",
       "#gitlab",
       "#manjaro",
+      "##mtg",
       "#netfilter",
       "#pass",
       "#python",
