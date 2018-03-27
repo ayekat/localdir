@@ -1,5 +1,5 @@
 [Default Applications]
-application/pdf=zathura.desktop;
+application/pdf=org.pwmt.zathura.desktop;
 image/jpeg=eom.desktop;
 image/png=eom.desktop;
 image/tiff=eom.desktop;
@@ -12,7 +12,7 @@ x-scheme-handler/unknown=qutebrowser.desktop;
 x-scheme-handler/tg=telegramdesktop.desktop
 
 [Added Associations]
-application/pdf=zathura.desktop;
+application/pdf=org.pwmt.zathura.desktop;
 image/jpeg=eom.desktop;
 image/png=eom.desktop;
 image/tiff=eom.desktop;
