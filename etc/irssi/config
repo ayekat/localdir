@@ -225,7 +225,7 @@ settings = {
 logs = { };
 hilights = (
   {
-    text = "([Aa]yekat|[Kk]arui|1771005|re(make)?pkg)";
+    text = "(ayekat|karui|1771005|re(make)?pkg|(make)?metapkg)";
     nick = "yes";
     word = "yes";
     regexp = "yes";
