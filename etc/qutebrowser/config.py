@@ -101,8 +101,9 @@ config.set('url.searchengines', {
     'mw':      'http://mtgsalvation.gamepedia.com/index.php?search={}&title=Special:Search',
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
+    'mm':      'https://magicmonk.ch/epages/170349.sf/de_CH/?ObjectID=17173&ViewAction=FacetedSearchProducts&SearchString={}',
     'bazar':   'http://www.magicbazar.fr/recherche/index.php?page=11&s={}',
-    'mtgprint':'http://magiccards.info/query?q={}&v=card&s=cname',
+    'mtgprint':'https://scryfall.com/search?q={}',
     'gname':   'http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[{}]',
     'gtext':   'http://gatherer.wizards.com/Pages/Search/Default.aspx?text=+[{}]',
 })
