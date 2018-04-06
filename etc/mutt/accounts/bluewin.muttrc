@@ -48,6 +48,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Work" \
           "+bluewin/Work/Bity" \
           "+bluewin/Info" \
+          "+bluewin/Info/Magic: The Gathering" \
           "+bluewin/Sent" \
           "+bluewin/Trash" \
           "+bluewin/Spam"
