@@ -34,6 +34,7 @@ export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
 # Aliases:
 unalias -a
 alias cc='gcc -std=c11 -pedantic -Wall -Wextra'
+alias poscc='cc -Wfloat-equal -Wshadow -Wpointer-arith -Wbad-function-cast -Wcast-qual -Wcast-align -Wwrite-strings -Wconversion -Wunreachable-code'
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias ll='ls -lh --time-style=long-iso'
