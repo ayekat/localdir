@@ -84,6 +84,7 @@ config.set('url.searchengines', {
     'aw':      'https://wiki.archlinux.org/index.php?title=Special:Search&search={}',
     'dw':      'https://wiki.debian.org/FrontPage?action=fullsearch&context=180&value={}',
     'ap':      'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=',
+    'ab':      'https://bugs.archlinux.org/index.php?project=0&string={}',
     'dp':      'https://tracker.debian.org/search?package_name={}',
     'aur':     'https://aur.archlinux.org/packages/?O=0&K={}',
     'ghub':    'https://github.com/search?utf8=✓&q={}',
