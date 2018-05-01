@@ -235,6 +235,9 @@ def_key "t"
 #def_key "right"
 #  next_column
 #
+def_key "l"
+  next_column
+
 #def_key "right"
 #  slave_screen
 #
@@ -247,6 +250,9 @@ def_key "t"
 #def_key "left"
 #  previous_column
 #
+def_key "h"
+  previous_column
+
 #def_key "left"
 #  master_screen
 #
