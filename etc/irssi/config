@@ -46,6 +46,12 @@ ignores = (
   { mask = "texom512"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "Yumia";    level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "zephyz";   level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "andrea_clement[m]"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "antoinehassler[m]"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "dietz[m]";          level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "Skeetis[m]";        level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "Skinnery[m]";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "vwat[m]";           level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
 );
 
 aliases = {
