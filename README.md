@@ -67,6 +67,7 @@ and then symlink each file/directory to their respective locations:
 * `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
+* `~/.local/var/lib/applications/mimeapps.list` → `../../../etc/mimeapps.list`
 
 
 Assumptions
