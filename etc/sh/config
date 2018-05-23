@@ -33,14 +33,13 @@ export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
 
 # Aliases:
 unalias -a
-alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2 -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings'
+
 alias cp='cp -i'
 alias grep='grep --color=auto'
 alias ll='ls -lh --time-style=long-iso'
 alias ls='ls -A --color=auto --quoting-style=literal'
 alias lt='ll -t'
 alias mv='mv -i'
-alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 
 # Expand aliases for some commands as well:
 alias sudo='sudo '
@@ -50,6 +49,11 @@ alias watch='watch '
 if [ -n "$SSH_CONNECTION" ]; then
 	alias rm='rm -i'
 fi
+
+# Random other aliases:
+alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2 -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings'
+alias gnusik='ssh -t rainbowdash ncmpcpp -h mpd.gnugen.ch'
+alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 
 # ------------------------------------------------------------------------------
 
