@@ -312,3 +312,9 @@ function zshaddhistory()
 
 # }}}
 # ------------------------------------------------------------------------------
+# I/O {{{
+
+# Don't multiply stdout (i.e. `>/dev/null | cat` shouldn't output anything):
+unsetopt multios
+
+# }}}
