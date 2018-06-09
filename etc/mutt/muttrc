@@ -67,6 +67,7 @@ set date_format = "%a, %b %d, %Y at %H:%M:%S %Z"
 
 # Security (GPG):
 source /etc/Muttrc.gpg.dist
+set crypt_use_gpgme = yes # CVE-2018-12020
 set pgp_autosign = yes
 set pgp_use_gpg_agent = yes
 set pgp_self_encrypt = yes
