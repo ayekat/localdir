@@ -20,6 +20,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software" \
           "+bluewin/Software/cc-tool" \
           "+bluewin/Software/epfl-menu" \
+          "+bluewin/Software/fanctl" \
           "+bluewin/Software/karuiwm" \
           "+bluewin/Software/ncmpcpp" \
           "+bluewin/Software/PAM" \
