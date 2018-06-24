@@ -121,7 +121,6 @@ au BufRead,BufNewFile *.install setl filetype=sh
 au BufRead,BufNewFile *.l3 setl filetype=lisp
 au BufRead,BufNewFile *.dokuwiki setl filetype=dokuwiki
 au BufRead,BufNewFile *.hook setl filetype=dosini
-au BufRead,BufNewFile *.install setl filetype=sh
 au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/etc/sh/* setl filetype=sh
 au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/etc/git/config setl filetype=gitconfig
 au BufRead,BufNewFile $XDG_LIB_HOME/dotfiles/etc/X11/Xresources.d/* setl filetype=xdefaults
