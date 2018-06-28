@@ -99,14 +99,13 @@ config.set('url.searchengines', {
     'wa':      'http://www.wolframalpha.com/input/?i={}&dataset=',
     'seq':     'http://oeis.org/search?q={}&language=english',
 
+    'mtg':     'http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[{}]',
+    'sf':      'https://scryfall.com/search?q={}',
     'mw':      'http://mtgsalvation.gamepedia.com/index.php?search={}&title=Special:Search',
+    'mm':      'https://magicmonk.ch/epages/170349.sf/de_CH/?ObjectID=17173&ViewAction=FacetedSearchProducts&SearchString={}',
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
-    'mm':      'https://magicmonk.ch/epages/170349.sf/de_CH/?ObjectID=17173&ViewAction=FacetedSearchProducts&SearchString={}',
-    'bazar':   'http://www.magicbazar.fr/recherche/index.php?page=11&s={}',
-    'mhd':     'https://scryfall.com/search?q={}',
-    'gname':   'http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+[{}]',
-    'gtext':   'http://gatherer.wizards.com/Pages/Search/Default.aspx?text=+[{}]',
+    'mcm':     'https://www.cardmarket.com/en/Magic/MainPage/showSearchResult?searchFor={}',
 })
 
 # LOOK =========================================================================
