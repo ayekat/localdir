@@ -9,11 +9,7 @@ if [ -n "$SSH_CONNECTION" ] && [ -z "$TMUX" ] && have tmux; then
 	if [ "$(uname -n)" = 'rainbowdash' ]; then
 		export TMUX_TMPDIR=/tmp # no lingering here
 	fi
-	if have tmux-view; then
-		tmux-view SSH && exit
-	else
-		tmux && exit
-	fi
+	"$XDG_LIB_HOME"/tmux/tmux-view SSH && exit
 fi
 
 # }}}

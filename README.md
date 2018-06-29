@@ -58,13 +58,15 @@ locations (assuming that this repository has been cloned into
 Usage
 -----
 
-For using the dotfiles, I clone this repository into `~/.local/lib/dotfiles`,
-and then symlink each file/directory to their respective locations:
+For using the dotfiles, I clone this repository into `~/.local/lib/dotfiles`
+(see also [this issue][issue:12]), and then symlink each file/directory to their
+respective locations:
 
 * `~/.pam_environment` → `~/.local/lib/dotfiles/pam_environment`
 * `~/.local/etc` → `~/.local/lib/dotfiles/etc`
 * `~/.local/lib/argyll` → `~/.local/lib/dotfiles/lib/argyll`
 * `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
+* `~/.local/lib/tmux` → `~/.local/lib/dotfiles/lib/tmux`
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
 * `~/.local/var/lib/applications/mimeapps.list` → `../../../etc/mimeapps.list`
@@ -141,5 +143,6 @@ There are other, similar "experiments" out there:
 [gh:utils]: https://github.com/ayekat/utils
 [issue:7]: https://github.com/ayekat/dotfiles/issues/7
 [issue:8]: https://github.com/ayekat/dotfiles/issues/8
+[issue:12]: https://github.com/ayekat/dotfiles/issues/12
 [man:hier]: http://linux.die.net/man/7/hier
 [wp:quartus]: https://en.wikipedia.org/wiki/Altera_Quartus
