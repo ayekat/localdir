@@ -1,3 +1,3 @@
-if have urxvt tmux tmux-view; then
-	urxvt -e tmux-view SCRATCHPAD & # XXX part of the `utils` repository
+if have urxvt tmux; then
+	urxvt -e "$XDG_LIB_HOME"/tmux/tmux-view SCRATCHPAD &
 fi
