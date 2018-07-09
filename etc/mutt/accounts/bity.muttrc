@@ -1,0 +1,8 @@
+set from = 'martin.weber@papiliorama.ch'
+
+set spoolfile = +papiliorama/INBOX
+set record    = +papiliorama/Sent
+set postponed = +papiliorama/Drafts
+set trash     = +papiliorama/Trash
+
+mailboxes "+bity/INBOX"

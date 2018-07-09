@@ -92,3 +92,34 @@ Channel papiliorama
 	Create          Both
 	Remove          Both
 	Expunge         Both
+
+# Bity =========================================================================
+
+# Account properties:
+IMAPAccount bity
+	Host            imap.gmail.com
+	Port            993
+	User            martin@bity.com
+	PassCmd         "pass show social/mail/martin@bity.com | head -n 1"
+	SSLType         IMAPS
+	CertificateFile /etc/ssl/certs/ca-certificates.crt
+
+# Remote store:
+IMAPStore bity-remote
+	Account         bity
+
+# Local store:
+MaildirStore bity-local
+	Path            ~/.local/var/lib/mail/bity/
+	Inbox           ~/.local/var/lib/mail/bity/INBOX
+	SubFolders      Verbatim
+
+# Channel between the two stores:
+Channel bity
+	Master          :bity-remote:
+	Slave           :bity-local:
+	Patterns        *
+	SyncState       *
+	Create          Both
+	Remove          Both
+	Expunge         Both
