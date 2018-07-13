@@ -2,7 +2,7 @@
 
 # Modules:
 include "conf.d/mimetype.conf"
-$HTTP["host"] !~ "^(wiki|it|debpxe)(\..+)?$" {
+$HTTP["host"] !~ "^(wiki|it)(\..+)?$" {
 	include "conf.d/cgi.conf"         # .cgi => python3
 	include "conf.d/rewrite.conf"     # *.* => /cgi/main.cgi
 }
@@ -24,10 +24,6 @@ $HTTP["host"] =~ "^temperature(\..+)?$" {
 }
 $HTTP["host"] =~ "^it(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/http/it.papiliorama.local/www"
-}
-$HTTP["host"] =~ "^debpxe(\..+)?$" {
-	server.document-root = "/home/ayekat/.local/srv/http/debpxe"
-	dir-listing.activate = "enable"
 }
 $HTTP["host"] =~ "^wiki(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/wiki/dst"
