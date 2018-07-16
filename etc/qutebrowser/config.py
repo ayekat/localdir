@@ -49,7 +49,7 @@ config.set('input.insert_mode.auto_load', True)
 config.unbind('<Ctrl-v>', mode='normal')
 config.bind('I', 'enter-mode passthrough', mode='normal')
 config.unbind('<Ctrl-v>', mode='passthrough')
-config.bind('<Escape>', 'leave-mode', mode='passthrough')
+config.bind('<Shift-Escape>', 'leave-mode', mode='passthrough')
 
 # Search:
 config.set('url.auto_search', 'dns')
