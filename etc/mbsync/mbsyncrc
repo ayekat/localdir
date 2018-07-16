@@ -7,7 +7,6 @@ IMAPAccount bluewin
 	User            takeya
 	PassCmd         "pass show social/mail/takeya@bluewin.ch | head -n 1"
 	SSLType         IMAPS
-	CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 # Remote store:
 IMAPStore bluewin-remote
@@ -40,7 +39,6 @@ IMAPAccount epfl
 	SSLType         IMAPS
 	AuthMechs       PLAIN
 	PipelineDepth   1
-	CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 # Remote store:
 IMAPStore epfl-remote
@@ -71,7 +69,6 @@ IMAPAccount papiliorama
 	User            martin.weber@papiliorama.ch
 	PassCmd         "pass show social/mail/martin.weber@papiliorama.ch | head -n 1"
 	SSLType         IMAPS
-	CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 # Remote store:
 IMAPStore papiliorama-remote
@@ -102,7 +99,6 @@ IMAPAccount bity
 	User            martin@bity.com
 	PassCmd         "pass show social/mail/martin@bity.com | head -n 1"
 	SSLType         IMAPS
-	CertificateFile /etc/ssl/certs/ca-certificates.crt
 
 # Remote store:
 IMAPStore bity-remote
