@@ -1,8 +1,11 @@
-set from = 'martin.weber@papiliorama.ch'
+set from = 'martin@bity.com'
 
-set spoolfile = +papiliorama/INBOX
-set record    = +papiliorama/Sent
-set postponed = +papiliorama/Drafts
-set trash     = +papiliorama/Trash
+set spoolfile = +bity/INBOX
+set record    = "+bity/[Gmail]/Sent Mail"
+set postponed = +bity/[Gmail]/Drafts
+set trash     = +bity/[Gmail]/Trash
 
-mailboxes "+bity/INBOX"
+mailboxes "+bity/INBOX" \
+          "+bity/[Gmail]/Drafts" \
+          "+bity/[Gmail]/Sent Mail" \
+          "+bity/[Gmail]/Trash"
