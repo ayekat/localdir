@@ -48,7 +48,7 @@ ignores = (
   { mask = "Yumia";          level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "zephyz";         level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "antoinehassler"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
-  { pattern = "*\[m\]";      level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { pattern = ".*\[m\]";     level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
 );
 
 aliases = {
