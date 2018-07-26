@@ -356,7 +356,7 @@ au FileType haskell,java,lisp,named,python,sql setl expandtab
 
 " Visually wrap lines and break words:
 set wrap
-au FileType html,ini,java,markdown,scala setl nowrap
+au FileType dosini,html,java,markdown,scala setl nowrap
 au BufRead,BufNewFile /etc/fstab setl nowrap
 set linebreak      " wrap at words (does not work with list)
 
