@@ -375,7 +375,7 @@ set ffs=unix,dos,mac
 set backspace=indent,eol,start
 
 " Leader key:
-let mapleader='ö'
+let mapleader=' '
 
 " Keep 3 lines 'padding' above/below the cursor:
 set scrolloff=3
