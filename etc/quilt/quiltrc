@@ -1,1 +1,9 @@
 QUILT_PATCHES=debian/patches
+QUILT_NO_DIFF_INDEX=1
+QUILT_NO_DIFF_TIMESTAMPS=1
+QUILT_REFRESH_ARGS="-p ab"
+QUILT_PUSH_ARGS="--color=auto"
+QUILT_DIFF_ARGS="--color=auto"
+QUILT_SERIES_ARGS="--color=auto"
+QUILT_PATCH_OPTS="--reject-format=unified"
+QUILT_COLORS="diff_hdr=1:diff_rem=31:diff_add=32:diff_hunk=36"
