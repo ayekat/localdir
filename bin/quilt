@@ -1,3 +1,3 @@
 #!/bin/sh --
 
-exec unwrap quilt --quiltrc "$XDG_CONFIG_HOME/quilt/quiltrc" "$@"
+exec unwrap quilt --color=auto --quiltrc "$XDG_CONFIG_HOME/quilt/quiltrc" "$@"
