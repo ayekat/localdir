@@ -1,0 +1,3 @@
+#!/bin/sh --
+
+exec unwrap quilt --quiltrc "$XDG_CONFIG_HOME/quilt/quiltrc" "$@"
