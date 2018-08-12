@@ -2,7 +2,7 @@
 
 # Modules:
 include "conf.d/mimetype.conf"
-$HTTP["host"] !~ "^(wiki|it)(\..+)?$" {
+$HTTP["host"] !~ "^(wiki|it|debian)(\..+)?$" {
 	include "conf.d/cgi.conf"         # .cgi => python3
 	include "conf.d/rewrite.conf"     # *.* => /cgi/main.cgi
 }
@@ -27,4 +27,7 @@ $HTTP["host"] =~ "^it(\..+)?$" {
 }
 $HTTP["host"] =~ "^wiki(\..+)?$" {
 	server.document-root = "/home/ayekat/.local/srv/wiki/dst"
+}
+$HTTP["host"] =~ "^debian(\..+)?$" {
+	server.document-root = "/home/ayekat/.local/srv/http/debian.chirschi.net"
 }
