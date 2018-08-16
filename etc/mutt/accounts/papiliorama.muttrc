@@ -1,13 +1,5 @@
-set from = 'martin.weber@papiliorama.ch'
-
+set from      = 'martin.weber@papiliorama.ch'
 set spoolfile = +papiliorama/INBOX
 set record    = +papiliorama/Sent
 set postponed = +papiliorama/Drafts
 set trash     = +papiliorama/Trash
-
-mailboxes "+papiliorama/INBOX" \
-          "+papiliorama/INBOX/Services" \
-          "+papiliorama/INBOX/Support" \
-          "+papiliorama/INBOX/Else" \
-          "+papiliorama/Sent" \
-          "+papiliorama/Trash"

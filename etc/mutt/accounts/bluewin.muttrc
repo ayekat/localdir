@@ -1,55 +1,5 @@
-set from = 'takeya@bluewin.ch'
-
+set from      = 'takeya@bluewin.ch'
 set spoolfile = +bluewin/INBOX
 set record    = +bluewin/Sent
 set postponed = +bluewin/Drafts
 set trash     = +bluewin/Trash
-
-mailboxes "+bluewin/INBOX" \
-          "+bluewin/Arch Linux" \
-          "+bluewin/Arch Linux/BBS" \
-          "+bluewin/Arch Linux/Bugs" \
-          "+bluewin/Arch Linux/Wiki" \
-          "+bluewin/Arch Linux/Announce" \
-          "+bluewin/Arch Linux/Security" \
-          "+bluewin/Arch Linux/General" \
-          "+bluewin/Arch Linux/DevPublic" \
-          "+bluewin/Arch Linux/AUR" \
-          "+bluewin/Arch Linux/AURGeneral" \
-          "+bluewin/Arch Linux/AURRequests" \
-          "+bluewin/Software" \
-          "+bluewin/Software/cc-tool" \
-          "+bluewin/Software/epfl-menu" \
-          "+bluewin/Software/fanctl" \
-          "+bluewin/Software/karuiwm" \
-          "+bluewin/Software/ncmpcpp" \
-          "+bluewin/Software/PAM" \
-          "+bluewin/Software/pacman-hacks" \
-          "+bluewin/Software/pass" \
-          "+bluewin/Software/pooch" \
-          "+bluewin/Software/qutebrowser" \
-          "+bluewin/Software/tdesktop" \
-          "+bluewin/Software/ttylog" \
-          "+bluewin/Software/xss-lock" \
-          "+bluewin/SysAdmin" \
-          "+bluewin/SysAdmin/dotfiles" \
-          "+bluewin/SysAdmin/PKGBUILDs" \
-          "+bluewin/SysAdmin/Nodes" \
-          "+bluewin/SysAdmin/Nodes/brombeeri" \
-          "+bluewin/SysAdmin/Nodes/chirschi" \
-          "+bluewin/SysAdmin/Nodes/himbeeri" \
-          "+bluewin/SysAdmin/Nodes/karma" \
-          "+bluewin/SysAdmin/Nodes/kowalski" \
-          "+bluewin/SysAdmin/Nodes/mirabelle" \
-          "+bluewin/SysAdmin/Nodes/tomate" \
-          "+bluewin/SysAdmin/DNS" \
-          "+bluewin/SysAdmin/DNS/ayekat.ch" \
-          "+bluewin/SysAdmin/DNS/diogenessyndrome.ch" \
-          "+bluewin/SysAdmin/DNS/zuepfe.net" \
-          "+bluewin/Work" \
-          "+bluewin/Work/Bity" \
-          "+bluewin/Info" \
-          "+bluewin/Info/Magic: The Gathering" \
-          "+bluewin/Sent" \
-          "+bluewin/Trash" \
-          "+bluewin/Spam"

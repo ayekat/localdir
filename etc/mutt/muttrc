@@ -20,13 +20,13 @@ set envelope_from = yes
 # Folders:
 set folder = "$XDG_DATA_HOME/mail/"
 mailboxes "+Bluewin ==================="
-source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc
+source $XDG_CONFIG_HOME/mutt/mailboxes/bluewin.muttrc
 mailboxes "+EPFL ======================"
-source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc
+source $XDG_CONFIG_HOME/mutt/mailboxes/epfl.muttrc
 mailboxes "+Bity ======================"
-source $XDG_CONFIG_HOME/mutt/accounts/bity.muttrc
+source $XDG_CONFIG_HOME/mutt/mailboxes/bity.muttrc
 mailboxes "+Papiliorama ==============="
-source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc
+source $XDG_CONFIG_HOME/mutt/mailboxes/papiliorama.muttrc
 
 # Default folder:
 source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc

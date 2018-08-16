@@ -1,37 +1,10 @@
-set from = 'martin.weber@epfl.ch'
-
+set from      = 'martin.weber@epfl.ch'
 set spoolfile = +epfl/INBOX
 set record    = +epfl/Sent
 set postponed = +epfl/Drafts
 set trash     = +epfl/Trash
 
-mailboxes "+epfl/INBOX" \
-          "+epfl/INBOX/Courses" \
-          "+epfl/INBOX/Courses" \
-          "+epfl/INBOX/Courses/COM-402_ISP" \
-          "+epfl/INBOX/Courses/CS-207_POS" \
-          "+epfl/INBOX/Courses/CS-207a_PPS" \
-          "+epfl/INBOX/Courses/CS-431_NLP" \
-          "+epfl/INBOX/Courses/HUM-442_ESPN" \
-          "+epfl/INBOX/GNU" \
-          "+epfl/INBOX/GNU/Events" \
-          "+epfl/INBOX/GNU/Events/InstallFest" \
-          "+epfl/INBOX/GNU/Events/SemainesDesAssociations" \
-          "+epfl/INBOX/GNU/Events/Workshops" \
-          "+epfl/INBOX/GNU/Members" \
-          "+epfl/INBOX/GNU/Support" \
-          "+epfl/INBOX/GNU/Support/AgePoly" \
-          "+epfl/INBOX/GNU/Support/Challenge" \
-          "+epfl/INBOX/GNU/Support/UniPoly" \
-          "+epfl/INBOX/GNU/Yearbook" \
-          "+epfl/INBOX/ZIVI" \
-          "+epfl/INBOX/Work" \
-          "+epfl/INBOX/Music" \
-          "+epfl/INBOX/Else" \
-          "+epfl/Sent" \
-          "+epfl/Trash" \
-          "+epfl/Junk E-Mail"
-
+# EPFL mail seems to screw up the ML headers:
 subscribe assts-progos@groupes.epfl.ch
 subscribe assts-projprogsys@groupes.epfl.ch
 subscribe membres@lists.gnugen.ch

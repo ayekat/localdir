@@ -1,0 +1,4 @@
+mailboxes "+bity/INBOX" \
+          "+bity/[Gmail]/Drafts" \
+          "+bity/[Gmail]/Sent Mail" \
+          "+bity/[Gmail]/Trash"
