@@ -12,7 +12,7 @@ set beep = no
 set beep_new = yes
 
 # SMTP:
-set sendmail = "$HOME/.local/lib/dotfiles/bin/msmtp"
+set sendmail = "/usr/bin/env msmtp"
 set envelope_from = yes
 
 # ACCOUNTS =====================================================================
