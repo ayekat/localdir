@@ -86,6 +86,7 @@ config.set('url.searchengines', {
     'ap':      'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=',
     'ab':      'https://bugs.archlinux.org/index.php?project=0&string={}',
     'dp':      'https://tracker.debian.org/search?package_name={}',
+    'salsa':   'https://salsa.debian.org/search?utf8=✓&search={}',
     'aur':     'https://aur.archlinux.org/packages/?O=0&K={}',
     'ghub':    'https://github.com/search?utf8=✓&q={}',
     'hayoo':   'http://holumbus.fh-wedel.de/hayoo/hayoo.html?query={}',
