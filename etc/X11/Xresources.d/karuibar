@@ -8,7 +8,7 @@ karuibar.modules : mpd, network, memory, cpu, \
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
 #else
-# ifdef SRVR_phobia
+# ifdef SRVR_kiwi
 karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
                    alsa_out, time_date, time_time, capslock

@@ -17,7 +17,7 @@ config.set('content.default_encoding', 'utf-8')
 
 # Rendering:
 import platform
-if platform.node() == 'phobia':
+if platform.node() == 'kiwi':
     config.set('qt.force_software_rendering', True)
 
 # Focus:
