@@ -18,7 +18,7 @@ config.set('content.default_encoding', 'utf-8')
 # Rendering:
 import platform
 if platform.node() == 'kiwi':
-    config.set('qt.force_software_rendering', True)
+    config.set('qt.force_software_rendering', 'software-opengl')
 
 # Focus:
 config.set('new_instance_open_target', 'tab-silent')
