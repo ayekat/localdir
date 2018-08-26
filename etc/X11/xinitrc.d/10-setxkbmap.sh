@@ -4,7 +4,7 @@ if have setxkbmap; then
 	case "$(uname -n)" in
 		(kiwi)
 			{
-				sleep 1
+				sleep 2
 				setxkbmap ayekat
 				notify-send 'X keymap set' 'ayekat'
 			} & ;;
