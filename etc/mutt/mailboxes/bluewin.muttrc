@@ -21,6 +21,7 @@ mailboxes "+bluewin/INBOX" \
           "+bluewin/Software/pass" \
           "+bluewin/Software/pooch" \
           "+bluewin/Software/qutebrowser" \
+          "+bluewin/Software/systemd" \
           "+bluewin/Software/tdesktop" \
           "+bluewin/Software/ttylog" \
           "+bluewin/Software/xss-lock" \
