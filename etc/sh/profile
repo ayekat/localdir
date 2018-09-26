@@ -2,7 +2,7 @@
 # Written by ayekat on a cold morning in january 2017.
 
 path() {
-	test ! -h "$2" || return
+	test -d "$2" || return
 	case ":$PATH:" in
 		(*:"$2":*)
 			;;
@@ -15,12 +15,12 @@ path() {
 }
 
 # Work around distributions that still keep separate sbin directories:
-path append '/usr/local/sbin'
-path append '/usr/sbin'
-path append '/sbin'
+path append "$(readlink -f /usr/local/sbin)"
+path append "$(readlink -f /usr/sbin)"
+path append "$(readlink -f /sbin)"
 
 # Set user-path:
-path prepend "$HOME/.local/bin"
+path prepend "$(readlink -f "$HOME/.local/bin")"
 
 # Load profiles in profile.d:
 if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
