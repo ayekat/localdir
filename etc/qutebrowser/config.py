@@ -6,7 +6,7 @@
 
 # Storage:
 config.set('auto_save.session', True)
-config.set('completion.web_history_max_items', 10000)
+config.set('completion.web_history.max_items', 10000)
 import os
 config.set('downloads.location.directory', os.environ['HOME'])
 
@@ -49,8 +49,6 @@ config.set('editor.command', ['xvim', '{}'])
 config.set('input.insert_mode.auto_load', True)
 config.unbind('<Ctrl-v>', mode='normal')
 config.bind('I', 'enter-mode passthrough', mode='normal')
-config.unbind('<Ctrl-v>', mode='passthrough')
-config.bind('<Shift-Escape>', 'leave-mode', mode='passthrough')
 
 # Search:
 config.set('url.auto_search', 'dns')
