@@ -37,7 +37,7 @@ fi
 # WM ---------------------------------------------------------------------------
 
 # If no WM is specified, default to karuiwm-legacy:
-wm="${wm:-karuiwm-legacy}"
+wm="${wm:-karuiwm}"
 
 # Some Java applications refuse to work correctly if run in a non-reparenting WM
 # they don't know. We set the WM name to a value known to Java to fix that:
