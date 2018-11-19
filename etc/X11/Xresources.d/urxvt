@@ -28,7 +28,7 @@ URxvt.urgentOnBell   : true
 ! Perl extensions (XDG_LIB_HOME should be set by xrdb):
 URxvt.perl-lib       : XDG_LIB_HOME/urxvt/perl/
 URxvt.perl-ext       : insamedir,clipboard
-URxvt.perl-ext-common: default,url-select,keyboard-select
+URxvt.perl-ext-common: default,url-select,keyboard-select,-option-popup,-selection-popup
 
 ! perl:url-select (part of urxvt-perls): Interact with URLs by keyboard:
 URxvt.url-select.launcher: /usr/bin/xdg-open
