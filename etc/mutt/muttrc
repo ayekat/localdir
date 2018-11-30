@@ -24,8 +24,6 @@ mailboxes "+Bluewin ==================="
 source $XDG_CONFIG_HOME/mutt/mailboxes/bluewin.muttrc
 mailboxes "+EPFL ======================"
 source $XDG_CONFIG_HOME/mutt/mailboxes/epfl.muttrc
-mailboxes "+Bity ======================"
-source $XDG_CONFIG_HOME/mutt/mailboxes/bity.muttrc
 mailboxes "+Papiliorama ==============="
 source $XDG_CONFIG_HOME/mutt/mailboxes/papiliorama.muttrc
 
@@ -35,7 +33,6 @@ source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc
 # Account hooks (triggered when changing into a directory of that account):
 folder-hook bluewin/* "source $XDG_CONFIG_HOME/mutt/accounts/bluewin.muttrc"
 folder-hook epfl/* "source $XDG_CONFIG_HOME/mutt/accounts/epfl.muttrc"
-folder-hook bity/* "source $XDG_CONFIG_HOME/mutt/accounts/bity.muttrc"
 folder-hook papiliorama/* "source $XDG_CONFIG_HOME/mutt/accounts/papiliorama.muttrc"
 
 # VIEW =========================================================================
@@ -85,7 +82,6 @@ set sleep_time = 0
 macro index,pager c '<change-folder>?<toggle-mailboxes>' 'open a different folder'
 macro index,pager gb '<change-folder>=bluewin/INBOX<Enter>' 'go to bluewin inbox'
 macro index,pager ge '<change-folder>=epfl/INBOX<Enter>' 'go to epfl inbox'
-macro index,pager gy '<change-folder>=bity/INBOX<Enter>' 'go to papiliorama inbox'
 macro index,pager gp '<change-folder>=papiliorama/INBOX<Enter>' 'go to papiliorama inbox'
 
 # Sidebar:

@@ -1,5 +1,0 @@
-set from      = 'martin@bity.com'
-set spoolfile = +bity/INBOX
-set record    = "+bity/[Gmail]/Sent Mail"
-set postponed = +bity/[Gmail]/Drafts
-set trash     = +bity/[Gmail]/Trash
