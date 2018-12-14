@@ -5,9 +5,10 @@
 /openvpn/
 
 # Bity:
+/chromium/
 /draw.io/
-/syncthing/
 /MyCrypto/
+/syncthing/
 
 # General:
 /ayepaste/
