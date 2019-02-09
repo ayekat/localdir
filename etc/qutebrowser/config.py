@@ -107,7 +107,7 @@ config.set('url.searchengines', {
     'mm':      'https://magicmonk.ch/de/magicmonk-search?s={}',
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
-    'mkm':     'https://www.cardmarket.com/en/Magic/MainPage/showSearchResult?searchFor={}',
+    'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
 })
 
 # LOOK =========================================================================
