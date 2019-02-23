@@ -104,7 +104,7 @@ config.set('url.searchengines', {
     'mtg':     'http://gatherer.wizards.com/Pages/Search/Default.aspx?name=+["{}"]',
     'sf':      'https://scryfall.com/search?q={}',
     'mw':      'http://mtgsalvation.gamepedia.com/index.php?search={}&title=Special:Search',
-    'mm':      'https://magicmonk.ch/de/magicmonk-search?s={}',
+    'mm':      'https://magicmonk.ch/de/jolisearch?s={}',
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
