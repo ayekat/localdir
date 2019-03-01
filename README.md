@@ -24,7 +24,7 @@ detail, this means that the following environment variables are set:
 | ----------------- | -------------------- |
 | `XDG_CACHE_HOME`  | `~/.local/var/cache` |
 | `XDG_CONFIG_HOME` | `~/.local/etc`       |
-| `XDG_DATA_HOME`   | `~/.local/var/lib`   |
+| `XDG_DATA_HOME`   | `~/.local/data`      |
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
@@ -69,7 +69,7 @@ respective locations:
 * `~/.local/lib/tmux` → `~/.local/lib/dotfiles/lib/tmux`
 * `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
-* `~/.local/var/lib/applications/mimeapps.list` → `../../../etc/mimeapps.list`
+* `~/.local/data/applications/mimeapps.list` → `../../../etc/mimeapps.list`
 
 
 Assumptions
