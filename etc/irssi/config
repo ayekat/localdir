@@ -273,12 +273,22 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#systemd";
+        name = "#ubuntu";
         tag = "znc";
       }
     );
   };
   6 = {
+    items = (
+      {
+        type = "CHANNEL";
+        chat_type = "IRC";
+        name = "#systemd";
+        tag = "znc";
+      }
+    );
+  };
+  7 = {
     items = (
       {
         type = "CHANNEL";
