@@ -1,14 +1,6 @@
-# Papiliorama:
-/.mono/
-/freerdp/
-/KeePass/
-/openvpn/
-
 # Bity:
 /chromium/
-/draw.io/
 /MyCrypto/
-/syncthing/
 
 # General:
 /ayepaste/
