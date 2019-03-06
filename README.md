@@ -24,7 +24,7 @@ detail, this means that the following environment variables are set:
 | ----------------- | -------------------- |
 | `XDG_CACHE_HOME`  | `~/.local/var/cache` |
 | `XDG_CONFIG_HOME` | `~/.local/etc`       |
-| `XDG_DATA_HOME`   | `~/.local/data`      |
+| `XDG_DATA_HOME`   | `~/.local/share`     |
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
