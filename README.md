@@ -25,13 +25,14 @@ detail, this means that the following environment variables are set:
 | `XDG_CACHE_HOME`  | `~/.local/var/cache` |
 | `XDG_CONFIG_HOME` | `~/.local/etc`       |
 | `XDG_DATA_HOME`   | `~/.local/share`     |
+| `XDG_STATE_HOME`  | `~/.local/var/lib`   |
 | `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
 
 > ### Notes
-> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
->   nevertheless necessary for representing the FHS locally.
+> * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_STATE_HOME` are non-standard, but
+>   they are nevertheless necessary for representing the FHS locally.
 > * `~/.local/var` and `~/.local/run` are technically not supposed to be on this
 >   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
 >   keep them there as well.
