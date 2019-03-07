@@ -19,7 +19,7 @@ set envelope_from = yes
 # ACCOUNTS =====================================================================
 
 # Folders:
-set folder = "$XDG_DATA_HOME/mail/"
+set folder = "$XDG_STATE_HOME/mail/"
 mailboxes "+Bluewin ==================="
 source $XDG_CONFIG_HOME/mutt/mailboxes/bluewin.muttrc
 mailboxes "+EPFL ======================"
