@@ -92,12 +92,12 @@ Policies
 --------
 
 * Applications whose configuration is mixed up with other data (or generally not
-  supposed to be manually edited) is put into `XDG_DATA_HOME`, reason being that
-  I would like to track `XDG_CONFIG_HOME` with git as much as possible. This of
-  course only works for applications that allow configuring the location of
-  "config" files.
+  supposed to be manually edited) is put into `XDG_STATE_HOME`, reason being
+  that I would like to track `XDG_CONFIG_HOME` with git as much as possible.
+  This of course only works for applications that allow configuring the location
+  of "config" files.
 
-* Application history generally goes into `XDG_DATA_HOME` (see commit f1147a9
+* Application history generally goes into `XDG_STATE_HOME` (see commit f1147a9
   for the reasoning). The only things that go into `XDG_LOG_HOME` are "real"
   logs, i.e. data that is no longer read and used by the application itself. The
   only things that go into `XDG_CACHE_HOME` are files that are non-essential and
