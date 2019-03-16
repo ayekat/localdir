@@ -7,7 +7,7 @@ import readline
 import atexit
 import os
 
-python_history = os.environ.get('XDG_DATA_HOME', '%s/.local/share' % os.environ['HOME'])
+python_history = os.environ.get('XDG_STATE_HOME', '%s/.var/state' % os.environ['HOME'])
 if python_history:
     python_history = '%s/python_history' % python_history
 else:
