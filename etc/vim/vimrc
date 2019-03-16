@@ -4,6 +4,10 @@
 set nocompatible
 set nomodeline
 
+function! CreateDirectory(path)
+	call mkdir(a:path, 'p', 0700)
+endfunction
+
 " ------------------------------------------------------------------------------
 " PATHS {{{
 " We like to respect the XDG base directory specifications
@@ -12,30 +16,24 @@ set nomodeline
 set runtimepath=$XDG_DATA_HOME/vim,$XDG_DATA_HOME/vim/after,$VIM,$VIMRUNTIME
 
 " Swap files:
-set directory=$XDG_DATA_HOME/vim/swap
+set directory=$XDG_STATE_HOME/vim/swap
+call CreateDirectory(&directory)
 
 " Backup files:
-set backupdir=$XDG_CACHE_HOME/vim/backup
+set backupdir=$XDG_STATE_HOME/vim/backup
+call CreateDirectory(&backupdir)
 
 " Command and undo history:
-set viminfo+=n$XDG_DATA_HOME/vim/viminfo
+set viminfo+=n$XDG_STATE_HOME/vim/viminfo
 set undofile
 au BufWritePre /tmp/*,/dev/shm/*,/run/shm/* setl noundofile
-set undodir=$XDG_DATA_HOME/vim/undo
+set undodir=$XDG_STATE_HOME/vim/undo
+call CreateDirectory(&undodir)
 
 " netrw plugin history:
-let g:netrw_home=$XDG_DATA_HOME.'/vim'
+let g:netrw_home=$XDG_STATE_HOME.'/vim/netrw'
+call CreateDirectory(g:netrw_home)
 
-" Make sure the damn paths exists:
-function! MakeSureTheDamnPathExists(path)
-	if !isdirectory(a:path)
-		call mkdir(a:path, 'p', 0700)
-	endif
-endfunction
-call MakeSureTheDamnPathExists($XDG_DATA_HOME.'/vim')
-call MakeSureTheDamnPathExists(&directory)
-call MakeSureTheDamnPathExists(&backupdir)
-call MakeSureTheDamnPathExists(&undodir)
 
 " }}}
 " ------------------------------------------------------------------------------
@@ -48,10 +46,10 @@ let g:bundleinit=0
 if has('vim_starting')
 	if !isdirectory(g:bundledir)
 		let g:bundleinit=1
-		call mkdir(g:bundledir, 'p', 0700)
-		!git clone 'https://github.com/Shougo/neobundle.vim' $XDG_DATA_HOME/vim/neobundle/neobundle.vim
+		call CreateDirectory(g:bundledir)
+		call system('git clone https://github.com/Shougo/neobundle.vim ' . g:bundledir . '/neobundle.vim')
 	endif
-	set runtimepath+=$XDG_DATA_HOME/vim/neobundle/neobundle.vim
+	execute('set runtimepath+=' . g:bundledir . '/neobundle.vim')
 endif
 
 " List of bundles I use (including NeoBundle itself): "
