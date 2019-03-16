@@ -291,13 +291,13 @@ bindkey "^I" expand-or-complete-with-dots
 # HISTORY {{{
 
 # Make sure the zsh log directory exists:
-[[ -d "$XDG_DATA_HOME/zsh" ]] || mkdir -p "$XDG_DATA_HOME/zsh"
+mkdir -p "$XDG_STATE_HOME/zsh"
 
 setopt inc_append_history       # immediately append history to history file
 setopt hist_ignore_dups         # ignore duplicate commands
 setopt hist_ignore_space        # ignore commands with leading space
 
-export HISTFILE="$XDG_DATA_HOME/zsh/zhistory"
+export HISTFILE="$XDG_STATE_HOME/zsh/zhistory"
 export HISTSIZE=1000000         # maximum history size in terminal's memory
 export SAVEHIST=1000000         # maximum size of history file
 
