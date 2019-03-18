@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-exec unwrap sbt -ivy "$XDG_DATA_HOME"/ivy2 -sbt-dir "$XDG_DATA_HOME"/sbt "$@"
+exec unwrap sbt -ivy "$XDG_STATE_HOME"/ivy2 -sbt-dir "$XDG_STATE_HOME"/sbt "$@"

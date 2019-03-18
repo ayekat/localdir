@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-exec unwrap pidgin -c "$XDG_DATA_HOME/purple" "$@"
+exec unwrap pidgin -c "$XDG_STATE_HOME/purple" "$@"
