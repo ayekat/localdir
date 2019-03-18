@@ -21,11 +21,11 @@ XDG_LIB_HOME          DEFAULT="${HOME}/.local/lib"
 XDG_LOG_HOME          DEFAULT="${HOME}/.local/var/log"
 LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 XDG_DATA_DIRS         DEFAULT="/usr/local/share:/usr/share" OVERRIDE="${XDG_DATA_DIRS}"
-XDG_DATA_DIRS         DEFAULT="${HOME}/.local/share:${XDG_DATA_DIRS}"
+XDG_DATA_DIRS         DEFAULT="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
 
 # Fix various applications to respect XDG
 CARGO_HOME            DEFAULT="${XDG_DATA_HOME}/cargo"
-CHECKUPDATES_DB       DEFAULT="${XDG_DATA_HOME}/pacman/checkupdates"
+CHECKUPDATES_DB       DEFAULT="${XDG_STATE_HOME}/pacman/checkupdates"
 GIMP2_DIRECTORY       DEFAULT="${XDG_DATA_HOME}/gimp"
 GNUPGHOME             DEFAULT="${XDG_DATA_HOME}/gnupg"
 GTK2_RC_FILES         DEFAULT="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
