@@ -48,7 +48,8 @@ while [ $opts_read -lt $# ]; do
 	opt="$1" && shift
 	case "$opt" in
 		(--basedir) basedir_specified=$TRUE ;;
-		(-r|-[!-]*r|--restore) test $# -gt 0 && session="$1" && shift && continue ;;
+		(-r|--restore) test $# -gt 0 && session="$1" && shift && continue ;;
+		(-[!-]*r) test $# -gt 0 && session="$1" && shift && opt=${opt%r} ;;
 		(-R) continue ;; # TODO
 	esac
 	set -- "$@" "$opt"
