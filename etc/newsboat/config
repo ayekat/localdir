@@ -1,5 +1,5 @@
 browser "qutebrowser %u"
-cache-file ~/.local/var/cache/newsboat/cache.db
+cache-file ~/.local/var/lib/newsboat/cache.db
 notify-program "notify-send"
 notify-always yes
 refresh-on-startup yes
