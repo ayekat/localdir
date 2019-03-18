@@ -8,9 +8,11 @@
 # links:
 #
 # $XDG_RUNTIME_DIR/qutebrowser/$session/cache → $XDG_CACHE_HOME/qutebrowser/$session
-# $XDG_RUNTIME_DIR/qutebrowser/$session/data → $XDG_DATA_HOME/qutebrowser/$session
+# $XDG_RUNTIME_DIR/qutebrowser/$session/data → $XDG_STATE_HOME/qutebrowser/$session
 # $XDG_RUNTIME_DIR/qutebrowser/$session/config → $XDG_CONFIG_HOME/qutebrowser
 # $XDG_RUNTIME_DIR/qutebrowser/$session/runtime (no symlink, regular directory)
+#
+# (note the use of the non-standard XDG_STATE_HOME)
 #
 # We then specify $XDG_RUNTIME_DIR/qutebrowser/$session as a --basedir, and the
 # files will end up in their intended locations (notice how the config directory
@@ -38,6 +40,7 @@ XDG_RUNTIME_DIR="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
 XDG_CONFIG_HOME="${XDG_CONFIG_HOME:-$HOME/.config}"
 XDG_CACHE_HOME="${XDG_CACHE_HOME:-$HOME/.cache}"
 XDG_DATA_HOME="${XDG_DATA_HOME:-$HOME/.local/share}"
+XDG_STATE_HOME="${XDG_STATE_HOME:-$HOME/.var/state}"
 
 # Translate options: remove occurrences of -r/--restore from the list of
 # command line arguments and save the session name for later; ignore -R (TODO):
@@ -65,11 +68,11 @@ if [ $basedir_specified -eq $FALSE ]; then
 		"$basedir" \
 		"$XDG_CONFIG_HOME/qutebrowser" \
 		"$XDG_CACHE_HOME/qutebrowser/$session" \
-		"$XDG_DATA_HOME/qutebrowser/$session" \
+		"$XDG_STATE_HOME/qutebrowser/$session" \
 		"$basedir/runtime"
 	ln -fsT "$XDG_CONFIG_HOME/qutebrowser" "$basedir/config"
 	ln -fsT "$XDG_CACHE_HOME/qutebrowser/$session" "$basedir/cache"
-	ln -fsT "$XDG_DATA_HOME/qutebrowser/$session" "$basedir/data"
+	ln -fsT "$XDG_STATE_HOME/qutebrowser/$session" "$basedir/data"
 fi
 
 # Search "real" qutebrowser executable:
