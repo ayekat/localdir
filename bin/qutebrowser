@@ -9,6 +9,7 @@
 #
 # $XDG_RUNTIME_DIR/qutebrowser/$session/cache → $XDG_CACHE_HOME/qutebrowser/$session
 # $XDG_RUNTIME_DIR/qutebrowser/$session/data → $XDG_STATE_HOME/qutebrowser/$session
+# $XDG_RUNTIME_DIR/qutebrowser/$session/data/userscripts → $XDG_DATA_HOME/qutebrowser/userscripts
 # $XDG_RUNTIME_DIR/qutebrowser/$session/config → $XDG_CONFIG_HOME/qutebrowser
 # $XDG_RUNTIME_DIR/qutebrowser/$session/runtime (no symlink, regular directory)
 #
@@ -73,6 +74,10 @@ if [ $basedir_specified -eq $FALSE ]; then
 	ln -fsT "$XDG_CONFIG_HOME/qutebrowser" "$basedir/config"
 	ln -fsT "$XDG_CACHE_HOME/qutebrowser/$session" "$basedir/cache"
 	ln -fsT "$XDG_STATE_HOME/qutebrowser/$session" "$basedir/data"
+	if [ -d "$XDG_DATA_HOME/qutebrowser/userscripts" ]; then
+		ln -fsT "$XDG_DATA_HOME/qutebrowser/userscripts" \
+		        "$basedir/data/userscripts"
+	fi
 fi
 
 # Search "real" qutebrowser executable:
