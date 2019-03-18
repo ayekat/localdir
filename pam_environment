@@ -22,6 +22,7 @@ XDG_LOG_HOME          DEFAULT="${HOME}/.local/var/log"
 LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 XDG_DATA_DIRS         DEFAULT="/usr/local/share:/usr/share" OVERRIDE="${XDG_DATA_DIRS}"
 XDG_DATA_DIRS         DEFAULT="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
+DBUS_SESSION_BUS_ADDRESS DEFAULT="unix:path=${XDG_RUNTIME_DIR}/bus"
 
 # Fix various applications to respect XDG
 CARGO_HOME            DEFAULT="${XDG_STATE_HOME}/cargo"
