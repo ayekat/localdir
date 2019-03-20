@@ -5,7 +5,11 @@ set nocompatible
 set nomodeline
 
 function! CreateDirectory(path)
-	call mkdir(a:path, 'p', 0700)
+	" Old versions of vim treat an already existing directory as failure (even
+	" with the 'p' flag):
+	if !isdirectory(a:path)
+		call mkdir(a:path, 'p', 0700)
+	endif
 endfunction
 
 " ------------------------------------------------------------------------------
