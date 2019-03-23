@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-exec unwrap darktable --configdir "$XDG_STATE_HOME/darktable" "$@"
