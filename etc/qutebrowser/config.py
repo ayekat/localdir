@@ -53,10 +53,10 @@ config.bind('I', 'enter-mode passthrough', mode='normal')
 # Search:
 config.set('url.auto_search', 'dns')
 config.set('url.searchengines', {
-    'DEFAULT': 'https://searx.me/?q={}',
+    'DEFAULT': 'https://duckduckgo.com/?q={}',
 
-    'sx':      'https://searx.me/?q={}',
     'ddg':     'https://duckduckgo.com/?q={}',
+    'sx':      'https://searx.me/?q={}',
     'google':  'https://www.google.com/search?q={}',
     'img':     'https://www.google.com/search?tbm=isch&q={}',
     'news':    'https://www.google.com/search?tbm=nws&q={}',
