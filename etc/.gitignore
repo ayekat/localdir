@@ -1,7 +1,3 @@
-# Bity:
-/chromium/
-/MyCrypto/
-
 # General:
 /ayepaste/
 /darktable/
@@ -11,11 +7,23 @@
 /inkscape/
 /klavaro/
 /libreoffice/
-/mate/
 /nitrogen/
 /pluma/
 /sakura/
-/Thunar/
 /wesnoth/
 /wireshark/
+
+# Bity:
+/chromium/
+/MyCrypto/
+
+# Eye of Mate:
+/mate/
+
+# Thunar:
+/Thunar/
 /xfce4/
+
+# VirtualBox:
+/QtProject.conf
+/VirtualBox/
