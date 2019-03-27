@@ -139,7 +139,7 @@
     dmenu = /usr/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu
-    browser = /home/ayekat/.local/lib/dotfiles/bin/qutebrowser
+    browser = /usr/bin/env qutebrowser
 
     # Align icons left/right/off
     icon_position = off
