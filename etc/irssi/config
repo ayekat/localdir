@@ -45,11 +45,12 @@ ignores = (
   { mask = "doek";           level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "leolepro";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "Lowlya";         level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
-  { mask = "texom512";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "Yumia";          level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "zephyz";         level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
-  { mask = "antoinehassler"; level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "esssing";        level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "esssing_";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "rykerish";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "rykerish_";      level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { pattern = ".*\[m\]";     level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
 );
 
