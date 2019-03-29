@@ -39,6 +39,7 @@ config.set('hints.chars', 'fjdkslaghnv')
 config.unbind('<Ctrl-h>', mode='normal')
 config.bind('0', 'scroll-to-perc --horizontal 0', mode='normal')
 config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
+config.set('input.forward_unbound_keys', 'none')
 
 # Content:
 config.bind('m', 'spawn mpv {url}', mode='normal')
