@@ -11,26 +11,6 @@ have()
 
 # ------------------------------------------------------------------------------
 
-# Colours for gcc:
-export GCC_COLORS='error=01;31:warning=33:note=36:caret=01;32:locus=37:quote=32'
-
-# Colours for ls:
-LS_COLORS='fi=0:di=34:ex=32:ln=36:or=1;36:mi=1;31:bd=1;33:cd=33:pi=35:so=1;35'
-#          file dir   exec  link  orphan          block   char  pipe  socket
-#                                 link    target
-export LS_COLORS
-
-# Colours for less:
-LESS_TERMCAP_me="$(printf '\033[0m')"
-LESS_TERMCAP_se="$(printf '\033[0m')"
-LESS_TERMCAP_so="$(printf '\033[30;43m')"
-LESS_TERMCAP_ue="$(printf '\033[0m')"
-LESS_TERMCAP_us="$(printf '\033[32m')"
-LESS_TERMCAP_mb="$(printf '\033[34m')"
-LESS_TERMCAP_md="$(printf '\033[31m')"
-export LESS_TERMCAP_mb LESS_TERMCAP_md LESS_TERMCAP_me LESS_TERMCAP_se \
-       LESS_TERMCAP_so LESS_TERMCAP_ue LESS_TERMCAP_us
-
 # Aliases:
 unalias -a
 
