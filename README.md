@@ -26,7 +26,6 @@ detail, this means that the following environment variables are set:
 | `XDG_CONFIG_HOME` | `~/.local/etc`       |
 | `XDG_DATA_HOME`   | `~/.local/share`     |
 | `XDG_STATE_HOME`  | `~/.local/var/lib`   |
-| `XDG_RUNTIME_DIR` | `~/.local/run`       |
 | `XDG_LIB_HOME`    | `~/.local/lib`       |
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
 
@@ -36,7 +35,6 @@ detail, this means that the following environment variables are set:
 > * `~/.local/var` and `~/.local/run` are technically not supposed to be on this
 >   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
 >   keep them there as well.
-> * `~/.local/run` **must** be a symbolic link to `/run/user/<uid>`.
 > * Some applications unfortunately do not honour the XDG basedir specs, so I
 >   additionally [set environment variables][file:pam_environment] or [write
 >   wrapper scripts][dir:bin]&mdash;or simply weep (see also [issue
@@ -59,10 +57,7 @@ Usage
 -----
 
 For using the dotfiles, I clone this repository to `~/.local`, and then create
-the following two symlinks:
-
-* `~/.pam_environment` → `~/.local/lib/dotfiles/pam_environment`
-* `~/.local/run` → `/run/user/{uid}`
+the symlink `~/.pam_environment → ~/.local/lib/dotfiles/pam_environment`.
 
 
 Assumptions
