@@ -59,18 +59,11 @@ locations (assuming that this repository has been cloned into
 Usage
 -----
 
-For using the dotfiles, I clone this repository into `~/.local/lib/dotfiles`
-(see also [this issue][issue:12]), and then symlink each file/directory to their
-respective locations:
+For using the dotfiles, I clone this repository to `~/.local`, and then create
+the following two symlinks:
 
 * `~/.pam_environment` → `~/.local/lib/dotfiles/pam_environment`
-* `~/.local/etc` → `~/.local/lib/dotfiles/etc`
-* `~/.local/lib/argyll` → `~/.local/lib/dotfiles/lib/argyll`
-* `~/.local/lib/python` → `~/.local/lib/dotfiles/lib/python`
-* `~/.local/lib/tmux` → `~/.local/lib/dotfiles/lib/tmux`
-* `~/.local/lib/urxvt` → `~/.local/lib/dotfiles/lib/urxvt`
 * `~/.local/run` → `/run/user/{uid}`
-* `~/.local/data/applications/mimeapps.list` → `../../../etc/mimeapps.list`
 
 
 Assumptions

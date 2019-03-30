@@ -1,3 +1,3 @@
 # dotfiles
 
-path prepend "$XDG_LIB_HOME/dotfiles/bin"
+path prepend "$XDG_LIB_HOME/dotfiles/wrappers"
