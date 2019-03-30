@@ -45,8 +45,7 @@ detail, this means that the following environment variables are set:
 >   (or can be made to do so).
 
 Furthermore, the `$PATH` variable is expanded to contain the following
-locations (assuming that this repository has been cloned into
-`~/.local/lib/dotfiles`):
+locations:
 
 | Location                    | Description |
 | --------------------------- | --- |
