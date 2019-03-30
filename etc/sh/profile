@@ -1,4 +1,4 @@
-# Profile loaded when logging into a shell.
+# Login shell configuration (sourced BEFORE interactive configuration)
 # Written by ayekat on a cold morning in january 2017.
 
 path() {

@@ -2,7 +2,7 @@
 # Written by ayekat on a cold night in march 2013.
 
 # Shell-agnostic configuration:
-. $XDG_CONFIG_HOME/sh/config
+. $XDG_CONFIG_HOME/sh/interactive
 
 # ------------------------------------------------------------------------------
 # LOOK & FEEL {{{

@@ -1,4 +1,4 @@
-# Actions performed when logging into a shell.
+# Login shell configuration (sourced AFTER interactive configuration)
 # Written by ayekat on a cold sunday afternoon in November 2014.
 
 # ------------------------------------------------------------------------------
