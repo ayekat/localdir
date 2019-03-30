@@ -87,7 +87,7 @@ function build_prompt() #{{{
 			esac
 			GIT_PROMPT+="$2%{$reset_color%}"
 		}
-		build_watched_prompt "$XDG_LIB_HOME/dotfiles" 'd'
+		build_watched_prompt "$HOME/.local" 'd'
 		build_watched_prompt "$XDG_LIB_HOME/utils" 'u'
 		build_watched_prompt "$XDG_DATA_HOME/pass" 'p'
 		if [[ $watched_clean -eq 0 ]]; then
