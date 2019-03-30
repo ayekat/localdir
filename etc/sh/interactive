@@ -1,16 +1,6 @@
 # Interactive shell configuration
 # Written by ayekat on a warm summer day in 2013.
 
-# Helper:
-have()
-{
-	for c in "$@"; do
-		command -v "$c" >/dev/null || return 1
-	done
-}
-
-# ------------------------------------------------------------------------------
-
 # Aliases:
 unalias -a
 
@@ -68,7 +58,7 @@ git_update()
 	git_detached=''
 
 	# Git:
-	have git || return 1
+	command -v git >/dev/null || return 1
 	git_path="$(git -C "$1" rev-parse --show-toplevel 2>/dev/null)" || return 1
 	git_dir="$(git -C "$git_path" rev-parse --absolute-git-dir 2>/dev/null)" || return 1
 	git_bare=''
