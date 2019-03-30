@@ -369,6 +369,9 @@ au FileType gitcommit,mail setl textwidth=72
 " Correctly handle UNIX (LF), DOS (CR+LF) and Mac (CR) style linebreaks:
 set ffs=unix,dos,mac
 
+" Don't insert double spaces after period when joining lines:
+set nojoinspaces
+
 " }}}
 " ------------------------------------------------------------------------------
 " KEY BINDINGS, BEHAVIOUR {{{
