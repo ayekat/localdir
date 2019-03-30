@@ -14,14 +14,6 @@ path() {
 	esac
 }
 
-# Work around distributions that still keep separate sbin directories:
-path append "$(readlink -f /usr/local/sbin)"
-path append "$(readlink -f /usr/sbin)"
-path append "$(readlink -f /sbin)"
-
-# Set user-path:
-path prepend "$(readlink -f "$HOME/.local/bin")"
-
 # Load profiles in profile.d:
 if [ -d "$XDG_CONFIG_HOME/sh/profile.d" ]; then
 	for profile in "$XDG_CONFIG_HOME/sh/profile.d/"*.sh; do
