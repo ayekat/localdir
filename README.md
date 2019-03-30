@@ -32,9 +32,9 @@ detail, this means that the following environment variables are set:
 > ### Notes
 > * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_STATE_HOME` are non-standard, but
 >   they are nevertheless necessary for representing the FHS locally.
-> * `~/.local/var` and `~/.local/run` are technically not supposed to be on this
->   level (as this is a variant of `/usr/local`), but for simplicity's sake, I
->   keep them there as well.
+> * `~/.local/var` is technically not supposed to be on this level (as this is a
+>   variant of `/usr/local`), but for keeping it compact, I keep it here as
+>   well.
 > * Some applications unfortunately do not honour the XDG basedir specs, so I
 >   additionally [set environment variables][file:pam_environment] or [write
 >   wrapper scripts][dir:bin]&mdash;or simply weep (see also [issue
