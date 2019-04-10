@@ -51,6 +51,7 @@ ignores = (
   { mask = "esssing_";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "rykerish";       level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { mask = "rykerish_";      level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
+  { mask = "ponsfrilus";     level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
   { pattern = ".*\[m\]";     level = "JOINS PARTS QUITS"; channels = ( "#gnugeneration" ); },
 );
 
