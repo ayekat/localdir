@@ -20,8 +20,8 @@ set-window-option -g window-status-format ' #I #W '
 set-window-option -g window-status-current-format '#[bright,fg=colour148,bg=colour232] #I#[default,fg=colour15,bg=colour232] #W #[default]'
 
 # Pane separators:
-set -g pane-border-fg colour237
-set -g pane-active-border-fg colour148
+set -g pane-border-style 'fg=colour238,bg=default'
+set -g pane-active-border-style 'fg=colour148,bg=default'
 
 # }}}
 # ------------------------------------------------------------------------------
