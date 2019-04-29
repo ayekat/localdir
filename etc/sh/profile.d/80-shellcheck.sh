@@ -8,6 +8,11 @@ SHELLCHECK_OPTS='-e SC1090'
 # We use it for styling, and we never use backticks for expressions anyway.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2016"
 
+# SC2031 (var was modified in a subshell. That change might be lost.)
+# Shellcheck is unable to notice when var is used in a function called by said
+# subshell, so it gives false positives here.
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2031"
+
 # SC2059 (Don't use variables in the printf format string)
 # When using wrappers around printfs, we extract the format string and pass it
 # as the first argument. In such a case, we don't want this warning.
