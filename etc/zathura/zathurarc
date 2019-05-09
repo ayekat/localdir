@@ -38,6 +38,7 @@ set first-page-column 2
 
 # Make ^n open a new document (like atril/evince):
 map <C-n> feedkeys ":exec zathura $FILE<Return>"
+map <C-s> toggle_statusbar
 
 # Smooth scrolling:
 set smooth-scroll true
