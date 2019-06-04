@@ -22,6 +22,10 @@ SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2059"
 # We usually know when we want to split and when not.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2086"
 
+# SC2088 (Tilde does not expand in quotes. Use $HOME.)
+# We usually know when we want the tilde to expand and when not.
+SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2088"
+
 # SC2094 (Make sure not to read and write the same file in the same pipeline)
 # Erroneously pops up when just *using* the file name within a pipeline that
 # reads from that file.
