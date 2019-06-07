@@ -88,7 +88,7 @@ macro index,pager gp '<change-folder>=papiliorama/INBOX<Enter>' 'go to papiliora
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index O sidebar-open
-bind index B sidebar-toggle-visible
+bind index,pager B sidebar-toggle-visible
 
 # Scrolling:
 bind pager k previous-line
