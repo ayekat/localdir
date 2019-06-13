@@ -145,7 +145,7 @@
     icon_position = off
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/16x16/legacy
 
     frame_width = 1
     frame_color = "#AFD700"
