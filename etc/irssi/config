@@ -222,7 +222,7 @@ settings = {
 logs = { };
 hilights = (
   {
-    text = "(ayekat|grumpykat|karui|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu)|ttylog|cothority)";
+    text = "(ayekat|stressedoutcat|karui|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu))";
     nick = "yes";
     word = "yes";
     regexp = "yes";
