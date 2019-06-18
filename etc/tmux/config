@@ -28,9 +28,8 @@ set -g pane-active-border-style 'fg=colour148,bg=default'
 # FEEL {{{
 
 # More natural tab selection:
-bind-key Space  select-window -n
-bind-key -n C-l select-window -n
-bind-key -n C-h select-window -p
+bind-key -n M-l select-window -n
+bind-key -n M-h select-window -p
 
 # More vim-like window selection:
 bind-key j select-pane -t :.+
