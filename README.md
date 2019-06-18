@@ -37,7 +37,7 @@ detail, this means that the following environment variables are set:
 >   well.
 > * Some applications unfortunately do not honour the XDG basedir specs, so I
 >   additionally [set environment variables][file:pam_environment] or [write
->   wrapper scripts][dir:bin]&mdash;or simply weep (see also [issue
+>   wrapper scripts][dir:wrappers]&mdash;or simply weep (see also [issue
 >   #7][issue:7]). The [*XDG Base Directory support*][aw:xdgsupport] article in
 >   the Arch Linux wiki contains a list of applications that honour the specs
 >   (or can be made to do so).
@@ -123,7 +123,7 @@ There are other, similar "experiments" out there:
 [an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
 [aw:pam]: https://wiki.archlinux.org/index.php/PAM
 [aw:xdgsupport]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
-[dir:bin]: bin
+[dir:wrapper]: lib/dotfiles/bin
 [fdo:xdgspec]: https://specifications.freedesktop.org/basedir-spec/latest/index.html
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
 [file:pam_environment]: pam_environment
