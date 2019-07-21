@@ -123,7 +123,7 @@ There are other, similar "experiments" out there:
 [an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
 [aw:pam]: https://wiki.archlinux.org/index.php/PAM
 [aw:xdgsupport]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
-[dir:wrapper]: lib/dotfiles/bin
+[dir:wrappers]: lib/dotfiles/bin
 [fdo:xdgspec]: https://specifications.freedesktop.org/basedir-spec/latest/index.html
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
 [file:pam_environment]: pam_environment
