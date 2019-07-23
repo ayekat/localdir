@@ -116,7 +116,7 @@ config.set('url.searchengines', {
 
 # Tab bar:
 config.set('tabs.indicator.width', 0)
-config.set('tabs.title.format', '{perc}{title}')
+config.set('tabs.title.format', '{perc}{audio}{current_title}')
 config.set('tabs.padding', {'top': 1, 'bottom': 1, 'left': 2, 'right': 2})
 config.set('fonts.tabs', '8pt monospace')
 config.set('colors.tabs.even.bg', '#222222')
