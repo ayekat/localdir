@@ -76,7 +76,7 @@ config.set('url.searchengines', {
     'wb':      'http://en.wikibooks.org/w/index.php?search={}&title=Special:Search',
     'libgen':  'http://libgen.org/search.php?req={}&open=0&view=simple&column=def',
 
-    'duden':   'http://www.duden.de/suchen/dudenonline?s={}',
+    'duden':   'http://www.duden.de/suchen/dudenonline/{}',
     'jisho':   'http://beta.jisho.org/search?utf8=✓&keyword={}',
     'dict':    'http://www.dict.cc/?s={}',
     'leo':     'http://dict.leo.org/franz%C3%B6sisch-deutsch/{}',
