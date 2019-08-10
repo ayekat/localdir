@@ -50,7 +50,6 @@ locations:
 | `~/.local/bin`              | User-specific executables (not tracked) |
 | `~/.local/lib/dotfiles/bin` | User-specific executables provided by this repository |
 | `~/.local/lib/utils/bin`    | User-specific executables provided by the [utils][gh:utils] repository |
-| `~/.local/opt/altera/...`   | Various paths containing [Altera Quartus II][wp:quartus]-specific executables |
 
 
 Usage
@@ -133,4 +132,3 @@ There are other, similar "experiments" out there:
 [issue:8]: https://github.com/ayekat/dotfiles/issues/8
 [issue:12]: https://github.com/ayekat/dotfiles/issues/12
 [man:hier]: http://linux.die.net/man/7/hier
-[wp:quartus]: https://en.wikipedia.org/wiki/Altera_Quartus
