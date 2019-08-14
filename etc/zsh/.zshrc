@@ -65,7 +65,7 @@ function build_prompt() #{{{
 		GIT_PROMPT=''
 
 		# Watched repositories:
-		watched_clean=1
+		watched_clean=true
 		build_watched_prompt() {
 			git_update "$1" || return
 			if [[ -z "$git_status" ]] \
@@ -73,9 +73,9 @@ function build_prompt() #{{{
 			&& [[ -z "$git_detached" ]]; then
 				return
 			fi
-			if [[ $watched_clean -eq 1 ]]; then
+			if $watched_clean; then
 				GIT_PROMPT+="%{$pc_git_bracket%}["
-				watched_clean=0
+				watched_clean=false
 			fi
 			if [[ -n "$git_detached" ]] || [[ -n "$git_state" ]]; then
 				GIT_PROMPT+="%{$pc_git_detached%}"
@@ -88,9 +88,8 @@ function build_prompt() #{{{
 			GIT_PROMPT+="$2%{$reset_color%}"
 		}
 		build_watched_prompt "$HOME/.local" 'd'
-		build_watched_prompt "$XDG_LIB_HOME/utils" 'u'
 		build_watched_prompt "$XDG_STATE_HOME/pass" 'p'
-		if [[ $watched_clean -eq 0 ]]; then
+		if ! $watched_clean; then
 			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
 		fi
 		unset -f build_watched_prompt
