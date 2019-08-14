@@ -59,9 +59,9 @@ while true; do
 		karuibar_pid=$!
 	fi
 
-	if have xss-lock scrlock; then
+	if have xss-lock /usr/share/karuiwm/scrlock; then
 		xset s 300
-		xss-lock scrlock &
+		xss-lock /usr/share/karuiwm/scrlock &
 		xss_lock_pid=$!
 	fi
 
