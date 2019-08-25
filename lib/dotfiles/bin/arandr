@@ -1,0 +1,2 @@
+#!/bin/sh -
+exec env HOME=$XDG_CONFIG_HOME/arandr unwrap arandr "$@"
