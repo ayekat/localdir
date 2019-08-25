@@ -222,7 +222,7 @@ settings = {
 logs = { };
 hilights = (
   {
-    text = "(ayekat|ayekitten|karui|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu))";
+    text = "(ayekat|karui|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu))";
     nick = "yes";
     word = "yes";
     regexp = "yes";
@@ -265,22 +265,12 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#ubuntu";
-        tag = "znc";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
         name = "#systemd";
         tag = "znc";
       }
     );
   };
-  7 = {
+  6 = {
     items = (
       {
         type = "CHANNEL";
