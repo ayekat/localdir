@@ -88,7 +88,12 @@ printlogo() (
 			;;
 	esac
 )
-printlogo "$OS_NAME"
+
+# tmux also launches a login shell, so if we're in tmux, only print the logo if
+# that tmux session is also in an SSH session:
+if [ -z "${TMUX:-}" ] || [ -n "${SSH_CONNECTION:-}" ]; then
+	printlogo "$OS_NAME"
+fi
 
 # }}}
 # ------------------------------------------------------------------------------
