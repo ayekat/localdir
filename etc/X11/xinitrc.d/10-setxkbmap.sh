@@ -2,7 +2,7 @@
 
 if have setxkbmap; then
 	case "$(uname -n)" in
-		(kiwi)
+		(kiwi|gurke)
 			{
 				sleep 2
 				setxkbmap ayekat
