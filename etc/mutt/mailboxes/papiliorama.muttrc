@@ -1,6 +1,0 @@
-mailboxes "+papiliorama/INBOX" \
-          "+papiliorama/INBOX/Services" \
-          "+papiliorama/INBOX/Support" \
-          "+papiliorama/INBOX/Else" \
-          "+papiliorama/Sent" \
-          "+papiliorama/Trash"

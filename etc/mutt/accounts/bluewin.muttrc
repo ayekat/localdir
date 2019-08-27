@@ -1,5 +1,0 @@
-set from      = 'takeya@bluewin.ch'
-set spoolfile = +bluewin/INBOX
-set record    = +bluewin/Sent
-set postponed = +bluewin/Drafts
-set trash     = +bluewin/Trash
