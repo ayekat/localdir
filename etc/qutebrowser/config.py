@@ -91,6 +91,7 @@ config.set('url.searchengines', {
     'salsa':   'https://salsa.debian.org/search?utf8=✓&search={}',
     'up':      'https://packages.ubuntu.com/search?keywords={}',
     'aur':     'https://aur.archlinux.org/packages/?O=0&K={}',
+    'aurp':    'https://aur.archlinux.org/packages/{}',
     'ghub':    'https://github.com/search?utf8=✓&q={}',
     'hayoo':   'http://holumbus.fh-wedel.de/hayoo/hayoo.html?query={}',
     'hulbee':  'https://hulbee.com/?query={}&region=browser&uiLanguage=browser',
