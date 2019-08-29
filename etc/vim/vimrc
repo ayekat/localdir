@@ -73,6 +73,7 @@ NeoBundle 'sjl/gundo.vim'
 NeoBundle 'mqudsi/meson.vim'
 NeoBundle 'nblock/vim-dokuwiki'
 NeoBundle 'milad14000/vim_p4'
+NeoBundle 'hashivim/vim-terraform'
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
 if g:bundleinit
