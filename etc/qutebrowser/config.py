@@ -185,3 +185,10 @@ config.set('colors.statusbar.passthrough.fg', '#ffffff')
 config.set('colors.statusbar.url.success.http.fg', '#eeaa00')
 config.set('colors.statusbar.url.success.https.fg', '#66ee22')
 config.set('colors.statusbar.url.warn.fg', '#ff0000')
+
+# PRIVATE ======================================================================
+
+# Load configuration that is not meant to be public:
+config.source('%s/private/qutebrowser/config.py' %
+              os.environ.get('XDG_LIB_HOME',
+                             '%s/.local/lib' % os.environ['HOME']))
