@@ -16,7 +16,7 @@ karuibar.modules : mpd, network, memory, cpu, \
 karuibar.xgap    : 150
 karuibar.modules : network, memory, cpu, \
                    battery, battery_slice, backlight, \
-                   alsa_out, alsa_in, time_date, time_time, capslock
+                   alsa_out, time_date, time_time, capslock
 karuibar.backlight.device: intel_backlight
 #endif
 
