@@ -354,7 +354,7 @@ set copyindent
 set noexpandtab tabstop=4 shiftwidth=4
 au FileType c setl tabstop=8 shiftwidth=8
 au BufRead,BufNewFile PKGBUILD setl expandtab tabstop=2 shiftwidth=2
-au FileType javascript,meson,nftables,scala,tex setl expandtab tabstop=2 shiftwidth=2
+au FileType javascript,meson,nftables,scala,terraform,tex setl expandtab tabstop=2 shiftwidth=2
 au FileType haskell,java,lisp,named,p4,python,sql setl expandtab
 
 " Visually wrap lines and break words:
