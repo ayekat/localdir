@@ -1,0 +1,5 @@
+#!/bin/sh -
+TFDIR=$XDG_STATE_HOME/terraform
+mkdir -p "$TFDIR"
+ln -sf "$AZURE_CONFIG_DIR" "$TFDIR"/.azure
+exec env HOME=$TFDIR unwrap terraform "$@"
