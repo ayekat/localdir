@@ -1,5 +1,15 @@
 #!/bin/sh -
+
 TFDIR=$XDG_STATE_HOME/terraform
 mkdir -p "$TFDIR"
+
+# Azure symlink:
 ln -sf "$AZURE_CONFIG_DIR" "$TFDIR"/.azure
+
+# SSH key:
+mkdir -p "$TFDIR"/.ssh
+chmod 700 "$TFDIR"/.ssh
+ln -s ~/.ssh/id_rsa.pub "$TFDIR"/.ssh/id_rsa.pub
+
+# Invoke terraform:
 exec env HOME=$TFDIR unwrap terraform "$@"
