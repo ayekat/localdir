@@ -9,7 +9,7 @@ ln -sf "$AZURE_CONFIG_DIR" "$TFDIR"/.azure
 # SSH key:
 mkdir -p "$TFDIR"/.ssh
 chmod 700 "$TFDIR"/.ssh
-ln -s ~/.ssh/id_rsa.pub "$TFDIR"/.ssh/id_rsa.pub
+ln -sf ~/.ssh/id_rsa.pub "$TFDIR"/.ssh/id_rsa.pub
 
 # Invoke terraform:
 exec env HOME=$TFDIR unwrap terraform "$@"
