@@ -24,6 +24,7 @@ ignores = (
       "#gitlab",
       "#gnome",
       "#gnugeneration",
+      "##linux",
       "#manjaro",
       "##mtg",
       "#netfilter",
