@@ -23,6 +23,7 @@ XDG_DATA_DIRS         DEFAULT="/usr/local/share:/usr/share" OVERRIDE="${XDG_DATA
 XDG_DATA_DIRS         DEFAULT="${XDG_DATA_HOME}:${XDG_DATA_DIRS}"
 
 # Fix various applications to respect XDG
+AZURE_CONFIG_DIR      DEFAULT="${XDG_STATE_HOME}/azure"
 CARGO_HOME            DEFAULT="${XDG_STATE_HOME}/cargo"
 CHECKUPDATES_DB       DEFAULT="${XDG_STATE_HOME}/pacman/checkupdates"
 GIMP2_DIRECTORY       DEFAULT="${XDG_STATE_HOME}/gimp"
