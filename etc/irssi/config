@@ -261,25 +261,5 @@ windows = {
       }
     );
   };
-  5 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#systemd";
-        tag = "znc";
-      }
-    );
-  };
-  6 = {
-    items = (
-      {
-        type = "CHANNEL";
-        chat_type = "IRC";
-        name = "#qutebrowser";
-        tag = "znc";
-      }
-    );
-  };
 };
 mainwindows = { 1 = { first_line = "1"; lines = "32"; }; };
