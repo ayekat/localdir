@@ -16,6 +16,7 @@ ignores = (
     channels = (
       "#archlinux",
       "#archlinux-arm",
+      "#archlinux-aur",
       "#archlinux-offtopic",
       "#archlinux-security",
       "#claws",
