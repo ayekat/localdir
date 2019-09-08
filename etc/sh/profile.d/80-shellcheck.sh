@@ -1,39 +1,39 @@
 # Exclude checks for shellcheck
 
-# SC1090 (Can't follow non-constant source)
+# SC1090: Can't follow non-constant source
 # We use it all the time. It's not a crime.
 SHELLCHECK_OPTS='-e SC1090'
 
-# SC2016 (Expressions don't expand in single quotes, use double quotes for that)
+# SC2016: Expressions don't expand in single quotes, use double quotes for that
 # We use it for styling, and we never use backticks for expressions anyway.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2016"
 
-# SC2030 (Modification of file_gid is local (to subshell caused by (..) group).)
-# SC2031 (var was modified in a subshell. That change might be lost.)
+# SC2030: Modification of file_gid is local (to subshell caused by (..) group).
+# SC2031: var was modified in a subshell. That change might be lost.
 # Shellcheck is unable to notice when var is used in a function called by said
 # subshell, so it gives false positives here.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2030 -e SC2031"
 
-# SC2059 (Don't use variables in the printf format string)
+# SC2059: Don't use variables in the printf format string
 # When using wrappers around printfs, we extract the format string and pass it
 # as the first argument. In such a case, we don't want this warning.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2059"
 
-# SC2086 (Double quote to prevent globbing and word splitting)
+# SC2086: Double quote to prevent globbing and word splitting
 # We usually know when we want to split and when not.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2086"
 
-# SC2088 (Tilde does not expand in quotes. Use $HOME.)
+# SC2088: Tilde does not expand in quotes. Use $HOME.
 # We usually know when we want the tilde to expand and when not.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2088"
 
-# SC2094 (Make sure not to read and write the same file in the same pipeline)
+# SC2094: Make sure not to read and write the same file in the same pipeline
 # Erroneously pops up when just *using* the file name within a pipeline that
 # reads from that file.
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2094"
 
-# SC2119 (Use foo "$@" if function's $1 should mean script's $1)
-# SC2120 (foo references arguments, but none are ever passed)
+# SC2119: Use foo "$@" if function's $1 should mean script's $1
+# SC2120: foo references arguments, but none are ever passed
 # We occasionally write code that takes either an argument or reads from stdin
 # (typically message printing wrappers).
 SHELLCHECK_OPTS="$SHELLCHECK_OPTS -e SC2119 -e SC2120"
