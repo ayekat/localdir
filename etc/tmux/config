@@ -1,11 +1,12 @@
 # Configuration file for tmux.
 # Written by ayekat on a tiring evening in march 2013.
 
+# Distinguish between <2.1 and >=2.1:
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (1.*|2.0|2.0[!0-9]*) true ;; (*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/legacy'
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.*|2.0|2.0[!0-9]*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/current'
+
 # ------------------------------------------------------------------------------
 # LOOK {{{
-
-# Enable 256 colours:
-set -g default-terminal "tmux-256color"
 
 # Statusline options:
 set-option -g status-left-length 60
@@ -40,9 +41,6 @@ bind-key r source-file ~/.local/etc/tmux/config \; display-message "Config reloa
 
 # Sane scrolling:
 set -g terminal-overrides 'xterm*:smcup@:rmcup@'
-set -g mouse on
-bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
-bind -n WheelDownPane select-pane -t= \; send-keys -M
 
 # Remove Escape key delay:
 set -sg escape-time 0
