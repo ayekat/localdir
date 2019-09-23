@@ -1,7 +1,9 @@
 # Interactive shell aliases
 
 # Clear aliases set by distro maintainers:
-unalias -a
+alias | while read -r alias; do
+	unalias "${alias%%=*}"
+done
 
 # Generic aliases:
 alias cp='cp -i'
