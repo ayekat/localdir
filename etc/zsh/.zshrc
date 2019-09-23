@@ -138,15 +138,6 @@ function build_prompt() #{{{
 	fi
 	PROMPT+="$GIT_PROMPT"
 
-	# Username (if not "default"):
-	case "$(uname -n)" in
-		(rainbowdash) defaultuser=mtweber ;;
-		(*) defaultuser=ayekat ;;
-	esac
-	if [[ "$USER" != "$defaultuser" ]]; then
-		PROMPT+="%{$pc_user%}%n%{$reset_color%} "
-	fi
-
 	# Hostname (if SSH):
 	if [[ -n "${SSH_CONNECTION:-}" ]]; then
 		PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
