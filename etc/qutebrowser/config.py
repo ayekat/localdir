@@ -87,7 +87,7 @@ config.set('url.searchengines', {
     'ap':      'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=',
     'ag':      'https://www.archlinux.org/groups/x86_64/{}',
     'ab':      'https://bugs.archlinux.org/index.php?project=0&string={}',
-    'dp':      'https://tracker.debian.org/search?package_name={}',
+    'dp':      'https://packages.debian.org/search?keywords={}&searchon=names&section=all',
     'salsa':   'https://salsa.debian.org/search?utf8=✓&search={}',
     'up':      'https://packages.ubuntu.com/search?keywords={}',
     'aur':     'https://aur.archlinux.org/packages/?O=0&K={}',
