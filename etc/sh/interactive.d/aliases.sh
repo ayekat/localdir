@@ -2,7 +2,7 @@
 
 # Clear aliases set by distro maintainers:
 alias | while read -r alias; do
-	unalias "${alias%%=*}"
+	unalias -- "${alias%%=*}"
 done
 
 # Generic aliases:
