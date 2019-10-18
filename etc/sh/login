@@ -93,6 +93,7 @@ printlogo() (
 # that tmux session is also in an SSH session:
 if [ -z "${TMUX:-}" ] || [ -n "${SSH_CONNECTION:-}" ]; then
 	printlogo "$OS_NAME"
+	echo
 fi
 
 # }}}
@@ -101,7 +102,7 @@ fi
 
 # Display the todo file in the home directory:
 if [ -e "$HOME"/TODO ]; then
-	echo; cat "$HOME"/TODO; echo
+	cat "$HOME"/TODO; echo
 fi
 
 # }}}
