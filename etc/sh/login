@@ -93,7 +93,6 @@ printlogo() (
 # that tmux session is also in an SSH session:
 if [ -z "${TMUX:-}" ] || [ -n "${SSH_CONNECTION:-}" ]; then
 	printlogo "$OS_NAME"
-	echo
 fi
 
 # }}}
