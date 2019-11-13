@@ -14,8 +14,7 @@ karuibar.modules : mpd, network, memory, cpu, \
                    alsa_out, time_date, time_time, capslock
 #elif defined SRVR_gurke
 karuibar.xgap    : 150
-karuibar.modules : network, memory, cpu, \
-                   battery, battery_slice, backlight, \
+karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
                    alsa_out, time_date, time_time, capslock
 karuibar.backlight.device: intel_backlight
 #endif
