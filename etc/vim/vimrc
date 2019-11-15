@@ -59,15 +59,9 @@ endif
 " List of bundles I use (including NeoBundle itself): "
 call neobundle#begin(g:bundledir)
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'ayekat/dwm.vim'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
 NeoBundle 'scrooloose/syntastic'
-NeoBundle 'vim-scripts/glsl.vim'
 NeoBundle 'vim-scripts/bbcode'
-NeoBundle 'EdJoJob/llvmir-vim'
-NeoBundle 'ap/vim-css-color'
 NeoBundle 'nfnty/vim-nftables'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'mqudsi/meson.vim'
@@ -463,11 +457,9 @@ set noshowmode
 
 " Separators {{{
 if $TERM == "linux"
-	let gitsym=""
 	let sep="|"
 	let lnum="LN"
 else
-	let gitsym="⎇ "
 	let sep="│"
 	let lnum="␤"
 endif " }}}
@@ -519,7 +511,6 @@ endif
 function! StatuslineActive()
 	let l:statusline = ''
 	let l:mode = mode()
-	let l:git_branch = fugitive#head()
 
 	" Mode {{{
 	if l:mode ==? 'v' || l:mode == ''
@@ -537,21 +528,6 @@ function! StatuslineActive()
 		let l:statusline .= '%#N_mode# NORMAL '
 	endif
 	" }}}
-
-	" Git {{{
-	if l:git_branch != ''
-		if l:mode == 'i'
-			let l:statusline .= '%#I_git_branch# %{gitsym}'
-		else
-			let l:statusline .= '%#N_git_branch# %{gitsym}'
-		endif
-		let l:statusline .= l:git_branch
-		if l:mode == 'i'
-			let l:statusline .= ' %#I_git_sep#%{sep}'
-		else
-			let l:statusline .= ' %#N_git_sep#%{sep}'
-		endif
-	endif " }}}
 
 	" Filename {{{
 	if l:mode == 'i'
@@ -649,7 +625,6 @@ endfunction
 " Inactive Statusline {{{
 function! StatuslineInactive()
 	let l:statusline = ''
-	let l:branch = fugitive#head()
 
 	" mode:
 	let l:statusline .= '        %{sep}'
