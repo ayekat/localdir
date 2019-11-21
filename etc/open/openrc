@@ -16,14 +16,14 @@ application/vnd.openxmlformats-officedocument.presentationml.presentation: libre
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.wordprocessingml.document: libreoffice _FILE_ &
 application/msword     : libreoffice _FILE_ &
-image/gif              : eom _FILE_ &
-image/jpeg             : eom _FILE_ &
-image/png              : eom _FILE_ &
+image/gif              : eog _FILE_ &
+image/jpeg             : eog _FILE_ &
+image/png              : eog _FILE_ &
 image/svg+xml          : inkview _FILE_ &
-image/tiff             : eom _FILE_ &
-image/x-ms-bmp         : eom _FILE_ &
-image/x-portable-bitmap: eom _FILE_ &
-image/x-portable-greymap: eom _FILE_ &
+image/tiff             : eog _FILE_ &
+image/x-ms-bmp         : eog _FILE_ &
+image/x-portable-bitmap: eog _FILE_ &
+image/x-portable-greymap: eog _FILE_ &
 inode/directory        : thunar _FILE_ &
 message/rfc822         : xvim _FILE_ &
 text/html              : qutebrowser _FILE_ &
