@@ -1,11 +1,11 @@
 application/pdf;    zathura '%s'
-image/png;          eom '%s'
-image/tiff;         eom '%s'
-image/x-ms-bmp;     eom '%s'
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice '%s'
+image/jpeg;         eog '%s'
+image/png;          eog '%s'
+image/tiff;         eog '%s'
+image/x-ms-bmp;     eog '%s'
 text/html;          qutebrowser '%s' &; test=test -n "$DISPLAY"; needsterminal;
 text/html;          w3m -I %{charset} -T text/html; copiousoutput;
 text/plain;         xvim '%s'
 text/x-diff;        xvim '%s'
 text/x-shellscript; xvim '%s'
-application/vnd.openxmlformats-officedocument.wordprocessingml.document; libreoffice '%s'
-image/jpeg; eom '%s'
