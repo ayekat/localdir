@@ -63,18 +63,17 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " Declare used bundles:
 NeoBundle 'ayekat/dwm.vim'
-NeoBundle 'vim-scripts/bbcode'
-NeoBundle 'nfnty/vim-nftables'
 NeoBundle 'sjl/gundo.vim'
-NeoBundle 'mqudsi/meson.vim'
-NeoBundle 'nblock/vim-dokuwiki'
-NeoBundle 'milad14000/vim_p4'
-NeoBundle 'hashivim/vim-terraform'
-NeoBundle 'chikamichi/mediawiki.vim'
 
-" Syntastic uses a lot of space, so don't install it on small-footprint hosts:
+" Declare more used bundles (keep it tight on small-footprint hosts):
 if system('uname -n')[:-2] != 'srsyg20'
+	NeoBundle 'chikamichi/mediawiki.vim'
+	NeoBundle 'hashivim/vim-terraform'
+	NeoBundle 'milad14000/vim_p4'
+	NeoBundle 'mqudsi/meson.vim'
+	NeoBundle 'nfnty/vim-nftables'
 	NeoBundle 'scrooloose/syntastic'
+	NeoBundle 'vim-scripts/bbcode'
 endif
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
