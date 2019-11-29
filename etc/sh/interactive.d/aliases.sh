@@ -27,3 +27,6 @@ alias checkupdates='checkupdates; diffrepo -b $CHECKUPDATES_DB -R -n base-devel 
 alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2 -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings'
 alias mpv='mpv --x11-netwm=yes'
 alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
+if [ "$(uname -n)" = 'srsyg20' ]; then
+	alias mmtsa='~/mmtsa/mmtsa'
+fi
