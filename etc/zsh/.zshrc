@@ -67,8 +67,9 @@ function build_prompt() #{{{
 	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
 
 	# Git:
-	if "${ZSH_GIT_PROMPT:-true}" && [[ $# -eq 0 ]]; then
-		GIT_PROMPT=''
+	${ZSH_GIT_PROMPT:-true} || GIT_PROMPT=
+	if ${ZSH_GIT_PROMPT:-true} && [[ $# -eq 0 ]]; then
+		GIT_PROMPT=
 
 		# Watched repositories:
 		watched_clean=true
@@ -135,8 +136,6 @@ function build_prompt() #{{{
 
 			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
 		fi
-	else
-		GIT_PROMPT=
 	fi
 	PROMPT+="$GIT_PROMPT"
 
