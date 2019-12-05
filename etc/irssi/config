@@ -38,6 +38,7 @@ ignores = (
       "#saltstack",
       "#systemd",
       "#ubuntu",
+      "#uyuni",
       "#vim",
       "##windows",
       "#xorg",
