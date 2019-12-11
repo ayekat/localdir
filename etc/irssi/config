@@ -28,6 +28,7 @@ ignores = (
       "##linux",
       "#manjaro",
       "##mtg",
+      "#mutt",
       "#netfilter",
       "#pass",
       "#python",
