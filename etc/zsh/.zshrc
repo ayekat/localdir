@@ -271,12 +271,6 @@ autoload -Uz compinit
 compinit -d "$XDG_CACHE_HOME/zsh/zcompdump"
 # End of lines added by compinstall
 
-if [ "$OS_NAME" = 'opensuse-leap' ]; then
-        # Older systems like to ignore (or mishandle) the last line, thus generating
-        # the zcompdump file in ZDOTDIR either way, so let's fix that:
-        rm -f "${ZDOTDIR:-$HOME}/.zcompdump"
-fi
-
 # Do not autocomplete when ambiguous (bash-like):
 setopt no_auto_menu
 
