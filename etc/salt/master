@@ -1,0 +1,27 @@
+# Configuration file for user instance of salt-master
+
+# Paths are hardcoded because I haven't found a way to use environment variables
+# (especially XDG_… variables), so this is currently more of a massive hack.
+#
+# Written by ayekat on a snowy/rainy/muddy day in December 2019.
+
+user: ayekat
+
+sock_dir: /run/user/1000/salt/
+pidfile: /run/user/1000/salt-master.pid
+
+conf_file: /home/ayekat/.local/etc/salt/master
+pki_dir: /home/ayekat/.local/etc/salt/pki/master/
+
+log_file: /home/ayekat/.local/var/log/salt/master
+key_logfile: /home/ayekat/.local/var/log/salt/key
+
+cachedir: /home/ayekat/.local/var/cache/salt/master/
+
+file_roots:
+  base:
+    - /home/ayekat/.local/srv/salt/
+
+pillar_roots:
+  base:
+    - /home/ayekat/.srv/pillar/

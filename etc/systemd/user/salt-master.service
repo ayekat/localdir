@@ -1,0 +1,10 @@
+[Unit]
+Description=The Salt Master Server
+Documentation=man:salt-master(1) file:///usr/share/doc/salt/html/contents.html https://docs.saltstack.com/en/latest/contents.html
+
+[Service]
+#LimitNOFILE=100000
+ExecStart=/bin/sh ${XDG_LIB_HOME}/salt/bin/salt-master
+
+[Install]
+WantedBy=default.target
