@@ -24,4 +24,4 @@ file_roots:
 
 pillar_roots:
   base:
-    - /home/ayekat/.srv/pillar/
+    - /home/ayekat/.local/srv/pillar/
