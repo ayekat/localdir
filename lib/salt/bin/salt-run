@@ -1,0 +1,3 @@
+#!/bin/sh -
+
+exec /usr/bin/salt-run -c "$XDG_CONFIG_HOME/salt" "$@"
