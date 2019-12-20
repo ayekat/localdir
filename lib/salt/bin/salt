@@ -1,3 +1,3 @@
 #!/bin/sh -
 
-exec /usr/bin/salt -c "$XDG_CONFIG_HOME/salt" "$@"
+exec /usr/bin/"${0##*/}" -c "$XDG_CONFIG_HOME/salt" "$@"

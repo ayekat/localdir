@@ -15,8 +15,11 @@ pki_dir: /home/ayekat/.local/etc/salt/pki/master/
 
 log_file: /home/ayekat/.local/var/log/salt/master
 key_logfile: /home/ayekat/.local/var/log/salt/key
+ssh_log_file: /home/ayekat/.local/var/log/salt/ssh
+syndic_log_file: /home/ayekat/.local/var/log/salt/syndic
 
 cachedir: /home/ayekat/.local/var/cache/salt/master/
+sqlite_queue_dir: /home/ayekat/.local/var/cache/salt/master/queues/
 
 file_roots:
   base:
