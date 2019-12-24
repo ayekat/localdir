@@ -1,7 +1,7 @@
-#!/usr/bin/env sh
+#!/bin/sh -
 # Wrapper around sudo that adds --preserve-env if certain commands are run.
 
 case "$1" in
-	vim|vimdiff|visudo|pacdiff) exec /usr/bin/sudo -E "$@" ;;
-	*) exec /usr/bin/sudo "$@" ;;
+	(vim|vimdiff|visudo|pacdiff) exec /usr/bin/sudo -E "$@" ;;
+	(*) exec /usr/bin/sudo "$@" ;;
 esac
