@@ -1,9 +1,13 @@
 # Configuration file for tmux.
 # Written by ayekat on a tiring evening in march 2013.
 
-# Distinguish between <2.1 and >=2.1:
-if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (1.*|2.0|2.0[!0-9]*) true ;; (*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/legacy'
-if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.*|2.0|2.0[!0-9]*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/current'
+# Version-specific changes (1.9):
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.[!9]*) true ;; (*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/pre1.9'
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.[!9]*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/post1.9'
+
+# Version-specific changes (2.1):
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.*|2.0|2.0[!0-9]*) true ;; (*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/pre2.1'
+if-shell "case \"$(tmux -V | cut -d' ' -f2-)\" in (0.*|1.*|2.0|2.0[!0-9]*) false ;; esac" 'source "$XDG_CONFIG_HOME"/tmux/post2.1'
 
 # ------------------------------------------------------------------------------
 # LOOK {{{
@@ -19,10 +23,6 @@ set-window-option -g status-left '#[fg=colour22,bg=colour148] #h #[fg=colour7,bg
 set-window-option -g status-right '#[fg=colour7,bg=colour8] ... #[fg=colour8,bg=colour7] %H:%M '
 set-window-option -g window-status-format ' #I #W '
 set-window-option -g window-status-current-format '#[bright,fg=colour148,bg=colour232] #I#[default,fg=colour15,bg=colour232] #W #[default]'
-
-# Pane separators:
-set -g pane-border-style 'fg=colour238,bg=default'
-set -g pane-active-border-style 'fg=colour148,bg=default'
 
 # }}}
 # ------------------------------------------------------------------------------
