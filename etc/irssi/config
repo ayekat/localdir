@@ -19,6 +19,7 @@ ignores = (
       "#archlinux-aur",
       "#archlinux-offtopic",
       "#archlinux-security",
+      "#centos",
       "#claws",
       "#debian",
       "#freenode",
