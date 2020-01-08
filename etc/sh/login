@@ -28,6 +28,8 @@ printlogo() (
 	osname="$(uname -s -r)"
 	hostname="$(uname -n)"
 	red="$(printf '\033[31m')"
+	green="$(printf '\033[32m')"
+	yellow="$(printf '\033[33m')"
 	blue="$(printf '\033[34m')"
 	magenta="$(printf '\033[35m')"
 	cyan="$(printf '\033[36m')"
@@ -90,6 +92,22 @@ printlogo() (
 			printf         "        '+XXXXXXXXX#XP'       \\n"
 			printf         "           \`'\"***\"'\`          \\n"
 			printf         "                              $default\\n"
+			;;
+		(centos)
+			printf       '              %s.%s              \n' "$yellow" "$default"
+			printf       '            %s.###.%s            \n' "$yellow" "$default"
+			printf   '     %s####".##%s %s|%s %s##."####%s     \n' "$green" "$default" "$yellow" "$default" "$magenta" "$default"
+			printf   '     %s##"."###%s %s|%s %s###"."##%s     \n' "$green" "$default" "$yellow" "$default" "$magenta" "$default"
+			printf   '     %s".#."."#%s %s|%s %s#".".#."%s     \n' "$green" "$default" "$yellow" "$default" "$magenta" "$default"
+			printf '    %s.%s#####.".%s %s"%s %s.".#####%s.%s       %s\n' "$magenta" "$green" "$default" "$yellow" "$default" "$magenta" "$blue" "$default" "$osname"
+			printf     '   %s<#-------%s     %s-------#>%s      on %s\n' "$magenta" "$default" "$blue" "$default" "$hostname"
+			printf '    %s"%s#####"."%s %s.%s %s"."#####%s"%s    \n' "$magenta" "$blue" "$default" "$green" "$default" "$yellow" "$blue" "$default"
+			printf   '     %s."#".".#%s %s|%s %s#."."#".%s     \n' "$blue" "$default" "$green" "$default" "$yellow" "$default"
+			printf   '     %s##.".###%s %s|%s %s###.".##%s     \n' "$blue" "$default" "$green" "$default" "$yellow" "$default"
+			printf   '     %s####."##%s %s|%s %s##".####%s     \n' "$blue" "$default" "$green" "$default" "$yellow" "$default"
+			printf       '            %s"###"%s            \n' "$green" "$default"
+			printf       '              %s"%s              \n' "$green" "$default"
+			printf '\n'
 			;;
 	esac
 )
