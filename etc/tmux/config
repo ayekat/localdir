@@ -39,9 +39,6 @@ bind-key k select-pane -t :.-
 # dev: keybindings for reloading config:
 bind-key r source-file ~/.local/etc/tmux/config \; display-message "Config reloaded..."
 
-# Sane scrolling:
-set -g terminal-overrides 'xterm*:smcup@:rmcup@'
-
 # Remove Escape key delay:
 set -sg escape-time 0
 
