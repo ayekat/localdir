@@ -15,6 +15,11 @@ if [ -n "$SSH_CONNECTION" ] \
 	"$XDG_LIB_HOME"/tmux/tmux-view SSH && exit
 fi
 
+# XXX If on CentOS in tmux, likely TERM is behaving weirdly:
+if [ -n "$TMUX" ] && [ "$OS_NAME" = 'centos' ]; then
+       export TERM=screen-256color
+fi
+
 # }}}
 # ------------------------------------------------------------------------------
 # LOGO {{{
