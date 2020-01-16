@@ -8,6 +8,7 @@ done
 # Generic aliases:
 alias cp='cp -i'
 alias grep='grep --color=auto'
+alias ip='ip --color=auto'
 alias ll='ls -lh --time-style=long-iso'
 alias ls='ls -A --color=auto --quoting-style=literal'
 alias lt='ll -t'
