@@ -39,6 +39,7 @@ ignores = (
       "#qutebrowser-offtopic",
       "#raspbian",
       "#saltstack",
+      "#suse",
       "#systemd",
       "#ubuntu",
       "#uyuni",
