@@ -21,6 +21,10 @@
 /lutris/
 /menus/
 
+# RDP:
+/freerdp/
+/remmina/
+
 # Thunar:
 /Thunar/
 /xfce4/
