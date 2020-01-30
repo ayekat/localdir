@@ -23,6 +23,7 @@ ignores = (
       "#centos",
       "#claws",
       "#debian",
+      "#fosdem",
       "#freenode",
       "#gitlab",
       "#gnome",
