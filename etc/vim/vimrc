@@ -152,7 +152,7 @@ au FileType asm setl colorcolumn=41,81
 
 " I wanna see tabs and trailing whitespaces:
 set list
-set listchars=tab:╾─╸,eol:\ ,trail:·
+set listchars=tab:→\ ,eol:\ ,trail:·
 
 " Window separator:
 if $TERM == 'linux'
