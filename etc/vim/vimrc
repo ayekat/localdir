@@ -29,7 +29,7 @@ call CreateDirectory(&backupdir)
 
 " Command and undo history:
 set viminfo+=n$XDG_STATE_HOME/vim/viminfo
-au BufReadPost /tmp/*,/dev/*,/run/*,COMMIT_EDITMSG setl viminfo=
+au BufReadPre /tmp/*,/dev/*,/run/*,COMMIT_EDITMSG setl viminfo=
 set undofile
 au BufWritePre /tmp/*,/dev/*,/run/*,COMMIT_EDITMSG setl noundofile
 set undodir=$XDG_STATE_HOME/vim/undo
