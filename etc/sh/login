@@ -16,8 +16,10 @@ if [ -n "$SSH_CONNECTION" ] \
 fi
 
 # XXX If on CentOS in tmux, likely TERM is behaving weirdly:
-if [ -n "$TMUX" ] && [ "$OS_NAME" = 'centos' ]; then
-       export TERM=screen-256color
+if [ "$OS_NAME" = 'centos' ]; then
+	if [ -n "$TMUX" ] || [ "$TERM" = 'tmux-256color' ]; then
+		export TERM=screen-256color
+	fi
 fi
 
 # }}}
