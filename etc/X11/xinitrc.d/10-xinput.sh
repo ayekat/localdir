@@ -20,7 +20,7 @@ if have xinput; then
 	fi
 	if tpps_id=$(xinput list --id-only "$tpps_x390" 2>/dev/null); then
 		reverse_button_mapping $tpps_id 7
-		xinput --set-prop $tpps_id 'libinput Accel Speed' '-0.5'
+		xinput --set-prop $tpps_id 'libinput Accel Speed' '-0.3'
 		if tpad_id=$(xinput list --id-only "$tpad_x390" 2>/dev/null); then
 			# XXX: disabling touchpad in firmware has not effect:
 			xinput --set-prop $tpad_id 'Device Enabled' 0
