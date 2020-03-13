@@ -28,6 +28,7 @@ ignores = (
       "#gitlab",
       "#gnome",
       "#gnugeneration",
+      "#irssi",
       "##linux",
       "#manjaro",
       "##mtg",
