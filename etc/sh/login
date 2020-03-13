@@ -4,6 +4,13 @@
 # ------------------------------------------------------------------------------
 # SSH/TMUX {{{
 
+# XXX If on CentOS in tmux, likely TERM is behaving weirdly:
+if [ "$OS_NAME" = 'centos' ]; then
+	if [ -n "$TMUX" ] || [ "$TERM" = 'tmux-256color' ]; then
+		export TERM=screen-256color
+	fi
+fi
+
 # If logged in via SSH, use tmux:
 if [ -n "$SSH_CONNECTION" ] \
 && [ -z "$TMUX" ] \
@@ -13,13 +20,6 @@ if [ -n "$SSH_CONNECTION" ] \
 		export TMUX_TMPDIR=/tmp # no lingering here
 	fi
 	"$XDG_LIB_HOME"/tmux/tmux-view SSH && exit
-fi
-
-# XXX If on CentOS in tmux, likely TERM is behaving weirdly:
-if [ "$OS_NAME" = 'centos' ]; then
-	if [ -n "$TMUX" ] || [ "$TERM" = 'tmux-256color' ]; then
-		export TERM=screen-256color
-	fi
 fi
 
 # }}}
