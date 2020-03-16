@@ -30,4 +30,5 @@ alias mpv='mpv --x11-netwm=yes'
 alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 if [ "$(uname -n)" = 'srsyg20' ]; then
 	alias mmtsa='~/mmtsa/mmtsa'
+	alias ssh='TERM=xterm-256color ssh'
 fi
