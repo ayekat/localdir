@@ -66,7 +66,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'ayekat/dwm.vim'
 
 " Declare more used bundles (keep it tight on small-footprint hosts):
-if system('uname -n')[:-2] != 'srsyg20'
+if system('uname -n')[0:4] != 'srsyg'
 	NeoBundle 'chikamichi/mediawiki.vim'
 	NeoBundle 'hashivim/vim-terraform'
 	NeoBundle 'milad14000/vim_p4'
