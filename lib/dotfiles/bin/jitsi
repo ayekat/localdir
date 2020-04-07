@@ -1,2 +1,2 @@
 #!/bin/sh -
-exec unwrap jitsi -c "$XDG_CONFIG_HOME"/jitsi "$@"
+exec unwrap jitsi -c "$XDG_STATE_HOME"/jitsi "$@"
