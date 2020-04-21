@@ -1,6 +1,10 @@
 [user]
-	name = Tinu Weber
+	name = ayekat
 	email = takeya@bluewin.ch
+[includeIf "gitdir:~/adsy/"]
+	path = ~/.local/etc/git/private/adsy.config
+[includeIf "gitdir:~/work/adsy/"]
+	path = ~/.local/etc/git/private/adsy.config
 [color]
 	status = auto
 	diff = auto
