@@ -1,9 +1,9 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop;
-image/jpeg=eog.desktop;
-image/png=eog.desktop;
-image/tiff=eog.desktop;
-image/x-ms-bmp=eog.desktop;
+image/jpeg=org.gnome.eog.desktop;
+image/png=org.gnome.eog.desktop;
+image/tiff=org.gnome.eog.desktop;
+image/x-ms-bmp=org.gnome.eog.desktop;
 text/html=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
@@ -14,10 +14,10 @@ text/plain=pluma.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
-image/jpeg=eog.desktop;
-image/png=eog.desktop;
-image/tiff=eog.desktop;
-image/x-ms-bmp=eog.desktop;
+image/jpeg=org.gnome.eog.desktop;
+image/png=org.gnome.eog.desktop;
+image/tiff=org.gnome.eog.desktop;
+image/x-ms-bmp=org.gnome.eog.desktop;
 text/html=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
