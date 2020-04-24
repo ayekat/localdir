@@ -67,6 +67,7 @@ NeoBundle 'ayekat/dwm.vim'
 
 " Declare more used bundles (keep it tight on small-footprint hosts):
 if system('uname -n')[0:4] != 'srsyg'
+	NeoBundle 'b4b4r07/vim-hcl'
 	NeoBundle 'chikamichi/mediawiki.vim'
 	NeoBundle 'hashivim/vim-terraform'
 	NeoBundle 'milad14000/vim_p4'
@@ -359,7 +360,7 @@ set copyindent
 set noexpandtab tabstop=4 shiftwidth=4
 au FileType c setl tabstop=8 shiftwidth=8
 au BufRead,BufNewFile PKGBUILD setl expandtab tabstop=2 shiftwidth=2
-au FileType javascript,json,meson,nftables,scala,terraform,tex,xml setl expandtab tabstop=2 shiftwidth=2
+au FileType hcl,javascript,json,meson,nftables,scala,terraform,tex,xml setl expandtab tabstop=2 shiftwidth=2
 au FileType haskell,java,lisp,named,p4,python,sql setl expandtab
 
 " Visually wrap lines and break words:
