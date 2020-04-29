@@ -33,6 +33,10 @@
 /Thunar/
 /xfce4/
 
+# Vault/Consul
+/consul.d/
+/vault/
+
 # VirtualBox:
 /QtProject.conf
 /VirtualBox/
