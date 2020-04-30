@@ -101,7 +101,7 @@ config.set('url.searchengines', {
     'debman':  'https://dyn.manpages.debian.org/jump?q={}',
     'sc':      'https://github.com/koalaman/shellcheck/wiki/SC{}',
     'posix':   'http://pubs.opengroup.org/onlinepubs/9699919799/utilities/{}.html',
-    'ansible': 'https://docs.ansible.com/ansible/latest/modules/{}_module.html',
+    'ansibled':'https://docs.ansible.com/ansible/latest/modules/{}_module.html',
 
     'wa':      'http://www.wolframalpha.com/input/?i={}&dataset=',
     'seq':     'http://oeis.org/search?q={}&language=english',
