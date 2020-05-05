@@ -1,0 +1,19 @@
+#!/bin/sh -
+
+# Separate state and runtime directory:
+ZOOMSDIR=$XDG_STATE_HOME/zoom
+mkdir -p "$ZOOMSDIR"
+ZOOMRDIR=$XDG_RUNTIME_DIR/zoom
+mkdir -p "$ZOOMRDIR"
+
+# Invoke Zoom with a limited environment:
+exec env -i \
+	HOME="$ZOOMSDIR" \
+	PATH="$PATH" \
+	LANG="$LANG" \
+	XDG_RUNTIME_DIR="$ZOOMRDIR" \
+	DBUS_SESSION_BUS_ADDRESS="$DBUS_SESSION_BUS_ADDRESS" \
+	XAUTHORITY="$XAUTHORITY" \
+	DISPLAY="$DISPLAY" \
+	ALSA_CARD="$ALSA_CARD" \
+	unwrap zoom "$@"
