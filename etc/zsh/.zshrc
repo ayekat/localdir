@@ -36,8 +36,8 @@ setopt prompt_subst
 
 # Define prompt colours:
 if [[ "$TERM" != 'linux' ]]; then
-	pc_vim_normal="$(printf "\033[38;5;22;48;5;148m")"
-	pc_vim_insert="$(printf "\033[38;5;45;48;5;23m")"
+	pc_vim_normal=$(printf '\033[38;5;22;48;5;148m')
+	pc_vim_insert=$(printf '\033[38;5;45;48;5;23m')
 else
 	pc_vim_normal="$fg[black]$bg[green]"
 	pc_vim_insert="$fg[cyan]$bg[blue]"
@@ -146,11 +146,6 @@ function build_prompt() #{{{
 
 	# PWD:
 	PROMPT+="%{$pc_pwd%}%~%{$reset_color%} "
-
-	# Root?
-	if [[ "$(id -u)" = 0 ]]; then
-		PROMPT+="%{$pc_prompt%}#%{$reset_color%} "
-	fi
 
 	export PROMPT
 }
