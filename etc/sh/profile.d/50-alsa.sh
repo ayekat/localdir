@@ -3,4 +3,5 @@
 
 if [ "$(uname -n)" = 'gurke' ]; then
 	export ALSA_CARD=PCH
+	systemctl --user import-environment ALSA_CARD
 fi
