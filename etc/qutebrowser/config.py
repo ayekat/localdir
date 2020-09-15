@@ -54,7 +54,7 @@ config.bind('I', 'enter-mode passthrough', mode='normal')
 # Search:
 config.set('url.auto_search', 'dns')
 config.set('url.searchengines', {
-    'DEFAULT': 'https://duckduckgo.com/?q={}',
+    'DEFAULT': 'https://www.google.com/search?q={}',
 
     'ddg':     'https://duckduckgo.com/?q={}',
     'sx':      'https://searx.me/?q={}',
