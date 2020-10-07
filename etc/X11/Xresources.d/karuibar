@@ -3,7 +3,7 @@
 karuibar.xgap    : 100
 karuibar.modules : mpd, network, memory, cpu, \
                    battery, battery_slice, backlight, \
-                   alsa_out, alsa_in, time_date, time_time, capslock
+                   time_date, time_time, capslock
 karuibar.backlight.device: acpi_video0
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
@@ -11,11 +11,11 @@ karuibar.modules : stdin; cpu, time_date, time_time, capslock
 #elif defined SRVR_kiwi
 karuibar.xgap    : 150
 karuibar.modules : mpd, network, memory, cpu, \
-                   alsa_out, time_date, time_time, capslock
+                   time_date, time_time, capslock
 #elif defined SRVR_gurke
 karuibar.xgap    : 150
 karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
-                   alsa_out, alsa_in, time_date, time_time, capslock
+                   time_date, time_time, capslock
 karuibar.backlight.device: intel_backlight
 #endif
 
@@ -33,10 +33,6 @@ karuibar.mpd_gnu.host         : mpd.gnugen.ch
 karuibar.battery.acpi_use_real: true
 karuibar.battery_slice.id     : BAT1
 karuibar.battery_slice.acpi_use_real: true
-
-karuibar.alsa_in.channel      : Capture
-karuibar.alsa_in.persistent   : false
-karuibar.alsa_in.capture      : true
 
 karuibar.time_date.format     : %Y-%m-%d
 karuibar.time_date.foreground : white
