@@ -18,11 +18,6 @@ alias mv='mv -i'
 alias sudo='sudo '
 alias watch='watch '
 
-# Server only aliases (mostly additional safety):
-if [ -n "$SSH_CONNECTION" ]; then
-	alias rm='rm -i'
-fi
-
 # Random other aliases:
 alias checkupdates='checkupdates; diffrepo -b $CHECKUPDATES_DB -R -n base-devel -n makepkg zuepfe-repkg'
 alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2 -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings'
