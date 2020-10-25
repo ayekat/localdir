@@ -266,7 +266,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#debian";
+        name = "#archlinux-aur";
         tag = "znc";
       }
     );
@@ -276,7 +276,7 @@ windows = {
       {
         type = "CHANNEL";
         chat_type = "IRC";
-        name = "#archlinux-aur";
+        name = "#debian";
         tag = "znc";
       }
     );
