@@ -8,12 +8,18 @@ have() {
 	done
 }
 
-# First of all, make sure we are in the home directory, to avoid weird default
-# working directory paths when opening a shell under X:
+# Set up logging:
+session_logdir="$XDG_LOG_HOME"/X11/xinit/"$DISPLAY"
+session_logfile="$session_logdir"/"$(date +%s)".log
+mkdir -p "$session_logdir"
+ln -sf "$session_logfile" "$session_logdir"/latest
+exec 1>"$session_logfile" 2>&1
+
+# Make sure we are in the home directory, to avoid weird default working
+# directory paths when opening a shell under X:
 cd || exit 1
 
-
-# Load application-specific xinitrc snippets (system-wide):
+# Load system xinitrc snippets:
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
 	for f in /etc/X11/xinit/xinitrc.d/?*.sh; do
 		if [ -r "$f" ]; then
@@ -23,7 +29,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
 	unset f
 fi
 
-# Load application-specific xinitrc snippets (user-specific):
+# Load user xinitrc snippets:
 if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
 	for f in "$XDG_CONFIG_HOME"/X11/xinitrc.d/?*.sh; do
 		if [ -r "$f" ]; then
@@ -33,46 +39,12 @@ if [ -d "$XDG_CONFIG_HOME"/X11/xinitrc.d ]; then
 	unset f
 fi
 
-
-# WM ---------------------------------------------------------------------------
-
-# If no WM is specified, default to karuiwm-legacy:
-wm="${wm:-karuiwm}"
-
-# Some Java applications refuse to work correctly if run in a non-reparenting WM
-# they don't know. We set the WM name to a value known to Java to fix that:
-if have wmname; then
-	case "$wm" in
-		(xmonad|dwm|karuiwm*) wmname LG3D ;;
-	esac
+# Load user X profile:
+if [ -e "$XDG_CONFIG_HOME"/X11/xprofile ]; then
+	if [ -r "$XDG_CONFIG_HOME"/X11/xprofile ]; then
+		. "$XDG_CONFIG_HOME"/X11/xprofile
+	fi
 fi
 
-# Launch WM and log all of its output:
-session_logdir="$XDG_LOG_HOME"/X11/"$DISPLAY"
-session_logfile="$session_logdir"/"$(date +%s)".log
-mkdir -p "$session_logdir"
-ln -sf "$session_logfile" "$session_logdir"/latest
-while true; do
-	if have karuibar; then
-		# Start karuibar with a delay to keep it above karuiwm-legacy's bar:
-		{ sleep 1 && karuibar; } &
-		karuibar_pid=$!
-	fi
-
-	if have xss-lock /usr/share/karuiwm/scrlock; then
-		xset s 300
-		xss-lock /usr/share/karuiwm/scrlock &
-		xss_lock_pid=$!
-	fi
-
-	"$wm"
-
-	have xss-lock && kill $xss_lock_pid
-	have karuibar && kill $karuibar_pid
-
-	if have zenity; then
-		zenity --question --text="$wm has stopped. Start again?" || break
-	else
-		break
-	fi
-done >"$session_logfile" 2>&1
+# Launch window manager:
+exec "${wm:-karuiwm}"

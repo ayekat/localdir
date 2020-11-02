@@ -1,0 +1,18 @@
+# X session startup actions (sourced by xinitrc and various display managers)
+# Written by ayekat on a sunny Monday noon in November 2020.
+
+have() {
+	for c in "$@"; do
+		command -v "$c" >/dev/null || return 1
+	done
+}
+
+# Load application-specific xprofile snippets:
+if [ -d "$XDG_CONFIG_HOME"/X11/xprofile.d ]; then
+	for f in "$XDG_CONFIG_HOME"/X11/xprofile.d/?*.sh; do
+		if [ -r "$f" ]; then
+			. "$f"
+		fi
+	done
+	unset f
+fi
