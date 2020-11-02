@@ -19,6 +19,15 @@
 /wesnoth/
 /wireshark/
 
+# GNOME:
+/dleyna-renderer-service.conf
+/dleyna-server-service.conf
+/evolution/
+/gnome-control-center/
+/gtk-3.0/bookmarks
+/pipewire-media-session/
+/totem/
+
 # MTG Arena:
 /lutris/
 /menus/
