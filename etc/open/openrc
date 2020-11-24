@@ -12,6 +12,7 @@ application/vnd.oasis.opendocument.presentation: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.spreadsheet: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.spreadsheet-template: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.text: libreoffice _FILE_ &
+application/vnd.oasis.opendocument.text-template: libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.presentationml.presentation: libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.wordprocessingml.document: libreoffice _FILE_ &
