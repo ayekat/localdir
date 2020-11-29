@@ -639,7 +639,7 @@ Irssi::settings_add_bool('misc', 'neat_right_mode', 1);
 Irssi::settings_add_int('misc', 'neat_maxlength', 0);
 Irssi::settings_add_int('misc', 'neat_melength', 2);
 Irssi::settings_add_bool('misc', 'neat_colorize', 1);
-Irssi::settings_add_str('misc', 'neat_colors', 'rRgGyYbBmMcC');
+Irssi::settings_add_str('misc', 'neat_colors', 'rRgGybBmMcC');
 Irssi::settings_add_str('misc', 'neat_ignorechars', '');
 Irssi::settings_add_bool('misc', 'neat_allow_shrinking', 1);
 
