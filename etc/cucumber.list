@@ -1,0 +1,6 @@
+# Only used for home-only backups (otherwise norin handles this)
+~/.local/etc/cucumber.list
+~/.local/var/lib/gnupg
+~/.local/var/lib/pass
+~/.local/var/lib/totp
+~/.ssh
