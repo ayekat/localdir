@@ -36,6 +36,7 @@ ignores = (
       "#netfilter",
       "#pass",
       "##php",
+      "#pulseaudio",
       "#python",
       "#qemu",
       "#qutebrowser",
