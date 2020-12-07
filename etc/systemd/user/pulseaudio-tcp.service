@@ -1,0 +1,13 @@
+[Unit]
+Description=Native TCP protocol module for Pulseaudio
+Requires=pulseaudio.service
+After=pulseaudio.service
+
+[Service]
+Type=oneshot
+RemainAfterExit=true
+ExecStart=pacmd load-module module-native-protocol-tcp auth-ip-acl=127.0.0.1
+ExecStop=pacmd unload-module module-native-protocol-tcp
+
+[Install]
+WantedBy=default.target
