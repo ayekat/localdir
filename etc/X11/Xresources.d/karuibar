@@ -1,10 +1,9 @@
 #if defined SRVR_chirschi
 # if DISPLAY_NUM == 0
-karuibar.xgap    : 100
-karuibar.modules : mpd, network, memory, cpu, \
-                   battery, battery_slice, backlight, \
+karuibar.xgap    : 150
+karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
                    time_date, time_time, capslock
-karuibar.backlight.device: acpi_video0
+karuibar.backlight.device: intel_backlight
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
