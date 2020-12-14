@@ -234,7 +234,7 @@ settings = {
 logs = { };
 hilights = (
   {
-    text = "(ayekat|slimefoot|karui|adfinis|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu))|xdg|XDG";
+    text = "(ayekat|slimefoot|karui|adfinis|1771005|remakepkg|(make)?metapkg|epfl-(scripts|menu))|XDG";
     nick = "yes";
     word = "yes";
     regexp = "yes";
