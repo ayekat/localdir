@@ -1,0 +1,20 @@
+#!/bin/sh -
+
+set -euf
+
+xdg_download_dir()
+(
+	unset XDG_DOWNLOAD_DIR
+	# shellcheck disable=SC1090
+	. "$XDG_CONFIG_HOME"/user-dirs.dirs
+	printf '%s' "${XDG_DOWNLOAD_DIR:-~/Downloads}"
+)
+
+readonly MOZDIR=${MOZDIR:-$XDG_STATE_HOME/mozilla}
+readonly XDG_DOWNLOAD_DIR=$(xdg_download_dir)
+readonly MOZDIR_DOWNLOAD_DIR=$MOZDIR/${XDG_DOWNLOAD_DIR#$HOME}
+
+mkdir -p "$MOZDIR"
+ln -sf "$XDG_DOWNLOAD_DIR" "$MOZDIR_DOWNLOAD_DIR"
+
+exec env HOME="$MOZDIR" unwrap firefox "$@"
