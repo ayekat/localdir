@@ -1,10 +1,8 @@
 [user]
 	name = ayekat
 	email = takeya@bluewin.ch
-[includeIf "gitdir:~/adsy/"]
-	path = ~/.local/etc/git/private/adsy.config
-[includeIf "gitdir:~/work/adsy/"]
-	path = ~/.local/etc/git/private/adsy.config
+[includeIf "gitdir:~/adfinis/"]
+	path = ~/.local/etc/git/private/adfinis.config
 [color]
 	status = auto
 	diff = auto
