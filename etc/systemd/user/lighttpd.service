@@ -3,8 +3,8 @@ Description=Lighttpd Web Server
 After=syslog.target network.target
 
 [Service]
-ExecStartPre=/usr/sbin/lighttpd -t -f ${XDG_CONFIG_HOME}/lighttpd/lighttpd-%H.conf
-ExecStart=/usr/sbin/lighttpd-angel -D -f ${XDG_CONFIG_HOME}/lighttpd/lighttpd-%H.conf
+ExecStartPre=/usr/sbin/lighttpd -t -f %E/lighttpd/lighttpd-%H.conf
+ExecStart=/usr/sbin/lighttpd-angel -D -f %E/lighttpd/lighttpd-%H.conf
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 
