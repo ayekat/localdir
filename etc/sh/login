@@ -39,61 +39,63 @@ printlogo() (
 
 	case "$1" in
 		(debian|raspbian)
-			printf "$red                             \\n"
-			printf     "          .xd§PVkbxc.        \\n"
-			printf     "         xP*'      'Vb.      \\n"
-			printf     "       'd'     .,.   V.\`     \\n"
-			printf     "       (*    .'   .  ::      $default %s\\n" "$osname"
-			printf "$red       #     #      ,7       $default on %s\\n" "$hostname"
-			printf "$red       V,     *-__ -'        \\n"
-			printf     "       'qb                   \\n"
-			printf     "         *:,                 \\n"
-			printf     "           '-.               \\n"
-			printf     "               '             \\n"
-			printf     "                             $default\\n"
+			printf '%s                             \n' "$red"
+			printf   '          .xd§PVkbxc.        \n'
+			printf   '         xP*"      "Vb.      \n'
+			printf   '       "d"     .,.   V.`     \n'
+			printf   '       (*    ."   .  ::      %s %s\n' "$default" "$osname"
+			printf '%s       #     #      ,7       %s on %s\n' "$red" "$default" "$hostname"
+			printf '%s       V,     *-__ -"        \n' "$red"
+			printf   '       "qb                   \n'
+			printf   '         *:,                 \n'
+			printf   '           "-.               \n'
+			printf   '               "             \n'
+			printf   '                             %s\n' "$default"
 			;;
 		(arch|archarm)
-			printf "$blue                            \\n"
-			printf      "              /\\            \\n"
-			printf      "             /AA\\           \\n"
-			printf      "            .'YAA\\          \\n"
-			printf      "           /AAAAAA\\         $default %s\\n" "$osname"
-			printf "$blue          /AAAAAAAA\\        $default on %s\\n" "$hostname"
-			printf "$blue         /AAA/  \\AAA\\       \\n"
-			printf      "        /AAA|    |AAP\\      \\n"
-			printf      "       /AAAY\\    /YAAa_     \\n"
-			printf      "      />*'          '*<\\    \\n"
-			printf      "     ^                  ^   \\n"
-			printf      "                            $default\\n"
+			printf '%s                            \n' "$blue"
+			printf   '              /\            \n'
+			printf   '             /AA\           \n'
+			printf   '            ."YAA\          \n'
+			printf   '           /AAAAAA\         %s %s\n' "$default" "$osname"
+			printf '%s          /AAAAAAAA\        %s on %s\n' "$blue" "$default" "$hostname"
+			printf '%s         /AAA/  \AAA\       \n' "$blue"
+			printf   '        /AAA|    |AAP\      \n'
+			printf   '       /AAAY\    /YAAa_     \n'
+			printf   '      />*"          "*<\    \n'
+			printf   '     ^                  ^   \n'
+			printf   '                            %s\n' "$default"
 			;;
 		(gentoo)
-			printf "$cyan           __                \\n"
-			printf      "       .-d§§§§§bc,           \\n"
-			printf      "      /§§§§§*\"*Y§§§c.        \\n"
-			printf      "     (§§§§§§.   )§§§§b,      \\n"
-			printf      "     '(§§§§§§bxxI§§§§§§b     $default %s\\n" "$osname"
-			printf "$cyan       \`\">§§§§§§§§§§§§§§)    $default on %s\\n" "$hostname"
-			printf "$cyan       .?§§§§§§§§§§§§§P\`     \\n"
-			printf      "     .A§§§§§§§§§§§§§*'       \\n"
-			printf      "     §§§§§§§§§§§\$*\`          \\n"
-			printf      "     V§§§§§§§*'\`             \\n"
-			printf      "       \`\"\`\`                  \\n"
-			printf      "                             $default\\n"
+			printf '%s           __                \n' "$cyan"
+			printf   '       .-d§§§§§bc,           \n'
+			printf   '      /§§§§§*"*Y§§§c.        \n'
+			printf   '     (§§§§§§.   )§§§§b,      \n'
+			printf   '     "(§§§§§§bxxI§§§§§§b     %s %s\n' "$default" "$osname"
+			printf '%s       `">§§§§§§§§§§§§§§)    %s on %s\n' "$cyan" "$default" "$hostname"
+			printf '%s       .?§§§§§§§§§§§§§P`     \n' "$cyan"
+			printf   '     .A§§§§§§§§§§§§§*"       \n'
+			printf   '     §§§§§§§§§§§$*`          \n'
+			printf   '     V§§§§§§§*"`             \n'
+			# shellcheck disable=SC2016
+			printf   '       `"``                  \n'
+			printf   '                             %s\n' "$default"
 			;;
 		(ubuntu)
-			printf "$magenta                              \\n"
-			printf         "          .-x#XXX#:-.         \\n"
-			printf         "       .dXXXXXXXXY*\"<Xb.      \\n"
-			printf         "      dXXXXP(^\`\`\`'._.XXXb     \\n"
-			printf         "     JXXXP' _\\\\a#a,. 'VXXXA    \\n"
-			printf         "    |XP\"*. .XXXXXXD. 'XXXX)   $default %s\\n" "$osname"
-			printf "$magenta    (X.  ; (XXXXXXXT''XXXX)   $default on %s\\n" "$hostname"
-			printf "$magenta    'XXXX. \`\\XXXXXP  .XXXX'   \\n"
-			printf         "     *XXXXb./ \`\` ,·-dXXXX/    \\n"
-			printf         "      'YXXXXX#a-a|  .XXY'     \\n"
-			printf         "        '+XXXXXXXXX#XP'       \\n"
-			printf         "           \`'\"***\"'\`          \\n"
-			printf         "                              $default\\n"
+			printf '%s                              \n' "$magenta"
+			printf   '          .-x#XXX#:-.         \n'
+			printf   '       .dXXXXXXXXY*"<Xb.      \n'
+			printf   '      dXXXXP(^```"._.XXXb     \n'
+			printf   '     JXXXP" _\\a#a,. "VXXXA    \n'
+			printf   '    |XP"*. .XXXXXXD. "XXXX)   %s %s\n' "$default" "$osname"
+			printf '%s    (X.  ; (XXXXXXXT""XXXX)   %s on %s\n' "$magenta" "$default" "$hostname"
+			printf '%s    "XXXX. `\XXXXXP  .XXXX"   \n' "$magenta"
+			printf   '     *XXXXb./ `` ,·-dXXXX/    \n'
+			printf   '      "YXXXXX#a-a|  .XXY"     \n'
+			printf   '        "+XXXXXXXXX#XP"       \n'
+			# shellcheck disable=SC2016
+			printf   '           `""***""`          \n'
+			printf   '                              %s\n' "$default"
 			;;
 		(centos)
 			printf       '              %s.%s              \n' "$yellow" "$default"
