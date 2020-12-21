@@ -9,4 +9,4 @@ path append "$(readlink -f /sbin)"
 path prepend "$(readlink -f "$HOME/.local/bin")"
 
 # Add path to wrapper scripts:
-path prepend "$XDG_LIB_HOME/dotfiles/bin"
+path prepend "$XDG_LIB_HOME/dotfiles/wrappers"
