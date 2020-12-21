@@ -2,10 +2,27 @@
 # Written by ayekat on a cold sunday afternoon in November 2014.
 
 # ------------------------------------------------------------------------------
+# OS (set) {{{
+# Some actions in here are distribution-specific, so determine the OS here:
+
+_os_name=
+if [ -e /etc/os-release ]; then
+	while [ -z "$_os_name" ] && read -r _os_release_line; do
+		case "$_os_release_line" in ('ID='*)
+			_os_name=${_os_release_line#ID=}
+		esac
+		unset _os_release_line
+	done </etc/os-release
+else
+	_os_name=$(uname)
+fi
+
+# }}}
+# ------------------------------------------------------------------------------
 # SSH/TMUX {{{
 
 # XXX If on CentOS in tmux, likely TERM is behaving weirdly:
-if [ "$OS_NAME" = 'centos' ]; then
+if [ "$_os_name" = 'centos' ]; then
 	if [ -n "$TMUX" ] || [ "$TERM" = 'tmux-256color' ]; then
 		export TERM=screen-256color
 	fi
@@ -119,7 +136,7 @@ printlogo() (
 # tmux also launches a login shell, so if we're in tmux, only print the logo if
 # that tmux session is also in an SSH session:
 if [ -z "${TMUX:-}" ] || [ -n "${SSH_CONNECTION:-}" ]; then
-	printlogo "$OS_NAME"
+	printlogo "$_os_name"
 fi
 
 # }}}
@@ -133,3 +150,8 @@ fi
 
 # }}}
 # ------------------------------------------------------------------------------
+# OS (unset) {{{
+
+unset _os_name
+
+# }}}
