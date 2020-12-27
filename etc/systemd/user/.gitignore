@@ -1,3 +1,2 @@
-/default.target.wants/
-/sockets.target.wants/
+/*.target.wants/
 /*.service.d/
