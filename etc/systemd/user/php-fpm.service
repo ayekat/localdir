@@ -1,5 +1,7 @@
 [Unit]
 Description=The PHP FastCGI Process Manager
+Requires=systemd-tmpfiles-setup.service
+After=systemd-tmpfiles-setup.service
 
 [Service]
 Type=notify
