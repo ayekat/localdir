@@ -1,6 +1,7 @@
 [Unit]
 Description=Lighttpd Web Server
-After=syslog.target network.target
+Requires=systemd-tmpfiles-setup.service
+After=systemd-tmpfiles-setup.service
 
 [Service]
 ExecStartPre=/usr/sbin/lighttpd -t -f %E/lighttpd/lighttpd-%H.conf
