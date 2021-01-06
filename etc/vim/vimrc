@@ -76,6 +76,7 @@ if system('uname -n')[0:4] != 'srsyg'
 	NeoBundle 'scrooloose/syntastic'
 	NeoBundle 'sjl/gundo.vim'
 	NeoBundle 'vim-scripts/bbcode'
+	NeoBundle 'Glench/Vim-Jinja2-Syntax'
 endif
 
 " Initial run requires NeoBundleInstall, as a simple 'Check' won't suffice:
