@@ -6,7 +6,7 @@ After=systemd-tmpfiles-setup.service
 [Service]
 Type=notify
 PIDFile=%t/php-fpm/php-fpm.pid
-ExecStart=/usr/bin/php-fpm --nodaemonize --php-ini %E/php/php.ini --fpm-config %E/php/php-fpm.conf
+ExecStart=/usr/bin/php-fpm --nodaemonize --prefix %h/.local --php-ini %E/php/php.ini --fpm-config %E/php/php-fpm.conf
 ExecReload=/bin/kill -USR2 $MAINPID
 
 [Install]
