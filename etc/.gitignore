@@ -8,8 +8,6 @@
 /ibus/
 /inkscape/
 /klavaro/
-/kritadisplayrc
-/kritarc
 /libreoffice/
 /mmtsa/
 /Mumble/
@@ -31,6 +29,11 @@
 /gtk-3.0/bookmarks
 /pipewire-media-session/
 /totem/
+
+# Krita:
+/karboncalligraphyrc
+/kritadisplayrc
+/kritarc
 
 # MTG Arena:
 /lutris/
