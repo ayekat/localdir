@@ -2,6 +2,9 @@
 # See http://qutebrowser.org/doc/help/settings.html for all available settings.
 # Written by ayekat on a sunny saturday afternoon in october 2017
 
+# Do not load autoconfig (configuration set at runtime):
+config.load_autoconfig(False)
+
 # GENERAL ======================================================================
 
 # Storage:
@@ -25,8 +28,11 @@ config.unbind('<Ctrl-Shift-n>', mode='normal')
 config.unbind('<Ctrl-n>', mode='normal')
 
 # Tabs:
-config.set('tabs.background', True)
 config.set('tabs.select_on_remove', 'prev')
+config.unbind('gJ', mode='normal')
+config.unbind('gK', mode='normal')
+config.bind('gj', 'tab-move +', mode='normal')
+config.bind('gk', 'tab-move -', mode='normal')
 
 # Navigation:
 config.set('hints.mode', 'letter')
@@ -44,7 +50,7 @@ config.bind('M', 'hint links spawn mpv {url}', mode='normal')
 config.set('editor.command', ['xvim', '{}'])
 config.set('input.insert_mode.auto_load', True)
 config.unbind('<Ctrl-v>', mode='normal')
-config.bind('I', 'enter-mode passthrough', mode='normal')
+config.bind('I', 'mode-enter passthrough', mode='normal')
 
 # Search:
 config.set('url.auto_search', 'dns')
