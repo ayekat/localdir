@@ -1,13 +1,27 @@
 #!/bin/sh -
 # Lists some statistics about the number of files in $HOME
 
-set -eu
+set -u
 
-HOME="${HOME:-$(getent passwd "$(id -un)" | cut -d : -f 6)}"
+readonly HOME=${HOME:-$(getent passwd "$(id -un)" | cut -d : -f 6)}
 
-n_nondots="$(find "$HOME" -maxdepth 1 -mindepth 1 -name '[^.]*' | wc -l)"
-n_dots="$(find "$HOME" -maxdepth 1 -mindepth 1 -name '.*' | wc -l)"
-n_all=$((n_nondots + n_dots))
+inlist()
+{
+	for e in $2; do
+		if [ "$1" = "$e" ]; then
+			return
+		fi
+	done
+	false
+}
+
+die()
+{
+	retval=$(($1)); shift
+	# shellcheck disable=SC2059
+	{ printf "$@"; echo; } >&2
+	exit $retval
+}
 
 prompt_delete() {
 	printf '\nDelete %s? [Y/n] ' "$1"
@@ -20,7 +34,10 @@ prompt_delete() {
 	esac
 }
 
-# statistics:
+# gather and show statistics:
+n_nondots=$(find "$HOME" -maxdepth 1 -mindepth 1 -name '[^.]*' | wc -l)
+n_dots=$(find "$HOME" -maxdepth 1 -mindepth 1 -name '.*' | wc -l)
+n_all=$((n_nondots + n_dots))
 cat <<- EOF
 total:        $n_all
 normal files: $n_nondots
@@ -28,30 +45,27 @@ $(printf '\033[1m')dotfiles:     $n_dots$(printf '\033[0m')
 
 EOF
 
-# list:
-if ! cd "$HOME"; then
-	echo "Could not cd into home directory ($HOME)" >&2
-	exit 1
+# list dotfiles:
+cd "$HOME" || die 1 'Could not cd into home directory (%s)' "$HOME"
+if ! ls -1d --color=auto .[!.]*; then
+	die 1 'Could not list files in home directory (%s)' "$HOME"
 fi
-ls -1d --color=auto .[!.]*
 
-# automatic decisions for specific directories:
-whitelist='anthy local pam_environment pki ssh'
-blacklist='ansible ansible_galaxy jitsi mozilla w3m zoom'
+# automatic decisions for specific files/directories:
+keeplist='.anthy .local .pam_environment .pki .ssh'
+deletelist='.ansible .ansible_galaxy .jitsi .mozilla .w3m .zoom'
 
 # delete:
 for d in .*; do
 	case "$d" in (.|..) continue ;; esac
-	for wd in $whitelist; do
-		if [ "$d" = ".$wd" ]; then
-			continue 2
-		fi
-	done
-	for bd in $blacklist; do
-		if [ "$d" = ".$bd" ]; then
-			echo y | prompt_delete "$d"
-			continue 2
-		fi
-	done
-	prompt_delete "$d"
+	if inlist "$d" "$keeplist"; then
+		# do not delete this file
+		continue
+	elif inlist "$d" "$deletelist"; then
+		# delete this file without asking
+		echo y | prompt_delete "$d"
+		continue
+	else
+		prompt_delete "$d"
+	fi
 done
