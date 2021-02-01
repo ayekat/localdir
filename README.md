@@ -35,7 +35,7 @@ detail, this means that the following environment variables are set:
 > * `~/.local/var` is technically not supposed to be on this level (as this is a
 >   variant of `/usr/local`), but for keeping it compact, I keep it here as
 >   well.
-> * Some applications unfortunately do not honour the XDG basedir specs, so I
+> * Some applications unfortunately do not honour the XDG basedir spec, so I
 >   additionally [set environment variables][file:pam_environment] or [write
 >   wrapper scripts][dir:wrappers]&mdash;or simply weep (see also [issue
 >   #7][issue:7]). The [*XDG Base Directory support*][aw:xdgsupport] article in
@@ -45,18 +45,19 @@ detail, this means that the following environment variables are set:
 Furthermore, the `$PATH` variable is expanded to contain the following
 locations:
 
-| Location                    | Description |
-| --------------------------- | --- |
-| `~/.local/bin`              | User-specific executables (not tracked) |
-| `~/.local/lib/dotfiles/bin` | User-specific executables provided by this repository |
-| `~/.local/lib/utils/bin`    | User-specific executables provided by the [utils][gh:utils] repository |
+| Location                         | Description                               |
+| -------------------------------- | ----------------------------------------- |
+| `~/.local/bin`                   | User-specific executables                 |
+| `~/.local/lib/dotfiles/wrappers` | User-specific wrappers                    |
 
 
-Usage
------
+Installation
+------------
 
-For using the dotfiles, I clone this repository to `~/.local`, and then create
-the symlink `~/.pam_environment → ~/.local/lib/dotfiles/pam_environment`.
+1. `git clone https://github.com/ayekat/dotfiles ~/.local`
+2. `ln -s .local/lib/dotfiles/pam_environment ~/.pam_environment`
+3. Re-login
+4. Profit!
 
 
 Assumptions
@@ -72,6 +73,11 @@ basic (headless) setup.
 `/usr/sbin`, `/sbin` and `/bin` are assumed to have [merged][an:usrmerge] into
 `/usr/bin` (note that this is a more extreme case of the [`/usr`
 merge][fdo:usrmerge]).
+
+Many private configuration files (e.g. mail configuration) reside in my external
+localdir repository, cloned to `$XDG_LIB_HOME/private` (if missing, there will
+be some dangling symlinks in `$XDG_CONFIG_HOME`, and the corresponding
+applications might not work properly).
 
 
 Policies
@@ -127,7 +133,6 @@ There are other, similar "experiments" out there:
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
 [file:pam_environment]: pam_environment
 [file:pkgbuild]: archlinux/PKGBUILD
-[gh:utils]: https://github.com/ayekat/utils
 [issue:7]: https://github.com/ayekat/dotfiles/issues/7
 [issue:8]: https://github.com/ayekat/dotfiles/issues/8
 [issue:12]: https://github.com/ayekat/dotfiles/issues/12
