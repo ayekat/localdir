@@ -10,7 +10,8 @@ x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/tg=telegramdesktop.desktop
-text/plain=pluma.desktop
+application/x-desktop=xvim.desktop
+text/plain=xvim.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
@@ -20,7 +21,8 @@ image/tiff=org.gnome.eog.desktop;
 image/x-ms-bmp=org.gnome.eog.desktop;
 image/x-nikon-nef=darktable.desktop;
 text/html=org.qutebrowser.qutebrowser.desktop;
-text/plain=pluma.desktop;
+application/x-desktop=xvim.desktop
+text/plain=xvim.desktop;
 video/x-matroska=mpv.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
