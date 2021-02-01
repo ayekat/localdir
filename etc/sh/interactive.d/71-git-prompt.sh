@@ -85,9 +85,9 @@ git_update()
 	# Status:
 	if [ -z "$git_bare" ]; then
 		git_status_body="$(echo "$git_status_full" | tail -n +2 | cut -c 1-2)"
-		if echo "$git_status_body" | grep '^.[M?ADRU]' >/dev/null; then
+		if echo "$git_status_body" | grep '^.[M?ADRUT]' >/dev/null; then
 			git_status='modified'
-		elif echo "$git_status_body" | grep '^[MADR]' >/dev/null; then
+		elif echo "$git_status_body" | grep '^[MADRT]' >/dev/null; then
 			git_status='staged'
 		fi
 		unset git_status_body
