@@ -8,9 +8,10 @@ readonly HOME=${HOME:-$(getent passwd "$(id -un)" | cut -d : -f 6)}
 inlist()
 {
 	for e in $2; do
-		if [ "$1" = "$e" ]; then
+		# shellcheck disable=SC2254
+		case "$1" in ($e)
 			return
-		fi
+		esac
 	done
 	false
 }
@@ -53,7 +54,7 @@ fi
 
 # automatic decisions for specific files/directories:
 keeplist='.anthy .local .pam_environment .pki .ssh'
-deletelist='.ansible .ansible_galaxy .jitsi .mozilla .w3m .zoom'
+deletelist='.ansible .ansible_galaxy .jitsi .mozilla .w3m .zoom .*_history'
 
 # delete:
 for d in .*; do
