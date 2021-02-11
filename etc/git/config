@@ -13,6 +13,7 @@
 	excludesfile = ~/.local/etc/git/ignore
 [commit]
 	verbose = true
+	gpgsign = true
 [push]
 	default = simple
 [pull]
