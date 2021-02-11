@@ -1,6 +1,7 @@
 [user]
 	name = ayekat
 	email = takeya@bluewin.ch
+	signingkey = FE8CF63AD2306FD41A5500E6DCD45EAF921A7822
 [includeIf "gitdir:~/adfinis/"]
 	path = ~/.local/etc/git/private/adfinis.config
 [color]
