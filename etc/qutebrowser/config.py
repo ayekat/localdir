@@ -23,6 +23,9 @@ config.set('new_instance_open_target', 'tab-silent')
 
 # CONTROL ======================================================================
 
+# Browser:
+config.unbind('<Ctrl-q>', mode='normal')
+
 # Windows:
 config.unbind('<Ctrl-Shift-n>', mode='normal')
 config.unbind('<Ctrl-n>', mode='normal')
