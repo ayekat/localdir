@@ -1,9 +1,3 @@
-[user]
-	name = ayekat
-[include]
-	path = ~/.local/etc/git/private/zuepfe.config
-[includeIf "gitdir:/home/martinwe/"]
-	path = ~/.local/etc/git/private/adfinis.config
 [color]
 	status = auto
 	diff = auto
@@ -13,10 +7,13 @@
 	excludesfile = ~/.local/etc/git/ignore
 [commit]
 	verbose = true
-	gpgsign = true
 [push]
 	default = simple
 [pull]
 	ff = only
 [merge]
 	tool = vimdiff
+[include]
+	path = ~/.local/etc/git/private/zuepfe.config
+[includeIf "gitdir:/home/martinwe/"]
+	path = ~/.local/etc/git/private/adfinis.config
