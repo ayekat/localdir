@@ -2,7 +2,7 @@
 # * Swap left and right mouse button;
 # * Make sure that the touchpad is disabled.
 
-if have xinput; then
+if command -v xinput >/dev/null; then
 (
 	tpps_x230='TPPS/2 IBM TrackPoint'
 	tpps_x390='Elan TrackPoint'

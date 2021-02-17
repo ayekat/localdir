@@ -1,12 +1,6 @@
 # Profile for karuiwm. Sourced by karuiwm when starting up.
 # Written by ayekat on a sunny but cold Monday noon in November 2020.
 
-have() {
-	for c in "$@"; do
-		command -v "$c" >/dev/null || return 1
-	done
-}
-
 if [ -d "$XDG_CONFIG_HOME"/karuiwm/profile.d ]; then
 	for f in "$XDG_CONFIG_HOME"/karuiwm/profile.d/?*.sh; do
 		if [ -r "$f" ]; then
