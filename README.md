@@ -120,9 +120,10 @@ have a clean home directory).
 
 There are other, similar "experiments" out there:
 
-* https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout)
+* https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout;
+  see also [The `~/.local` Convention][localconv]).
 * https://github.com/roosemberth/dotfiles (semi-fork of this repo, adapted for
-  NixOS)
+  NixOS).
 
 
 [an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
@@ -136,4 +137,5 @@ There are other, similar "experiments" out there:
 [issue:7]: https://github.com/ayekat/dotfiles/issues/7
 [issue:8]: https://github.com/ayekat/dotfiles/issues/8
 [issue:12]: https://github.com/ayekat/dotfiles/issues/12
+[localconv]: https://gist.github.com/Earnestly/84cf9670b7e11ae2eac6f753910efebe
 [man:hier]: http://linux.die.net/man/7/hier
