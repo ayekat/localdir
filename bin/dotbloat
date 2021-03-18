@@ -53,7 +53,7 @@ if ! ls -1d --color=auto .[!.]*; then
 fi
 
 # automatic decisions for specific files/directories:
-keeplist='.anthy .local .pam_environment .pki .ssh'
+keeplist='.GA_ClientID .ICAClient .anthy .exoscale .local .pam_environment .pki .ssh'
 deletelist='.ansible .ansible_galaxy .mozilla .w3m .*_history'
 
 # delete:
