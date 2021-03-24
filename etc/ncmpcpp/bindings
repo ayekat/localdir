@@ -247,6 +247,9 @@ def_key "l"
 #def_key "+"
 #  volume_up
 #
+def_key "l"
+  volume_up
+
 #def_key "left"
 #  previous_column
 #
@@ -261,6 +264,10 @@ def_key "h"
 #
 #def_key "-"
 #  volume_down
+#
+def_key "h"
+  volume_down
+
 #
 #def_key ":"
 #  execute_command
