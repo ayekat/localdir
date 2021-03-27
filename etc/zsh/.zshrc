@@ -97,6 +97,7 @@ function build_prompt() #{{{
 		build_watched_prompt "$HOME/.local" 'd'
 		build_watched_prompt "$HOME/.local/lib/private" 'L'
 		build_watched_prompt "$XDG_STATE_HOME/pass" 'p'
+		build_watched_prompt "$XDG_STATE_HOME/totp" 't'
 		if ! $watched_clean; then
 			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
 		fi
