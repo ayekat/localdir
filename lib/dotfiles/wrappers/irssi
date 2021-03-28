@@ -13,7 +13,7 @@ IRSSI_CONFIG="$XDG_CONFIG_HOME/irssi/config"
 IRSSI_CONFIG_REAL="$XDG_RUNTIME_DIR/irssi/irssi_config"
 
 # Get password:
-if ! irssi_password=$(pass show 'social/chat/irc/ayekat@znc.zuepfe.net'); then
+if ! irssi_password=$(pass show 'services/znc.zuepfe.net/ayekat'); then
 	retval=$?
 	echo 'Pass failed.' >&2
 	exit $retval
