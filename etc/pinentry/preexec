@@ -1,0 +1,21 @@
+# sourced by /usr/bin/pinentry
+
+frontend_available()
+{
+	case "$1" in
+		(gnome3) l=libgcr-ui-3.so.1 ;;
+		(gtk-2) l=libgtk-x11-2.0.so.0 ;;
+		(qt) l=libQt5Gui.so ;;
+		(*) l=
+	esac
+	test -n "$l" && test -e "/usr/lib/$l"
+}
+
+for frontend in gnome3 gtk-2 qt; do
+	if frontend_available "$frontend"; then
+		exec pinentry-$frontend "$@"
+	fi
+done
+
+# No graphical frontend found; run with curses:
+exec pinentry-curses "$@"
