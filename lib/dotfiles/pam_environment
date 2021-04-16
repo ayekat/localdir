@@ -1,49 +1,18 @@
-# Environment variables set by pam(8) for a user session.
+# Environment variables set by PAM for a user session.
 #
-# This file fixes the variables responsible for making the XDG basedir spec work
-# (https://specifications.freedesktop.org/basedir-spec/basedir-spec-latest.html)
-# and does not set any other environment variables, as it is rather cumbersome
-# to adopt changes herein. Other environment variables are set in the shell
-# scripts' respective startup files (.zprofile, .bash_profile, ...).
-#
-# Written by ayekat on a cold afternoon in november 2016.
+# This file is only read by pam_env(8) if it is loaded with user_readenv=1. We
+# use it for a single purpose: to set XDG_CONFIG_HOME, so that
+# systemd-environment-d-generator(8) loads the environment.d(5) files from the
+# right place (this solves the chicken-or-egg problem for setting
+# XDG_CONFIG_HOME).
 
-# Ugly workaround for Debian (as they ship an ancient version of PAM)
+# Ugly workaround for Debian (as they ship an ancient version of PAM):
 HOME                  DEFAULT="/home/@{PAM_USER}" OVERRIDE="@{HOME}"
 
-# XDG base directory specification (XDG_{LIB,LOG}_HOME are non-standard!)
-XDG_CACHE_HOME        DEFAULT="${HOME}/.local/var/cache"
+# Set XDG_CONFIG_HOME:
 XDG_CONFIG_HOME       DEFAULT="${HOME}/.local/etc"
-XDG_DATA_HOME         DEFAULT="${HOME}/.local/share"
-XDG_STATE_HOME        DEFAULT="${HOME}/.local/var/lib"
-XDG_LIB_HOME          DEFAULT="${HOME}/.local/lib"
-XDG_LOG_HOME          DEFAULT="${HOME}/.local/var/log"
-LD_LIBRARY_PATH       DEFAULT="${XDG_LIB_HOME}"
 
-# Fix various applications to respect XDG
-AZURE_CONFIG_DIR      DEFAULT="${XDG_STATE_HOME}/azure"
-CARGO_HOME            DEFAULT="${XDG_STATE_HOME}/cargo"
-CHECKUPDATES_DB       DEFAULT="${XDG_STATE_HOME}/pacman/checkupdates"
-GIMP2_DIRECTORY       DEFAULT="${XDG_STATE_HOME}/gimp"
-GNUPGHOME             DEFAULT="${XDG_STATE_HOME}/gnupg"
-GTK2_RC_FILES         DEFAULT="${XDG_CONFIG_HOME}/gtk-2.0/gtkrc-2.0"
-LESSHISTFILE          DEFAULT="${XDG_STATE_HOME}/lesshist"
-MYSQL_HISTFILE        DEFAULT="${XDG_STATE_HOME}/mysql_history"
-NETHACKOPTIONS        DEFAULT="\@${XDG_CONFIG_HOME}/nethack/nethackrc"
-NPM_CONFIG_USERCONFIG DEFAULT="${XDG_CONFIG_HOME}/npm/npmrc"
-NLTK_DATA             DEFAULT="${XDG_STATE_HOME}/nltk"
-PASSWORD_STORE_DIR    DEFAULT="${XDG_STATE_HOME}/pass"
-PGPPATH               DEFAULT="${GNUPGHOME}"
-PYTHONSTARTUP         DEFAULT="${XDG_LIB_HOME}/python/startup.py"
-RANDFILE              DEFAULT="${XDG_CACHE_HOME}/rnd"
-SQLITE_HISTORY        DEFAULT="${XDG_STATE_HOME}/sqlite_history"
-TASKDATA              DEFAULT="${XDG_STATE_HOME}/task"
-TASKRC                DEFAULT="${XDG_CONFIG_HOME}/task/taskrc"
-TERMINFO              DEFAULT="${XDG_DATA_HOME}/terminfo"
-TMUX_TMPDIR           DEFAULT="${XDG_RUNTIME_DIR}"
-VAULT_CLIENT_CONFIG   DEFAULT="${XDG_STATE_HOME}/vault-client/vaultrc"
-VIMINIT               DEFAULT="source \$XDG_CONFIG_HOME/vim/vimrc"
-WINEPREFIX            DEFAULT="${XDG_STATE_HOME}/wine/default"
-XAUTHORITY            DEFAULT="${XDG_RUNTIME_DIR}/Xauthority"
-XINITRC               DEFAULT="${XDG_CONFIG_HOME}/X11/xinitrc"
+# Set ZDOTDIR:
 ZDOTDIR               DEFAULT="${XDG_CONFIG_HOME}/zsh"
+
+# Any further environment variables are set with environment.d.
