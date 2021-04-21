@@ -27,5 +27,4 @@ alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 if [ "$(uname -n)" = 'srsyg20' ]; then
 	alias ssh='TERM=xterm-256color ssh '
 	. /etc/profile.d/vault.sh
-	. /etc/profile.d/vault-new.sh
 fi
