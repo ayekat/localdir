@@ -132,6 +132,7 @@ au BufRead,BufNewFile *.install setl filetype=sh
 au BufRead,BufNewFile *.l3 setl filetype=lisp
 au BufRead,BufNewFile *.dokuwiki setl filetype=dokuwiki
 au BufRead,BufNewFile *.hook,*.ini.j2 setl filetype=dosini
+au BufRead,BufNewFile *.mac setl filetype=maxima
 au BufRead,BufNewFile makepkg.conf setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/sh/* setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/git/config,**/.local/lib/private/git/*.config setl filetype=gitconfig
