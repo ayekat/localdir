@@ -2,12 +2,6 @@
 # Xinit ressource file for starting a stand-alone WM
 # Written by ayekat on a rainy day in october 2012
 
-have() {
-	for c in "$@"; do
-		command -v "$c" >/dev/null || return 1
-	done
-}
-
 # Set up logging:
 session_logdir="$XDG_LOG_HOME"/X11/xinit/"$DISPLAY"
 session_logfile="$session_logdir"/"$(date +%s)".log

@@ -2,7 +2,7 @@
 # FIXME We add a short delay because otherwise this isn't applied correctly (or
 # probably just too early). Have to find out why.
 
-if have setxkbmap; then
+if command -v setxkbmap >/dev/null; then
 	{
 		sleep 2
 		setxkbmap ayekat
