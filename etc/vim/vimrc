@@ -136,6 +136,7 @@ au BufRead,BufNewFile *.mac setl filetype=maxima
 au BufRead,BufNewFile makepkg.conf setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/sh/* setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/git/config,**/.local/lib/private/git/*.config setl filetype=gitconfig
+au BufRead,BufNewFile **/.local/etc/X11/xprofile setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/X11/Xresources.d/* setl filetype=xdefaults
 au BufRead,BufNewFile /var/tmp/ssh_config.* setl filetype=sshconfig
 
