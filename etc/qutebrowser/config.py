@@ -46,7 +46,7 @@ config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
 config.set('input.forward_unbound_keys', 'none')
 
 # Content:
-config.bind('m', 'spawn mpv {url}', mode='normal')
+config.bind('m', 'spawn mpv --x11-netwm=yes {url}', mode='normal')
 config.bind('M', 'hint links spawn mpv {hint-url}', mode='normal')
 
 # Editing:
