@@ -1,0 +1,3 @@
+#!/bin/sh -
+
+exec env HOME=$XDG_STATE_HOME/ansible unwrap ansible "$@"
