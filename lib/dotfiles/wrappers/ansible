@@ -1,3 +1,5 @@
 #!/bin/sh -
 
-exec env HOME=$XDG_STATE_HOME/ansible unwrap ansible "$@"
+mkdir -p "$XDG_CACHE_HOME/ansible"
+ln -s ~/.vault-token "$XDG_CACHE_HOME/ansible/.vault-token"
+exec env HOME="$XDG_CACHE_HOME"/ansible unwrap "${0##*/}" "$@"
