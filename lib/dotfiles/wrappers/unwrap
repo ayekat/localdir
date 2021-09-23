@@ -27,10 +27,11 @@ which()
 
 	IFS=:
 	for p in $PATH; do
-		if ! cmdpath="$(readlink -f "$p/$cmd")"; then
+		cmdpath=$p/$cmd
+		if ! cmdpath_resolved=$(readlink -f "$cmdpath"); then
 			continue
 		fi
-		case "$ignored" in (*:$cmdpath:*)
+		case "$ignored" in (*:$cmdpath:*|*:$cmdpath_resolved:*)
 			continue
 		esac
 		if [ -x "$cmdpath" ]; then
@@ -47,6 +48,7 @@ die()
 	if [ $retval -eq $E_INTERNAL ]; then
 		printf 'Internal error: ' >&2
 	fi
+	# shellcheck disable=SC2059
 	printf "$@" >&2
 	echo >&2
 	if [ $retval -eq $E_USER ]; then
