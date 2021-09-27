@@ -57,7 +57,7 @@ keeplist='.anthy .local .pam_environment .pki .ssh'
 deletelist='.ansible .ansible_galaxy .mozilla .w3m .*_history'
 case "$(uname -n)" in
 	(gurke) keeplist="$keeplist .GA_ClientID .ICAClient" ;;
-	(srsyg*) keeplist="$keeplist .bash_login .vault-token" ;;
+	(srsyg*|vm-adfch-*) keeplist="$keeplist .bash_login .vault-token" ;;
 esac
 
 # delete:

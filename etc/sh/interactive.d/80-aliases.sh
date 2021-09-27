@@ -24,7 +24,8 @@ alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align 
 alias mpv='mpv --x11-netwm=yes'
 alias todo='grep -n -R "TODO\|FIXME\|XXX" .'
 
-if [ "$(uname -n)" = 'srsyg20' ]; then
+case "$(uname -n)" in (srsyg*|vm-adfch-*)
 	alias ssh='TERM=xterm-256color ssh '
+	# shellcheck disable=SC1091
 	. /etc/profile.d/vault.sh
-fi
+esac
