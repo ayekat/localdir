@@ -1,0 +1,10 @@
+#!/bin/sh -
+
+# Run slock on gurke, where we care about privacy; otherwise use xtrlock:
+if [ "$(uname -n)" = 'gurke' ]; then
+	dunstctl set-paused true
+	slock
+	dunstctl set-paused false
+else
+	xtrlock
+fi
