@@ -64,7 +64,9 @@
     # the top and down respectevly.
     # The width can be negative.  In this case the actual width is the
     # screen width minus the width defined in within the geometry option.
-    geometry = "300x10-0+15"
+    #geometry = "300x10-0+15"
+    origin = top-right
+    offset = 0x15
 
     # Shrink window if it's smaller than the width.  Will be ignored if
     # width is 0.
@@ -149,26 +151,6 @@
 
     frame_width = 1
     frame_color = "#AFD700"
-
-[shortcuts]
-    # Shortcuts are specified as [modifier+][modifier+]...key
-    # Available modifiers are "ctrl", "mod1" (the alt-key), "mod2",
-    # "mod3" and "mod4" (windows-key).
-    # Xev might be helpful to find names for keys.
-
-    # Close notification.
-    close = mod4+semicolon
-
-    # Close all notifications.
-    #close_all = ctrl+shift+space
-
-    # Redisplay last message(s).
-    # On the US keyboard layout "grave" is normally above TAB and left
-    # of "1".
-    history = mod4+shift+semicolon
-
-    # Context menu.
-    context = ctrl+mod4+semicolon
 
 [urgency_low]
     # IMPORTANT: colors have to be defined in quotation marks.
