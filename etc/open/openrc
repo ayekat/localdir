@@ -45,3 +45,4 @@ video/x-matroska       : mpv
 
 # if URI, map protocol to MIME:
 http                   : text/html
+https                  : text/html
