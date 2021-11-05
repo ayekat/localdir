@@ -30,8 +30,8 @@ detail, this means that the following environment variables are set:
 | `XDG_LOG_HOME`    | `~/.local/var/log`   |
 
 > ### Notes
-> * `XDG_LIB_HOME`, `XDG_LOG_HOME` and `XDG_STATE_HOME` are non-standard, but
->   they are nevertheless necessary for representing the FHS locally.
+> * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
+>   nevertheless necessary for representing the FHS locally.
 > * `~/.local/var` is technically not supposed to be on this level (as this is a
 >   variant of `/usr/local`), but for keeping it compact, I keep it here as
 >   well.
