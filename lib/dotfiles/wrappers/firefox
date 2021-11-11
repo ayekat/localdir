@@ -19,4 +19,4 @@ readonly MOZDIR XDG_DOWNLOAD_DIR MOZDIR_DOWNLOAD_DIR
 mkdir -p "$MOZDIR"
 ln -sf "$XDG_DOWNLOAD_DIR" "$MOZDIR_DOWNLOAD_DIR"
 
-exec env HOME="$MOZDIR" unwrap firefox "$@"
+exec env HOME="$MOZDIR" MOZ_USE_XINPUT2=1 unwrap firefox "$@"
