@@ -1,15 +1,17 @@
 dotfiles
 ========
 
-This is my collection of user/application settings ("dotfiles") and personal
-scripts. They are mostly adapted to my personal needs, and some scripts make a
-few [assumptions](#assumptions) about the environment that may not necessarily
-be considered "standard", so it is **not recommended** to just copy-paste them
-as-is.
+This repository contains my personal user setup, with scripts and application
+configuration, called "dotfiles" for mostly historical reasons.
 
-Nevertheless, I try to keep them as clean and non-WTF as possible, and people
-are invited to take a look at them, get ideas for their own dotfiles, and drop
-comments, suggestions, questions and bug reports if something seems odd.
+As I have some very specific requirements for what my work environment should
+behave like, the setup here mostly likely differs quite significantly from what
+you might expect in a "normal" environment. It is **not recommended** to just
+copy-paste files from in here as-is.
+
+Readers are, however, invited to take a look at it, get ideas for their own
+setup, and drop comments, suggestions, questions and bug reports if something
+feels odd&mdash;beyond the intended base oddity level, of course.
 
 
 XDG/FHS
@@ -17,8 +19,8 @@ XDG/FHS
 
 My goal is to keep the top-level user home directory as clean as possible by
 honouring the [XDG base directory specification][fdo:xdgspec], adapted to
-recreate the [Linux file system hierarchy][man:hier] (FHS) under `~/.local`. In
-detail, this means that the following environment variables are set:
+recreate the [Linux file system hierarchy][man:hier] (FHS) under `~/.local`.
+This is achieved by setting the environment variables as follows:
 
 | Variable          | Location             |
 | ----------------- | -------------------- |
@@ -32,15 +34,14 @@ detail, this means that the following environment variables are set:
 > ### Notes
 > * `XDG_LIB_HOME` and `XDG_LOG_HOME` are non-standard, but they are
 >   nevertheless necessary for representing the FHS locally.
-> * `~/.local/var` is technically not supposed to be on this level (as this is a
->   variant of `/usr/local`), but for keeping it compact, I keep it here as
->   well.
+> * `~/.local/var` is technically not supposed to be on this level (`~/.local`
+>   is the user version of `/usr/local`), but for keeping it compact, I put it
+>   here anyway.
 > * Some applications unfortunately do not honour the XDG basedir spec, so I
 >   additionally [set environment variables][file:pam_environment] or [write
->   wrapper scripts][dir:wrappers]&mdash;or simply weep (see also [issue
->   #7][issue:7]). The [*XDG Base Directory support*][aw:xdgsupport] article in
->   the Arch Linux wiki contains a list of applications that honour the specs
->   (or can be made to do so).
+>   wrapper scripts][dir:wrappers]. Unfortunately, there are still some [open
+>   issues][issue:7]). See the [*XDG Base Directory*][aw:xdg] article in the
+>   Arch Linux wiki for more information on this.
 
 Furthermore, the `$PATH` variable is expanded to contain the following
 locations:
@@ -51,24 +52,21 @@ locations:
 | `~/.local/lib/dotfiles/wrappers` | User-specific wrappers                    |
 
 
-Installation
+Requirements
 ------------
 
-1. `git clone https://github.com/ayekat/dotfiles ~/.local`
-2. `ln -s .local/lib/dotfiles/pam_environment ~/.pam_environment`
-3. Re-login
-4. Profit!
+A POSIX-compatible shell must be available and configured to source the
+configuration files in `~/.local/etc/sh` as follows:
 
+ * `profile` › `interactive` › `login` if it's an interactive login
+   shell;
+ * `interactive` if it's a regular interactive shell;
 
-Assumptions
------------
+This repository provides configuration for **ZSH** that does it already. Other
+shells must be configured separately. See [Appendix B](#appendix-b-zsh) if ZSH
+is desired but not available.
 
-The dotfiles have primarily been used on Arch Linux (and for limited use-cases
-on Debian, too, although there are minor issues with tmux and [major issues with
-PAM][issue:8], both related to Debian shipping antique versions of software).
-
-Minimally expected software is **git**, **PAM**, **systemd** and **zsh**, for a
-basic (headless) setup.
+### Assumptions
 
 `/usr/sbin`, `/sbin` and `/bin` are assumed to have [merged][an:usrmerge] into
 `/usr/bin` (note that this is a more extreme case of the [`/usr`
@@ -80,55 +78,134 @@ be some dangling symlinks in `$XDG_CONFIG_HOME`, and the corresponding
 applications might not work properly).
 
 
-Policies
---------
+Installation
+------------
 
-* Applications whose configuration is mixed up with other data (or generally not
-  supposed to be manually edited) is put into `XDG_STATE_HOME`, reason being
-  that I would like to track `XDG_CONFIG_HOME` with git as much as possible.
-  This of course only works for applications that allow configuring the location
-  of "config" files.
+Depending on what is provided by the system, the setup procedure might look a
+little different.
 
-* Application history generally goes into `XDG_STATE_HOME` (see commit f1147a9
-  for the reasoning). The only things that go into `XDG_LOG_HOME` are "real"
-  logs, i.e. data that is no longer read and used by the application itself. The
-  only things that go into `XDG_CACHE_HOME` are files that are non-essential and
-  can quickly be regenerated by the application, if needed (which is both not
-  the case for history files).
+### Method 1: With `~/.pam_environment`
 
-* Shell-agnostic configuration should happen in `XDG_CONFIG_HOME/sh`. This
-  allows other, non-zsh shells to work correctly, too, without having to
-  duplicate all the shell configuration. The shell-agnostic configuration is
-  stored in `environment`, `login` and `config` as well as `profile` and the
-  `profile.d` directory for application-specific profile snippets, while only
-  shell-specific configuration (prompts, input, history, etc.) should happen in
-  zsh's config.
+If PAM is configured to load `pam_env.so` with `user_readenv=1`, the following
+will work:
 
-* Although shell aliases are generally more lightweight than wrapper scripts,
-  wrapper scripts allow being used from any environment (not just interactive
-  shells). So it mostly depends on the application whether we create aliases or
-  wrapper scripts for them.
+1. `git clone https://github.com/ayekat/dotfiles ~/.local`;
+2. `ln -s .local/lib/dotfiles/pam_environment ~/.pam_environment`;
+3. Re-login;
+4. Profit!
+
+**Warning: `user_readenv` support is deprecated and will likely disappear in a
+future version. See [this issue][issue:32] for more details.**
+
+### Method 2: Without `~/.pam_environment`, with ZSH
+
+1. `git clone https://github.com/ayekat/dotfiles ~/.local`;
+2. `ln -s .local/lib/dotfiles/config ~/.config`;
+3. `ln -s .local/etc/zsh/.zshenv ~/.zshenv`;
+4. Re-login;
+5. Profit!
 
 
-Miscellaneous
--------------
+Appendix A: Rules
+-----------------
 
-As noted above, these dotfiles represent my personal setup&mdash;nevertheless, I
-encourage people to take a look at it, mainly for learning how applications can
-be made to (somewhat) conform to the XDG base directory specifications (and thus
-have a clean home directory).
+ * If an application does not respect the XDG base directory specification at
+   all, we try to fix it either via environment variable in
+   `$XDG_CONFIG_HOME/environment.d/xdg.conf` (if possible), or through a wrapper
+   script. If such an application mixes configuration and state information, we
+   cannot reasonably track the configuration in Git anyway, so we make it drop
+   its data into `XDG_STATE_HOME`.
 
-There are other, similar "experiments" out there:
+ * Commandline history files go into `XDG_STATE_HOME`, and not elsewhere.
+   `XDG_LOG_HOME` only contains files that are not read back by the application,
+   and `XDG_CACHE_HOME` only contains files that can be easily regenerated; both
+   do not apply to history files.
 
-* https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout;
-  see also [The `~/.local` Convention][localconv]).
-* https://github.com/roosemberth/dotfiles (semi-fork of this repo, adapted for
-  NixOS).
+ * Shell-agnostic configuration should happen in `XDG_CONFIG_HOME/sh`. This
+   allows other, non-zsh shells to work correctly, too, without having to
+   duplicate all the shell configuration. The shell-agnostic configuration is
+   stored in `sh/config`, `sh/profile`, `sh/interactive` and `sh/login` (plus
+   the respective `.d` subdirectories), while only shell-specific configuration
+   should happen in their respective shell's configuration.
+
+ * Although shell aliases are generally more lightweight than wrapper scripts,
+   wrapper scripts allow being used from any environment (not just interactive
+   shells). So it mostly depends on the application and usecase whether we
+   create an aliase or a wrapper script for something.
+
+
+Appendix B: ZSH
+---------------
+
+This section addresses some cases where ZSH is not available as a login shell
+(or not available at all), and you lack the necessary permissions on the system
+to fix that properly.
+
+### Not available as login shell
+
+If ZSH is installed, but for some reason `chsh -s /usr/bin/zsh` does not work,
+the following should fix that (assuming Bash is the login shell):
+
+```
+# ~/.bash_login
+ZDOTDIR=~/.local/etc/zsh zsh -l && exit
+```
+
+It is not recommended to use `exec zsh`, as any issue with the ZSH invocation
+might lead to you getting locked out.
+
+### Not available at all
+
+If ZSH isn't installed on the system, do not despair! ZSH can be built and
+installed into your home directory.
+
+To do so, ensure that the necessary build tools are available (`make` and `gcc`,
+and the ncurses development headers if packaged separately).
+
+> If building on the target system is not an option, just ensure that your build
+> environment provides ncurses and glibc installations that are ABI-compatible
+> with what is installed on the target system, and the paths (home directory
+> location) are the same. The easiest way is probably by building a local VM
+> that resembles the target system.
+
+Get the ZSH source, then build and install ZSH as follows:
+
+1. `~/.configure --prefix="$HOME/.local/opt/foobar"` (replace `foobar` by
+   something more suitable);
+2. `make`
+3. `make install`
+
+If all went well, ZSH is now installed in `~/.local/opt/foobar`. Copy that
+directory to the target system at the same location. You may now invoke
+`~/.local/opt/foobar/bin/zsh`.
+
+To set it as a "login shell", the following should work (again, assuming Bash as
+the login shell):
+
+```
+# ~/.bash_login
+export PATH=~/.local/opt/foobar/bin:$PATH
+ZDOTDIR=~/.local/etc/zsh zsh -l && exit
+```
+
+Note that you can also just invoke `~/.local/opt/foobar/bin/zsh` directly
+without extending `$PATH` like that, but that will look a bit ugly in the
+process list.
+
+
+Links
+-----
+
+ * [XDG Base Directory - ArchWiki][aw:xdg]
+ * https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout;
+   see also [The `~/.local` Convention][localconv]).
+ * https://github.com/roosemberth/dotfiles (semi-fork of this repo, adapted for
+   NixOS).
 
 
 [an:usrmerge]: https://www.archlinux.org/news/binaries-move-to-usrbin-requiring-update-intervention/
 [aw:pam]: https://wiki.archlinux.org/index.php/PAM
-[aw:xdgsupport]: https://wiki.archlinux.org/index.php/XDG_Base_Directory_support
+[aw:xdg]: https://wiki.archlinux.org/index.php/XDG_Base_Directory
 [dir:wrappers]: lib/dotfiles/bin
 [fdo:xdgspec]: https://specifications.freedesktop.org/basedir-spec/latest/index.html
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
@@ -137,5 +214,6 @@ There are other, similar "experiments" out there:
 [issue:7]: https://github.com/ayekat/dotfiles/issues/7
 [issue:8]: https://github.com/ayekat/dotfiles/issues/8
 [issue:12]: https://github.com/ayekat/dotfiles/issues/12
+[issue:32]: https://github.com/ayekat/dotfiles/issues/32
 [localconv]: https://gist.github.com/Earnestly/84cf9670b7e11ae2eac6f753910efebe
 [man:hier]: http://linux.die.net/man/7/hier
