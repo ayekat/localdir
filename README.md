@@ -168,12 +168,11 @@ and the ncurses development headers if packaged separately).
 > location) are the same. The easiest way is probably by building a local VM
 > that resembles the target system.
 
-Get the ZSH source, then build and install ZSH as follows:
-
-1. `~/.configure --prefix="$HOME/.local/opt/foobar"` (replace `foobar` by
+1. Get the ZSH source and `cd` into the project directory;
+2. `./configure --prefix="$HOME/.local/opt/foobar"` (replace `foobar` by
    something more suitable);
-2. `make`
-3. `make install`
+3. `make`
+4. `make install`
 
 If all went well, ZSH is now installed in `~/.local/opt/foobar`. Copy that
 directory to the target system at the same location. You may now invoke
