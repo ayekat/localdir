@@ -1,26 +1,3 @@
 #!/bin/sh -
 
-run_slock()
-{
-	dunstctl set-paused true
-	slock
-	dunstctl set-paused false
-}
-
-run_xtrlock()
-{
-	xtrlock
-}
-
-if [ "$(uname -n)" = 'gurke' ]; then
-	LOCKS='slock xtrlock'
-else
-	LOCKS='xtrlock slock'
-fi
-
-for l in $LOCKS; do
-	if command -v "$l" >/dev/null; then
-		run_"$l"
-		exit
-	fi
-done
+exec xtrlock

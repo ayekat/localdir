@@ -7,11 +7,6 @@ karuibar.backlight.device: intel_backlight
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
-#elif defined SRVR_gurke
-karuibar.xgap    : 150
-karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
-                   time_date, time_time, capslock
-karuibar.backlight.device: intel_backlight
 #endif
 
 karuibar.foreground  : termfg

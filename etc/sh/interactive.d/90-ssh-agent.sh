@@ -6,7 +6,6 @@ if command -v ssh-add >/dev/null; then
 
 	# Define which key to be auto-loaded if necessary:
 	case "$(uname -n)" in
-		(gurke) _ssh_id=id_rsa ;;
 		(chirschi) _ssh_id=id_ed25519 ;;
 	esac
 	if [ -z "${_ssh_id:-}" ]; then
