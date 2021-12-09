@@ -7,10 +7,6 @@ karuibar.backlight.device: intel_backlight
 # else
 karuibar.modules : stdin; cpu, time_date, time_time, capslock
 # endif
-#elif defined SRVR_kiwi
-karuibar.xgap    : 150
-karuibar.modules : mpd, network, memory, cpu, \
-                   time_date, time_time, capslock
 #elif defined SRVR_gurke
 karuibar.xgap    : 150
 karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
@@ -27,18 +23,16 @@ karuibar.bottom      : false
 karuibar.stdin.foreground     : #00D7FF
 karuibar.stdin.background     : #005F5F
 
-karuibar.mpd_gnu.host         : mpd.gnugen.ch
-
 karuibar.battery.acpi_use_real: true
-karuibar.battery_slice.id     : BAT1
-karuibar.battery_slice.acpi_use_real: true
 
 karuibar.time_date.format     : %Y-%m-%d
 karuibar.time_date.foreground : white
 karuibar.time_date.background : lightblack
+
 karuibar.time_time.format     : %H:%M
 karuibar.time_time.foreground : lightblack
 karuibar.time_time.background : white
+
 karuibar.time_utc.format      : %H:%M
 karuibar.time_utc.foreground  : white
 karuibar.time_utc.background  : lightblack
