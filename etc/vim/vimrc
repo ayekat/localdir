@@ -74,7 +74,6 @@ if hostname() !~ '^\(vm-adfch-\|srsyg\).\+'
 	NeoBundle 'milad14000/vim_p4'
 	NeoBundle 'mqudsi/meson.vim'
 	NeoBundle 'nfnty/vim-nftables'
-	NeoBundle 'sjl/gundo.vim'
 	NeoBundle 'vim-scripts/bbcode'
 	NeoBundle 'tangledhelix/vim-kickstart'
 endif
@@ -431,12 +430,6 @@ set cmdwinheight=10
 
 " Search for tags file recursively, up to root:
 set tags=./tags;$HOME
-
-" Save a file as root (WARNING: breaks file undo history):
-command! Rw :execute ':silent w !sudo tee % > /dev/null' | :edit!
-
-" Undo-tree:
-map <leader>u :GundoToggle<LF>
 
 " }}}
 " ------------------------------------------------------------------------------
