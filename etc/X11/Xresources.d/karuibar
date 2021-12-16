@@ -1,12 +1,12 @@
-#if defined SRVR_chirschi
-# if DISPLAY_NUM == 0
+#if DISPLAY_NUM == 10
+! Xephyr setup (WM development):
+karuibar.modules : stdin; cpu, time_date, time_time, capslock
+#else
+! normal setup:
 karuibar.xgap    : 150
 karuibar.modules : mpd, network, memory, cpu, battery, backlight, \
                    time_date, time_time, capslock
 karuibar.backlight.device: intel_backlight
-# else
-karuibar.modules : stdin; cpu, time_date, time_time, capslock
-# endif
 #endif
 
 karuibar.foreground  : termfg
