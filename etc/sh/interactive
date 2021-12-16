@@ -2,11 +2,14 @@
 # Written by ayekat on a warm summer day in 2013.
 
 # Load snippets in interactive.d:
-if [ -d "$XDG_CONFIG_HOME/sh/interactive.d" ]; then
-	for snippet in "$XDG_CONFIG_HOME/sh/interactive.d/"*.sh; do
-		if [ -r "$snippet" ]; then
-			. "$snippet"
-		fi
-	done
-	unset snippet
-fi
+for shconfig in "$XDG_CONFIG_HOME"/sh "$XDG_LIB_HOME"/private/sh; do
+	if [ -d "$shconfig/interactive.d" ]; then
+		for snippet in "$shconfig/interactive.d/"*.sh; do
+			if [ -r "$snippet" ]; then
+				. "$snippet"
+			fi
+		done
+		unset snippet
+	fi
+done
+unset shconfig
