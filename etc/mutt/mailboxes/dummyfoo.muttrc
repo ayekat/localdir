@@ -1,0 +1,6 @@
+mailboxes "+dummyfoo/INBOX" \
+          "+dummyfoo/INBOX/subcategory1" \
+          "+dummyfoo/INBOX/subcategory2" \
+          "+dummyfoo/Draft" \
+          "+dummyfoo/Sent" \
+          "+dummyfoo/Trash"

@@ -1,0 +1,171 @@
+# BASE =========================================================================
+
+# IMAP:
+set mbox_type = Maildir
+set mailcap_path = "$XDG_CONFIG_HOME/mailcap"
+set certificate_file = "$XDG_CACHE_HOME/mutt/certificates"
+set header_cache = "$XDG_CACHE_HOME/mutt/headers"
+set message_cachedir = "$XDG_CACHE_HOME/mutt/bodies"
+set tmpdir = "$XDG_CACHE_HOME/mutt/tmp"
+set mail_check = 15
+set mark_old = no
+set beep = no
+set beep_new = yes
+
+# SMTP:
+set sendmail = "/usr/bin/env msmtp"
+set envelope_from = yes
+
+# GPG:
+source /etc/Muttrc.gpg.dist
+set crypt_use_gpgme = yes # CVE-2018-12020
+set pgp_autosign = yes
+set pgp_use_gpg_agent = yes
+set pgp_self_encrypt = yes
+
+# ACCOUNTS =====================================================================
+
+# Folders:
+set folder = "$XDG_STATE_HOME/mail/"
+
+# Here we would define the account-specific configuration, but for privacy
+# reasons, I'm keeping this in a private repository.
+source $XDG_LIB_HOME/private/mutt/private.muttrc
+# To still give readers an example of what I'm doing, this repo contains a dummy
+# account setup that is not actually used. Example code from here:
+
+## Define the mailboxes (headers here, account-specific information in the
+## respective files):
+#mailboxes "+DummyFoo =================="
+#source $XDG_CONFIG_HOME/mutt/mailboxes/dummyfoo.muttrc
+#mailboxes "+DummyBar =================="
+#source $XDG_CONFIG_HOME/mutt/mailboxes/dummybar.muttrc
+#
+## Default account:
+#source $XDG_CONFIG_HOME/mutt/accounts/dummyfoo.muttrc
+#
+## Account hooks (read corresponding account config when changing into an
+## associated directory):
+#folder-hook dummyfoo/* "source $XDG_CONFIG_HOME/mutt/accounts/dummyfoo.muttrc"
+#folder-hook dummybar/* "source $XDG_CONFIG_HOME/mutt/accounts/dummybar.muttrc"
+#
+## Keybindings for quickly switching between inboxes:
+#macro index,pager gf '<change-folder>=dummyfoo/INBOX<Enter>' 'go to dummyfoo inbox'
+#macro index,pager gf '<change-folder>=dummybar/INBOX<Enter>' 'go to dummybar inbox'
+
+# VIEW =========================================================================
+
+# Try to show text-version of mail first:
+alternative_order text/plain text/enriched text/html
+
+# Automatically dump HTML mails as text (requires a `copiousoutput` entry in
+# mailcap):
+auto_view text/html
+
+# Don't scroll off the edge of a menu (unless there are less entries):
+set menu_move_off = no
+
+# Give at least one line of context around an entry in a menu:
+set menu_context = 1
+
+# COMPOSE ======================================================================
+
+# Headers:
+set edit_headers = yes
+set use_from = yes
+
+# Start:
+set autoedit = yes
+set fast_reply = yes
+
+# Editing:
+set editor = "$VISUAL"
+set send_charset = "utf-8"
+set date_format = "%a, %b %d, %Y at %H:%M:%S %Z"
+
+# NAVIGATE =====================================================================
+
+set sleep_time = 0
+
+# Folders:
+macro index,pager c '<change-folder>?<toggle-mailboxes>' 'open a different folder'
+
+# Sidebar:
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index O sidebar-open
+bind index,pager B sidebar-toggle-visible
+
+# Scrolling:
+bind pager k previous-line
+bind pager j next-line
+bind index k previous-entry
+bind index j next-entry
+bind index,pager \Cu half-up
+bind index,pager \Cd half-down
+macro index gg '<first-entry>' 'move to the first entry'
+bind index G last-entry
+macro pager gg '<top>' 'jump to the top of the message'
+bind pager G bottom
+bind pager K previous-entry
+bind pager J next-entry
+
+# MANAGE =======================================================================
+
+# Trash:
+folder-hook . 'macro index,pager <Delete> "<save-message>$trash<Enter>y\$y"'
+folder-hook Trash$ 'macro index,pager <Delete> "<delete-message>"'
+bind index,pager d noop
+
+# Reply:
+bind index,pager r group-reply
+bind index,pager L list-reply
+
+# LOOK =========================================================================
+
+# Index:
+set sort = threads
+set sort_aux = last-date-received
+set menu_scroll = yes
+set index_format = "%{%Y-%m-%d (%a) %H:%M}│%Z│%-30.30L│%?l?%4l&%4c?│%s"
+
+# Sidebar:
+set sidebar_visible = yes
+set sidebar_short_path
+set sidebar_folder_indent
+set sidebar_indent_string = "  "
+set sidebar_divider_char = "│"
+set sidebar_delim_chars = "/"
+set mail_check_stats
+set sidebar_format = "%B %?N?(%N)?%* %S"
+
+# LOOK (COLOURS) ===============================================================
+
+# Index:
+color normal      default        default
+color hdrdefault  green          default
+color quoted      green          default
+color quoted1     magenta        default
+color quoted2     blue           default
+color signature   cyan           default
+color indicator   color252       color238
+color error       brightred      default
+color status      white          blue
+color tree        brightmagenta  black
+color tilde       blue           default
+color attachment  brightyellow   default
+color markers     brightred      default
+color message     white          black
+color search      brightwhite    magenta
+color bold        brightyellow   default
+
+color index       green          default '~N !~T'  # new
+color index       green          default '~O !~T'  # unread
+color index       cyan           black       '~T'  # tagged
+color index       color240       default     '~D'  # deleted
+
+# Sidebar:
+color sidebar_indicator black    white
+color sidebar_highlight white    color238
+color sidebar_new       green    default
+color sidebar_flagged   cyan     default

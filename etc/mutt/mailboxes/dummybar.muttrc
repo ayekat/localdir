@@ -1,0 +1,7 @@
+mailboxes "+dummybar/INBOX" \
+          "+dummybar/category" \
+          "+dummybar/category/subcategory" \
+          "+dummybar/Draft" \
+          "+dummybar/Sent" \
+          "+dummybar/Spam"
+          "+dummybar/Trash" \
