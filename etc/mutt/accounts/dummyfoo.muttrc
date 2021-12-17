@@ -1,0 +1,8 @@
+set from      = 'foo@host.tld'
+set realname  = 'Foo Fighter'
+set spoolfile = +dummyfoo/INBOX
+set record    = +dummyfoo/Sent
+set postponed = +dummyfoo/Drafts
+set trash     = +dummyfoo/Trash
+set pgp_default_key = 0xDEADF000
+set signature = "$XDG_CONFIG_HOME/mutt/signatures/dummyfoo.txt"

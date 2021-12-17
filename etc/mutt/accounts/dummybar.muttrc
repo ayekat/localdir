@@ -1,0 +1,8 @@
+set from      = 'bar@host.tld'
+set realname  = 'Bar Tender'
+set spoolfile = +dummybar/INBOX
+set record    = +dummybar/Sent
+set postponed = +dummybar/Drafts
+set trash     = +dummybar/Trash
+set pgp_default_key = 0xDEADBAB3
+unset signature
