@@ -14,6 +14,4 @@
 [merge]
 	tool = vimdiff
 [include]
-	path = ~/.local/etc/git/private/zuepfe.config
-[includeIf "gitdir:/home/martinwe/"]
-	path = ~/.local/etc/git/private/adfinis.config
+	path = ~/.local/lib/private/git/config
