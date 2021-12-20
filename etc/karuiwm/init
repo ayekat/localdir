@@ -1,0 +1,3 @@
+#!/bin/sh -
+
+karuirpc "$XDG_CONFIG_HOME"/karuiwm/init.kwm

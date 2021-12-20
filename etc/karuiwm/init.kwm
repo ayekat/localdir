@@ -1,0 +1,90 @@
+# Karuiwm start-up actions.
+# Written by ayekat on a frosty Monday morning in December 2021.
+
+# Applications:
+key_bind normal Mod4+n               'exec urxvt'
+key_bind normal Mod4+Shift+n         'exec sakura'
+key_bind normal Mod4+p               "exec \"dmenu_run                 -p spawn -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+key_bind normal Mod4+Print           'exec /usr/share/karuiwm/prtscr'
+key_bind normal Mod4+Shift+Print     "exec '/usr/share/karuiwm/prtscr -s'"
+key_bind wsm    Mod4+Print           'exec /usr/share/karuiwm/prtscr'
+key_bind wsm    Mod4+Shift+Print     "exec '/usr/share/karuiwm/prtscr -s'"
+key_bind normal Mod4+Shift+p         "exec \"passmenu --type           -p pass  -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #E0A0FF -sb #444444\""
+key_bind normal Mod4+Shift+o         "exec \"totpmenu -t               -p totp  -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #E0A0FF -sb #444444\""
+key_bind normal Mod4+e               "exec \"/usr/share/karuiwm/demote -p emote -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+key_bind normal Mod4+b               "exec 'pkill -USR1 karuibar'"
+key_bind normal Mod4+Shift+b         "exec 'pkill -USR2 karuibar'"
+key_bind normal Mod4+semicolon       "exec 'dunstctl close'"
+key_bind normal Mod4+Shift+semicolon "exec 'dunstctl history-pop'"
+
+# Dmenu:
+key_bind normal Mod4+r               "exec \"karuimenu -                     'workspace_rename %s'     -p rename      -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+key_bind normal Mod4+i               "exec \"karuimenu state_list_workspaces 'focus_set_workspace %s'  -p workspace   -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+key_bind normal Mod4+Shift+i         "exec \"karuimenu state_list_workspaces 'window_send %s false'    -p send        -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+key_bind normal Mod4+Shift+Control+i "exec \"karuimenu state_list_workspaces 'window_send %s true'     -p send+follow -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
+
+# Hardware/Media:
+key_bind normal AudioLowerVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'"
+key_bind normal AudioRaiseVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'"
+key_bind normal AudioMute            "exec 'pactl set-sink-mute   @DEFAULT_SINK@ toggle'"
+key_bind normal AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SINK@ toggle'"
+key_bind wsm    AudioLowerVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'"
+key_bind wsm    AudioRaiseVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'"
+key_bind wsm    AudioMute            "exec 'pactl set-sink-mute   @DEFAULT_SINK@ toggle'"
+key_bind wsm    AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SINK@ toggle'"
+
+# Session:
+key_bind normal Mod4+Shift+Control+q  quit
+key_bind normal Mod4+Shift+q          restart
+key_bind normal Mod4+z               'exec "loginctl lock-session self"'
+key_bind wsm    Mod4+z               'exec "loginctl lock-session self"'
+
+# Monitors:
+key_bind normal Mod4+m               'focus_step_monitor +1'
+key_bind normal Mod4+Shift+m         'focus_step_monitor -1'
+
+# Workspaces:
+key_bind normal Mod4+Control+h       'wsm_workspace_step left'
+key_bind normal Mod4+Control+j       'wsm_workspace_step down'
+key_bind normal Mod4+Control+k       'wsm_workspace_step up'
+key_bind normal Mod4+Control+l       'wsm_workspace_step right'
+key_bind normal Mod4+Control+Shift+h 'wsm_window_shift left  true'
+key_bind normal Mod4+Control+Shift+j 'wsm_window_shift down  true'
+key_bind normal Mod4+Control+Shift+k 'wsm_window_shift up    true'
+key_bind normal Mod4+Control+Shift+l 'wsm_window_shift right true'
+
+# Layouts:
+key_bind normal Mod4+space           'workspace_step_layout +1'
+key_bind normal Mod4+Shift+space     'workspace_step_layout -1'
+key_bind normal Mod4+h               'workspace_set_mfact -0.02'
+key_bind normal Mod4+l               'workspace_set_mfact +0.02'
+key_bind normal Mod4+comma           'workspace_set_nmaster +1'
+key_bind normal Mod4+period          'workspace_set_nmaster -1'
+
+# Windows:
+key_bind normal Mod4+j               'focus_step_window +1'
+key_bind normal Mod4+k               'focus_step_window -1'
+key_bind normal Mod4+Shift+j         'window_shift +1'
+key_bind normal Mod4+Shift+k         'window_shift -1'
+key_bind normal Mod4+Return           window_zoom
+key_bind normal Mod4+t                window_toggle_float
+key_bind normal Mod4+Shift+c          window_close
+button_bind normal Mod4+Button1      'mouse_move_window CURRENT CURRENT CURRENT'
+button_bind normal Mod4+Button3      'mouse_resize_window CURRENT CURRENT CURRENT'
+
+# Scratchpad:
+key_bind normal Mod4+Tab              scratchpad_toggle
+key_bind normal Mod4+Shift+Tab        scratchpad_toggle_window
+
+# Workspace map:
+key_bind normal Mod4+o                wsm_toggle
+key_bind wsm    Escape                wsm_toggle
+key_bind wsm    Mod4+h               'wsm_target_step left'
+key_bind wsm    Mod4+j               'wsm_target_step down'
+key_bind wsm    Mod4+k               'wsm_target_step up'
+key_bind wsm    Mod4+l               'wsm_target_step right'
+key_bind wsm    Mod4+Shift+h         'wsm_target_shift left'
+key_bind wsm    Mod4+Shift+j         'wsm_target_shift down'
+key_bind wsm    Mod4+Shift+k         'wsm_target_shift up'
+key_bind wsm    Mod4+Shift+l         'wsm_target_shift right'
+key_bind wsm    Return                wsm_target_focus
