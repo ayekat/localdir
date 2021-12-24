@@ -1,3 +1,14 @@
-/*
-!/.gitignore
-!/tig/
+/applications/
+/icons/
+/krita/
+/krita.log
+/krita-sysinfo.log
+/lutris/
+/mime/
+/recently-used.xbel
+/systemd/
+/TelegramDesktop/
+/vim/
+/weaver/
+/xorg/
+/zathura/
