@@ -33,12 +33,6 @@
     # Possible values are "left", "center" and "right".
     alignment = left
 
-    # The frequency with wich text that is longer than the notification
-    # window allows bounces back and forth.
-    # This option conflicts with "word_wrap".
-    # Set to 0 to disable.
-    bounce_freq = 0
-
     # Show age of message if message is older than show_age_threshold
     # seconds.
     # Set to -1 to disable.
@@ -131,11 +125,6 @@
     #  * frame: use the same color as the frame;
     #  * anything else will be interpreted as a X color.
     separator_color = frame
-
-    # Print a notification on startup.
-    # This is mainly for error detection, since dbus (re-)starts dunst
-    # automatically after a crash.
-    startup_notification = false
 
     # dmenu path.
     dmenu = /usr/bin/dmenu -p dunst:
