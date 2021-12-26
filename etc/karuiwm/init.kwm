@@ -36,8 +36,8 @@ key_bind wsm    AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SINK@
 # Session:
 key_bind normal Mod4+Shift+Control+q  quit
 key_bind normal Mod4+Shift+q          restart
-key_bind normal Mod4+z               'exec "loginctl lock-session self"'
-key_bind wsm    Mod4+z               'exec "loginctl lock-session self"'
+key_bind normal Mod4+y               'exec "loginctl lock-session self"'
+key_bind wsm    Mod4+y               'exec "loginctl lock-session self"'
 
 # Monitors:
 key_bind normal Mod4+m               'focus_step_monitor +1'
