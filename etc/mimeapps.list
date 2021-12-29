@@ -1,36 +1,41 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop;
-image/jpeg=org.gnome.eog.desktop;
-image/png=org.gnome.eog.desktop;
-image/tiff=org.gnome.eog.desktop;
-image/x-ms-bmp=org.gnome.eog.desktop;
-text/html=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/tg=telegramdesktop.desktop
 application/x-desktop=xvim.desktop
-text/plain=xvim.desktop
-
-[Added Associations]
-application/pdf=org.pwmt.zathura.desktop;
 image/jpeg=org.gnome.eog.desktop;
 image/png=org.gnome.eog.desktop;
 image/tiff=org.gnome.eog.desktop;
 image/x-ms-bmp=org.gnome.eog.desktop;
 image/x-nikon-nef=darktable.desktop;
+message/rfc822=xvim.desktop
 text/html=org.qutebrowser.qutebrowser.desktop;
-application/x-desktop=xvim.desktop
-text/plain=xvim.desktop;
+text/plain=xvim.desktop
 video/x-matroska=mpv.desktop;
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
-x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/tg=telegramdesktop.desktop
+
+[Added Associations]
+application/pdf=org.pwmt.zathura.desktop;
+application/x-desktop=xvim.desktop
+image/jpeg=org.gnome.eog.desktop;
+image/png=org.gnome.eog.desktop;
+image/tiff=org.gnome.eog.desktop;
+image/x-ms-bmp=org.gnome.eog.desktop;
+image/x-nikon-nef=darktable.desktop;
+message/rfc822=xvim.desktop
+text/html=org.qutebrowser.qutebrowser.desktop;
+text/plain=xvim.desktop;
+video/x-matroska=mpv.desktop;
+x-scheme-handler/about=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
+x-scheme-handler/tg=telegramdesktop.desktop
 
 [Removed Associations]
+x-scheme-handler/about=firefox.desktop;
 x-scheme-handler/http=firefox.desktop;
 x-scheme-handler/https=firefox.desktop;
-x-scheme-handler/about=firefox.desktop;
 x-scheme-handler/unknown=firefox.desktop;
