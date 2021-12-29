@@ -1,27 +1,63 @@
-#!/usr/bin/env sh
+#!/bin/sh -
 
 # Wrapper script around irssi that
 # * Makes irssi (halfway) respect the XDG basedir spec;
 # * Allows storing the password encrypted and in a different location;
-# Written by ayekat on a cold wednesday afternoon in january 2017.
+# Written by ayekat on a cold Wednesday afternoon in january 2017.
 
-set -e
-set -u
+set -fu
 
-IRSSI_HOME="$XDG_CONFIG_HOME/irssi"
-IRSSI_CONFIG="$XDG_CONFIG_HOME/irssi/config"
-IRSSI_CONFIG_REAL="$XDG_RUNTIME_DIR/irssi/irssi_config"
+readonly IRSSI_HOME=$XDG_CONFIG_HOME/irssi
+readonly IRSSI_CONFIG=$IRSSI_HOME/config
+readonly IRSSI_HOME_REAL=$XDG_RUNTIME_DIR/irssi
+readonly IRSSI_CONFIG_REAL=$IRSSI_HOME_REAL/config
 
-# Get password:
-if ! irssi_password=$(pass show 'services/znc.zuepfe.net/ayekat'); then
-	retval=$?
-	echo 'Pass failed.' >&2
+readonly IRSSI_CONFIG_MARKER=${IRSSI_CONFIG_MARKER:-@}
+
+die()
+{
+	retval=$(($1)); shift
+	{
+		# shellcheck disable=SC2059
+		printf "$@"
+		printf '\n'
+	} >&2
 	exit $retval
+}
+
+sedescape()
+{
+	printf '%s' "$1" | sed 's|\\|\\\\|g;s|/|\\/|g;s|"|\\\\"|'
+}
+
+if ! mkdir -p "$IRSSI_HOME_REAL"; then
+	die 2 'Could not create temporary configuration directory %s' \
+	      "$IRSSI_HOME_REAL"
 fi
 
-# Generate config with password:
-mkdir -p "$(dirname "$IRSSI_CONFIG_REAL")"
-sed -e "s/ZNC_PASSWORD/$irssi_password/g" "$IRSSI_CONFIG" > "$IRSSI_CONFIG_REAL"
+# Replace password if it is given:
+if irssi_password_name=$(
+	grep -oP \
+		"(?<=${IRSSI_CONFIG_MARKER}IRC_PASSWORD:)[^${IRSSI_CONFIG_MARKER}]+" \
+		"$IRSSI_CONFIG"
+); then
+	if ! irssi_password=$(pass show "services/$irssi_password_name"); then
+		die 2 'Could not obtain IRC password'
+	fi
+
+	# Generate config with password:
+	m="${IRSSI_CONFIG_MARKER}IRC_PASSWORD:[^$IRSSI_CONFIG_MARKER]\\+$IRSSI_CONFIG_MARKER"
+	s=$(sedescape "$irssi_password")
+	if ! sed "s/$m/$s/g" <"$IRSSI_CONFIG" >"$IRSSI_CONFIG_REAL"; then
+		die 2 'Could not generate temporary irssi configuration file in %s' \
+		      "$IRSSI_CONFIG_REAL"
+	fi
+else
+	if ! cp "$IRSSI_CONFIG" "$IRSSI_CONFIG_REAL"; then
+		die 2 'Could not copy configuration %s to temporary location %s' \
+		      "$IRSSI_CONFIG" "$IRSSI_HOME_REAL"
+	fi
+fi
 
 # Run irssi with the generated config:
 exec unwrap irssi --home="$IRSSI_HOME" --config="$IRSSI_CONFIG_REAL" "$@"
