@@ -27,11 +27,11 @@ key_bind normal Mod4+Shift+Control+i "exec \"karuimenu state_list_workspaces 'wi
 key_bind normal AudioLowerVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'"
 key_bind normal AudioRaiseVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'"
 key_bind normal AudioMute            "exec 'pactl set-sink-mute   @DEFAULT_SINK@ toggle'"
-key_bind normal AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SINK@ toggle'"
+key_bind normal AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'"
 key_bind wsm    AudioLowerVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ -2%'"
 key_bind wsm    AudioRaiseVolume     "exec 'pactl set-sink-volume @DEFAULT_SINK@ +2%'"
 key_bind wsm    AudioMute            "exec 'pactl set-sink-mute   @DEFAULT_SINK@ toggle'"
-key_bind wsm    AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SINK@ toggle'"
+key_bind wsm    AudioMicMute         "exec 'pactl set-source-mute @DEFAULT_SOURCE@ toggle'"
 
 # Session:
 key_bind normal Mod4+Shift+Control+q  quit
