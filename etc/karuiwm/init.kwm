@@ -5,15 +5,15 @@
 key_bind normal Mod4+n               'exec urxvt'
 key_bind normal Mod4+Shift+n         'exec sakura'
 key_bind normal Mod4+p               "exec \"dmenu_run                 -p spawn -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
-key_bind normal Mod4+Print           'exec /usr/share/karuiwm/prtscr'
-key_bind normal Mod4+Shift+Print     "exec '/usr/share/karuiwm/prtscr -s'"
-key_bind wsm    Mod4+Print           'exec /usr/share/karuiwm/prtscr'
-key_bind wsm    Mod4+Shift+Print     "exec '/usr/share/karuiwm/prtscr -s'"
+key_bind normal Mod4+Print           "exec '/usr/share/karuiwm/prtscr -s'"
+key_bind normal Mod4+Shift+Print     'exec /usr/share/karuiwm/prtscr'
+key_bind wsm    Mod4+Print           "exec '/usr/share/karuiwm/prtscr -s'"
+key_bind wsm    Mod4+Shift+Print     'exec /usr/share/karuiwm/prtscr'
 key_bind normal Mod4+Shift+p         "exec \"passmenu --type           -p pass  -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #E0A0FF -sb #444444\""
 key_bind normal Mod4+Shift+o         "exec \"totpmenu -t               -p totp  -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #E0A0FF -sb #444444\""
 key_bind normal Mod4+e               "exec \"/usr/share/karuiwm/demote -p emote -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
-key_bind normal Mod4+b               "exec 'pkill -USR1 karuibar'"
-key_bind normal Mod4+Shift+b         "exec 'pkill -USR2 karuibar'"
+key_bind normal Mod4+b               "exec 'pkill -USR2 karuibar'"
+key_bind normal Mod4+Shift+b         "exec 'pkill -USR1 karuibar'"
 key_bind normal Mod4+semicolon       "exec 'dunstctl close'"
 key_bind normal Mod4+Shift+semicolon "exec 'dunstctl history-pop'"
 
