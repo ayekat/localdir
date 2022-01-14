@@ -1,0 +1,2 @@
+#!/bin/sh -
+</proc/"$1"/environ tr '\0' '\n' | sort
