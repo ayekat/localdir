@@ -22,8 +22,7 @@ if command -v xinput >/dev/null; then
 
 		# Check if device type is specified:
 		case "$dname" in
-			(keyboard:*) dtype=keyboard; dname=${dname#keyboard:} ;;
-			(pointer:*) dtype=pointer; dname=${dname#pointer:} ;;
+			(keyboard:*|pointer:*) dtype=${dname%%:*}; dname=${dname#*:} ;;
 			(*) dtype= ;;
 		esac
 
@@ -54,13 +53,12 @@ if command -v xinput >/dev/null; then
 				$state
 				EOF
 			else
-				# Name matches, no device type specified, remember this one:
+				# Name matches, no device type specified, so use this one:
 				dfound=true
 				printf '%d\n' $id
 			fi
 		done
 
-		# Return code (true==0 if found, false==1 if not found):
 		$dfound
 	)
 
