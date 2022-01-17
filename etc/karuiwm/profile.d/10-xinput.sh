@@ -68,12 +68,12 @@ if command -v xinput >/dev/null; then
 		for id in $tpps_ids; do
 			reverse_button_mapping "$id" 10
 			# XXX: libinput>=1.13.3
-			xinput --set-prop "$$id" 'libinput Accel Speed' '1.0'
+			xinput --set-prop "$id" 'libinput Accel Speed' '1.0'
 		done
 	fi
 	if tpps_ids=$(xinput_list_ids "$tpps_x390"); then
 		for id in $tpps_ids; do
-			reverse_button_mapping "id" 7
+			reverse_button_mapping "$id" 7
 			xinput --set-prop "$id" 'libinput Accel Speed' '-0.3'
 		done
 	fi
