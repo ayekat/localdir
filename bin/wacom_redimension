@@ -1,0 +1,141 @@
+#!/bin/sh -
+
+# Quickly hacked script to adjust Wacom tablet screen ratio, naively assuming a
+# hardcoded 1920x1080 resolution.
+#
+# Written by ayekat on a cold foggy Monday morning in January 2022.
+
+set -uf
+
+#readonly E_USER=1
+readonly E_WACOM=2
+readonly E_INTERNAL=13
+
+readonly WACOM_STYLUS='Wacom One by Wacom M Pen stylus'
+readonly WACOM_STYLUS_TYPE='STYLUS'
+
+true() { return 0; }
+false() { return 1; }
+
+die()
+{
+	retval=$(($1)); shift
+	if [ $# -gt 0 ]; then
+		# shellcheck disable=SC2059
+		printf "$@"
+		printf '\n'
+	fi >&2
+	exit $retval
+}
+
+is_integer()
+{
+	case "$1" in (*[!0-9]*)
+		return 1
+	esac
+}
+
+wacom_get_device_id()
+(
+	device_name=$1; shift
+
+	if ! command -v xsetwacom >/dev/null; then
+		die $E_WACOM 'xsetwacom: Command not found'
+	fi
+
+	if ! devlist=$(xsetwacom list devices); then
+		die $E_WACOM 'Could not list Wacom devices'
+	fi
+
+	found=false
+	while read -r devline; do
+		case "$devline" in ("$device_name "*)
+			found=true
+			break
+		esac
+	done <<- EOF
+	$devlist
+	EOF
+
+	if ! $found; then
+		die $E_WACOM 'Stylus device "%s" does not appear to be attached' \
+		             "$device_name"
+	fi
+
+	# shellcheck disable=SC2086
+	set -- ${devline#$device_name}
+
+	device_id_found=false
+	argno=0
+	while [ $# -gt 0 ]; do
+		# Key:
+		key=$1; shift
+		argno=$((argno + 1))
+		case "$key" in (*:) ;; (*)
+			die $E_WACOM 'Key "%s" (argument %d) is missing trailing colon' \
+			             "$key" $argno
+		esac
+		key=${key%:}
+
+		# Value:
+		[ $# -gt 0 ] || die $E_WACOM 'Missing argument for key "%s"' "$key"
+		val=$1; shift
+		argno=$((argno + 1))
+
+		# Parse option:
+		case "$key" in
+			(id)
+				device_id_found=true
+				device_id=$val
+				;;
+			(type)
+				if [ "$val" != "$WACOM_STYLUS_TYPE" ]; then
+					die $E_WACOM 'Expected type "%s", but found "%s"' \
+					             "$WACOM_STYLUS_TYPE" "$val"
+				fi
+				;;
+		esac
+	done
+
+	if ! $device_id_found; then
+		die $E_WACOM 'Device "%s" does not appear to have an ID' "$device_name"
+	fi
+
+	printf '%s\n' "$device_id"
+)
+
+device_id=$(wacom_get_device_id "$WACOM_STYLUS") || die $?
+if ! device_area=$(xsetwacom get "$device_id" Area); then
+	die $E_WACOM 'Could not get Area information for device "%s" (ID: %s)' \
+	             "$WACOM_STYLUS" "$device_id"
+fi
+
+# shellcheck disable=SC2086
+set -- $device_area
+if [ $# -ne 4 ]; then
+	die $E_WACOM 'Expected 4 arguments for device Area, but found %d' $#
+fi
+
+read -r off_x off_y width height << EOF
+$device_area
+EOF
+
+is_integer "$off_x" || die $E_WACOM 'Non-integer X offset value "%s"' "$off_x"
+is_integer "$off_y" || die $E_WACOM 'Non-integer Y offset value "%s"' "$off_y"
+is_integer "$width" || die $E_WACOM 'Non-integer width value "%s"' "$width"
+is_integer "$height" || die $E_WACOM 'Non-integer height value "%s"' "$height"
+off_x=$((off_x))
+off_y=$((off_y))
+width=$((width))
+height=$((height))
+
+if ! screen_area_width=$(dc -e "1080 $width * $height / p"); then
+	die $E_INTERNAL 'Could not calculate screen area width'
+fi
+if ! is_integer "$screen_area_width"; then
+	die $E_INTERNAL 'Non-integer screen area width "%s"' "$screen_area_width"
+fi
+screen_area_width=$((screen_area_width))
+if ! xsetwacom set "$device_id" MapToOutput ${screen_area_width}x1080+0+0; then
+	die $E_WACOM 'Could not map to %dx1080+0+0' $screen_area_width
+fi
