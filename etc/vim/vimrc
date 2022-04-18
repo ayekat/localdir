@@ -132,6 +132,9 @@ au BufRead,BufNewFile **/.local/etc/X11/xprofile setl filetype=sh
 au BufRead,BufNewFile **/.local/etc/X11/Xresources.d/* setl filetype=xdefaults
 au BufRead,BufNewFile /var/tmp/ssh_config.* setl filetype=sshconfig
 
+" Use alternative implementations for opening specific file types:
+let g:tar_cmd='bsdtar'
+
 " }}}
 " ------------------------------------------------------------------------------
 " LOOK {{{
