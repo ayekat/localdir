@@ -1,6 +1,7 @@
 [Default Applications]
 application/pdf=org.pwmt.zathura.desktop;
 application/x-desktop=xvim.desktop
+image/jpg=org.gnome.eog.desktop;
 image/jpeg=org.gnome.eog.desktop;
 image/png=org.gnome.eog.desktop;
 image/tiff=org.gnome.eog.desktop;
@@ -19,6 +20,7 @@ x-scheme-handler/tg=telegramdesktop.desktop
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
 application/x-desktop=xvim.desktop
+image/jpg=org.gnome.eog.desktop;
 image/jpeg=org.gnome.eog.desktop;
 image/png=org.gnome.eog.desktop;
 image/tiff=org.gnome.eog.desktop;
