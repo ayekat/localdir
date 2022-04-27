@@ -1,3 +1,7 @@
 #!/bin/sh -
 
-exec xtrlock
+if command -v slock >/dev/null; then
+	exec slock
+else
+	exec xtrlock
+fi
