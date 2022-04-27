@@ -1,0 +1,5 @@
+[Unit]
+Description=Test service that fails
+
+[Service]
+ExecStart=/bin/false
