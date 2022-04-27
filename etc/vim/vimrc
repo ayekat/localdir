@@ -279,7 +279,7 @@ if $TERM != "linux"
 		"hi Define         ctermfg=
 		"hi Macro          ctermfg=
 		"hi PreCondit      ctermfg=
-	au FileType sh hi PreProc ctermfg=38
+	au FileType nroff,sh hi PreProc ctermfg=38
 
 	hi Type               ctermfg=38
 		" int long char | static register volatile | struct union enum | typedef
