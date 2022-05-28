@@ -17,6 +17,7 @@ application/vnd.openxmlformats-officedocument.presentationml.presentation: libre
 application/vnd.openxmlformats-officedocument.spreadsheetml.sheet: libreoffice _FILE_ &
 application/vnd.openxmlformats-officedocument.wordprocessingml.document: libreoffice _FILE_ &
 application/msword     : libreoffice _FILE_ &
+image/bmp              : eog _FILE_ &
 image/gif              : eog _FILE_ &
 image/jpg              : eog _FILE_ &
 image/jpeg             : eog _FILE_ &
