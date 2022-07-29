@@ -1,8 +1,9 @@
-dotfiles
+localdir
 ========
 
-This repository contains my personal user setup, with scripts and application
-configuration, called "dotfiles" for mostly historical reasons.
+This is my personal `~/.local` directory, containing scripts and application
+configuration. One might also refer to these files as "dotfiles", for mostly
+historical reasons.
 
 As I have some very specific requirements for what my work environment should
 behave like, the setup here mostly likely differs quite significantly from what
@@ -89,7 +90,7 @@ little different.
 If PAM is configured to load `pam_env.so` with `user_readenv=1`, the following
 will work:
 
-1. `git clone https://github.com/ayekat/dotfiles ~/.local`;
+1. `git clone https://github.com/ayekat/localdir ~/.local`;
 2. `ln -s .local/lib/dotfiles/pam_environment ~/.pam_environment`;
 3. Re-login;
 4. Profit!
@@ -99,7 +100,7 @@ future version. See [this issue][issue:32] for more details.**
 
 ### Method 2: Without `~/.pam_environment`, with ZSH
 
-1. `git clone https://github.com/ayekat/dotfiles ~/.local`;
+1. `git clone https://github.com/ayekat/localdir ~/.local`;
 2. `ln -s .local/lib/dotfiles/config ~/.config`;
 3. `ln -s .local/etc/zsh/.zshenv ~/.zshenv`;
 4. Re-login;
@@ -196,7 +197,7 @@ Links
 -----
 
  * [XDG Base Directory - ArchWiki][aw:xdg]
- * https://github.com/Earnestly/dotfiles (inspired by Plan9's filesystem layout;
+ * https://github.com/Earnestly/home (inspired by Plan9's filesystem layout;
    see also [The `~/.local` Convention][localconv]).
  * https://github.com/roosemberth/dotfiles (semi-fork of this repo, adapted for
    NixOS).
@@ -210,9 +211,9 @@ Links
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
 [file:pam_environment]: pam_environment
 [file:pkgbuild]: archlinux/PKGBUILD
-[issue:7]: https://github.com/ayekat/dotfiles/issues/7
-[issue:8]: https://github.com/ayekat/dotfiles/issues/8
-[issue:12]: https://github.com/ayekat/dotfiles/issues/12
-[issue:32]: https://github.com/ayekat/dotfiles/issues/32
+[issue:7]: https://github.com/ayekat/localdir/issues/7
+[issue:8]: https://github.com/ayekat/localdir/issues/8
+[issue:12]: https://github.com/ayekat/localdir/issues/12
+[issue:32]: https://github.com/ayekat/localdir/issues/32
 [localconv]: https://gist.github.com/Earnestly/84cf9670b7e11ae2eac6f753910efebe
 [man:hier]: http://linux.die.net/man/7/hier
