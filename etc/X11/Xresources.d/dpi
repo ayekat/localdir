@@ -1,0 +1,2 @@
+! Prevent "high DPI" setting from increasing cursor size:
+Xft.dpi: 96

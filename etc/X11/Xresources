@@ -43,3 +43,4 @@
 ! Application-specific configuration:
 #include "Xresources.d/urxvt"
 #include "Xresources.d/karuibar"
+#include "Xresources.d/dpi"
