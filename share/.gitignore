@@ -1,6 +1,7 @@
 # General:
 /applications/
 /gem/
+/gvfs-metadata/
 /icons/
 /krita/
 /krita.log
