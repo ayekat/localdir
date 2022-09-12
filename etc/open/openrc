@@ -34,6 +34,7 @@ text/plain             : xvim _FILE_ &
 text/x-diff            : xvim _FILE_ &
 text/x-shellscript     : xvim _FILE_ &
 text/x-tex             : xvim _FILE_ &
+text/xml               : qutebrowser _FILE_ &
 video/mp4              : mpv
 video/quicktime        : mpv
 video/webm             : mpv
