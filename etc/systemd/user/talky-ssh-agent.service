@@ -1,0 +1,8 @@
+[Unit]
+Description=SSH agent with notifications
+
+[Service]
+ExecStart=%h/.local/bin/talky-ssh-agent
+
+[Install]
+WantedBy=default.target

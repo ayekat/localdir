@@ -1,0 +1,238 @@
+#!/bin/sh -
+
+# Wrapper around ssh-agent for sending org.freedesktop.Notifications messages
+# whenever a key is added, read or removed to the SSH agent.
+
+# Dependencies:
+#  - POSIX-compatible /bin/sh (e.g. bash, zsh, dash, ash, ...)
+#  - POSIX-compatible printf and test/[ (e.g. GNU Coreutils or shell builtin)
+#  - POSIX-compatible cat and tr (e.g. GNU Coreutils)
+#  - notify-send (libnotify)
+#  - ssh-agent (OpenSSH)
+
+# Written by ayekat on a warm autumn afternoon in 2022.
+
+set -uf
+
+# Application:
+APPNAME=talky-ssh-agent
+readonly APPNAME
+
+# Exit codes:
+E_USER=1
+E_SYSTEM=2
+E_INTERRUPT=3
+E_INTERNAL=13
+readonly E_USER E_SYSTEM E_INTERRUPT E_INTERNAL
+
+# Remove external dependencies on true/false:
+true() { return 0; }
+false() { return 1; }
+
+# MESSAGES AND EXITING =========================================================
+
+debugf()
+{
+	if $DEBUG; then
+		printf '[debug] '
+		# shellcheck disable=SC2059
+		printf "$@"
+		printf '\n'
+	fi >&2
+}
+
+errorf()
+{
+	{
+		printf 'ERROR: '
+		# shellcheck disable=SC2059
+		printf "$@"
+		printf '\n'
+	} >&2
+}
+
+die()
+{
+	retval=$(($1)); shift
+
+	if [ $# -gt 0 ]; then
+		# shellcheck disable=SC2059
+		printf "$@"
+		printf '\n'
+	fi >&2
+	cleanup
+	if [ $retval -eq $E_USER ]; then
+		printf 'Run with -h for help.\n' >&2
+	fi
+	exit $retval
+}
+
+interrupt()
+{
+	retval=$E_INTERRUPT
+	if [ "$1" = TERM ]; then
+		# SIGTERM is expected from systemd
+		retval=0
+	fi
+	die $retval 'Interrupted with %s.\n' "$1"
+}
+trap 'interrupt INT' INT
+trap 'interrupt TERM' TERM
+trap 'interrupt HUP' HUP
+
+cleanup=
+cleanup()
+{
+	for c in $cleanup; do
+		$c
+	done
+}
+
+print_help()
+{
+	cat <<- EOF
+	$APPNAME: Run ssh-agent and notify about accesses
+
+	Usage: $APPNAME -h
+	       $APPNAME [OPTIONS...]
+
+	Options:
+	  -d      Show debug messages.
+	  -h      Display this help message and exit.
+	EOF
+}
+
+# SSH-AGENT ====================================================================
+
+ssh_agent_start()
+{
+	if ! mkdir -p "$RUNDIR"; then
+		die $E_SYSTEM 'Could not create runtime directory %s' "$RUNDIR"
+	fi
+	if ! mkfifo "$FIFO"; then
+		die $E_SYSTEM 'Could not create FIFO %s' "$FIFO"
+	fi
+	ssh-agent -d -a "$SSH_AUTH_SOCK" 2>"$FIFO" </dev/null &
+	ssh_agent_pid=$!
+	cleanup="$cleanup ssh_agent_stop"
+	debugf 'Started ssh-agent with PID %d' $ssh_agent_pid
+}
+
+ssh_agent_stop()
+{
+	debugf 'Killing ssh-agent at PID %d' $ssh_agent_pid
+	kill $ssh_agent_pid
+	unset ssh_agent_pid
+	rm -f "$FIFO"
+	rmdir "$RUNDIR"
+}
+
+# PROGRAM START ================================================================
+
+# Runtime directory:
+if [ -z "${XDG_RUNTIME_DIR:-}" ]; then
+	die $E_SYSTEM 'XDG_RUNTIME_DIR empty or unset'
+fi
+RUNDIR=$XDG_RUNTIME_DIR/talky-ssh-agent
+readonly RUNDIR
+
+# SSH agent socket:
+if [ -z "${SSH_AUTH_SOCK:-}" ]; then
+	die $E_SYSTEM 'SSH_AUTH_SOCK empty or unset'
+fi
+
+# Internal state tracking:
+FIFO=$RUNDIR/talky.fifo
+readonly FIFO
+
+# Optional arguments:
+DEBUG=false
+while getopts :dh opt; do
+	case "$opt" in
+		(d) DEBUG=true ;;
+		(h) print_help; exit $E_USER ;;
+		(:) die $E_USER 'Missing argument for -%s' "$OPTARG" ;;
+		('?') die $E_USER 'Unknown option: -%s' "$OPTARG" ;;
+		(*) die $E_INTERNAL 'Unhandled option: -%s' "$OPTARG" ;;
+	esac
+done
+shift $((OPTIND - 1))
+unset OPTARG
+readonly DEBUG
+
+# Positional arguments:
+test $# -eq 0 || die $E_USER 'Trailing arguments: %s' "$*"
+
+# Start SSH agent:
+ssh_agent_start
+
+# Listen to events:
+mode=normal
+while read -r line; do
+	# Strip carriage return:
+	if ! line=$(printf '%s' "$line" | tr -d '\r' 2>&1); then
+		errorf 'Could not strip carriage returns from line: %s' "$line"
+		continue
+	fi
+
+	# Split up:
+	# shellcheck disable=SC2086
+	set -- $line
+
+	# Is it a debug message?
+	test $# -gt 0 || continue
+	case "$1" in
+		('debug'?':') ;;
+		(*) continue ;;
+	esac
+	shift
+
+	# Is it a process?
+	test $# -gt 0 || continue
+	process=$1; shift
+	case "$process" in
+		(*:) ;;
+		(*) continue ;;
+	esac
+	process=${process%:}
+
+	# Get the action:
+	test $# -gt 0 || continue
+	action=$1; shift
+
+	debugf 'process=‹%s› action=‹%s›' "$process" "$action"
+
+	# Handle process:
+	case "$process" in
+		(process_add_identity)
+			case "$action" in
+				(entering) ;;
+				(add) notify-send 'Identity added' "$*" ;;
+				(*) errorf 'Unknown action=‹%s› for process=‹%s›' \
+				           "$action" "$process" ;;
+			esac ;;
+		(process_remove_identity)
+			case "$action" in
+				(entering) mode=removing ;;
+				(*) errorf 'Unknown action=‹%s› for process=‹%s›' \
+				           "$action" "$process" ;;
+			esac ;;
+		(process_request_identities)
+			case "$action" in
+				(entering) mode=requesting ;;
+				(replying) mode=normal ;;
+				(*) errorf 'Unknown action=‹%s› for process=‹%s›' \
+				           "$action" "$process" ;;
+			esac ;;
+		(identity_permitted)
+			case "$mode" in
+				(removing) notify-send 'Identity removed' "$*" ;;
+				(requesting) notify-send 'Identity requested' "$*" ;;
+				(*) errorf 'Unknown mode=‹%s› for process=‹%s›' \
+				           "$mode" "$process" ;;
+			esac
+			mode=normal
+			;;
+	esac
+done <"$FIFO"
+cleanup
