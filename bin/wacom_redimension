@@ -63,7 +63,7 @@ wacom_get_device_id()
 	fi
 
 	# shellcheck disable=SC2086
-	set -- ${devline#$device_name}
+	set -- ${devline#"$device_name"}
 
 	device_id_found=false
 	argno=0
