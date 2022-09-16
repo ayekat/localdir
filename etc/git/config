@@ -15,3 +15,5 @@
 	tool = vimdiff
 [include]
 	path = ~/.local/lib/private/git/config
+[gpg]
+	program = git-gpg

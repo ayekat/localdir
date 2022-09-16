@@ -1,0 +1,25 @@
+#!/bin/sh -
+
+# When Git invokes gpg to sign a commit, gpg would get the cached passphrase
+# from gpg-agent. In case gpg-agent doesn't have the passphrase cached yet, it
+# shows a passphrase prompt to the user (with Pinentry).
+#
+# Pinentry is usually smart enough to understand whether it is running in a
+# text-only environment (where it shows the ncurses prompt in the terminal) or
+# in a graphical environment (where it can show a GTK+ prompt).
+#
+# Unfortunately, Git invokes gpg without any TTY attached, so in case Pinentry
+# decides to prompt an ncurses prompt, it fails (and gpg subsequently fails to
+# sign the data, i.e. the Git commit).
+#
+# To avoid getting blocked in TTY-only environments (e.g. if logged in via SSH,
+# or if a graphical environment is otherwise not available), we tell gpg to
+# instead report back "loopback" to Git, indicating that it should prompt the
+# user for a GPG passphrase itself.
+#
+# We *could* do more sophisticated checking (e.g. if there is a graphical
+# environment and we're in a seat that has access to that environment), but
+# that's rather error-prone (and also not very consistent---I prefer Git/gpg
+# always behaving the same way).
+
+exec gpg --pinentry-mode loopback "$@"
