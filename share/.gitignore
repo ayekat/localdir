@@ -1,5 +1,5 @@
+# General:
 /applications/
-/evolution/
 /gem/
 /icons/
 /krita/
@@ -16,3 +16,7 @@
 /wallpapers/
 /xorg/
 /zathura/
+
+# Gnome:
+/evolution/
+/gvfs-metadata/
