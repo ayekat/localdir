@@ -7,6 +7,7 @@ if command -v xinput >/dev/null; then
 	tpps_x230='TPPS/2 IBM TrackPoint'
 	tpps_x390='Elan TrackPoint'
 	tpad_x390='Elan Touchpad'
+	tpusb='pointer:Lenovo ThinkPad Compact USB Keyboard with TrackPoint'
 	tpusb2='pointer:Lenovo TrackPoint Keyboard II'
 
 	reverse_button_mapping() {
@@ -79,6 +80,11 @@ if command -v xinput >/dev/null; then
 		for id in $tpad_ids; do
 			# XXX: disabling touchpad in firmware has not effect:
 			xinput --set-prop "$id" 'Device Enabled' 0
+		done
+	fi
+	if tpusb_ids=$(xinput_list_ids "$tpusb"); then
+		for id in $tpusb_ids; do
+			reverse_button_mapping "$id" 22
 		done
 	fi
 	if tpusb2_ids=$(xinput_list_ids "$tpusb2"); then
