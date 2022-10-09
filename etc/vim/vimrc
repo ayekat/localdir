@@ -461,10 +461,10 @@ set noshowmode
 
 " Separators {{{
 if $TERM == "linux"
-	let sep="|"
+	let sep=" | "
 	let lnum="LN"
 else
-	let sep="│"
+	let sep="▕ "
 	let lnum="␤"
 endif " }}}
 
@@ -582,7 +582,7 @@ function! StatuslineActive()
 	let l:fe = &fileencoding
 	let l:ft = &filetype
 	if l:ff != 'unix' && l:ff != ''
-		let l:statusline .= ' '.l:ff.' '
+		let l:statusline .= l:ff
 		if l:mode == 'i'
 			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
 		else
@@ -590,7 +590,7 @@ function! StatuslineActive()
 		endif
 	endif
 	if l:fe != 'utf-8' && l:fe != 'ascii' && l:fe != ''
-		let l:statusline .= ' '.l:fe.' '
+		let l:statusline .= l:fe
 		if l:mode == 'i'
 			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
 		else
@@ -598,14 +598,14 @@ function! StatuslineActive()
 		endif
 	endif
 	if l:ft != ''
-		let l:statusline .= ' '.l:ft.' '
+		let l:statusline .= l:ft
 		if l:mode == 'i'
 			let l:statusline .= '%#I_middle_sep#%{sep}%#I_middle#'
 		else
 			let l:statusline .= '%#N_middle_sep#%{sep}%#N_middle#'
 		endif
 	endif
-	let l:statusline .= ' %{lnum} %L '
+	let l:statusline .= '%{lnum} %L '
 	" }}}
 
 	" Buffer position {{{
@@ -631,28 +631,28 @@ function! StatuslineInactive()
 	let l:statusline = ''
 
 	" mode:
-	let l:statusline .= '        %{sep}'
+	let l:statusline .= '       %{sep}'
 
 	" filename:
-	let l:statusline.=' %<%t %{sep}'
+	let l:statusline.='%<%t%{sep}'
 
 	" change to the right side:
 	let l:statusline.='%='
 
 	" line count:
-	let l:statusline .= ' %{lnum} %L '
+	let l:statusline .= '%{lnum} %L'
 
 	" buffer position:
-	let l:statusline.='%{sep} %P '
+	let l:statusline.='%{sep}%P'
 
 	" cursor position:
-	let l:statusline .= '%{sep} %3l:%02c '
+	let l:statusline .= '%{sep}%3l:%02c '
 
 	return l:statusline
 endfunction " }}}
 
 function! StatuslineCommand() " {{{
-	return '%#cmd_mode# COMMAND %#cmd_mode_end#%{sep}'
+	return '%#cmd_mode# COMMAND %#cmd_mode_end#'
 endfunction " }}}
 
 " define when which statusline is displayed:
