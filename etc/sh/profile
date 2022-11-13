@@ -15,17 +15,12 @@ path() {
 }
 
 # Load profiles in profile.d:
-for shconfig in "$XDG_CONFIG_HOME"/sh "$XDG_LIB_HOME"/private/sh; do
-	if [ -d "$shconfig/profile.d" ]; then
-		for profile in "$shconfig/profile.d/"*.sh; do
-			if [ -r "$profile" ]; then
-				. "$profile"
-			fi
-		done
-		unset profile
+for profile in "$XDG_CONFIG_HOME"/sh/profile.d/*.sh; do
+	if [ -r "$profile" ]; then
+		. "$profile"
 	fi
 done
-unset shconfig
+unset profile
 
 unset -f path
 export PATH

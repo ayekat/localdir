@@ -39,7 +39,7 @@ This is achieved by setting the environment variables as follows:
 >   is the user version of `/usr/local`), but for keeping it compact, I put it
 >   here anyway.
 > * Some applications unfortunately do not honour the XDG basedir spec, so I
->   additionally [set environment variables][file:pam_environment] or [write
+>   additionally [set environment variables][file:environment-d] or [write
 >   wrapper scripts][dir:wrappers]. Unfortunately, there are still some [open
 >   issues][issue:7]). See the [*XDG Base Directory*][aw:xdg] article in the
 >   Arch Linux wiki for more information on this.
@@ -56,14 +56,14 @@ locations:
 Requirements
 ------------
 
-A POSIX-compatible shell must be available and configured to source the
-configuration files in `~/.local/etc/sh` as follows:
+A POSIX-compatible shell must be available and configured as follows:
 
- * `profile` › `interactive` › `login` if it's an interactive login
-   shell;
- * `interactive` if it's a regular interactive shell;
+ * `XDG_CONFIG_HOME` is set to `~/.local/etc`;
+ * The configuration files in `~/.local/etc/sh` are sourced as follows:
+    - `profile` › `interactive` › `login` if it's an interactive login shell;
+    - `interactive` if it's a regular interactive shell;
 
-This repository provides configuration for **ZSH** that does it already. Other
+This repository provides configuration for **ZSH** that does this already. Other
 shells must be configured separately. See [Appendix B](#appendix-b-zsh) if ZSH
 is desired but not available.
 
@@ -82,29 +82,37 @@ applications might not work properly).
 Installation
 ------------
 
-Depending on what is provided by the system, the setup procedure might look a
-little different.
-
-### Method 1: With `~/.pam_environment`
-
-If PAM is configured to load `pam_env.so` with `user_readenv=1`, the following
-will work:
-
 1. `git clone https://github.com/ayekat/localdir ~/.local`;
-2. `ln -s .local/lib/dotfiles/pam_environment ~/.pam_environment`;
-3. Re-login;
-4. Profit!
+2. `ln -s .local/etc/zsh/.zshenv ~/.zshenv`;
+3. One of the following methods:
 
-**Warning: `user_readenv` support is deprecated and will likely disappear in a
-future version. See [this issue][issue:32] for more details.**
+### Method 1: With `user@` override
 
-### Method 2: Without `~/.pam_environment`, with ZSH
+If you have full control over the system (or a nice sysadmin), configure the
+user instance to set `XDG_CONFIG_HOME` to your user's `~/.local/etc`.
 
-1. `git clone https://github.com/ayekat/localdir ~/.local`;
-2. `ln -s .local/lib/dotfiles/config ~/.config`;
-3. `ln -s .local/etc/zsh/.zshenv ~/.zshenv`;
-4. Re-login;
-5. Profit!
+Assuming you are `ayekat` with UID `1234`:
+
+`systemctl edit user@1234.service`, then
+
+```dosini
+[Service]
+Environment=XDG_CONFIG_HOME=/home/ayekat/.local/etc
+```
+
+### Method 2: With `~/.config` symlink
+
+If you do not have necessary permission to apply method 1, you can instead set
+up this ~~band-aid~~ compatibility symlink:
+
+`ln -s .local/etc ~/.config`
+
+This is required because the user instance does not adapt `XDG_CONFIG_HOME` even
+if set via `environment.d` generator, so just limiting `~/config` to
+`environment.d` is not sufficient.
+
+Just expect `~/.config` and `~/.local/etc` to be used interchangeably by your
+programs, and everything being a mess.
 
 
 Appendix A: Rules
@@ -209,7 +217,7 @@ Links
 [dir:wrappers]: lib/dotfiles/bin
 [fdo:xdgspec]: https://specifications.freedesktop.org/basedir-spec/latest/index.html
 [fdo:usrmerge]: https://www.freedesktop.org/wiki/Software/systemd/TheCaseForTheUsrMerge/
-[file:pam_environment]: pam_environment
+[file:environment-d]: etc/environment.d/xdg.conf
 [file:pkgbuild]: archlinux/PKGBUILD
 [issue:7]: https://github.com/ayekat/localdir/issues/7
 [issue:8]: https://github.com/ayekat/localdir/issues/8
