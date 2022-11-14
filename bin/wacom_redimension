@@ -11,7 +11,10 @@ set -uf
 readonly E_WACOM=2
 readonly E_INTERNAL=13
 
-readonly WACOM_STYLUS='Wacom One by Wacom M Pen stylus'
+readonly WACOM_STYLUS_ONE='Wacom One by Wacom M Pen stylus'
+readonly OFFSET_ONE=+0+0
+readonly WACOM_STYLUS_INTUOS='Wacom Intuos Pro M Pen stylus'
+readonly OFFSET_INTUOS=+1920+0
 readonly WACOM_STYLUS_TYPE='STYLUS'
 
 true() { return 0; }
@@ -104,10 +107,31 @@ wacom_get_device_id()
 	printf '%s\n' "$device_id"
 )
 
-device_id=$(wacom_get_device_id "$WACOM_STYLUS") || die $?
+# Determine which stylus is currently attached:
+have_device=false
+for stylus in "$WACOM_STYLUS_ONE" "$WACOM_STYLUS_INTUOS"; do
+	if device_id=$(wacom_get_device_id "$stylus" 2>&1); then
+		have_device=true
+		wacom_stylus=$stylus
+		case "$stylus" in
+			("$WACOM_STYLUS_ONE") offset=$OFFSET_ONE ;;
+			("$WACOM_STYLUS_INTUOS") offset=$OFFSET_INTUOS ;;
+			(*) die $E_INTERNAL 'Unknown Wacom stylus: %s' "$stylus"
+		esac
+		printf 'Stylus found, using: %s\n' "$stylus"
+		break
+	else
+		printf 'Stylus not found: %s\n' "$stylus"
+	fi
+done
+if ! $have_device; then
+	die $E_WACOM 'Could not find any of the known stylus attached.'
+fi
+
+# Get the device's area:
 if ! device_area=$(xsetwacom get "$device_id" Area); then
 	die $E_WACOM 'Could not get Area information for device "%s" (ID: %s)' \
-	             "$WACOM_STYLUS" "$device_id"
+	             "$wacom_stylus" "$device_id"
 fi
 
 # shellcheck disable=SC2086
@@ -136,6 +160,6 @@ if ! is_integer "$screen_area_width"; then
 	die $E_INTERNAL 'Non-integer screen area width "%s"' "$screen_area_width"
 fi
 screen_area_width=$((screen_area_width))
-if ! xsetwacom set "$device_id" MapToOutput ${screen_area_width}x1080+0+0; then
+if ! xsetwacom set "$device_id" MapToOutput ${screen_area_width}x1080$offset; then
 	die $E_WACOM 'Could not map to %dx1080+0+0' $screen_area_width
 fi
