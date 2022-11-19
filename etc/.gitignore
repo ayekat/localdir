@@ -1,5 +1,5 @@
 # General:
-/ardour6/
+/ardour7/
 /chromium/
 /darktable/
 /dconf/
@@ -34,6 +34,7 @@
 /gtk-3.0/bookmarks
 /pipewire-media-session/
 /totem/
+/xdg-terminals.list
 
 # Krita:
 /karboncalligraphyrc
