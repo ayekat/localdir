@@ -633,11 +633,19 @@ function! StatuslineInactive()
 	" mode:
 	let l:statusline .= '       %{sep}'
 
-	" filename:
-	let l:statusline.='%<%t%{sep}'
+	" file path:
+	let l:statusline.='%<%{expand("%:p:h")}/'
 
-	" change to the right side:
-	let l:statusline.='%='
+	" filename:
+	let l:statusline.='%{expand("%:t")}'
+
+	" modified:
+	if &modified
+		let l:statusline .= ' *'
+	endif
+
+	" separator, then change to the right side:
+	let l:statusline.='%{sep}%='
 
 	" line count:
 	let l:statusline .= '%{lnum} %L'
