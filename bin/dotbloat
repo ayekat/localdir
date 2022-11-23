@@ -3,8 +3,6 @@
 
 set -u
 
-readonly HOME=${HOME:-$(getent passwd "$(id -un)" | cut -d : -f 6)}
-
 inlist()
 {
 	for e in $2; do
@@ -35,6 +33,16 @@ prompt_delete() {
 	esac
 }
 
+user=$(id -un) \
+	|| die 2 'Could not determine username'
+passwd=$(getent passwd "$user") \
+	|| die 2 'Could not get passwd entry for user %s' "$user"
+passwd_home=${passwd#*:*:*:*:*:}
+passwd_home=${passwd_home%%:*}
+HOME=${HOME:-"$passwd_home"}
+unset user passwd passwd_home
+readonly HOME
+
 # gather and show statistics:
 n_nondots=$(find "$HOME" -maxdepth 1 -mindepth 1 -name '[^.]*' | wc -l)
 n_dots=$(find "$HOME" -maxdepth 1 -mindepth 1 -name '.*' | wc -l)
@@ -47,9 +55,9 @@ $(printf '\033[1m')dotfiles:     $n_dots$(printf '\033[0m')
 EOF
 
 # list dotfiles:
-cd "$HOME" || die 1 'Could not cd into home directory (%s)' "$HOME"
+cd "$HOME" || die 2 'Could not cd into home directory (%s)' "$HOME"
 if ! ls -1d --color=auto .[!.]*; then
-	die 1 'Could not list files in home directory (%s)' "$HOME"
+	die 2 'Could not list files in home directory (%s)' "$HOME"
 fi
 
 # automatic decisions for specific files/directories:
