@@ -36,6 +36,8 @@ config.unbind('gJ', mode='normal')
 config.unbind('gK', mode='normal')
 config.bind('gj', 'tab-move +', mode='normal')
 config.bind('gk', 'tab-move -', mode='normal')
+config.unbind('<Ctrl-w>', mode='normal')
+config.unbind('<Ctrl-p>', mode='normal')
 
 # Navigation:
 config.set('hints.mode', 'letter')
