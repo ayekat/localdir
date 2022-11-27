@@ -3,7 +3,7 @@
 
 # Applications:
 key_bind normal Mod4+n               'exec urxvt'
-key_bind normal Mod4+Shift+n         'exec sakura'
+key_bind normal Mod4+Shift+n         'exec gnome-terminal'
 key_bind normal Mod4+p               "exec \"dmenu_run                 -p spawn -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""
 key_bind normal Mod4+Print           "exec '/usr/share/karuiwm/prtscr -s'"
 key_bind normal Mod4+Shift+Print     'exec /usr/share/karuiwm/prtscr'
