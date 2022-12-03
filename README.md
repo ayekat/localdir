@@ -62,6 +62,8 @@ A POSIX-compatible shell must be available and configured as follows:
  * The configuration files in `~/.local/etc/sh` are sourced as follows:
     - `profile` › `interactive` › `login` if it's an interactive login shell;
     - `interactive` if it's a regular interactive shell;
+ * Systemd is present (or at least the environment generators in
+   `/usr/lib/systemd/user-environment-generators` are).
 
 This repository provides configuration for **ZSH** that does this already. Other
 shells must be configured separately. See [Appendix B](#appendix-b-zsh) if ZSH
@@ -108,7 +110,7 @@ up this ~~band-aid~~ compatibility symlink:
 `ln -s .local/etc ~/.config`
 
 This is required because the user instance does not adapt `XDG_CONFIG_HOME` even
-if set via `environment.d` generator, so just limiting `~/config` to
+if set via `environment.d` generator, so just limiting `~/.config` to
 `environment.d` is not sufficient.
 
 Just expect `~/.config` and `~/.local/etc` to be used interchangeably by your
