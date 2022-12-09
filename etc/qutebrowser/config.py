@@ -8,18 +8,18 @@ config.load_autoconfig(False)
 # GENERAL ======================================================================
 
 # Storage:
-config.set('auto_save.session', True)
-config.set('completion.web_history.max_items', 10000)
+c.auto_save.session = True
+c.completion.web_history.max_items = 10000
 import os
-config.set('downloads.location.directory', os.environ['HOME'])
+c.downloads.location.directory = os.environ['HOME']
 
 # Content:
-config.set('url.default_page', 'about:blank')
-config.set('url.start_pages', 'about:blank')
-config.set('content.default_encoding', 'utf-8')
+c.url.default_page = 'about:blank'
+c.url.start_pages = 'about:blank'
+c.content.default_encoding = 'utf-8'
 
 # Focus:
-config.set('new_instance_open_target', 'tab-silent')
+c.new_instance_open_target = 'tab-silent'
 
 # CONTROL ======================================================================
 
@@ -31,7 +31,7 @@ config.unbind('<Ctrl-Shift-n>', mode='normal')
 config.unbind('<Ctrl-n>', mode='normal')
 
 # Tabs:
-config.set('tabs.select_on_remove', 'prev')
+c.tabs.select_on_remove = 'prev'
 config.unbind('gJ', mode='normal')
 config.unbind('gK', mode='normal')
 config.bind('gj', 'tab-move +', mode='normal')
@@ -40,26 +40,26 @@ config.unbind('<Ctrl-w>', mode='normal')
 config.unbind('<Ctrl-p>', mode='normal')
 
 # Navigation:
-config.set('hints.mode', 'letter')
-config.set('hints.chars', 'fjdkslaghnv')
+c.hints.mode = 'letter'
+c.hints.chars = 'fjdkslaghnv'
 config.unbind('<Ctrl-h>', mode='normal')
 config.bind('0', 'scroll-to-perc --horizontal 0', mode='normal')
 config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
-config.set('input.forward_unbound_keys', 'none')
+c.input.forward_unbound_keys = 'none'
 
 # Content:
 config.bind('m', 'spawn mpv --x11-netwm=yes {url}', mode='normal')
 config.bind('M', 'hint links spawn mpv {hint-url}', mode='normal')
 
 # Editing:
-config.set('editor.command', ['xvim', '{}'])
-config.set('input.insert_mode.auto_load', True)
+c.editor.command = ['xvim', '{}']
+c.input.insert_mode.auto_load = True
 config.unbind('<Ctrl-v>', mode='normal')
 config.bind('I', 'mode-enter passthrough', mode='normal')
 
 # Search:
-config.set('url.auto_search', 'dns')
-config.set('url.searchengines', {
+c.url.auto_search = 'dns'
+c.url.searchengines = {
     'DEFAULT': 'https://www.google.com/search?q={}',
 
     'ddg':     'https://duckduckgo.com/?q={}',
@@ -120,80 +120,80 @@ config.set('url.searchengines', {
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
-})
+}
 
 # LOOK =========================================================================
 
 # Tab bar:
-config.set('tabs.indicator.width', 0)
-config.set('tabs.title.format', '{perc}{audio}{current_title}')
-config.set('tabs.padding', {'top': 1, 'bottom': 1, 'left': 2, 'right': 2})
-config.set('fonts.tabs.selected', '8pt monospace')
-config.set('fonts.tabs.unselected', '8pt monospace')
-config.set('colors.tabs.even.bg', '#222222')
-config.set('colors.tabs.odd.bg', '#222222')
-config.set('colors.tabs.even.fg', '#aaaaaa')
-config.set('colors.tabs.odd.fg', '#aaaaaa')
-config.set('colors.tabs.selected.even.bg', '#afd700')
-config.set('colors.tabs.selected.odd.bg', '#afd700')
-config.set('colors.tabs.selected.even.fg', '#000000')
-config.set('colors.tabs.selected.odd.fg', '#000000')
+c.tabs.indicator.width = 0
+c.tabs.title.format = '{perc}{audio}{current_title}'
+c.tabs.padding = {'top': 1, 'bottom': 1, 'left': 2, 'right': 2}
+c.fonts.tabs.selected = '8pt monospace'
+c.fonts.tabs.unselected = '8pt monospace'
+c.colors.tabs.even.bg = '#222222'
+c.colors.tabs.odd.bg = '#222222'
+c.colors.tabs.even.fg = '#aaaaaa'
+c.colors.tabs.odd.fg = '#aaaaaa'
+c.colors.tabs.selected.even.bg = '#afd700'
+c.colors.tabs.selected.odd.bg = '#afd700'
+c.colors.tabs.selected.even.fg = '#000000'
+c.colors.tabs.selected.odd.fg = '#000000'
 
 # Content:
-config.set('hints.border', '1px solid #ffff00')
-config.set('fonts.hints', 'bold 8pt monospace')
-config.set('colors.hints.bg', '#000000')
-config.set('colors.hints.fg', '#ffff00')
-config.set('colors.hints.match.fg', '#00ff00')
+c.hints.border = '1px solid #ffff00'
+c.fonts.hints = 'bold 8pt monospace'
+c.colors.hints.bg = '#000000'
+c.colors.hints.fg = '#ffff00'
+c.colors.hints.match.fg = '#00ff00'
 
 # Completion menu:
-config.set('fonts.completion.category', 'bold 8pt monospace')
-config.set('fonts.completion.entry', '8pt monospace')
-config.set('colors.completion.even.bg', '#222222')
-config.set('colors.completion.odd.bg', '#222222')
-config.set('colors.completion.fg', '#aaaaaa')
-config.set('colors.completion.category.bg', '#000000')
-config.set('colors.completion.category.fg', '#eeeeee')
-config.set('colors.completion.item.selected.bg', '#444444')
-config.set('colors.completion.item.selected.fg', '#ffffff')
-config.set('colors.completion.item.selected.border.top', '#444444')
-config.set('colors.completion.item.selected.border.bottom', '#444444')
-config.set('colors.completion.match.fg', '#afd700')
-config.set('completion.scrollbar.padding', 0)
-config.set('completion.scrollbar.width', 15)
-config.set('colors.completion.scrollbar.bg', '#222222')
-config.set('colors.completion.scrollbar.fg', '#afd700')
+c.fonts.completion.category = 'bold 8pt monospace'
+c.fonts.completion.entry = '8pt monospace'
+c.colors.completion.even.bg = '#222222'
+c.colors.completion.odd.bg = '#222222'
+c.colors.completion.fg = '#aaaaaa'
+c.colors.completion.category.bg = '#000000'
+c.colors.completion.category.fg = '#eeeeee'
+c.colors.completion.item.selected.bg = '#444444'
+c.colors.completion.item.selected.fg = '#ffffff'
+c.colors.completion.item.selected.border.top = '#444444'
+c.colors.completion.item.selected.border.bottom = '#444444'
+c.colors.completion.match.fg = '#afd700'
+c.completion.scrollbar.padding = 0
+c.completion.scrollbar.width = 15
+c.colors.completion.scrollbar.bg = '#222222'
+c.colors.completion.scrollbar.fg = '#afd700'
 
 # Prompt:
-config.set('prompt.radius', 0)
-config.set('fonts.prompts', '8pt sans-serif')
+c.prompt.radius = 0
+c.fonts.prompts = '8pt sans-serif'
 
 # Messages bar:
-config.set('fonts.messages.error', '8pt monospace')
-config.set('fonts.messages.info', '8pt monospace')
-config.set('fonts.messages.warning', '8pt monospace')
-config.set('colors.messages.warning.fg', '#000000')
+c.fonts.messages.error = '8pt monospace'
+c.fonts.messages.info = '8pt monospace'
+c.fonts.messages.warning = '8pt monospace'
+c.colors.messages.warning.fg = '#000000'
 
 # Download menu:
-config.set('downloads.position', 'bottom')
-config.set('fonts.downloads', '8pt monospace')
-config.set('colors.downloads.bar.bg', '#222222')
-config.set('colors.downloads.start.bg', '#0000aa')
-config.set('colors.downloads.start.fg', '#eeeeee')
-config.set('colors.downloads.stop.bg', '#00aa00')
-config.set('colors.downloads.stop.fg', '#ffffff')
+c.downloads.position = 'bottom'
+c.fonts.downloads = '8pt monospace'
+c.colors.downloads.bar.bg = '#222222'
+c.colors.downloads.start.bg = '#0000aa'
+c.colors.downloads.start.fg = '#eeeeee'
+c.colors.downloads.stop.bg = '#00aa00'
+c.colors.downloads.stop.fg = '#ffffff'
 
 # Status bar:
-config.set('fonts.statusbar', '8pt monospace')
-config.set('colors.statusbar.normal.bg', '#222222')
-config.set('colors.statusbar.normal.fg', '#aaaaaa')
-config.set('colors.statusbar.insert.bg', '#005f5f')
-config.set('colors.statusbar.insert.fg', '#ffffff')
-config.set('colors.statusbar.passthrough.bg', '#663388')
-config.set('colors.statusbar.passthrough.fg', '#ffffff')
-config.set('colors.statusbar.url.success.http.fg', '#eeaa00')
-config.set('colors.statusbar.url.success.https.fg', '#66ee22')
-config.set('colors.statusbar.url.warn.fg', '#ff0000')
+c.fonts.statusbar = '8pt monospace'
+c.colors.statusbar.normal.bg = '#222222'
+c.colors.statusbar.normal.fg = '#aaaaaa'
+c.colors.statusbar.insert.bg = '#005f5f'
+c.colors.statusbar.insert.fg = '#ffffff'
+c.colors.statusbar.passthrough.bg = '#663388'
+c.colors.statusbar.passthrough.fg = '#ffffff'
+c.colors.statusbar.url.success.http.fg = '#eeaa00'
+c.colors.statusbar.url.success.https.fg = '#66ee22'
+c.colors.statusbar.url.warn.fg = '#ff0000'
 
 # PRIVATE ======================================================================
 
