@@ -3,7 +3,12 @@
 for _envg in /usr/lib/systemd/user-environment-generators/*; do
 	test -x "$_envg" || continue
 	if _envd=$("$_envg"); then
-		eval export "$_envd"
+		while read -r _envl; do
+			eval "export $_envl"
+		done <<- EOF
+		$_envd
+		EOF
+		unset _envl
 	else
 		printf 'ERROR: Could not run user environment generator %s\n' \
 		       "$_envg" >&2
