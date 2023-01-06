@@ -1,0 +1,2 @@
+#!/bin/sh -
+exec env XDG_CURRENT_DESKTOP=GNOME unwrap xdg-mime "$@"
