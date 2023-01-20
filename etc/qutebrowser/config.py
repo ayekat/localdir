@@ -152,6 +152,7 @@ c.fonts.hints = 'bold 8pt monospace'
 c.colors.hints.bg = '#000000'
 c.colors.hints.fg = '#ffff00'
 c.colors.hints.match.fg = '#00ff00'
+c.fonts.contextmenu = '8pt sans'
 
 # Completion menu:
 c.fonts.completion.category = 'bold 8pt monospace'
@@ -173,7 +174,7 @@ c.colors.completion.scrollbar.fg = '#afd700'
 
 # Prompt:
 c.prompt.radius = 0
-c.fonts.prompts = '8pt sans-serif'
+c.fonts.prompts = '8pt sans'
 
 # Messages bar:
 c.fonts.messages.error = '8pt monospace'
