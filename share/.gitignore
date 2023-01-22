@@ -1,6 +1,7 @@
 # General:
 /applications/
 /gem/
+/gstreamer-1.0/
 /gvfs-metadata/
 /icons/
 /krita/
