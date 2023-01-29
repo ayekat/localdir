@@ -19,7 +19,6 @@ alias sudo='sudo '
 alias watch='watch '
 
 # Random other aliases:
-alias checkupdates='checkupdates; diffrepo -b $CHECKUPDATES_DB -R -n base-devel -n makepkg zuepfe-repkg; diffrepo -b $CHECKUPDATES_DB -U zuepfe-updates'
 alias cc='gcc -std=c11 -pedantic -Wall -Wextra -Wbad-function-cast -Wcast-align -Wcast-qual -Wconversion -Wfloat-equal -Wformat=2 -Wlogical-op -Wmissing-declarations -Wmissing-prototypes -Wpointer-arith -Wshadow -Wstrict-prototypes -Wwrite-strings'
 alias fixtgshit='git -C ~/.local checkout etc/mimeapps.list && rm $XDG_DATA_HOME/applications/userapp-Telegram*.desktop'
 alias mpv='mpv --x11-netwm=yes'
