@@ -29,6 +29,7 @@
 # GNOME:
 /dleyna-renderer-service.conf
 /dleyna-server-service.conf
+/evince/
 /evolution/
 /gnome-control-center/
 /pipewire-media-session/
