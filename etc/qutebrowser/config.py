@@ -127,6 +127,7 @@ c.url.searchengines = {
     'mko':     'http://magickarten.ch/findologic.php?keywords={}',
     'mt':      'http://magictrade.ch/Shop/de/search?page=search&page_action=query&desc=on&sdesc=on&keywords={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
+    'wow':     'https://wowpedia.fandom.com/wiki/Special:Search?query={}',
 }
 
 # LOOK =========================================================================
