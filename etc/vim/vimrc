@@ -631,7 +631,7 @@ function! StatuslineInactive()
 	let l:statusline = ''
 
 	" mode:
-	let l:statusline .= '       %{sep}'
+	let l:statusline .= ' NORMAL%{sep}'
 
 	" file path:
 	let l:statusline.='%<%{expand("%:p:h")}/'
