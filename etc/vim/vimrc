@@ -640,9 +640,7 @@ function! StatuslineInactive()
 	let l:statusline.='%{expand("%:t")}'
 
 	" modified:
-	if &modified
-		let l:statusline .= ' *'
-	endif
+	let l:statusline.='%{&modified?"  *":""}'
 
 	" separator, then change to the right side:
 	let l:statusline.='%{sep}%='
