@@ -24,6 +24,7 @@ c.downloads.location.directory = HOME
 c.url.default_page = 'about:blank'
 c.url.start_pages = 'about:blank'
 c.content.default_encoding = 'utf-8'
+c.content.tls.certificate_errors = 'ask-block-thirdparty'
 
 # Focus:
 c.new_instance_open_target = 'tab-silent'
