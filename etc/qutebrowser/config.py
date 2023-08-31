@@ -112,7 +112,7 @@ c.url.searchengines = {
     'hulbee':  'https://hulbee.com/?query={}&region=browser&uiLanguage=browser',
     'gw':      'https://gnugeneration.epfl.ch/accueil?do=search&id={}',
 
-    'man':     'http://jlk.fjfi.cvut.cz/arch/manpages/search?q={}',
+    'man':     'https://man.archlinux.org/search?q={}',
     'debman':  'https://dyn.manpages.debian.org/jump?q={}',
     'sc':      'https://github.com/koalaman/shellcheck/wiki/SC{}',
     'posix':   'http://pubs.opengroup.org/onlinepubs/9699919799/utilities/{}.html',
