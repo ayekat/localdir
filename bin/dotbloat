@@ -62,7 +62,7 @@ fi
 
 # automatic decisions for specific files/directories:
 keeplist='.anthy .local .pki .ssh .zshenv'
-deletelist='.ansible .ansible_galaxy .mozilla .w3m .*_history'
+deletelist='.ansible .ansible_galaxy .mozilla .*_history'
 
 # delete:
 for d in .*; do
