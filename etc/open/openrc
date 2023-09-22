@@ -7,6 +7,7 @@ application/postscript : zathura --fork
 application/pdf        : zathura --fork
 application/vnd.ms-excel: libreoffice _FILE_ &
 application/vnd.ms-powerpoint: libreoffice _FILE_ &
+application/vnd.ms-visio.drawing.main+xml: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.graphics: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.presentation: libreoffice _FILE_ &
 application/vnd.oasis.opendocument.spreadsheet: libreoffice _FILE_ &
