@@ -22,6 +22,10 @@ URxvt.secondaryScroll: true
 URxvt.iso14755       : false
 URxvt.iso14755_52    : false
 
+! Make IBus work:
+URxvt.inputMethod    : ibus
+URxvt.preeditType    : OverTheSpot
+
 ! Set urgent hint whenever encountering the bell character:
 URxvt.urgentOnBell   : true
 
