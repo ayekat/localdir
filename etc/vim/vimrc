@@ -507,7 +507,7 @@ else
 
 	" default statusline:
 	hi StatusLine            ctermfg=0   ctermbg=237 cterm=none
-	hi StatusLineNC          ctermfg=8   ctermbg=237 cterm=none
+	hi StatusLineNC          ctermfg=245 ctermbg=237 cterm=none
 endif
 " }}}
 
