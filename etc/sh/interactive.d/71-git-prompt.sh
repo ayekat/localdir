@@ -29,7 +29,7 @@ git_update()
 	git_bare=''
 	git_status_full=''
 	case "$1" in
-		("$git_dir"*) git_bare=1 ;;
+		("$git_dir"|"$git_dir"/*) git_bare=1 ;;
 		(*) git_status_full="$(git -C "$git_path" status --porcelain -b)" ;;
 	esac
 
