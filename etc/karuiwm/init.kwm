@@ -69,8 +69,8 @@ key_bind normal Mod4+Shift+k         'window_shift -1'
 key_bind normal Mod4+Return           window_zoom
 key_bind normal Mod4+t                window_toggle_float
 key_bind normal Mod4+Shift+c          window_close
-button_bind normal Mod4+Button1      'mouse_move_window CURRENT CURRENT CURRENT'
-button_bind normal Mod4+Button3      'mouse_resize_window CURRENT CURRENT CURRENT'
+button_bind normal Mod4+Button1      'mouse_move_window CURRENT'
+button_bind normal Mod4+Button3      'mouse_resize_window CURRENT'
 
 # Scratchpad:
 key_bind normal Mod4+Tab              scratchpad_toggle
