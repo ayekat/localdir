@@ -5,27 +5,6 @@
 emulate sh -c ". $XDG_CONFIG_HOME/sh/interactive"
 
 # ------------------------------------------------------------------------------
-# LOOK & FEEL {{{
-
-# Enable syntax highlighting:
-for zshshroot in \
-	"$XDG_DATA_HOME"/zsh/plugins \
-	/usr/share/zsh/plugins \
-	/usr/share
-do
-	zshshfile=$zshshroot/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-	if [[ -e "$zshshfile" ]]; then
-		. "$zshshfile"
-		break
-	fi
-done
-unset zshshfile zshshroot
-
-# Handle IFS correctly:
-setopt SH_WORD_SPLIT
-
-# }}}
-# ------------------------------------------------------------------------------
 # PROMPT {{{
 
 # Enable colours:
@@ -279,6 +258,27 @@ function expand-or-complete-with-dots ()
 }
 zle -N expand-or-complete-with-dots
 bindkey "^I" expand-or-complete-with-dots
+
+# }}}
+# ------------------------------------------------------------------------------
+# LOOK & FEEL {{{
+
+# Enable syntax highlighting:
+for zshshroot in \
+	"$XDG_DATA_HOME"/zsh/plugins \
+	/usr/share/zsh/plugins \
+	/usr/share
+do
+	zshshfile=$zshshroot/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+	if [[ -e "$zshshfile" ]]; then
+		. "$zshshfile"
+		break
+	fi
+done
+unset zshshfile zshshroot
+
+# Handle IFS correctly:
+setopt SH_WORD_SPLIT
 
 # }}}
 # ------------------------------------------------------------------------------
