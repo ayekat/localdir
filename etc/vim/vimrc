@@ -206,7 +206,6 @@ color default
 
 " Make visual less penetrant:
 "hi Visual cterm=inverse ctermbg=none
-hi Visual ctermfg=white
 
 " Non-printable characters (tabs, spaces, special keys):
 hi SpecialKey cterm=bold ctermfg=238
