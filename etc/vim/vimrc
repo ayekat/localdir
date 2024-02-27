@@ -204,7 +204,8 @@ let g:is_posix=1       " /bin/sh is POSIX shell, not deprecated Bourne shell
 color default
 
 " Make visual less penetrant:
-hi Visual cterm=inverse ctermbg=none
+"hi Visual cterm=inverse ctermbg=none
+hi Visual ctermfg=white
 
 " Non-printable characters (tabs, spaces, special keys):
 hi SpecialKey cterm=bold ctermfg=238
