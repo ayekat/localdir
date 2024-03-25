@@ -58,6 +58,7 @@ c.input.forward_unbound_keys = 'none'
 # Content:
 config.bind('m', 'spawn mpv --x11-netwm=yes {url}', mode='normal')
 config.bind('M', 'hint links spawn mpv {hint-url}', mode='normal')
+c.zoom.default = '85%'
 
 # Editing:
 c.editor.command = ['xvim', '{}']
