@@ -1,3 +1,4 @@
 /*.target.wants/
 /*.service.d/
 /*.timer.d/
+/test.service
