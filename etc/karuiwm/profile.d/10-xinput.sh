@@ -32,8 +32,8 @@ if command -v xinput >/dev/null; then
 		id_list=$(xinput --list --id-only) || return
 		for id in $id_list; do
 			case "$id" in (*[!0-9]*)
-				printf 'Non-numeric device ID: %s\n' "$id" >&2
-				return 1
+				printf 'Non-numeric device ID, ignoring: %s\n' "$id" >&2
+				continue
 			esac
 			id=$((id))
 			name=$(xinput --list --name-only $id) || return
