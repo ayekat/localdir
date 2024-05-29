@@ -13,8 +13,10 @@ readonly E_INTERNAL=13
 
 readonly WACOM_STYLUS_ONE='Wacom One by Wacom M Pen stylus'
 readonly OFFSET_ONE=+0+0
+readonly RESOLUTION_ONE=1080
 readonly WACOM_STYLUS_INTUOS='Wacom Intuos Pro M Pen stylus'
 readonly OFFSET_INTUOS=+1920+0
+readonly RESOLUTION_INTUOS=1440
 readonly WACOM_STYLUS_TYPE='STYLUS'
 
 true() { return 0; }
@@ -114,8 +116,14 @@ for stylus in "$WACOM_STYLUS_ONE" "$WACOM_STYLUS_INTUOS"; do
 		have_device=true
 		wacom_stylus=$stylus
 		case "$stylus" in
-			("$WACOM_STYLUS_ONE") offset=$OFFSET_ONE ;;
-			("$WACOM_STYLUS_INTUOS") offset=$OFFSET_INTUOS ;;
+			("$WACOM_STYLUS_ONE")
+				offset=$OFFSET_ONE
+				resolution=$RESOLUTION_ONE
+				;;
+			("$WACOM_STYLUS_INTUOS")
+				offset=$OFFSET_INTUOS
+				resolution=$RESOLUTION_INTUOS
+				;;
 			(*) die $E_INTERNAL 'Unknown Wacom stylus: %s' "$stylus"
 		esac
 		printf 'Stylus found, using: %s\n' "$stylus"
@@ -152,14 +160,15 @@ off_x=$((off_x))
 off_y=$((off_y))
 width=$((width))
 height=$((height))
+resolution=$((resolution))
 
-if ! screen_area_width=$(dc -e "1080 $width * $height / p"); then
+if ! screen_area_width=$(dc -e "$resolution $width * $height / p"); then
 	die $E_INTERNAL 'Could not calculate screen area width'
 fi
 if ! is_integer "$screen_area_width"; then
 	die $E_INTERNAL 'Non-integer screen area width "%s"' "$screen_area_width"
 fi
 screen_area_width=$((screen_area_width))
-if ! xsetwacom set "$device_id" MapToOutput ${screen_area_width}x1080$offset; then
-	die $E_WACOM 'Could not map to %dx1080+0+0' $screen_area_width
+if ! xsetwacom set "$device_id" MapToOutput ${screen_area_width}x$resolution"$offset"; then
+	die $E_WACOM 'Could not map to %dx%d+0+0' $screen_area_width $resolution
 fi
