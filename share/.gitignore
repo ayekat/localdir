@@ -22,3 +22,6 @@
 # Gnome:
 /evolution/
 /gvfs-metadata/
+
+# Python:
+/virtualenv/
