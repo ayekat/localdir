@@ -43,7 +43,14 @@ function build_prompt() #{{{
 	else
 		pc_vim="$pc_vim_insert"
 	fi
-	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%} "
+	PROMPT+="%{$pc_vim%} ${vim_mode:-$vim_mode_insert} %{$reset_color%}"
+
+	# Python venv:
+	if [[ -n "${VIRTUAL_ENV:-}" ]] && [[ -n "${VIRTUAL_ENV_PROMPT}}" ]]; then
+		PROMPT+="%{$pc_pyenv%} $VIRTUAL_ENV_PROMPT %{$reset_color%}"
+	fi
+
+	PROMPT+=' '
 
 	# Git:
 	${ZSH_GIT_PROMPT:-true} || GIT_PROMPT=
