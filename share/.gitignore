@@ -25,5 +25,8 @@
 /gvfs-metadata/
 /gnome-2048/
 
+# Podman
+/containers/
+
 # Python:
 /virtualenv/
