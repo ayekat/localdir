@@ -124,7 +124,7 @@ bind index,pager L list-reply
 
 # Index:
 set sort = threads
-set sort_aux = last-date-received
+set sort_aux = last-date-sent
 set menu_scroll = yes
 set index_format = "%{%Y-%m-%d (%a) %H:%M}│%Z│%-30.30L│%?l?%4l&%4c?│%s"
 
