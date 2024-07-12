@@ -1,2 +1,2 @@
-cache=$XDG_CACHE_HOME/npm
-prefix=$XDG_STATE_HOME/npm
+cache=${XDG_CACHE_HOME}/npm
+prefix=${XDG_STATE_HOME}/npm
