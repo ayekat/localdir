@@ -263,6 +263,7 @@ lyrics_directory = ~/.local/share/lyrics
 ##
 #
 #song_columns_list_format = (20)[]{a} (6f)[green]{NE} (50)[white]{t|f:Title} (20)[cyan]{b} (7f)[magenta]{l}
+song_columns_list_format = (20)[]{a} (6f)[blue]{y} (20)[cyan]{b} (5f)[green]{NE} (50)[white]{t|f:Title} (7f)[magenta]{l}
 #
 ##### various settings #####
 #
