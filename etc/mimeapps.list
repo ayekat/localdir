@@ -16,6 +16,7 @@ x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/tg=telegramdesktop.desktop
+x-scheme-handler/tonsite=org.telegram.desktop.desktop
 
 [Added Associations]
 application/pdf=org.pwmt.zathura.desktop;
@@ -35,6 +36,7 @@ x-scheme-handler/http=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/https=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/unknown=org.qutebrowser.qutebrowser.desktop;
 x-scheme-handler/tg=telegramdesktop.desktop
+x-scheme-handler/tonsite=org.telegram.desktop.desktop;
 
 [Removed Associations]
 x-scheme-handler/about=firefox.desktop;
