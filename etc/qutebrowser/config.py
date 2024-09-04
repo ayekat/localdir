@@ -9,6 +9,15 @@ HOME = os.environ['HOME']
 XDG_LIB_HOME = os.environ.get('XDG_LIB_HOME', '%s/.local/lib' % HOME)
 XDG_RUNTIME_DIR = os.environ['XDG_RUNTIME_DIR']
 
+# SESSION ======================================================================
+
+datadir = str(config.datadir)
+session = None
+import re
+m = re.findall('^%s/qutebrowser/([^/]+)/[^/]+$' % XDG_RUNTIME_DIR, datadir)
+if m and len(m) == 1:
+    session = m[0]
+
 # GENERAL ======================================================================
 
 # Do not load autoconfig (configuration set at runtime):
@@ -210,20 +219,12 @@ c.colors.statusbar.url.warn.fg = '#ff0000'
 
 private_dir = '%s/private/qutebrowser' % XDG_LIB_HOME
 private_config = '%s/config.py' % private_dir
-session_config = None
-
-# Determine session:
-datadir = str(config.datadir)
-session = None
-import re
-m = re.findall('^%s/qutebrowser/([^/]+)/[^/]+$' % XDG_RUNTIME_DIR, datadir)
-if m and len(m) == 1:
-    session = m[0]
-    session_config = '%s/sessions/%s/config.py' % (private_dir, session)
 
 # Load generic and session-specific configuration not meant to be public:
 if os.path.isfile(private_config):
     config.source(private_config)
 
-if session_config and os.path.isfile(session_config):
-    config.source(session_config)
+if session:
+    session_config = '%s/sessions/%s/config.py' % (private_dir, session)
+    if session_config and os.path.isfile(session_config):
+        config.source(session_config)
