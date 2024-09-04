@@ -214,6 +214,16 @@ c.colors.statusbar.passthrough.fg = '#ffffff'
 c.colors.statusbar.url.success.http.fg = '#eeaa00'
 c.colors.statusbar.url.success.https.fg = '#66ee22'
 c.colors.statusbar.url.warn.fg = '#ff0000'
+c.statusbar.widgets = [
+    'keypress',
+    'search_match',
+    'progress',
+    'url',
+    'scroll',
+    'history',
+    f'text:{session}',
+    'tabs',
+]
 
 # PRIVATE ======================================================================
 
