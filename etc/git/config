@@ -7,12 +7,8 @@
 	excludesfile = ~/.local/etc/git/ignore
 [commit]
 	verbose = true
-[push]
-	default = simple
 [pull]
 	ff = only
-[merge]
-	tool = vimdiff
 [include]
 	path = ~/.local/lib/private/git/config
 [gpg]
