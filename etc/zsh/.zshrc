@@ -121,6 +121,11 @@ function build_prompt() #{{{
 				GIT_PROMPT+="%{$pc_git_bracket%}|%{$pc_git_state%}$git_state"
 			fi
 
+			# Stash:
+			if [[ -n "$git_nstashed" ]] && [[ "$git_nstashed" -gt 0 ]]; then
+				GIT_PROMPT+="%{$pc_git_bracket%}|%{$reset_color%}s=$git_nstashed"
+			fi
+
 			GIT_PROMPT+="%{$pc_git_bracket%}]%{$reset_color%} "
 		fi
 	fi

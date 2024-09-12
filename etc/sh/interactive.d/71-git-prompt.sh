@@ -30,7 +30,10 @@ git_update()
 	git_status_full=''
 	case "$1" in
 		("$git_dir"|"$git_dir"/*) git_bare=1 ;;
-		(*) git_status_full="$(git -C "$git_path" status --porcelain -b)" ;;
+		(*)
+			git_status_full="$(git -C "$git_path" status --porcelain -b)"
+			git_nstashed=$(git -C "$git_path" stash list | wc -l)
+			;;
 	esac
 
 	# Branch and state:
