@@ -55,6 +55,7 @@ config.bind('gj', 'tab-move +', mode='normal')
 config.bind('gk', 'tab-move -', mode='normal')
 config.unbind('<Ctrl-w>', mode='normal')        # default: tab-close
 config.unbind('<Ctrl-p>', mode='normal')        # default: tab-pin
+config.unbind('co', mode='normal')              # default: tab-only
 
 # Navigation:
 c.hints.mode = 'letter'
