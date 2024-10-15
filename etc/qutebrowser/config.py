@@ -41,25 +41,25 @@ c.new_instance_open_target = 'tab-silent'
 # CONTROL ======================================================================
 
 # Browser:
-config.unbind('<Ctrl-q>', mode='normal')
+config.unbind('<Ctrl-q>', mode='normal')        # default: quit
 
 # Windows:
-config.unbind('<Ctrl-Shift-n>', mode='normal')
-config.unbind('<Ctrl-n>', mode='normal')
+config.unbind('<Ctrl-Shift-n>', mode='normal')  # default: open -p
+config.unbind('<Ctrl-n>', mode='normal')        # default: open -w
 
 # Tabs:
 c.tabs.select_on_remove = 'prev'
-config.unbind('gJ', mode='normal')
-config.unbind('gK', mode='normal')
+config.unbind('gJ', mode='normal')              # default: tab-move +
+config.unbind('gK', mode='normal')              # default: tab-move -
 config.bind('gj', 'tab-move +', mode='normal')
 config.bind('gk', 'tab-move -', mode='normal')
-config.unbind('<Ctrl-w>', mode='normal')
-config.unbind('<Ctrl-p>', mode='normal')
+config.unbind('<Ctrl-w>', mode='normal')        # default: tab-close
+config.unbind('<Ctrl-p>', mode='normal')        # default: tab-pin
 
 # Navigation:
 c.hints.mode = 'letter'
 c.hints.chars = 'fjdkslaghnv'
-config.unbind('<Ctrl-h>', mode='normal')
+config.unbind('<Ctrl-h>', mode='normal')        # default: home
 config.bind('0', 'scroll-to-perc --horizontal 0', mode='normal')
 config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
 c.input.forward_unbound_keys = 'none'
@@ -72,7 +72,7 @@ c.zoom.default = '85%'
 # Editing:
 c.editor.command = ['xvim', '{}']
 c.input.insert_mode.auto_load = True
-config.unbind('<Ctrl-v>', mode='normal')
+config.unbind('<Ctrl-v>', mode='normal')        # default: mode-enter passthrough
 config.bind('I', 'mode-enter passthrough', mode='normal')
 
 # Search:
