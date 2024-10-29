@@ -41,14 +41,22 @@ debugf()
 	fi >&2
 }
 
-errorf()
+ssh_debugf()
 {
-	{
-		printf 'ERROR: '
+	if $DEBUG && $SSH_DEBUG; then
+		printf '\033[34m[ssh-agent] '
 		# shellcheck disable=SC2059
 		printf "$@"
-		printf '\n'
-	} >&2
+		printf '\033[0m\n'
+	fi >&2
+}
+
+errorf()
+{
+	# shellcheck disable=SC2059
+	error_msg=$(printf "$@")
+	printf 'ERROR: %s\n' "$error_msg" >&2
+	notify-send "$APPNAME error" "$error_msg"
 }
 
 die()
@@ -74,7 +82,7 @@ interrupt()
 		# SIGTERM is expected from systemd
 		retval=0
 	fi
-	die $retval 'Interrupted with %s.\n' "$1"
+	die $retval 'Interrupted with %s.' "$1"
 }
 trap 'interrupt INT' INT
 trap 'interrupt TERM' TERM
@@ -97,7 +105,7 @@ print_help()
 	       $APPNAME [OPTIONS...]
 
 	Options:
-	  -d      Show debug messages.
+	  -d      Show debug messages. Pass twice to also see SSH agent messages.
 	  -h      Display this help message and exit.
 	EOF
 }
@@ -106,12 +114,18 @@ print_help()
 
 ssh_agent_start()
 {
+	debugf 'Setting up runtime directory at %s' "$RUNDIR"
 	if ! mkdir -p "$RUNDIR"; then
 		die $E_SYSTEM 'Could not create runtime directory %s' "$RUNDIR"
 	fi
+
+	debugf 'Creating FIFO at %s' "$FIFO"
 	if ! mkfifo "$FIFO"; then
 		die $E_SYSTEM 'Could not create FIFO %s' "$FIFO"
 	fi
+
+	debugf 'Starting ssh-agent connected to FIFO with socket at %s' \
+	       "$SSH_AUTH_SOCK"
 	ssh-agent -d -a "$SSH_AUTH_SOCK" 2>"$FIFO" </dev/null &
 	ssh_agent_pid=$!
 	cleanup="$cleanup ssh_agent_stop"
@@ -123,7 +137,11 @@ ssh_agent_stop()
 	debugf 'Killing ssh-agent at PID %d' $ssh_agent_pid
 	kill $ssh_agent_pid
 	unset ssh_agent_pid
+
+	debugf 'Deleting FIFO at %s' "$FIFO"
 	rm -f "$FIFO"
+
+	debugf 'Deleting runtime directory at %s' "$RUNDIR"
 	rmdir "$RUNDIR"
 }
 
@@ -147,9 +165,10 @@ readonly FIFO
 
 # Optional arguments:
 DEBUG=false
+SSH_DEBUG=false
 while getopts :dh opt; do
 	case "$opt" in
-		(d) DEBUG=true ;;
+		(d) if $DEBUG; then SSH_DEBUG=true; else DEBUG=true; fi ;;
 		(h) print_help; exit $E_USER ;;
 		(:) die $E_USER 'Missing argument for -%s' "$OPTARG" ;;
 		('?') die $E_USER 'Unknown option: -%s' "$OPTARG" ;;
@@ -158,7 +177,7 @@ while getopts :dh opt; do
 done
 shift $((OPTIND - 1))
 unset OPTARG
-readonly DEBUG
+readonly DEBUG SSH_DEBUG
 
 # Positional arguments:
 test $# -eq 0 || die $E_USER 'Trailing arguments: %s' "$*"
@@ -174,6 +193,7 @@ while read -r line; do
 		errorf 'Could not strip carriage returns from line: %s' "$line"
 		continue
 	fi
+	ssh_debugf '%s' "$line"
 
 	# Split up:
 	# shellcheck disable=SC2086
@@ -221,6 +241,7 @@ while read -r line; do
 			case "$action" in
 				(entering) mode=requesting ;;
 				(replying) mode=normal ;;
+				(key) ;; # should result in identity_permitted (see below)
 				(*) errorf 'Unknown action=‹%s› for process=‹%s›' \
 				           "$action" "$process" ;;
 			esac ;;
