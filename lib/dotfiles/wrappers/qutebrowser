@@ -46,7 +46,17 @@ while [ $opts_read -lt $# ]; do
 	opt=$1 && shift
 	case "$opt" in
 		(--basedir) basedir_specified=true ;;
-		(-r|--restore) test $# -gt 0 && session=$1 && shift && continue ;;
+		(-r|--restore)
+			if [ $# -eq 0 ]; then
+				echo 'missing argument for -r, --restore' >&2
+				exit 1
+			fi
+			session=$1
+			if [ -z "$session" ]; then
+				echo 'empty session name'
+				exit 1
+			fi
+			shift && continue ;;
 		(-[!-]*r) test $# -gt 0 && session=$1 && shift && opt=${opt%r} ;;
 		(-R) continue ;; # TODO
 	esac
