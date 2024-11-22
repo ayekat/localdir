@@ -1,5 +1,8 @@
 #!/bin/sh -
 
+# !!! THIS SCRIPT IS NO LONGER MAINTAINED BY ITS ORIGINAL AUTHOR !!!
+# Feel free to adopt it if you wish.
+
 # Wrapper around qutebrowser that makes sessions (-r, --restore SESSION) behave
 # like they used to in dwb.
 #
