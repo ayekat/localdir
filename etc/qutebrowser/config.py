@@ -14,7 +14,7 @@ XDG_RUNTIME_DIR = os.environ['XDG_RUNTIME_DIR']
 datadir = str(config.datadir)
 session = None
 import re
-m = re.findall('^%s/qutebrowser/([^/]+)/[^/]+$' % XDG_RUNTIME_DIR, datadir)
+m = re.findall('^%s/qbsmgr/([^/]+)/[^/]+$' % XDG_RUNTIME_DIR, datadir)
 if m and len(m) == 1:
     session = m[0]
 

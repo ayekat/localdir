@@ -16,6 +16,7 @@ key_bind normal Mod4+b               "exec 'pkill -USR2 karuibar'"
 key_bind normal Mod4+Shift+b         "exec 'pkill -USR1 karuibar'"
 key_bind normal Mod4+semicolon       "exec 'dunstctl close'"
 key_bind normal Mod4+Shift+semicolon "exec 'dunstctl history-pop'"
+key_bind normal Mod4+u               "exec \"qbsmgr-menu         -p qutebrowser -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #88AAFF -sb #444444\""
 
 # Dmenu:
 key_bind normal Mod4+r               "exec \"karuimenu -                     'workspace_rename %s'     -p rename      -fn 'Misc Fixed-10:SemiCondensed:Medium' -l 10 -i -nf #888888 -nb #222222 -sf #AFD700 -sb #444444\""

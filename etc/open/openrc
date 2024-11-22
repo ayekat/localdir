@@ -30,12 +30,12 @@ image/x-portable-bitmap: eog _FILE_ &
 image/x-portable-greymap: eog _FILE_ &
 inode/directory        : thunar _FILE_ &
 message/rfc822         : xvim _FILE_ &
-text/html              : qutebrowser _FILE_ &
+text/html              : qbsmgr run --untrusted-args _FILE_ &
 text/plain             : xvim _FILE_ &
 text/x-diff            : xvim _FILE_ &
 text/x-shellscript     : xvim _FILE_ &
 text/x-tex             : xvim _FILE_ &
-text/xml               : qutebrowser _FILE_ &
+text/xml               : qbsmgr run --untrusted-args _FILE_ &
 video/mp4              : mpv
 video/quicktime        : mpv
 video/webm             : mpv
