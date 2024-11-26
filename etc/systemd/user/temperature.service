@@ -1,8 +1,0 @@
-[Unit]
-Description=Temperature Sensors Logger
-
-[Service]
-ExecStart=/bin/sh %h/.local/srv/http/temperature.papiliorama.local/snmp.sh
-
-[Install]
-WantedBy=default.target
