@@ -64,6 +64,8 @@ config.unbind('<Ctrl-h>', mode='normal')        # default: home
 config.bind('0', 'scroll-to-perc --horizontal 0', mode='normal')
 config.bind('$', 'scroll-to-perc --horizontal 100', mode='normal')
 c.input.forward_unbound_keys = 'none'
+config.unbind('<Ctrl-a>', mode='normal')        # default: navigate increment
+config.unbind('<Ctrl-x>', mode='normal')        # default: navigate decrement
 
 # Content:
 c.zoom.default = '85%'
