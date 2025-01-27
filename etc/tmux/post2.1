@@ -5,3 +5,6 @@ set -g default-terminal "tmux-256color"
 set -g mouse on
 bind -n WheelUpPane   select-pane -t= \; copy-mode -e \; send-keys -M
 bind -n WheelDownPane select-pane -t= \;                 send-keys -M
+
+# Highlight active window:
+setw -g window-active-style 'bg=color232'
