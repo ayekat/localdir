@@ -131,6 +131,14 @@ function build_prompt() #{{{
 	fi
 	PROMPT+="$GIT_PROMPT"
 
+	# Project-specific prompt elements:
+	_promptconfig_dir=$HOME/.local/lib/private/zsh/zshrc.d/prompts
+	if [[ -d "$_promptconfig_dir" ]]; then
+		for f in "$_promptconfig_dir"/*.zsh; do
+			PROMPT+=$(source "$f")
+		done
+	fi
+
 	# Hostname (if SSH):
 	if [[ -n "${SSH_CONNECTION:-}" ]]; then
 		PROMPT+="%{$pc_host%}%M:%{$reset_color%}"
