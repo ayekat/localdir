@@ -116,7 +116,7 @@ c.url.searchengines = {
     'seq':     'http://oeis.org/search?q={}&language=english',
 
     'sf':      'https://scryfall.com/search?q={}',
-    'mw':      'http://mtgsalvation.gamepedia.com/index.php?search={}&title=Special:Search',
+    'mw':      'https://mtg.wiki/index.php?search={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
     'wow':     'https://wowpedia.fandom.com/wiki/Special:Search?query={}',
 }
