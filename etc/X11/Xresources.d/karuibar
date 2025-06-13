@@ -18,6 +18,10 @@ karuibar.bottom      : false
 karuibar.stdin.foreground     : #00D7FF
 karuibar.stdin.background     : #005F5F
 
+#if SERVERHOST == chirschi
+karuibar.cpu.temperature      : /sys/class/hwmon/hwmon5/temp1_input
+#endif
+
 karuibar.battery.acpi_use_real: true
 
 karuibar.time_date.format     : %Y-%m-%d
