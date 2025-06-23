@@ -70,6 +70,8 @@ c.input.forward_unbound_keys = 'none'
 config.unbind('<Ctrl-a>', mode='normal')        # default: navigate increment
 config.unbind('<Ctrl-x>', mode='normal')        # default: navigate decrement
 config.unbind('M', mode='normal')               # default: bookmark-add
+config.unbind('m', mode='normal')               # default: quickmark-add
+config.unbind('b', mode='normal')               # default: quickmark-load
 
 # Content:
 c.zoom.default = '85%'
