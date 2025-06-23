@@ -23,6 +23,9 @@ if m and len(m) == 1:
 # Do not load autoconfig (configuration set at runtime):
 config.load_autoconfig(False)
 
+# Browser:
+c.qt.args+=["enable-gpu-rasterization"]
+
 # Storage:
 c.auto_save.session = True
 c.completion.web_history.max_items = 10000
