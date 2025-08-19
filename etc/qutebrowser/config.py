@@ -75,6 +75,7 @@ config.unbind('b', mode='normal')               # default: quickmark-load
 
 # Content:
 c.zoom.default = '85%'
+config.unbind('<F5>', mode='normal')            # default: reload
 
 # Editing:
 c.editor.command = ['xvim', '{}']
