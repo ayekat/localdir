@@ -82,25 +82,33 @@ c.url.auto_search = 'dns'
 c.url.searchengines = {
     'DEFAULT': 'https://www.google.com/search?q={}',
 
+    # General Web search:
     'ddg':     'https://duckduckgo.com/?q={}',
     'google':  'https://www.google.com/search?q={}',
     'img':     'https://www.google.com/search?tbm=isch&q={}',
+
+    # Real-life (maps, weather):
     'osm':     'http://www.openstreetmap.org/search?query={}',
     'meteo':   'http://meteo.search.ch/?plz_ort={}',
+
+    # Entertainment:
     'yt':      'http://www.youtube.com/results?search_query={}',
     'xkcd':    'http://www.google.com/cse?cx=012652707207066138651:zudjtuwe28q&ie=UTF-8&q={}&siteurl=xkcd.com/',
 
+    # Knowledge:
     'wp':      'http://www.wikipedia.org/search-redirect.php?family=wikipedia&search={}&language=en&go=Go',
     'wpfr':    'https://fr.wikipedia.org/w/index.php?title=Spécial:Recherche&profile=default&fulltext=Search&search={}',
     'wpde':    'https://de.wikipedia.org/w/index.php?search={}&title=Spezial:Suche',
     'wt':      'https://en.wiktionary.org/w/index.php?search={}&title=Special:Search',
     'libgen':  'http://libgen.org/search.php?req={}&open=0&view=simple&column=def',
 
+    # Languages:
     'jisho':   'http://beta.jisho.org/search?utf8=✓&keyword={}',
     'dict':    'http://www.dict.cc/?s={}',
     'leo':     'http://dict.leo.org/franz%C3%B6sisch-deutsch/{}',
     'wr':      'http://wordreference.com/enfr/{}',
 
+    # Linux distributions:
     'aw':      'https://wiki.archlinux.org/index.php?title=Special:Search&search={}',
     'dw':      'https://wiki.debian.org/FrontPage?action=fullsearch&context=180&value={}',
     'ap':      'https://www.archlinux.org/packages/?sort=&q={}&maintainer=&flagged=',
@@ -111,17 +119,22 @@ c.url.searchengines = {
     'aurp':    'https://aur.archlinux.org/packages/{}',
     'ghub':    'https://github.com/search?utf8=✓&q={}',
 
+    # Standards/specifications:
     'man':     'https://man.archlinux.org/search?q={}',
     'debman':  'https://dyn.manpages.debian.org/jump?q={}',
     'sc':      'https://github.com/koalaman/shellcheck/wiki/SC{}',
     'posix':   'http://pubs.opengroup.org/onlinepubs/9699919799/utilities/{}.html',
 
+    # Science/maths:
     'seq':     'http://oeis.org/search?q={}&language=english',
 
+    # Games:
     'sf':      'https://scryfall.com/search?q={}',
     'mw':      'https://mtg.wiki/index.php?search={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
     'wow':     'https://wowpedia.fandom.com/wiki/Special:Search?query={}',
+    'pd':      'https://pokemondb.net/search?q={}',
+    'bp':      'https://bulbapedia.bulbagarden.net/w/index.php?search={}',
 }
 
 # LOOK =========================================================================
