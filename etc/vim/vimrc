@@ -65,6 +65,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Declare used bundles:
 NeoBundle 'ayekat/dwm.vim'
 NeoBundle 'chikamichi/mediawiki.vim'
+NeoBundle 'elixir-editors/vim-elixir'
 NeoBundle 'milad14000/vim_p4'
 NeoBundle 'mqudsi/meson.vim'
 NeoBundle 'nfnty/vim-nftables'
