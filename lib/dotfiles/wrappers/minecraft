@@ -1,3 +1,0 @@
-#!/bin/sh -
-
-exec unwrap minecraft --workDir "$XDG_STATE_HOME"/minecraft "$@"
