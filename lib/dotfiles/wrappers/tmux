@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-exec unwrap tmux -f "$XDG_CONFIG_HOME"/tmux/config "$@"
