@@ -138,7 +138,7 @@ c.url.searchengines = {
     'sf':      'https://scryfall.com/search?q={}',
     'mw':      'https://mtg.wiki/index.php?search={}',
     'mkm':     'https://www.cardmarket.com/en/Magic/Products/Search?searchString={}',
-    'wow':     'https://wowpedia.fandom.com/wiki/Special:Search?query={}',
+    'wow':     'https://warcraft.wiki.gg/wiki/Special:Search?search={}',
     'pd':      'https://pokemondb.net/search?q={}',
     'bp':      'https://bulbapedia.bulbagarden.net/w/index.php?search={}',
 }
