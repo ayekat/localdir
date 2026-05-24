@@ -1,3 +1,0 @@
-#!/usr/bin/env sh
-
-exec unwrap pidgin -c "$XDG_STATE_HOME/purple" "$@"
