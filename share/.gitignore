@@ -10,6 +10,9 @@
 /krita.log
 /krita-sysinfo.log
 
+# MuseScore
+/MuseScore/
+
 # Systemd
 /systemd/
 
