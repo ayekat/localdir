@@ -1,32 +1,34 @@
-# General:
-/gem/
-/gstreamer-1.0/
+# Gnome 2048
+/gnome-2048/
+
+# Gtk applications
 /gvfs-metadata/
-/icons/
+/recently-used.xbel
+
+# Krita
 /krita/
 /krita.log
 /krita-sysinfo.log
-/lutris/
-/mime/
-/Mumble/
-/oauth2token/
-/qutebrowser/
-/rdesktop/
-/recently-used.xbel
+
+# Systemd
 /systemd/
+
+# Telegram
 /TelegramDesktop/
+
+# Tig
+/tig/history
+
+# Vim
 /vim/
-/wallpapers/
+
+# Wine
+/applications/wine-*.desktop
+/applications/wine/
+/desktop-directories/wine-*.directory
+
+# X.org
 /xorg/
+
+# Zathura
 /zathura/
-
-# Gnome:
-/evolution/
-/gvfs-metadata/
-/gnome-2048/
-
-# Podman
-/containers/
-
-# Python:
-/virtualenv/
