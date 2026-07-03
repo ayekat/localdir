@@ -10,6 +10,9 @@
 # Eye of Gnome
 /eog/
 
+# Firefox
+/mozilla/
+
 # GameBoy
 /mgba/
 
