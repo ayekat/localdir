@@ -45,6 +45,8 @@ c.new_instance_open_target = 'tab-silent'
 
 # Browser:
 config.unbind('<Ctrl-q>', mode='normal')        # default: quit
+config.unbind('q', mode='normal')               # default: macro-record
+config.unbind('@', mode='normal')               # default: macro-run
 
 # Windows:
 config.unbind('<Ctrl-Shift-n>', mode='normal')  # default: open -p
